@@ -13,9 +13,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        dd("hhjhj");
         return Inertia::render('AdminsArea/DashBoard/Index');
     }
+    
 
     /**
      * Show the form for creating a new resource.
