@@ -13,7 +13,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/DashBoard/Index');
+   
+        return Inertia::render('AdminsArea/DashBoard/Dashboard');
     }
     
 

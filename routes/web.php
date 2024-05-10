@@ -16,13 +16,13 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::get('/admin', function () {
 //     // return Inertia::render('AdminsArea/DashBoard/Index');
-// })->middleware(['auth', 'verified'])->name('admin.index');
+// })->middleware(['auth', 'verified'])->name('admin');
 
 Route::middleware('auth')->group(function () {
 
