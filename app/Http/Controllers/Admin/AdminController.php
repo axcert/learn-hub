@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index()
     {
    
-        return Inertia::render('AdminsArea/DashBoard/Dashboard');
+        // return Inertia::render('AdminsArea/Home/Home');
     }
     
 

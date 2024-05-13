@@ -20,12 +20,16 @@ Route::get('/', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('admin',AdminController::class)->middleware(['auth' , 'verified']);
-Route::get('admin', [AdminController::class, 'index'])->middleware(['auth' , 'verified'])->name('admin.index');
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('AdminsArea/Home/Home');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
 
-
+    Route::resource('admin', AdminController::class);
 
     
     Route::resource('admin',AdminController::class);
