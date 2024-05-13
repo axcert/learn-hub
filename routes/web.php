@@ -25,6 +25,9 @@ Route::get('admin', [AdminController::class, 'index'])->middleware(['auth' , 've
 
 Route::middleware('auth')->group(function () {
 
+
+
+    
     Route::resource('admin',AdminController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

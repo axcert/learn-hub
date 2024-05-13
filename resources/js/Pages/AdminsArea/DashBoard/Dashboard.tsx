@@ -10,7 +10,6 @@ export default function Dashboard({ auth }: PageProps) {
         >
             <Head title="Home" />
 
-           
         </AdminLayout>
     );
 }
