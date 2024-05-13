@@ -6,6 +6,8 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
 import { FaHome } from "react-icons/fa";
+import { PiStudentFill } from "react-icons/pi";
+import { GiTeacher } from "react-icons/gi";
 
 export default function AdminLayout({
     user,
@@ -18,20 +20,20 @@ export default function AdminLayout({
     return (
         <div className="p-3">
             <div className="min-h-screen bg-gray-100">
-                <nav className="bg-white border-b bg-teal-700 rounded-lg" >
+                <nav className="bg-white border-b bg-teal-700 rounded-t-lg">
                     <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-end h-16">
+                        <div className="flex justify-between h-16">
                             <div className="flex ">
-                                {/* <div className="shrink-0 flex items-center">
+                                <div className="shrink-0 flex items-center">
                                     <Link href="/">
                                         <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                     </Link>
                                     <div className="ml-5">
-                                        <h3 className="text-white font-bold">
+                                        <h3 className="text-white font-bold ">
                                             Learn-Hub
                                         </h3>
                                     </div>
-                                </div> */}
+                                </div>
                             </div>
 
                             <div className="hidden sm:flex sm:items-center sm:ms-6 ">
@@ -172,7 +174,48 @@ export default function AdminLayout({
                 )}
 
                 <main>
-                    {children}
+
+
+                    <div className="flex text-white mt-2 " >
+                        <div className="h-screen w-60 bg-teal-700 rounded-lg items-center justify-start">
+                            <ul className="font-medium">
+                                <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
+                                    <a
+                                        href=""
+                                        className="flex  items-center justify-center gap-2 py-4"
+                                    >
+                                        <FaHome className=""></FaHome>
+                                        <h1 className="">Home</h1>
+                                    </a>
+                                </li>
+
+                                 <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
+                                    <a
+                                        href=""
+                                        className="flex  items-center justify-center gap-2 py-4"
+                                    >
+                                        <GiTeacher/>
+                                        <h1 className="">Totur</h1>
+                                    </a>
+                                </li>
+
+                                <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
+                                    <a
+                                        href=""
+                                        className="flex  items-center justify-center gap-2 py-4"
+                                    >
+                                       <PiStudentFill/>
+                                        <h1 className="">Student</h1>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div className=" bg-gray-200 rounded-b-lg p-4">
+                            {children}
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>
