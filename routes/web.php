@@ -16,18 +16,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/admin', function () {
-//     // return Inertia::render('AdminsArea/DashBoard/Index');
-// })->middleware(['auth', 'verified'])->name('admin');
+// Route::get('admin',AdminController::class)->middleware(['auth' , 'verified']);
+Route::get('admin', [AdminController::class, 'index'])->middleware(['auth' , 'verified'])->name('admin.index');
 
 Route::middleware('auth')->group(function () {
 
     Route::resource('admin',AdminController::class);
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
