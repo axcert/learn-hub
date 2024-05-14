@@ -2,11 +2,11 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
-import { log } from "console";
+
 
 export default function Teacher({ auth }: PageProps) {
     const view = () =>{
-        console.log("view");
+        console.log("view Teacher");
     }
 
     return (
