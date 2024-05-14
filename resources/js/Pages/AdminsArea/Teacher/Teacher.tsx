@@ -2,7 +2,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 
-export default function Totur({ auth }: PageProps) {
+export default function Teacher({ auth }: PageProps) {
     return (
         <AdminLayout
             user={auth.user}
@@ -11,7 +11,7 @@ export default function Totur({ auth }: PageProps) {
             <Head title="Admin" />
 
 
-            <h5 className='text-black'>Totur</h5>
+            <h5 className='text-black'>Teacher temp</h5>
 
         </AdminLayout>
     );

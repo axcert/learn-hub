@@ -142,8 +142,8 @@ export default function Authenticated({
                         </ResponsiveNavLink> */}
 
                         <ResponsiveNavLink
-                            href={route("admin.index")}
-                            active={route().current("admin.index")}
+                            href={route("home.index")}
+                            active={route().current("home.index")}
                         >
                             Dashboard
                         </ResponsiveNavLink>

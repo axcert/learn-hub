@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class AdminController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-   
-        // return Inertia::render('AdminsArea/Home/Home');
+        return Inertia::render('AdminsArea/Home/Home');
+
     }
-    
 
     /**
      * Show the form for creating a new resource.

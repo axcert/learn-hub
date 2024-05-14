@@ -19,15 +19,15 @@ export default function AdminLayout({
         useState(false);
 
     return (
-        <div className="p-3">
-            <div className="min-h-screen bg-gray-100">
-                <nav className="bg-white border-b bg-teal-700 rounded-t-lg">
-                    <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between h-16">
+        <div>
+            <div className="min-h-screen bg-teal-700">
+                <nav className="bg-white-100 border-b bg-teal-700 rounded-t-lg">
+                    <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 bg-teal-700">
+                        <div className="flex justify-between h-16 ">
                             <div className="flex ">
-                                <div className="shrink-0 flex items-center">
+                                <div className="shrink-0 flex items-center ">
                                     <Link href="/">
-                                        <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                        <ApplicationLogo className="block h-9 w-auto fill-current text-white"/>
                                     </Link>
                                     <div className="ml-5">
                                         <h3 className="text-white font-bold ">
@@ -133,8 +133,8 @@ export default function AdminLayout({
                     >
                         <div className="pt-2 pb-3 space-y-1">
                             <ResponsiveNavLink
-                                href={route("admin.index")}
-                                active={route().current("admin.index")}
+                                href={route("home.index")}
+                                active={route().current("home.index")}
                             >
                                 Home
                             </ResponsiveNavLink>
@@ -144,7 +144,7 @@ export default function AdminLayout({
                             <div className="px-4">
                                 <div className="p-3">
                                     <div className="min-h-screen bg-gray-100">
-                                        <nav className="bg-white border-b bg-teal-700 rounded-t-lg">
+                                        <nav className="bg-white-100 border-b bg-teal-700 rounded-t-lg">
                                             <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                                                 <div className="flex justify-between h-16">
                                                     <div className="flex ">
@@ -268,10 +268,10 @@ export default function AdminLayout({
                                                 <div className="pt-2 pb-3 space-y-1">
                                                     <ResponsiveNavLink
                                                         href={route(
-                                                            "admin.index"
+                                                            "dashboard"
                                                         )}
                                                         active={route().current(
-                                                            "admin.index"
+                                                            "dashboard"
                                                         )}
                                                     >
                                                         Home
@@ -317,62 +317,6 @@ export default function AdminLayout({
                                                 </div>
                                             </header>
                                         )}
-
-                                        <main>
-                                            <button
-                                                data-drawer-target="sidebar-multi-level-sidebar"
-                                                data-drawer-toggle="sidebar-multi-level-sidebar"
-                                                aria-controls="sidebar-multi-level-sidebar"
-                                                type="button"
-                                                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                            ></button>
-
-                                            <div className="flex text-white mt-2">
-                                                <div className="h-screen w-60 bg-teal-700 rounded-lg items-center justify-start">
-                                                    <ul className="font-medium">
-                                                        <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
-                                                            <Link
-                                                                href=""
-                                                                className="flex  items-center justify-center gap-2 py-4"
-                                                            >
-                                                                <FaHome className=""></FaHome>
-                                                                <h1 className="">
-                                                                    Home
-                                                                </h1>
-                                                            </Link>
-                                                        </li>
-
-                                                        <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
-                                                            <Link
-                                                                href=""
-                                                                className="flex  items-center justify-center gap-2 py-4"
-                                                            >
-                                                                <GiTeacher />
-                                                                <h1 className="">
-                                                                    Totur
-                                                                </h1>
-                                                            </Link>
-                                                        </li>
-
-                                                        <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
-                                                            <Link
-                                                                href=""
-                                                                className="flex  items-center justify-center gap-2 py-4"
-                                                            >
-                                                                <PiStudentFill />
-                                                                <h1 className="">
-                                                                    Student
-                                                                </h1>
-                                                            </Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <div className=" bg-gray-200 rounded-lg p-4 ">
-                                                    {children}
-                                                </div>
-                                            </div>
-                                        </main>
                                     </div>
                                 </div>
                                 <div className="font-medium text-base text-gray-800">
@@ -406,39 +350,38 @@ export default function AdminLayout({
                         </div>
                     </header>
                 )}
-
                 <main>
                     <div className="flex text-white mt-2 ">
                         <div className="h-screen w-60 bg-teal-700 rounded-lg items-center justify-start">
                             <ul className="font-medium">
                                 <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
-                                    <a
-                                        href=""
+                                    <Link
+                                        href={route('home.index')}
                                         className="flex  items-center justify-center gap-2 py-4"
                                     >
                                         <FaHome className=""></FaHome>
                                         <h1 className="">Home</h1>
-                                    </a>
+                                    </Link>
                                 </li>
 
                                 <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
-                                    <a
-                                        href=""
+                                    <Link
+                                        href={route('teacher.index')}
                                         className="flex  items-center justify-center gap-2 py-4"
                                     >
                                         <GiTeacher />
-                                        <h1 className="">Totur</h1>
-                                    </a>
+                                        <h1 className="">Teacher</h1>
+                                    </Link>
                                 </li>
 
                                 <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
-                                    <a
-                                        href=""
+                                    <Link
+                                         href={route('student.index')}
                                         className="flex  items-center justify-center gap-2 py-4"
                                     >
                                         <PiStudentFill />
                                         <h1 className="">Student</h1>
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
