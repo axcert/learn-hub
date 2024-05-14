@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Student\StudentController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -27,5 +28,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::resource('Students', StudentController::class);
 });
+
+Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+Route::get('/students/{student}', [StudentController::class,'show'])->name('students.show');
+
 
 require __DIR__.'/auth.php';
