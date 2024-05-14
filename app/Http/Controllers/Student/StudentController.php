@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use App\Repositories\All\Students\StudentInterface;
 use Illuminate\Http\Request;
-
+use App\Http\Request\StudentRequest;
+use Inertia\Inertia;
 class StudentController extends Controller
 {
+    public function __construct(protected StudentInterface $studentInterface){}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all()]);
     }
 
     /**
@@ -37,7 +40,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return Inertia::render('StudentArea/Student/Show/Index', ['student'=>$student]);
     }
 
     /**
