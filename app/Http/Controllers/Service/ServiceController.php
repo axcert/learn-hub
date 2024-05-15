@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Repositories\All\Services\ServiceInterface;
-
+use Inertia\Inertia;
 class ServiceController extends Controller
 {
     public function __construct(protected ServiceInterface $serviceInterface){}
@@ -16,7 +16,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        return inertia::render('Services/All/Index', ['services'=>$this->serviceInterface->all()]);
     }
 
     /**
@@ -24,7 +24,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        
+        return Inertia::render('Services/Create/Index');
     }
 
     /**

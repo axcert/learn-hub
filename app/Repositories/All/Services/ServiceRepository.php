@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class ProductRepository extends BaseRepository implements ServiceInterface
+class ServiceRepository extends BaseRepository implements ServiceInterface
 {
       /**
      * @var Service
