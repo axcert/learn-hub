@@ -12,6 +12,7 @@ class Service extends Model
     protected $table = 'Services';
 
     protected $fillable = [
+        'service_id',
         'name',
         'description',
         'admin_id',
@@ -21,7 +22,11 @@ class Service extends Model
 
     ];
 
+    public function admin(){
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }   
+
     public function teacher(){
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Teacher::class, 'teacher_id');
     }
 }

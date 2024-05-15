@@ -12,10 +12,12 @@ class Admin extends Model
     protected $table = 'Admins';
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
+        'user_id'
 
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 }

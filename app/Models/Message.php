@@ -12,17 +12,23 @@ class Message extends Model
     protected $table = 'Messages';
 
     protected $fillable = [
+        
         'message',
         'sender_id',
         'receiver_id',
         'booking_id',
+        'timestamp',
     ];
 
     public function sender(){
-        return $this->belongsTo(Student::class,'sender_id');
+        return $this->belongsTo(User::class,'sender_id');
     }
 
     public function receiver(){
-        return $this->belongsTo(Student::class,'receiver_id');
+        return $this->belongsTo(User::class,'receiver_id');
+    }
+
+    public function booking(){
+        return $this->belongsTo(Booking::class,'booking_id');
     }
 }
