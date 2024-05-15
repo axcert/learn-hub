@@ -20,6 +20,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'role',
+        
+        
     ];
 
     /**
@@ -44,4 +48,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function admin(){
+        return $this->hasOne(Admin::class);
+    }
+
+    public function teacher(){
+        return $this->hasMany(Teacher::class);
+    }
+
+    public function student(){
+        return $this->hasMany(Student::class);
+    }
+
+    public function sentMessage(){
+        return $this->hasMany(Message::class, 'senderId');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiverId');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    
+
+    
 }
