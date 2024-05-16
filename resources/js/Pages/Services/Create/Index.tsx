@@ -1,84 +1,132 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, useForm } from "@inertiajs/react";
-import { FormEventHandler, useEffect } from "react";
+import React from 'react';
+import { Inertia } from '@inertiajs/inertia';
+import { useForm, Link, usePage } from '@inertiajs/react';
+import { User } from '@/types';
+import Authenticated from '@/Layouts/AuthenticatedLayout';
 
+interface Props {
+  auth: {
+    user: User;
+  };
+}
 
-export default function CreateService(){
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        description: '',
-        admin_id: '',
-        teacher_id: '',
-        experience: '',
-        hourly_rate: '',
-    });
+export default function ServiceCreate() {
+  const { auth } = usePage().props as unknown as Props;
+  const { data, setData, post, errors } = useForm({
+    name: '',
+    service_id:'50',
+    admin_id: '1',
+    description: '',
+    hourly_rate: '',
+    teacher_id: '',
+    experience: '', 
+  });
 
-    useEffect(() => {
-        return () => {
-            reset();
-        };
-    }, []);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    post(route('services.store'));
+  };
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+  return (
+    <Authenticated user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Service</h2>}>
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+          <form onSubmit={handleSubmit} method="POST">
+          
+            <div className="space-y-12">
+              <div className="border-b border-gray-900/10 pb-12">
+                <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">Service Details</h2>
+                <p className="mt-1 text-sm leading-6 text-gray-600 text-center">Provide the details of the new service you want to create.</p>
 
-        post(route('services.store'));
-    }
-
-    return (
-        <GuestLayout>
-             <Head title="Service" />
-
-             <form onSubmit={submit}>
-             <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
+                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div className="sm:col-span-4">
+                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
                         id="name"
-                        name="name"
                         value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
                         onChange={(e) => setData('name', e.target.value)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         required
-                    />
+                      />
+                      {errors.name && <div className="text-red-600 text-sm mt-1">{errors.name}</div>}
+                    </div>
+                  </div>
 
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-                <div className="mt-4">
-                    <InputLabel htmlFor="description" value="Description" />
-                    <TextInput
+                  <div className="col-span-full">
+                    <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                    <div className="mt-2">
+                      <textarea
                         id="description"
-                        name="description"
                         value={data.description}
-                        className="mt-1 block w-full"
-                        autoComplete="description"
                         onChange={(e) => setData('description', e.target.value)}
+                        rows={3}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         required
-                    />
-                    <InputError message={errors.description} className="mt-2" />
-                </div>
-                <div className="mt-4">
-                    <InputLabel htmlFor="admin_id" value="admin_id" />
-                    <TextInput
-                        id="admin_id"
-                        name="admin_id"
-                        value={data.admin_id}
-                        className="mt-1 block w-full"
-                        autoComplete="admin_id"
-                        onChange={(e) => setData('admin_id', e.target.value)}
+                      />
+                      {errors.description && <div className="text-red-600 text-sm mt-1">{errors.description}</div>}
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the service.</p>
+                  </div>
+
+                  <div className="sm:col-span-full">
+                    <label htmlFor="experience" className="block text-sm font-medium leading-6 text-gray-900">Experience</label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        id="experience"
+                        value={data.experience}
+                        onChange={(e) => setData('experience', e.target.value)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         required
-                    />
-                    <InputError message={errors.admin_id} className="mt-2" />
+                      />
+                      {errors.experience && <div className="text-red-600 text-sm mt-1">{errors.experience}</div>}
+                    </div>
+                  </div>
+
+                  <div className="sm:col-span-4">
+                    <label htmlFor="hourly_rate" className="block text-sm font-medium leading-6 text-gray-900">Hourly Rate</label>
+                    <div className="mt-2">
+                      <input
+                        type="number"
+                        id="hourly_rate"
+                        value={data.hourly_rate}
+                        onChange={(e) => setData('hourly_rate', e.target.value)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        required
+                      />
+                      {errors.hourly_rate && <div className="text-red-600 text-sm mt-1">{errors.hourly_rate}</div>}
+                    </div>
+                  </div>
+
+                  <div className="sm:col-span-4">
+                    <label htmlFor="teacher_id" className="block text-sm font-medium leading-6 text-gray-900">Teacher ID</label>
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        id="teacher_id"
+                        value={data.teacher_id}
+                        onChange={(e) => setData('teacher_id', e.target.value)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        required
+                      />
+                      {errors.teacher_id && <div className="text-red-600 text-sm mt-1">{errors.teacher_id}</div>}
+                    </div>
+                  </div>
+
+                  
                 </div>
+              </div>
+            </div>
 
-             </form>
-        </GuestLayout>
-    )
-
-
+            <div className="mt-6 flex items-center justify-end gap-x-6">
+              <Link href={route('services.index')} className="text-sm font-semibold leading-6 text-gray-900">Cancel</Link>
+              <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </Authenticated>
+  );
 }

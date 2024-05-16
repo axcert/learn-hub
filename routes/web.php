@@ -35,8 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
+    Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
     Route::resource('messages', MessageController::class);
     Route::resource('bookings', BookingController::class);
+
 
 });
 
