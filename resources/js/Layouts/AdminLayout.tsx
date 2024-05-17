@@ -13,7 +13,7 @@ import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { BsEnvelopeExclamationFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
-import AvatarBoard from "@/Components/AvatarBoard/AvatarBoard";
+import AvatarBoard from "../Components/AvatarBoard/AvatarBoard"
 
 export default function AdminLayout({
     user,
@@ -22,7 +22,6 @@ export default function AdminLayout({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
     return (
         <section>
             <div className="grid grid-cols-6">
@@ -126,7 +125,7 @@ export default function AdminLayout({
 
                 {/* heade */}
                 <div className="col-start-2 col-end-7">
-                    <AvatarBoard/>
+                    <AvatarBoard user={user.id}/>
                 </div>
 
                 {/* contend */}

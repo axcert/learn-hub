@@ -32,14 +32,6 @@ export default function Authenticated({
                                 </NavLink>
                             </div> */}
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
@@ -75,6 +67,14 @@ export default function Authenticated({
                                         >
                                             Profile
                                         </Dropdown.Link>
+
+                                        <Dropdown.Link
+    
+                                            href={route("dashboard")}
+                                        >
+                                            Dashboard
+                                        </Dropdown.Link>
+
                                         <Dropdown.Link
                                             href={route("logout")}
                                             method="post"
