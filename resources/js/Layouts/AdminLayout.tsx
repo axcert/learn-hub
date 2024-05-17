@@ -13,7 +13,7 @@ import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { BsEnvelopeExclamationFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
-import AvatarBoard from "../Components/AvatarBoard/AvatarBoard"
+import AvatarBoard from "../Components/AvatarBoard/AvatarBoard";
 
 export default function AdminLayout({
     user,
@@ -72,7 +72,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                      href={route("teacher.index")}
+                                    href={route("teacher.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <GiTeacher />
@@ -82,7 +82,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                      href={route("student.index")}
+                                    href={route("student.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <PiStudentFill />
@@ -96,8 +96,9 @@ export default function AdminLayout({
                     <footer className="py-10 text-center text-xs">
                         <div className="m-0 ">
                             <p className="m-0 font-light">
-                              All Rights Reserved
-                                by Axcertro<br />Powered by | imesh.hirushan@axcertro.com
+                                All Rights Reserved by Axcertro
+                                <br />
+                                Powered by | imesh.hirushan@axcertro.com
                             </p>
                         </div>
                     </footer>
@@ -105,7 +106,7 @@ export default function AdminLayout({
 
                 {/* heade */}
                 <div className="col-start-2 col-end-7">
-                    <AvatarBoard user={user.id}/>
+                    <AvatarBoard user={user.id} />
                 </div>
 
                 {/* contend */}

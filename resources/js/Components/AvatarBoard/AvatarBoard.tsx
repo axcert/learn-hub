@@ -1,8 +1,8 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import { useForm } from "@inertiajs/react"; // Assuming you're using Inertia.js
-import { User } from "@/types"; // Importing your User type
+import { useForm } from "@inertiajs/react";
+import { User } from "@/types";
 
 const temp = {
     imageUrl:
@@ -187,11 +187,16 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                         as="div"
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
                                     >
-                                        <form onSubmit={handleLogout}>
+                                        {/* <form action="post" onSubmit={handleLogout}>
                                             <button type="submit" className="w-full text-left">
-                                                Sign out
+                                                Sign out mobile
                                             </button>
-                                        </form>                                   
+                                        </form>*/}
+                                        <form>
+                                            <button onClick={handleLogout}>
+                                                Logout
+                                            </button>
+                                        </form>
                                     </Disclosure.Button>
                                 </div>
                             </div>
