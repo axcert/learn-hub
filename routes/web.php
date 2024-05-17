@@ -13,9 +13,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Message\MessageController;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Teacher\TeacherController;
-use App\Http\Controllers\Service\ServiceController;
+
+
+
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
