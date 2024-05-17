@@ -13,9 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Message\MessageController;
-
-
-
+use App\Http\Controllers\ProfileManage\ProfileManageController;
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -48,9 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('overview',OverviewController::class);
     Route::resource('user',UserController::class);
     Route::resource('service',ServiceController::class);
-    Route::resource('inquery',InqueryController::class);
-    Route::resource('settings',SettingsController::class);
-
+    Route::resource('profileManage',ProfileManageController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

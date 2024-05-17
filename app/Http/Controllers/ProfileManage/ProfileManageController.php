@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\ProfileManage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class SettingsController extends Controller
+class ProfileManageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Settings/Settings');
+        return Inertia::render('AdminsArea/ProfileManage/Edit');
+
     }
 
     /**

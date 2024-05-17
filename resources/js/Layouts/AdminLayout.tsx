@@ -89,26 +89,6 @@ export default function AdminLayout({
                                     <h1 className="">Student</h1>
                                 </Link>
                             </li>
-
-                            <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
-                                <Link
-                                      href={route("inquery.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
-                                >
-                                    <BsEnvelopeExclamationFill />
-                                    <h1 className="">Inquery</h1>
-                                </Link>
-                            </li>
-
-                            <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
-                                <Link
-                                     href={route("settings.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
-                                >
-                                    <IoSettings />
-                                    <h1 className="">Settings</h1>
-                                </Link>
-                            </li>
                         </ul>
                     </div>
 
