@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Service;
+namespace App\Http\Controllers\Message;
 
-use App\Http\Controllers\Controller;
+use App\Models\Message;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Service;
+use app\Http\Controllers\Controller;
 
-
-class ServiceController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Service/Service');
+        //
     }
 
     /**
@@ -37,7 +35,7 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Message $message)
     {
         //
     }
@@ -45,7 +43,7 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Message $message)
     {
         //
     }
@@ -53,7 +51,7 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Message $message)
     {
         //
     }
@@ -61,7 +59,7 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Message $message)
     {
         //
     }
