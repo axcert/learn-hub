@@ -13,6 +13,7 @@ import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { BsEnvelopeExclamationFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
+import AvatarBoard from "@/Components/AvatarBoard/AvatarBoard";
 
 export default function AdminLayout({
     user,
@@ -116,16 +117,16 @@ export default function AdminLayout({
                     <footer className="py-10 text-center text-xs">
                         <div className="m-0 ">
                             <p className="m-0 font-light">
-                              All Rights reserved
-                                by Axcertro<br />imesh.hirushan@axcertro.com
+                              All Rights Reserved
+                                by Axcertro<br />Powered by | imesh.hirushan@axcertro.com
                             </p>
                         </div>
                     </footer>
                 </div>
 
                 {/* heade */}
-                <div className="col-start-2 col-end-7 bg-white font-bold p-5">
-                    Admin Dashboard
+                <div className="col-start-2 col-end-7">
+                    <AvatarBoard/>
                 </div>
 
                 {/* contend */}
