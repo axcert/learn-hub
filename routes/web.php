@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Inquery\InqueryController;
+use App\Http\Controllers\Overview\OverviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Service\ServiceController;
+use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +40,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('home', HomeController::class);
     Route::resource('teacher',TeacherController::class);
     Route::resource('student',StudentController::class);
+    Route::resource('overview',OverviewController::class);
+    Route::resource('user',UserController::class);
+    Route::resource('service',ServiceController::class);
+    Route::resource('inquery',InqueryController::class);
+    Route::resource('settings',SettingsController::class);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

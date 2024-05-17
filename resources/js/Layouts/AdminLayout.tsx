@@ -42,7 +42,7 @@ export default function AdminLayout({
                         <ul className="font-medium flex items-center justify-center flex-col">
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
                                 <Link
-                                    href={route("home.index")}
+                                    href={route("overview.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <AiFillDashboard />
@@ -52,7 +52,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
                                 <Link
-                                    href={route("teacher.index")}
+                                    href={route("user.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <FaUsers />
@@ -62,7 +62,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("student.index")}
+                                    href={route("service.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <MdDashboardCustomize />
@@ -72,7 +72,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={""}
+                                      href={route("teacher.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <GiTeacher />
@@ -82,7 +82,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={""}
+                                      href={route("student.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <PiStudentFill />
@@ -92,7 +92,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={""}
+                                      href={route("inquery.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <BsEnvelopeExclamationFill />
@@ -102,7 +102,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={""}
+                                     href={route("settings.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <IoSettings />
@@ -124,12 +124,14 @@ export default function AdminLayout({
                 </div>
 
                 {/* heade */}
-                <div className="col-start-2 col-end-7 bg-white  p-5">
-                    Dashboard
+                <div className="col-start-2 col-end-7 bg-white font-bold p-5">
+                    Admin Dashboard
                 </div>
 
                 {/* contend */}
-                <div className="col-start-2 col-end-7 bg-zinc-100  p-5">03</div>
+                <div className="col-start-2 col-end-7 bg-zinc-100 h-full p-5">
+                    {children}
+                </div>
             </div>
         </section>
     );
