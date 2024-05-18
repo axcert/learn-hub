@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
             StudentInterface::class,
             StudentRepository::class
         );
+        //bind your data here
     }
 
     /**

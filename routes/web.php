@@ -4,6 +4,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Message\MessageController;
+use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Service\ServiceController;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -29,8 +33,16 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::resource('Students', StudentController::class);
 });
 
-Route::get('/students', [StudentController::class, 'index'])->name('students.index');
-Route::get('/students/{student}', [StudentController::class,'show'])->name('students.show');
+// Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+// Route::get('/students/{student}', [StudentController::class,'show'])->name('students.show');
 
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('admins', AdminController::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('teachers', TeacherController::class);
+    Route::resource('services', ServiceController::class);
+    Route::resource('messages', MessageController::class);
+});
 
 require __DIR__.'/auth.php';
