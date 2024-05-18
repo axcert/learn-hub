@@ -14,7 +14,6 @@ export default function ServiceCreate() {
   const { auth } = usePage().props as unknown as Props;
   const { data, setData, post, errors } = useForm({
     name: '',
-    service_id:'50',
     admin_id: '1',
     description: '',
     hourly_rate: '',

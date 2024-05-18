@@ -268,4 +268,6 @@ class BaseRepository implements BaseRepositoryInterface
         }
         return $query->paginate($filters['rowPerPage'])->appends($filters);
     }
+
+    
 }

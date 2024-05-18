@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Repositories\All\Services\ServiceInterface;
-use App\Http\Controllers\Service\Teacher;
+use App\Http\Controllers\Teacher;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
 
 class ServiceController extends Controller
 {
@@ -17,9 +19,19 @@ class ServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return inertia::render('Services/All/Index', ['services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
+    public function index(Request $request)
+    {    
+        $filters = $request->all();
+        $services = $this->serviceInterface->all(['*'], ['teacher']);
+        $teachersCount = $this->teacherInterface->all()->count();
+        
+        
+        return Inertia::render('Services/All/Index', [
+            'services' => $services,
+            'teachersCount' => $teachersCount,
+            'filters' => $filters,
+        ]);
+        
     }
 
     /**
@@ -27,8 +39,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $teacherInterface = app()->make(TeacherInterface::class);
-        return Inertia::render('Services/Create/Index', ['teachers'=>$teacherInterface->all()]);
+        $teachers = $this->teacherInterface->all();
+        return Inertia::render('Services/Create/Index', ['teachers'=> $teachers]);
     }
 
     /**
@@ -47,9 +59,12 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $id = $service->id; // Assign the id of the service
-        $service = Service::with('teacher')->findOrFail($id);
-        return Inertia::render('Services/Show/Index', ['service' => $service,]);
+        // $id = $service->id; // Assign the id of the service
+        // $service = Service::with('teacher')->findOrFail($id);
+        // return Inertia::render('Services/Show/Index', ['service' => $service,]);
+
+        $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher']);
+        return Inertia::render('Services/Show/Index', ['service' => $service]);
     }
 
     /**
@@ -67,9 +82,11 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        $service->update([
-            $this->serviceInterface->update($service->id, $request->all())
-        ]);
+        // $service->update([
+        //     $this->serviceInterface->update($service->id, $request->all())
+        // ]);
+        // return redirect()->route('services.index');
+        $this->serviceInterface->update($service->id, $request->all());
         return redirect()->route('services.index');
     }
 

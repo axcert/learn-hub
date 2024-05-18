@@ -26,4 +26,16 @@ class ServiceRepository extends BaseRepository implements ServiceInterface
      {
          $this->model = $model;
      }
+     public function search(array $filters): LengthAwarePaginator
+     {
+         $query = $this->model->query();
+ 
+         if (isset($filters['search']) && !empty($filters['search'])) {
+             $search = $filters['search'];
+             $query->where('name', 'like', "%{$search}%")
+                   ->orWhere('description', 'like', "%{$search}%");
+         }
+ 
+         return $query->paginate($filters['rowPerPage'] ?? 10)->appends($filters);
+     }
 }
