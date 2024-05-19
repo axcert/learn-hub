@@ -10,12 +10,12 @@ use App\Http\Request\StudentRequest;
 use Inertia\Inertia;
 class StudentController extends Controller
 {
-    public function __construct(protected StudentInterface $studentInterface){}
+    public function __construct(protected StudentInterface $studentInterface,){}
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
         return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all()]);
     }
 
@@ -40,7 +40,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return Inertia::render('StudentArea/Student/Show/Index', ['student'=>$student]);
+        $student = $this->studentInterface->findById($student->id, ['*']);
+        return Inertia::render('Students/Show/Index', ['student' => $student]);
     }
 
     /**
@@ -56,7 +57,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $this->studentInterface->update($student->id, $request->all());
+        return redirect()->route('students.index');
     }
 
     /**
@@ -64,6 +66,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $this->studentInterface->deleteById($student->id);
+        return redirect()->route('students.index');
     }
 }

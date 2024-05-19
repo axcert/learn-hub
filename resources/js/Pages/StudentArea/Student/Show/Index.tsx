@@ -1,19 +1,17 @@
-// Import necessary modules and components
 import { Head } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { User } from '@/types'; // Import the User type if needed
+import { User } from '@/types'; 
 
-// Define the functional component StudentShow
 const StudentShow = ({ student, user }: { student: any, user: User }) => {
     
 
     return (
-        // Render the StudentLayout component
+        
         <StudentLayout
             user={user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Student Details</h2>}
         >
-            {/* Set the title of the page using Head */}
+            
             <Head title={`Student - ${student.name}`} />
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
@@ -27,7 +25,7 @@ const StudentShow = ({ student, user }: { student: any, user: User }) => {
                             <p><strong>Name:</strong> {student.name}</p>
                             <p><strong>Email:</strong> {student.email}</p>
                             <p><strong>Phone:</strong> {student.phone}</p>
-                            {/* You can add more details here as needed */}
+                            
                         </div>
                     </div>
                 </div>
@@ -36,5 +34,4 @@ const StudentShow = ({ student, user }: { student: any, user: User }) => {
     );
 }
 
-// Export the StudentShow component
 export default StudentShow;

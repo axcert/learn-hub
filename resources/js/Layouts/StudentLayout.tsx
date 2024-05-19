@@ -5,6 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
+import Logo from '../../../public/asset/Group 1000004217.png'
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -20,6 +21,10 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div> */}
+                            <Link href="/" className="flex items-center">
+                                <img className="h-9 w-auto fill-current text-gray-800" src={Logo} alt="Logo" />
+                                <p className="ml-2 text-black text-lg">LMS</p>
+                            </Link>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -29,6 +34,16 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('students.index')} active={route().current('students.index')}>
                                     Student Dashboard
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href='#messages' active={route().current('#messages')}>
+                                    Messages
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href='#teachers' active={route().current('#teachers')}>
+                                Teachers
                                 </NavLink>
                             </div>
                             {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
