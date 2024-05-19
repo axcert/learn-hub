@@ -50,9 +50,9 @@ class RegisteredUserController extends Controller
 
         switch ($user->role) {
             case 'admin':
-                return redirect()->route('admin.index');
+                return redirect()->route('admins.index');
             case 'teacher':
-                return redirect()->route('teacher.index');
+                return redirect()->route('teachers.index');
             case 'student':
                 return redirect()->route('students.index');
             default:
