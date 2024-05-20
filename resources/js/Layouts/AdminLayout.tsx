@@ -82,7 +82,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("student.index")}
+                                    href={route("students.index")}
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <PiStudentFill />

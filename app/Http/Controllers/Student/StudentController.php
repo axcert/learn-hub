@@ -38,7 +38,7 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
         $student = $this->studentInterface->findById($student->id, ['*']);
         return Inertia::render('Students/Show/Index', ['student' => $student]);
@@ -55,7 +55,7 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,Student $student)
     {
         $this->studentInterface->update($student->id, $request->all());
         return redirect()->route('students.index');
@@ -64,7 +64,7 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
         $this->studentInterface->deleteById($student->id);
         return redirect()->route('students.index');

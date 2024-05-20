@@ -16,6 +16,7 @@ use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileManage\ProfileManageController;
 use App\Http\Controllers\Temp\TempController;
 use App\Http\Middleware\AdminValidationMiddleware;
+use App\Http\Middleware\StudentValidationMiddleware;
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -49,11 +50,22 @@ Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->name('adm
     Route::delete('/{id}/destroy', 'destroy')->name('destroy');
 });
 
+Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name('students.')->controller(StudentController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::post('/store', 'store')->name('store');
+    Route::patch('/{id}/update', 'update')->name('update');
+    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
+});
+
+
 Route::middleware('auth')->group(function () {
 
     Route::resource('home', HomeController::class);
     Route::resource('teacher', TeacherController::class);
-    Route::resource('student', StudentController::class);
+    // Route::resource('student', StudentController::class);
     Route::resource('overview', OverviewController::class);
     Route::resource('user', UserController::class);
     Route::resource('service', ServiceController::class);
@@ -75,7 +87,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('students', StudentController::class);
+    // Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('messages', MessageController::class);
