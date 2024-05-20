@@ -24,6 +24,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "react-calendar": "^5.0.0"
+        "react-calendar": "^5.0.0",
+        "react-icons": "^5.2.1"
     }
 }

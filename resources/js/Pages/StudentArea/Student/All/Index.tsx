@@ -5,30 +5,31 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useState } from 'react';
+import { FaServer } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 
 interface Service {
   id: number;
   title: string;
   teacher: string;
-  hourly_rate: string;
+  description: string;
+  rating: number;
   status: 'completed' | 'enrolled' | 'upcoming';
+  date: string;
 }
 
 export default function StudentIndex({ auth }: PageProps) {
   const [date, setDate] = useState<Date | null>(new Date());
 
   const services: Service[] = [
-    { id: 1, title: 'Maths', teacher: 'John Doe', hourly_rate: '500', status: 'completed' },
-    { id: 2, title: 'Science', teacher: 'John Doe', hourly_rate: '500', status: 'completed' },
-    { id: 3, title: 'English', teacher: 'Jane Smith', hourly_rate: '500', status: 'enrolled' },
-    { id: 4, title: 'History', teacher: 'Jane Smith', hourly_rate: '500', status: 'enrolled' },
-    { id: 5, title: 'Sinhala', teacher: 'Jane', hourly_rate: '500', status: 'upcoming' },
-    { id: 6, title: 'Tamil', teacher: 'Jane', hourly_rate: '500', status: 'upcoming' },
-    { id: 7, title: 'Java', teacher: 'Smith', hourly_rate: '500', status: 'upcoming' },
-    { id: 8, title: 'Python', teacher: 'Smith', hourly_rate: '500', status: 'upcoming' },
+    { id: 1, title: 'Java basic', teacher: 'Jhnes Smith', description: 'Learn Java...', rating: 4, status: 'completed', date: 'Jan 25, 2024' },
+    { id: 2, title: 'Frontend Dev', teacher: 'Jhnes Smith', description: 'Learn Frontend...', rating: 4, status: 'completed', date: 'Feb 5, 2024' },
+    { id: 3, title: 'Social Media', teacher: 'Jhnes Smith', description: 'Learn Social Media...', rating: 5, status: 'upcoming', date: 'Mar 10, 2024' },
+    { id: 4, title: 'Math', teacher: 'Jhnes Smith', description: 'Learn Math...', rating: 4, status: 'upcoming', date: 'Apr 2, 2024' },
+    { id: 5, title: 'Graphic Design Fundamentals', teacher: 'Jhnes Smith', description: 'Learn Graphic Design...', rating: 5, status: 'upcoming', date: 'May 15, 2024' },
+    { id: 6, title: 'Digital Illustration', teacher: 'Jhnes Smith', description: 'Learn Digital Illustration...', rating: 4, status: 'upcoming', date: 'June 8, 2024' },
+    // { id: 7, title: 'UX/UI Design Principles', teacher: 'Jhnes Smith', description: 'Learn UX/UI...', rating: 5, status: 'upcoming', date: 'Nov 20, 2024' },
   ];
-
-  
 
   return (
     <StudentLayout
@@ -36,22 +37,26 @@ export default function StudentIndex({ auth }: PageProps) {
       header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Student Dashboard</h2>}
     >
       <Head title="Student Dashboard" />
-
+    
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-10">
-        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {services.filter(service => service.status === 'upcoming').map((service) => (
-            <div key={service.id} className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-              <div className="text-gray-900 font-bold">{service.title}</div>
-              <div className="text-gray-500 mb-2">Teacher: {service.teacher}</div>
-              <div className="text-gray-500 mb-2">Hourly Rate: {service.hourly_rate}</div>
-              <PrimaryButton className="text-blue-300">Book Service</PrimaryButton>
-            </div>
-          ))}
+        <div className="lg:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {services.filter(service => service.status === 'upcoming').map((service) => (
+              <div key={service.id} className="bg-white shadow-sm sm:rounded-lg p-4">
+                <div className="font-bold text-gray-900 mb-2">{service.title}</div>
+                <div className="text-gray-500 mb-2">Teacher: {service.teacher}</div>
+                <div className="text-gray-500 mb-2">{service.description}</div>
+                <div className="flex items-center mb-2">
+                  <span className="text-yellow-500 mr-1">⭐</span>
+                  <span className="text-gray-500">{service.rating}</span>
+                </div>
+                <PrimaryButton className="text-blue-300">Book Service</PrimaryButton>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="lg:col-span-1">
-          {/* Calendar Section */}
-          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 text-center">
-            <h2 className="text-xl font-bold mb-4">Calendar</h2>
+          <div className="bg-white shadow-sm sm:rounded-lg p-4 text-center">
             <Calendar
               onChange={(value) => setDate(value as Date | null)}
               value={date}
@@ -62,16 +67,19 @@ export default function StudentIndex({ auth }: PageProps) {
       </div>
 
       <div className="mt-10 mx-10">
-        {/* History Section */}
-        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-4">Service History</h2>
+        <div className="bg-white shadow-sm sm:rounded-lg p-4">
+         <div className="flex justify-between">
+         <h2 className="text-xl font-bold mb-4 flex"><FaServer className='mr-2' />My History</h2>
+          <Link className="text-blue-700 hover:underline dark:text-blue-500 flex-end" href={route('services.index')}>View all  </Link>
+         </div>
           <table className="min-w-full bg-white">
             <thead>
               <tr>
                 <th className="px-4 py-2">Service</th>
                 <th className="px-4 py-2">Teacher</th>
-                <th className="px-4 py-2">Hourly Rate</th>
+                <th className="px-4 py-2">Date</th>
                 <th className="px-4 py-2">Status</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -79,13 +87,12 @@ export default function StudentIndex({ auth }: PageProps) {
                 <tr key={service.id}>
                   <td className="border px-4 py-2">{service.title}</td>
                   <td className="border px-4 py-2">{service.teacher}</td>
-                  <td className="border px-4 py-2">{service.hourly_rate}</td>
-                  <td className="border px-4 py-2">{service.status}</td>
+                  <td className="border px-4 py-2">{service.date}</td>
+                  <td className="border px-4 py-2 capitalize">{service.status}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          
         </div>
       </div>
     </StudentLayout>

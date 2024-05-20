@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Repositories\All\Students\StudentInterface;
 use Illuminate\Http\Request;
-use App\Http\Request\StudentRequest;
 use Inertia\Inertia;
 class StudentController extends Controller
 {
