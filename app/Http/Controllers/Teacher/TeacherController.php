@@ -1,66 +1,86 @@
 <?php
 
 namespace App\Http\Controllers\Teacher;
-
-use App\Models\Teacher;
-use Illuminate\Http\Request;
 use app\Http\Controllers\Controller;
+use App\Models\Teacher;
+// use App\Repositories\All\Categories\CategoryInterface;
+// use App\Repositories\All\Categories\CategoryRepository;
+// use App\Repositories\All\Categories\CategoryRepositoryInterface;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        // $teachersInterface = app()->make(Teacher::class);
+        // $teachers = $teachersInterface->all();
+        // return Inertia::render('Teachers/All/Index', [
+        //     'teachers' => $teachers
+        // ]);
+        $teachers=Teacher::all();
+        return Inertia::render('Teachers/All/Index',['teachers'=>$teachers]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $data = Teacher::all();
+        return Inertia::render('Teachers/Create/Index', [
+            'cData' => Teacher::where('name', 'xxx')->get()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|string|max:10',
+            'name' => 'required|string|max:255',
+            'subjects' => 'required|string|max:255',
+        ]);
+
+        Teacher::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'subjects' => $request->subjects,
+        ]);
+        return redirect()->route('teachers.index')->with('status', 'Added Success Full!');
+        $teacherInterface->create($request->all());
+        redirect()->route('categories.index')->with('success', 'Teacher created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Teacher $teacher)
+    public function show($teacher)
     {
-        //
+        $data = Teacher::find($teacher);
+
+        return Inertia::render('Teachers/show/Index', ['teacher' => $data]);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Teacher $teacher)
     {
-        //
+        // $teacherInterface = app()->make(teacherInterface::class);
+        // $teacherInterface->findByColumn(['name' => $id]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, string $teacher)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|string|max:10',
+            'name' => 'required|string|max:255',
+            'subjects' => 'required|string|max:255',
+        ]);
+        Teacher::find($teacher)->update($request->all());
+        return redirect()->route('teacher.index')->with('Success', 'Updated successfully');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Teacher $teacher)
+    public function destroy($teacher)
     {
-        //
+        Teacher::find($teacher)->delete();
+        return redirect()->route('teacher.index')->with('Success', 'Delete successfully');
+        ;
     }
 }

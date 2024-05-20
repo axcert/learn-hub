@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\TeacherValidationMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
@@ -37,4 +38,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('messages', MessageController::class);
 });
 
-require __DIR__.'/auth.php';
+// Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers');
+
+Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->name('teachers.')->controller(TeacherController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::post('/store', 'store')->name('store');
+    Route::patch('/{id}/update', 'update')->name('update');
+    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
+});
+
+require __DIR__ . '/auth.php';
