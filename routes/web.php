@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Inquery\InqueryController;
 use App\Http\Controllers\Overview\OverviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Service\ServiceController;
-use App\Http\Controllers\Settings\SettingsController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\User\UserController;
@@ -17,6 +15,7 @@ use App\Http\Controllers\ProfileManage\ProfileManageController;
 use App\Http\Controllers\Temp\TempController;
 use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Middleware\StudentValidationMiddleware;
+use App\Http\Controllers\Booking\BookingController;
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -90,7 +89,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
+    Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
     Route::resource('messages', MessageController::class);
+    Route::resource('bookings', BookingController::class);
+
+
 });
 
 require __DIR__ . '/auth.php';
