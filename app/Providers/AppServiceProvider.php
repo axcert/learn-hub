@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\All\Teachers\TeacherInterface;
+use App\Repositories\All\Teachers\TeacherRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Students\StudentRepository;
+use App\Repositories\All\Services\ServiceInterface;
+use App\Repositories\All\Services\ServiceRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
             StudentRepository::class
         );
         //bind your data here
+        
+            $this->app->bind(ServiceInterface::class, ServiceRepository::class );
+            $this->app->bind(TeacherInterface::class, TeacherRepository::class);
+        
     }
 
     /**
