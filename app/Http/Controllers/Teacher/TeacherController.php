@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Models\Teacher;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class TeacherController extends Controller
 {
@@ -13,7 +13,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('AdminsArea/Teacher/Teacher');
     }
 
     /**
@@ -35,7 +35,7 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +43,7 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $teacher)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +59,7 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(string $id)
     {
         //
     }

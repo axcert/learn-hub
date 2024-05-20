@@ -47,7 +47,7 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(string $id)
     {
         //
     }
@@ -55,7 +55,7 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request,Student $student)
     {
         $this->studentInterface->update($student->id, $request->all());
         return redirect()->route('students.index');

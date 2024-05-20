@@ -141,4 +141,6 @@ interface BaseRepositoryInterface
      * @return LengthAwarePaginator
      */
     public function filter($filters, $with = []): LengthAwarePaginator;
+
+    
 }
