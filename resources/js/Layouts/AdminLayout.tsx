@@ -45,7 +45,7 @@ export default function AdminLayout({
                             </li>
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("service.index")}
+                                    href={route("services.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <MdDashboardCustomize />
@@ -55,7 +55,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("teacher.index")}
+                                    href={route("teachers.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <GiTeacher />
@@ -76,7 +76,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
                                 <Link
-                                    href={route("user.index")}
+                                    href={route("admins.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <FaUsersCog />

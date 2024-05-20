@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use app\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        
+        return Inertia::render('AdminsArea/Admin/Admin');
     }
 
     /**

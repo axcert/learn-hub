@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
-use App\Http\Controllers\User\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
@@ -63,10 +62,10 @@ Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name(
 Route::middleware('auth')->group(function () {
 
     Route::resource('home', HomeController::class);
-    Route::resource('teacher', TeacherController::class);
-    Route::resource('student', StudentController::class);
+    Route::resource('teachers', TeacherController::class);
+    Route::resource('students', StudentController::class);
     Route::resource('overview', OverviewController::class);
-    Route::resource('user', UserController::class);
+    Route::resource('admins', AdminController::class);
     Route::resource('service', ServiceController::class);
     Route::resource('profileManage', ProfileManageController::class);
     Route::resource('temp', TempController::class);
@@ -90,8 +89,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
     Route::resource('messages', MessageController::class);
     Route::resource('bookings', BookingController::class);
-
-
 });
 
 require __DIR__ . '/auth.php';
