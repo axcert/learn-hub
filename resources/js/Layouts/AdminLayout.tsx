@@ -56,7 +56,7 @@ export default function AdminLayout({
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <FaUsers />
-                                    <h1 className="">Users</h1>
+                                    <h1 className="">Admins</h1>
                                 </Link>
                             </li>
 
@@ -66,7 +66,7 @@ export default function AdminLayout({
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <MdDashboardCustomize />
-                                    <h1 className="">Service</h1>
+                                    <h1 className="">Services</h1>
                                 </Link>
                             </li>
 
@@ -76,7 +76,7 @@ export default function AdminLayout({
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <GiTeacher />
-                                    <h1 className="">Teacher</h1>
+                                    <h1 className="">Teachers</h1>
                                 </Link>
                             </li>
 
@@ -86,7 +86,7 @@ export default function AdminLayout({
                                     className="flex  items-center justify-center gap-2 py-4"
                                 >
                                     <PiStudentFill />
-                                    <h1 className="">Student</h1>
+                                    <h1 className="">Students</h1>
                                 </Link>
                             </li>
                         </ul>
