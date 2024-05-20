@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Teacher;
 use app\Http\Controllers\Controller;
 use App\Models\Teacher;
-// use App\Repositories\All\Categories\CategoryInterface;
-// use App\Repositories\All\Categories\CategoryRepository;
-// use App\Repositories\All\Categories\CategoryRepositoryInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 
 class TeacherController extends Controller
 {
+    public function __construct(protected TeacherInterface $teacherInterface){}
 
     public function index()
     {
@@ -33,22 +32,11 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request  $request)
     {
-        $request->validate([
-            'user_id' => 'required|string|max:10',
-            'name' => 'required|string|max:255',
-            'subjects' => 'required|string|max:255',
-        ]);
-
-        Teacher::create([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'subjects' => $request->subjects,
-        ]);
+        $this-> teacherInterface->create($request->all());
         return redirect()->route('teachers.index')->with('status', 'Added Success Full!');
-        $teacherInterface->create($request->all());
-        redirect()->route('categories.index')->with('success', 'Teacher created successfully');
+
     }
 
     public function show($teacher)
