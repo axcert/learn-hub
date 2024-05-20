@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileManage\ProfileManageController;
 use App\Http\Controllers\Temp\TempController;
+use App\Http\Middleware\AdminValidationMiddleware;
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -38,32 +39,40 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->name('admins.')->controller(AdminController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::post('/store', 'store')->name('store');
+    Route::patch('/{id}/update', 'update')->name('update');
+    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
+});
 
 Route::middleware('auth')->group(function () {
 
     Route::resource('home', HomeController::class);
-    Route::resource('teacher',TeacherController::class);
-    Route::resource('student',StudentController::class);
-    Route::resource('overview',OverviewController::class);
-    Route::resource('user',UserController::class);
-    Route::resource('service',ServiceController::class);
-    Route::resource('profileManage',ProfileManageController::class);
+    Route::resource('teacher', TeacherController::class);
+    Route::resource('student', StudentController::class);
+    Route::resource('overview', OverviewController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('service', ServiceController::class);
+    Route::resource('profileManage', ProfileManageController::class);
+    Route::resource('temp', TempController::class);
 
 
 
-    Route::resource('temp',TempController::class);
-    
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('admins', AdminController::class);
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('messages', MessageController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
