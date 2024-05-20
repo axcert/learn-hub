@@ -1,19 +1,13 @@
 import { useState, PropsWithChildren, ReactNode } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { User } from "@/types";
 import { Link } from "@inertiajs/react";
 import dahbordLogo from "../../../public/asstts/img/dashboart-logo.png";
 import { AiFillDashboard } from "react-icons/ai";
-import { FaUsers } from "react-icons/fa";
 import { MdDashboardCustomize } from "react-icons/md";
 import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
-import { BsEnvelopeExclamationFill } from "react-icons/bs";
-import { IoSettings } from "react-icons/io5";
 import AvatarBoard from "../Components/AvatarBoard/AvatarBoard";
+import { FaUsersCog } from "react-icons/fa";
 
 export default function AdminLayout({
     user,
@@ -27,43 +21,32 @@ export default function AdminLayout({
             <div className="grid grid-cols-6">
                 {/* lms */}
                 <div className=" bg-blue-950 row-span-3 h-screen text-white">
-                    <div className="flex gap-3 justify-center items-center p-8">
+                    <div className="flex gap-3 justify-center items-center p-4">
                         <div>
                             <img
-                                className="w-14"
+                                className="w-7"
                                 src={dahbordLogo}
                                 alt="dashBoardlogo"
                             />
                         </div>
-                        <p className="uppercase font-bold text-2xl">lms</p>
+                        <p className="uppercase font-bold text-lg">lms</p>
                     </div>
                     <hr />
                     <div className="py-5">
-                        <ul className="font-medium flex items-center justify-center flex-col">
-                            <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
+                        <ul className="font-medium flex justify-center flex-col">
+                            <li className="justify-left mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
                                     href={route("overview.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
+                                    className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <AiFillDashboard />
-                                    <h1 className="">Overview</h1>
+                                    <h1>Overview</h1>
                                 </Link>
                             </li>
-
-                            <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
-                                <Link
-                                    href={route("user.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
-                                >
-                                    <FaUsers />
-                                    <h1 className="">Admins</h1>
-                                </Link>
-                            </li>
-
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
                                     href={route("service.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
+                                    className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <MdDashboardCustomize />
                                     <h1 className="">Services</h1>
@@ -73,7 +56,7 @@ export default function AdminLayout({
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
                                     href={route("teacher.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
+                                    className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <GiTeacher />
                                     <h1 className="">Teachers</h1>
@@ -83,12 +66,24 @@ export default function AdminLayout({
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
                                     href={route("students.index")}
-                                    className="flex  items-center justify-center gap-2 py-4"
+                                    className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <PiStudentFill />
                                     <h1 className="">Students</h1>
                                 </Link>
                             </li>
+
+
+                            <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
+                                <Link
+                                    href={route("user.index")}
+                                    className="flex items-center justify-left gap-2 py-4 px-4"
+                                >
+                                    <FaUsersCog />
+                                    <h1 className="">Admins</h1>
+                                </Link>
+                            </li>
+
                         </ul>
                     </div>
 

@@ -64,14 +64,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('home', HomeController::class);
     Route::resource('teacher', TeacherController::class);
-    // Route::resource('student', StudentController::class);
+    Route::resource('student', StudentController::class);
     Route::resource('overview', OverviewController::class);
     Route::resource('user', UserController::class);
     Route::resource('service', ServiceController::class);
     Route::resource('profileManage', ProfileManageController::class);
     Route::resource('temp', TempController::class);
-
-
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -86,7 +84,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::resource('students', StudentController::class);
+    Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
     Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');

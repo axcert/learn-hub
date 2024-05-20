@@ -24,16 +24,15 @@ class ServiceController extends Controller
     {    
 
         return Inertia::render('AdminsArea/Service/Service');
-        $filters = $request->all();
-        $services = $this->serviceInterface->all(['*'], ['teacher']);
-        $teachersCount = $this->teacherInterface->all()->count();
         
-        
-        return Inertia::render('Services/All/Index', [
-            'services' => $services,
-            'teachersCount' => $teachersCount,
-            'filters' => $filters,
-        ]);
+        // $filters = $request->all();
+        // $services = $this->serviceInterface->all(['*'], ['teacher']);
+        // $teachersCount = $this->teacherInterface->all()->count();
+        // return Inertia::render('Services/All/Index', [
+        //     'services' => $services,
+        //     'teachersCount' => $teachersCount,
+        //     'filters' => $filters,
+        // ]);
         
     }
 

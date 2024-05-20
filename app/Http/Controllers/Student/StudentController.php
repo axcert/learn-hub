@@ -16,7 +16,11 @@ class StudentController extends Controller
      */
     public function index()
     {   
-        return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all()]);
+
+        //  return Inertia::render('StudentArea/Student/All/Index', 
+        //  ['students'=> $this->studentInterface->all()]);
+        return Inertia::render('AdminsArea/Student/Student');
+
     }
 
     /**
@@ -42,6 +46,7 @@ class StudentController extends Controller
     {
         $student = $this->studentInterface->findById($student->id, ['*']);
         return Inertia::render('Students/Show/Index', ['student' => $student]);
+   
     }
 
     /**

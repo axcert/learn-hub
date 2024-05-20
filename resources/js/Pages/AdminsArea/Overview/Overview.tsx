@@ -17,16 +17,7 @@ export default function Overview({ auth }: PageProps) {
 
                             <Card title={"Students"}>1043</Card>
 
-                            <Card title={"Sevices"}>210</Card>
-                        </div>
-                    </div>
-
-                    <br />
-                    {/* Table */}
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                        <div className="p-6 text-gray-900">
-
-                            table
+                            <Card title={"Teachers"}>210</Card>
                         </div>
                     </div>
                 </div>
