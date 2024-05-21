@@ -11,7 +11,7 @@ interface Props {
   filters: Filters;
 }
 
-const ServiceIndex: React.FC<Props> = ({ services = [], teachersCount = 0, filters = { search: '' } }) => {
+export default function ServiceIndex({ services = [], teachersCount = 0, filters = { search: '' } }: Props) {
   const { auth } = usePage().props as unknown as { auth: { user: User } };
   const [search, setSearch] = useState<string>(filters.search || '');
 
@@ -101,11 +101,8 @@ const ServiceIndex: React.FC<Props> = ({ services = [], teachersCount = 0, filte
               Create Service
             </Link>
           </div>
-          
         </div>
       </div>
     </Authenticated>
   );
-};
-
-export default ServiceIndex;
+}

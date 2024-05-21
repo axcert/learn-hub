@@ -25,13 +25,10 @@ class ServiceController extends Controller
 
         
         $filters = $request->all();
-        $services = $this->serviceInterface->all(['*'], ['teacher']);
-        $teachersCount = $this->teacherInterface->all()->count();
-        
-        
+         
         return Inertia::render('Services/All/Index', [
-            'services' => $services,
-            'teachersCount' => $teachersCount,
+            'services' => $this->serviceInterface->all(['*'], ['teacher']),
+            'teachersCount' => $this->teacherInterface->all()->count(),
             'filters' => $filters,
         ]);
         

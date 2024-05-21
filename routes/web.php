@@ -58,6 +58,7 @@ Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name(
     Route::delete('/{id}/destroy', 'destroy')->name('destroy');
 });
 
+Route::get('/teachers', [StudentController::class, 'index'])->name('teachers.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
    //  Route::resource('students', StudentController::class);
@@ -66,7 +67,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
     Route::resource('messages', MessageController::class);
     Route::resource('bookings', BookingController::class);
-
 
 });
 

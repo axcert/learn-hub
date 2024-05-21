@@ -6,19 +6,35 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Students\StudentInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 class StudentController extends Controller
 {
-    public function __construct(protected StudentInterface $studentInterface, protected ServiceInterface $serviceInterface){}
+    public function __construct(protected StudentInterface $studentInterface, 
+    protected ServiceInterface $serviceInterface,
+    protected TeacherInterface $teacherInterface,
+    ){}
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {   
+        $view = $request->query('view', 'student');
+
+        switch ($view){
+            case 'teacher':
+                return Inertia::render('StudentArea/Teacher/All/Index',['teachers'=> $this->teacherInterface->all()] );
+                
+            case'student':
+                default: 
+                return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
+                                         'services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
+        }
+        // return Inertia::render('StudentArea/Teacher/All/Index',['teachers'=> $this->teacherInterface->all()] );
         
-        return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
-        'services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
+        // return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
+        // 'services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
     }
 
     /**

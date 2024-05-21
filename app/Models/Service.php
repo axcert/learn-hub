@@ -19,6 +19,7 @@ class Service extends Model
         'experience',
         'hourly_rate',
         'teacher_id',
+        'status',
 
     ];
 
