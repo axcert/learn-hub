@@ -24,7 +24,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                             </div> */}
                             <Link href="/" className="flex items-center">
                                 <img className="h-9 w-auto fill-current text-gray-800" src={Logo} alt="Logo" />
-                                <p className="ml-2 text-black text-lg">LMS</p>
+                                <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

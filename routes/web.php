@@ -28,16 +28,15 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-
 Route::get('/dashboard', function () {
-    return Inertia::render('AdminsArea/Home/Home');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->name('admins.')->controller(AdminController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -60,33 +59,8 @@ Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name(
 });
 
 
-Route::middleware('auth')->group(function () {
-
-    Route::resource('home', HomeController::class);
-    Route::resource('teacher', TeacherController::class);
-    // Route::resource('student', StudentController::class);
-    Route::resource('overview', OverviewController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('service', ServiceController::class);
-    Route::resource('profileManage', ProfileManageController::class);
-    Route::resource('temp', TempController::class);
-
-
-
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// Route::middleware(['auth', 'verified'])->group(function(){
-//     Route::resource('Students', StudentController::class);
-// });
-
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::resource('students', StudentController::class);
+   //  Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('services', ServiceController::class);
     Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');

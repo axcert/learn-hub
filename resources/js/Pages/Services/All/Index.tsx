@@ -101,6 +101,7 @@ const ServiceIndex: React.FC<Props> = ({ services = [], teachersCount = 0, filte
               Create Service
             </Link>
           </div>
+          
         </div>
       </div>
     </Authenticated>

@@ -23,7 +23,7 @@ class ServiceController extends Controller
     public function index(Request $request)
     {    
 
-        return Inertia::render('AdminsArea/Service/Service');
+        
         $filters = $request->all();
         $services = $this->serviceInterface->all(['*'], ['teacher']);
         $teachersCount = $this->teacherInterface->all()->count();
