@@ -3,13 +3,13 @@ import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import { LuView } from "react-icons/lu";
 
-export default function Student({ auth }: PageProps) {
+export default function Student({ auth}: PageProps) {
 
     const view = () =>{
      console.log("view Student");
      
     }
-
+    
     return (
         <AdminLayout
             user={auth.user}

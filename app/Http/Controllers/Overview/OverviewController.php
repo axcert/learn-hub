@@ -3,17 +3,33 @@
 namespace App\Http\Controllers\Overview;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Repositories\All\Students\StudentInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class OverviewController extends Controller
 {
+
+    public function __construct(
+        protected StudentInterface $studentInterface,
+        protected TeacherInterface $teacherInterface
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Overview/Overview');
+
+        return Inertia::render('AdminsArea/Overview/Overview', [
+            'studentCount' => $this->studentInterface->all()->count(),
+            'teacherCount' => $this->teacherInterface->all()->count(),
+
+        ]);
     }
 
     /**
