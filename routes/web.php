@@ -1,23 +1,17 @@
 <?php
 
-use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Overview\OverviewController;
+
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Service\ServiceController;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Teacher\TeacherController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
+use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
+use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
+use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
+use App\Http\Controllers\StudentsArea\Teacher\StudentTeacherController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Message\MessageController;
-use App\Http\Controllers\ProfileManage\ProfileManageController;
-use App\Http\Controllers\Temp\TempController;
-use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Middleware\StudentValidationMiddleware;
-use App\Http\Controllers\Booking\BookingController;
 use Inertia\Inertia;
-use phpDocumentor\Reflection\Types\Resource_;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -38,36 +32,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->name('admins.')->controller(AdminController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::post('/store', 'store')->name('store');
-    Route::patch('/{id}/update', 'update')->name('update');
-    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
-});
 
-Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name('students.')->controller(StudentController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::post('/store', 'store')->name('store');
-    Route::patch('/{id}/update', 'update')->name('update');
-    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
-});
-
-Route::get('/teachers', [StudentController::class, 'index'])->name('teachers.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-   //  Route::resource('students', StudentController::class);
-    Route::resource('teachers', TeacherController::class);
-    Route::resource('services', ServiceController::class);
-    Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
-    Route::resource('messages', MessageController::class);
-    Route::resource('bookings', BookingController::class);
 
+    Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
+        Route::resource('students', StudentStudentController::class);
+        Route::resource('services', StudentServiceController::class);
+        Route::resource('teachers', StudentTeacherController::class);
+        Route::resource('messages', StudentMessageController::class);
+        Route::resource('bookings', StudentBookingController::class);
+       
+    });
 });
+
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::resource('teachers', TeacherController::class);
+//     //Route::resource('services', StudentServiceController::class);
+//     //Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
+//     Route::resource('messages', MessageController::class);
+//     Route::resource('bookings', BookingController::class);
+
+// });
 
 require __DIR__ . '/auth.php';

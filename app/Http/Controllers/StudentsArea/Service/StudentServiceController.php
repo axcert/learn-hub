@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Service;
+namespace App\Http\Controllers\StudentsArea\Service;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use App\Http\Controllers\Teacher;
 use App\Repositories\All\Teachers\TeacherInterface;
 
 
-class ServiceController extends Controller
+class StudentServiceController extends Controller
 {
     public function __construct(protected ServiceInterface $serviceInterface, protected TeacherInterface $teacherInterface){}
     /**

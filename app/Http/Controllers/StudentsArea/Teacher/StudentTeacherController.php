@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\StudentsArea\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Inertia\Inertia;
 
-class TeacherController extends Controller
+class StudentTeacherController extends Controller
 {
     public function __construct(protected TeacherInterface $teacherInterface, 
     protected ServiceInterface $serviceInterface){}
@@ -19,9 +19,9 @@ class TeacherController extends Controller
     public function index()
     {
         // return Inertia::render('AdminsArea/Teacher/Teacher');
-        $teachers = $this->teacherInterface->all(['*'], ['services']);
+        $teachers = $this->teacherInterface->all(['*'], ['user']);
         $services = $this->serviceInterface->all();
-        
+
         return Inertia::render('StudentArea/Teacher/All/Index', [
             'teachers' => $teachers,
             'services' => $services
@@ -49,9 +49,10 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Teacher $teacher)
     {
-        //
+        $teacher = $this->teacherInterface->findById($teacher->id, ['*'], ['service']);
+        return Inertia::render('StudentArea/Teacher/Show/Index', ['teacher' => $teacher]);
     }
 
     /**

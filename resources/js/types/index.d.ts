@@ -1,7 +1,13 @@
+import { ReactNode } from 'react';
 import { Config } from 'ziggy-js';
 
 export interface User {
-    position: ReactNode;
+    
+    user: any;
+    bio: ReactNode;
+    service: any;
+    experience: ReactNode;
+    position: string;
     role: ReactNode;
     id: number;
     name: string;
@@ -12,29 +18,28 @@ export interface Teacher {
     phone: ReactNode;
     id: number;
     name: string;
+    teacherId : string;
+    bio : string;
+    position : string;
   }
   
   export interface Service {
-    title: ReactNode;
-    status: string;
-    rating: ReactNode;
-    status: ReactNode;
-    date: ReactNode;
-    title: ReactNode;
-    status: string;
-    experience: string;
-    teacher_id: string;
+    position: ReactNode;
+    bio: ReactNode;
+    service: any;
     service_id: string;
-    admin_id: string;
-    service_id: string;
-    admin_id: string;
-    teacher_id: string;
-    experience: string;
-    id: number;
+    id: number; // Ensure this is a number
     name: string;
     description: string;
-    hourly_rate: number;
-    teacher?: Teacher;
+    experience: string;
+    hourly_rate?: number;
+    teacher_id?: number; // Ensure this is a number
+    admin_id: number;
+    title?: ReactNode; // Optional properties
+    status?: string;
+    rating?: ReactNode;
+    date?: ReactNode;
+    teacher?: User; // Assuming User is defined elsewhere and represents the teacher
   }
   export interface Filters {
     search: string;
