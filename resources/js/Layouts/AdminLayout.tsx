@@ -101,7 +101,7 @@ export default function AdminLayout({
 
                 {/* heade */}
                 <div className="col-start-2 col-end-7">
-                    <AvatarBoard user={user.id} />
+                    <AvatarBoard user={user} />
                 </div>
 
                 {/* contend */}

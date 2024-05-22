@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Home/Home');
+        return Inertia::render('AdminsArea/Overview/Overview');
 
     }
 
