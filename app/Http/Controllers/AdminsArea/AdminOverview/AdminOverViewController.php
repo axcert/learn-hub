@@ -1,19 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\AdminsArea\AdminOverview;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Students\StudentInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class TeacherController extends Controller
+class AdminOverViewController extends Controller
 {
+
+    public function __construct(
+        protected StudentInterface $studentInterface,
+        protected TeacherInterface $teacherInterface
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Teacher/Teacher');
+        return Inertia::render('AdminsArea/Overview/Overview', [
+            'studentCount' => $this->studentInterface->all()->count(),
+            'teacherCount' => $this->teacherInterface->all()->count(),
+
+        ]);
     }
 
     /**

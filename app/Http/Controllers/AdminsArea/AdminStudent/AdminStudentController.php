@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\ProfileManage;
+namespace App\Http\Controllers\AdminsArea\AdminStudent;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ProfileManageController extends Controller
+class AdminStudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/ProfileManage/Edit');
-
+        return Inertia::render('AdminsArea/Student/Student');
     }
 
     /**
