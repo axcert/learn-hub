@@ -60,10 +60,9 @@ Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name(
 
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::resource('home', HomeController::class);
+    Route::resource('overview', OverviewController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('students', StudentController::class);
-    Route::resource('overview', OverviewController::class);
     Route::resource('admins', AdminController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('profileManage', ProfileManageController::class);
