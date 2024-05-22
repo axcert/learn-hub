@@ -3,8 +3,8 @@ import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
 
-
 export default function Teacher({ auth }: PageProps) {
+
     const view = () =>{
         console.log("view Teacher");
     }
@@ -66,7 +66,7 @@ export default function Teacher({ auth }: PageProps) {
                                                 scope="row"
                                                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                                             >
-                                                Imesh
+                                                Imesh Teacher
                                             </th>
 
                                             <td className="px-6 py-4">
@@ -100,3 +100,4 @@ export default function Teacher({ auth }: PageProps) {
         </AdminLayout>
     );
 }
+

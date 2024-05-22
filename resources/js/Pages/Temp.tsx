@@ -1,121 +1,118 @@
-import React from 'react';
+import { Head } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { LuView } from "react-icons/lu";
+import { useState } from "react";
 
-export default function Temp() {
-  return (
-    <div className="table-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">checkbox</label>
-              </div>
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Product name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Color
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Category
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-              </div>
-            </td>
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Apple MacBook Pro 17"
-            </th>
-            <td className="px-6 py-4">
-              Silver
-            </td>
-            <td className="px-6 py-4">
-              Laptop
-            </td>
-            <td className="px-6 py-4">
-              $2999
-            </td>
-            <td className="px-6 py-4">
-              <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-2"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-table-search-2" className="sr-only">checkbox</label>
-              </div>
-            </td>
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Microsoft Surface Pro
-            </th>
-            <td className="px-6 py-4">
-              White
-            </td>
-            <td className="px-6 py-4">
-              Laptop PC
-            </td>
-            <td className="px-6 py-4">
-              $1999
-            </td>
-            <td className="px-6 py-4">
-              <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <nav className="flex items-center justify-between pt-4" aria-label="Table navigation">
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0">Showing <span className="font-semibold text-gray-900 dark:text-white">1-10</span> of <span className="font-semibold text-gray-900 dark:text-white">1000</span></span>
-        <ul className="inline-flex -space-x-px text-sm h-8">
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-          </li>
-          <li>
-            <a href="#" aria-current="page" className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+interface Data {
+    name: string;
+    email: string;
+    phoneNumber: string;
+    bio: string;
+    position: string;
+}
+
+const data: Data[] = [
+    { name: 'Imesh', email: 'imesh.hirushan@axcertro.com', phoneNumber: '0779201232', bio: 'Experienced Full-Stack Engineer', position: 'Software Engineer'},
+    { name: 'Imesh', email: 'imesh.hirushan@axcertro.com', phoneNumber: '0779201232', bio: 'Experienced Full-Stack Engineer', position: 'Software Engineer'},
+    { name: 'Imesh', email: 'imesh.hirushan@axcertro.com', phoneNumber: '0779201232', bio: 'Experienced Full-Stack Engineer', position: 'Software Engineer'},
+    { name: 'Imesh', email: 'imesh.hirushan@axcertro.com', phoneNumber: '0779201232', bio: 'Experienced Full-Stack Engineer', position: 'Software Engineer'},
+    { name: 'Imesh', email: 'imesh.hirushan@axcertro.com', phoneNumber: '0779201232', bio: 'Experienced Full-Stack Engineer', position: 'Software Engineer'},
+    { name: 'Hirushan', email: 'hirushan@gmail.com', phoneNumber: '0381234567', bio: 'English', position: 'Teacher'},
+    { name: 'Hirushan', email: 'hirushan@gmail.com', phoneNumber: '0381234567', bio: 'English', position: 'Teacher'},
+    { name: 'Hirushan', email: 'hirushan@gmail.com', phoneNumber: '0381234567', bio: 'English', position: 'Teacher'},
+    { name: 'Hirushan', email: 'hirushan@gmail.com', phoneNumber: '0381234567', bio: 'English', position: 'Teacher'},
+   
+
+];
+
+const PaginatedTable: React.FC = () => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage: number = 5;
+
+    const totalPages: number = Math.ceil(data.length / itemsPerPage);
+    const currentData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    const handleClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    return (
+        <div className="py-2">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="p-6 text-gray-900">
+                        <div className="relative overflow-auto shadow-md rounded-lg">
+                            <table className="w-full text-sm text-left text-gray-500">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">Name</th>
+                                        <th scope="col" className="px-6 py-3">Email</th>
+                                        <th scope="col" className="px-6 py-3">Phone Number</th>
+                                        <th scope="col" className="px-6 py-3">Bio</th>
+                                        <th scope="col" className="px-6 py-3">Position</th>
+                                        <th scope="col" className="px-6 py-3">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentData.map((entry, index) => (
+                                        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                                {entry.name}
+                                            </th>
+                                            <td className="px-6 py-4">{entry.email}</td>
+                                            <td className="px-6 py-4">{entry.phoneNumber}</td>
+                                            <td className="px-6 py-4">{entry.bio}</td>
+                                            <td className="px-6 py-4">{entry.position}</td>
+                                            <td className="flex items-center px-6 py-4">
+                                                <button
+                                                    onClick={() => alert('View button clicked')}
+                                                    className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
+                                                >
+                                                    <LuView />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className="flex justify-center mt-4">
+                                <button
+                                    onClick={() => handleClick(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50"
+                                >
+                                    Previous
+                                </button>
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleClick(index + 1)}
+                                        className={`px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 ${currentPage === index + 1 ? 'bg-gray-200' : ''}`}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={() => handleClick(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                    className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default function Teacher({ auth }: PageProps) {
+    return (
+        <>
+            <Head title="Teacher" />
+            <PaginatedTable />
+        </>
+    );
 }

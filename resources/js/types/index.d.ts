@@ -1,5 +1,5 @@
 import { Config } from 'ziggy-js';
-
+import { ReactNode } from 'react';
 export interface User {
     id: number;
     name: string;
@@ -17,10 +17,6 @@ export interface Teacher {
     teacher_id: string;
     service_id: string;
     admin_id: string;
-    service_id: string;
-    admin_id: string;
-    teacher_id: string;
-    experience: string;
     id: number;
     name: string;
     description: string;

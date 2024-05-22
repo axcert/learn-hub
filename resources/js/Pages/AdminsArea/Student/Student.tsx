@@ -57,7 +57,7 @@ export default function Student({ auth}: PageProps) {
                                                 scope="row"
                                                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                                             >
-                                                Hirushan
+                                                Hirushan Student
                                             </th>
 
                                             <td className="px-6 py-4">
