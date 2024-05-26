@@ -70,7 +70,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student = $this->studentInterface->findById($student->id, ['*']);
+         $student = $this->studentInterface->findById($student->id, ['*']);
         return Inertia::render('Students/Show/Index', ['student' => $student]);
     }
 

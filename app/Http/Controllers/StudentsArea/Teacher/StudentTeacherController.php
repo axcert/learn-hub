@@ -51,10 +51,12 @@ class StudentTeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher)
+    public function show($id)
     {
-        $teacher = $this->teacherInterface->findById($teacher->id, ['*'], ['service']);
-        return Inertia::render('StudentArea/Teacher/Show/Index', ['teacher' => $teacher]);
+        $teacher = Teacher::with('user', 'services')->findOrFail($id);
+    return Inertia::render('StudentArea/Teacher/Show/Index', [
+        'teacher' => $teacher,
+    ]);
     }
 
     /**
