@@ -41,7 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('services', StudentServiceController::class);
         Route::resource('teachers', StudentTeacherController::class);
         Route::resource('messages', StudentMessageController::class);
-        Route::resource('bookings', StudentBookingController::class);
+        Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('bookings.create');
+        Route::resource('bookings', StudentBookingController::class)->except(['create']);
        
     });
 });

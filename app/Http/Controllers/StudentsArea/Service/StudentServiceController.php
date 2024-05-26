@@ -40,7 +40,7 @@ class StudentServiceController extends Controller
     public function create()
     {
         $teachers = $this->teacherInterface->all();
-        return Inertia::render('Services/Create/Index', ['teachers'=> $teachers]);
+        return Inertia::render('StudentArea/Service/Create/Index', ['teachers'=> $teachers]);
     }
 
     /**

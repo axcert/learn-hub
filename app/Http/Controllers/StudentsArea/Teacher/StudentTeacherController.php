@@ -18,7 +18,7 @@ class StudentTeacherController extends Controller
      */
     public function index()
     {
-        // return Inertia::render('AdminsArea/Teacher/Teacher');
+        
         $teachers = $this->teacherInterface->all(['*'], ['user']);
         $services = $this->serviceInterface->all();
 
@@ -26,6 +26,8 @@ class StudentTeacherController extends Controller
             'teachers' => $teachers,
             'services' => $services
         ]);
+        
+    
         
         
     }

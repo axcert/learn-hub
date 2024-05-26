@@ -22,6 +22,17 @@ export interface Teacher {
     bio : string;
     position : string;
   }
+
+  export type Booking = {
+    date: any;
+    service: any;
+    user_id: number;
+    id: number;
+    description: string;
+    status: string;
+    timestamp: Date;
+    // Add other fields as needed
+  };
   
   export interface Service {
     position: ReactNode;

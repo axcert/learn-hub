@@ -4,7 +4,15 @@ import { PageProps, Service, User } from '@/types';
 import React from 'react';
 
 interface Props extends PageProps {
-    teachers: User[];
+    teachers: {
+        id: number;
+        user: {
+            id: number;
+            name: string;
+        };
+        position: string;
+        bio: string;
+    }[];
     services: Service[];
 }
 
@@ -46,16 +54,6 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                             <p className="text-center col-span-full text-gray-500">No teachers found.</p>
                         )}
                     </div>
-                    {/* {Array.isArray(services) && services.length > 3 && (
-                        <div className="flex justify-center mt-4">
-                            <Link
-                                href={route('services.index')}
-                                className="text-blue-500 hover:text-blue-700 dark:text-blue-500 flex-end"
-                            >
-                                View More
-                            </Link>
-                        </div>
-                    )} */}
                 </div>
             </div>
         </StudentLayout>
