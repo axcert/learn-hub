@@ -23,10 +23,9 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Teachers</h2>}
         >
             <Head title="Teachers" />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-10">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
                 <div className="lg:col-span-3">
-                    <div className="mt-4 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {Array.isArray(teachers) && teachers.length > 0 ? (
                             teachers.slice(0, 3).map((teacher) => (
                                 <Link
