@@ -15,6 +15,8 @@ export interface User {
     email_verified_at: string;
 }
 export interface Teacher {
+    services: any;
+    user: any;
     phone: ReactNode;
     id: number;
     name: string;
