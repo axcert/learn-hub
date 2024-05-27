@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
 import { Service, User } from '@/types';
-import Authenticated from '@/Layouts/AuthenticatedLayout';
 import StudentLayout from '@/Layouts/StudentLayout';
 
 interface Props {
@@ -30,8 +29,10 @@ export default function ServiceShow({ service }: Props) {
           <p className="text-gray-700 mb-2">{service.description}</p>
           <p className="text-gray-700 mb-2">Hourly Rate: Rs:{service.hourly_rate}/hr</p>
 
-          {service.teacher && (
-            <p className="text-gray-700 mb-2">Teacher: {service.teacher.name}</p> 
+          {service.teacher ? (
+            <p className="text-gray-700 mb-2">Teacher: {service.teacher.name}</p>
+          ) : (
+            <p className="text-gray-700 mb-2">Teacher information not available</p>
           )}
 
           <div className="flex justify-center items-center mt-6">
