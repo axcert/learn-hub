@@ -30,13 +30,11 @@ export default function Service({ auth }: PageProps) {
                 {/* Card */}
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                     <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                        <Card title={"Total Services"}>
-                            1253
-                        </Card>
+                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"Total Services"}>1253</Card>
 
-                        <Card title={"Online"}>104,3</Card>
+                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"Online"}>104,3</Card>
 
-                        <Card title={"??"}>210</Card>
+                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"??"}>210</Card>
                     </div>
                 </div>
 

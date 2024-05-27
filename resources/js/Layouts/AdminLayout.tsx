@@ -20,7 +20,7 @@ export default function AdminLayout({
         <section>
             <div className="grid grid-cols-6">
                 {/* lms */}
-                <div className=" bg-blue-950 row-span-3 h-screen text-white">
+                <div className=" bg-blue-950 row-span-3 h-full text-white">
                     <div className="flex gap-3 justify-center items-center p-4">
                         <div>
                             <img
