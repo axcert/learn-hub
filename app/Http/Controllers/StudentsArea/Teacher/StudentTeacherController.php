@@ -53,9 +53,9 @@ class StudentTeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = Teacher::with('user', 'services')->findOrFail($id);
-    return Inertia::render('StudentArea/Teacher/Show/Index', [
-        'teacher' => $teacher,
+        // $teacher = Teacher::with('user', 'services')->findOrFail($id);
+        return Inertia::render('StudentArea/Teacher/Show/Index', [
+        'teacher' => $this->teacherInterface,
     ]);
     }
 
