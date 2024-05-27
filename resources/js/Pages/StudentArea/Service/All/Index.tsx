@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/react';
-import Authenticated from '@/Layouts/AuthenticatedLayout';
+import StudentLayout from '@/Layouts/StudentLayout';
 import { Service, User, Filters } from '@/types';
 
 interface Props {
   services: Service[];
-  teachers: User[];
   teachersCount: number;
   filters: Filters;
 }
@@ -27,7 +26,7 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
   };
 
   return (
-    <Authenticated user={auth.user}>
+    <StudentLayout user={auth.user}>
       <div className="bg-gray-100 py-15 sm:py-10">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
@@ -96,13 +95,18 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
               <p className="text-center col-span-full text-gray-500">No services found.</p>
             )}
           </div>
-          <div className="mt-10 text-center">
-            <Link href={route('services.create')} className="btn btn-primary">
-              Create Service
-            </Link>
-          </div>
+          {Array.isArray(services) && services.length > 3 && (
+            <div className="flex justify-center mt-4">
+              <Link
+                href={route('services.index')}
+                className="text-blue-500 hover:text-blue-700"
+              >
+                View More
+              </Link>
+            </div>
+          )}
         </div>
       </div>
-    </Authenticated>
+    </StudentLayout>
   );
 }

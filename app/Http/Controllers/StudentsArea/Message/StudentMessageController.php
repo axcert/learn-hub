@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Message;
+namespace App\Http\Controllers\StudentsArea\Message;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
 use app\Http\Controllers\Controller;
 
-class MessageController extends Controller
+class StudentMessageController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,19 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\AdminsArea\AdminProfileManage;
+
+namespace App\Http\Controllers\StudentsArea\Teacher;
+
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Services\ServiceInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
+use App\Models\Teacher;
 use Inertia\Inertia;
 
-class AdminProfileManageController extends Controller
+
+class StudentTeacherController extends Controller
+
 {
+    public function __construct(protected TeacherInterface $teacherInterface, 
+    protected ServiceInterface $serviceInterface){}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/ProfileManage/Edit');
+
+        $teachers = $this->teacherInterface->all(['*'], ['user']);
+        $services = $this->serviceInterface->all();
+
+        return Inertia::render('StudentArea/Teacher/All/Index', [
+            'teachers' => $teachers,
+            'services' => $services
+        ]);
     }
 
     /**
@@ -35,9 +51,12 @@ class AdminProfileManageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $teacher = Teacher::with('user', 'services')->findOrFail($id);
+    return Inertia::render('StudentArea/Teacher/Show/Index', [
+        'teacher' => $teacher,
+    ]);
     }
 
     /**

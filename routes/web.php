@@ -10,10 +10,13 @@ use App\Http\Controllers\AdminsArea\AdminProfileManage\AdminProfileManageControl
 use App\Http\Controllers\AdminsArea\AdminService\AdminServiceController;
 use App\Http\Controllers\AdminsArea\AdminStudent\AdminStudentController;
 use App\Http\Controllers\AdminsArea\AdminTeacher\AdminTeacherController;
-use App\Http\Controllers\Message\MessageController;
-use App\Http\Controllers\Temp\TempController;
-use App\Http\Controllers\Booking\BookingController;
 use App\Http\Middleware\AdminValidationMiddleware;
+use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
+use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
+use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
+use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
+use App\Http\Controllers\StudentsArea\Teacher\StudentTeacherController;
+use App\Http\Middleware\StudentValidationMiddleware;
 use Inertia\Inertia;
 
 
@@ -27,7 +30,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('AdminsArea/Home/Home');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth','verified'])->group(function(){
@@ -38,7 +41,6 @@ Route::middleware(['auth','verified'])->group(function(){
         Route::resource('admins', AdminAdminController::class);
         Route::resource('services', AdminServiceController::class);
         Route::resource('profileManage', AdminProfileManageController::class);
-        Route::resource('temp', TempController::class);
     });
 });
 
@@ -49,10 +51,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
-    Route::resource('messages', MessageController::class);
-    Route::resource('bookings', BookingController::class);
-});
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+
+//     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
+//         Route::resource('students', StudentStudentController::class);
+//         Route::resource('services', StudentServiceController::class);
+//         Route::resource('teachers', StudentTeacherController::class);
+//         Route::resource('messages', StudentMessageController::class);
+//         Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('bookings.create');
+//         Route::resource('bookings', StudentBookingController::class)->except(['create']);
+       
+//     });
+// });
 
 require __DIR__ . '/auth.php';

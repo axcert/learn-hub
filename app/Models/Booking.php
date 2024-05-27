@@ -18,15 +18,23 @@ class Booking extends Model
         'status',
         'timestamp',
         'description',
+        'date',
         'rating',
         'comment',
     ];
 
+    protected $dates = ['timestamp', 'date'];
+    
     public function service(){
         return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function student()
+    {
+        return $this->user();
     }
 }
