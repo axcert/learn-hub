@@ -68,4 +68,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     teacherCount: number;
     ziggy: Config & { location: string };
     teachers: Data[];
+    students: Data[];
 };
