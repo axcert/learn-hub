@@ -6,63 +6,25 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 
-interface Data {
-    name: string;
-    email: string;
+export interface Data {
+    user: User;
     phoneNumber: string;
     bio: string;
     position: string;
 }
+export interface User {
+    name: string;
+    email: string;
+}
 
-const data: Data[] = [
-    {
-        name: "Imesh",
-        email: "imesh.hirushan@axcertro.com",
-        phoneNumber: "0779201232",
-        bio: "Experienced Full-Stack Engineer",
-        position: "Software Engineer",
-    },
-    {
-        name: "Hirushan",
-        email: "hirushan@axcertro.com",
-        phoneNumber: "0779201232",
-        bio: "ict",
-        position: "Software Engineer",
-    },
-    {
-        name: "isuru",
-        email: "isuru.com",
-        phoneNumber: "0779201232",
-        bio: "ict",
-        position: "Software Engineer",
-    },
+export interface PaginatedTableProps {
+    data: Data[];
+}
+const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
 
-    {
-        name: "kavidu",
-        email: "kavidu.com",
-        phoneNumber: "0779201232",
-        bio: "ict",
-        position: "Software Engineer",
-    },
-    {
-        name: "taridu",
-        email: "taridu.com",
-        phoneNumber: "0779201232",
-        bio: "ict",
-        position: "Software Engineer",
-    },
-    {
-        name: "isuri",
-        email: "isuri.com",
-        phoneNumber: "0779201232",
-        bio: "ict",
-        position: "Software Engineer",
-    },
-];
-
-const PaginatedTable: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
+
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = data.slice(
@@ -73,6 +35,7 @@ const PaginatedTable: React.FC = () => {
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
+
 
     return (
         <div className="py-2">
@@ -104,43 +67,54 @@ const PaginatedTable: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentData.map((entry, index) => (
-                                        <tr
-                                            key={index}
-                                            className="bg-white border-b hover:bg-gray-50"
-                                        >
-                                            <th
-                                                scope="row"
-                                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                    {currentData.length > 0 ? (
+                                        currentData.map((entry, index) => (
+                                            <tr
+                                                key={index}
+                                                className="bg-white border-b hover:bg-gray-50"
                                             >
-                                                {entry.name}
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                {entry.email}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {entry.phoneNumber}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {entry.bio}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {entry.position}
-                                            </td>
-                                            <td className="flex items-center px-6 py-4">
-                                                <button
-                                                    onClick={() =>
-                                                        alert(
-                                                            "View button clicked"
-                                                        )
-                                                    }
-                                                    className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
+                                                <th
+                                                    scope="row"
+                                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    <LuView />
-                                                </button>
+                                                    {entry.user.name}
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                    {entry.user.email}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {entry.phoneNumber}
+                                                </td>
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.bio}
+                                                </td>
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.position}
+                                                </td>
+                                                <td className="flex items-center px-6 py-4">
+                                                    <button
+                                                        onClick={() =>
+                                                            alert(
+                                                                "View button clicked"
+                                                            )
+                                                        }
+                                                        className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
+                                                    >
+                                                        <LuView />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colSpan={6}
+                                                className="px-6 py-4 text-center text-gray-500"
+                                            >
+                                                No data available
                                             </td>
                                         </tr>
-                                    ))}
+                                    )}
                                 </tbody>
                             </table>
                             <div className="flex justify-end p-5">
@@ -185,13 +159,14 @@ const PaginatedTable: React.FC = () => {
     );
 };
 
-export default function Teacher({ auth , teacherCount}: PageProps) {
+export default function Teacher({ auth , teacherCount , teachers }: PageProps) {
 
 const search = () =>{
     console.log("search Teacher");
     
 }
 
+console.log(teachers);
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -216,7 +191,7 @@ const search = () =>{
                         </div>
 
                         {/* table */}
-                        <PaginatedTable />
+                        <PaginatedTable data={teachers} />
                     </div>
                 </div>
             </AdminLayout>

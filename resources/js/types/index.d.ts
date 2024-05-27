@@ -1,3 +1,4 @@
+import { Data } from '@/Pages/AdminsArea/Teacher/Teacher';
 import { ReactNode } from 'react';
 import { Config } from 'ziggy-js';
 export interface User {
@@ -66,4 +67,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     studentCount: number;
     teacherCount: number;
     ziggy: Config & { location: string };
+    teachers: Data[];
 };
