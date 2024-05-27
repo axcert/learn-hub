@@ -20,11 +20,9 @@ class AdminTeacherController extends Controller
      */
     public function index()
     {
-        $teachers = $this->teacherInterface->all()->load('user');
-
         return Inertia::render('AdminsArea/Teacher/Teacher', [
             'teacherCount' => $this->teacherInterface->all()->count(),
-            'teachers' => $teachers,
+            'teachers' => $this->teacherInterface->all()->load('user'),
         ]);
     }
 

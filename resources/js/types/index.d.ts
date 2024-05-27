@@ -61,12 +61,11 @@ export interface Teacher {
 
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User;
-    };
+    auth: {user: User};
     studentCount: number;
     teacherCount: number;
     ziggy: Config & { location: string };
     teachers: Data[];
     students: Data[];
+    services: Data[];
 };

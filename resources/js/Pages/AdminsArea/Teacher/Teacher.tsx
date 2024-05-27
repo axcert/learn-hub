@@ -36,6 +36,10 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
         setCurrentPage(page);
     };
 
+    const view = () =>{
+        console.log("view");
+        
+    }
 
     return (
         <div className="py-2">
@@ -93,11 +97,7 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                 </td>
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
-                                                        onClick={() =>
-                                                            alert(
-                                                                "View button clicked"
-                                                            )
-                                                        }
+                                                        onClick={view}
                                                         className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
                                                     >
                                                         <LuView />

@@ -22,8 +22,6 @@ class User extends Authenticatable
         'password',
         'phone',
         'role',
-        
-        
     ];
 
     /**
@@ -49,19 +47,23 @@ class User extends Authenticatable
         ];
     }
 
-    public function admin(){
+    public function admin()
+    {
         return $this->hasOne(Admin::class);
     }
 
-    public function teacher(){
+    public function teacher()
+    {
         return $this->hasMany(Teacher::class);
     }
 
-    public function student(){
+    public function student()
+    {
         return $this->hasMany(Student::class);
     }
 
-    public function sentMessage(){
+    public function sentMessage()
+    {
         return $this->hasMany(Message::class, 'senderId');
     }
 
@@ -74,7 +76,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class);
     }
-    
-
-    
 }

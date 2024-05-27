@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminsArea\AdminOverview;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class AdminOverViewController extends Controller
 
     public function __construct(
         protected StudentInterface $studentInterface,
-        protected TeacherInterface $teacherInterface
+        protected TeacherInterface $teacherInterface,
+        protected ServiceInterface $serviceInterface,
     ) {
     }
 
@@ -25,7 +27,7 @@ class AdminOverViewController extends Controller
         return Inertia::render('AdminsArea/Overview/Overview', [
             'studentCount' => $this->studentInterface->all()->count(),
             'teacherCount' => $this->teacherInterface->all()->count(),
-
+            'services' => $this->serviceInterface->all()->load('user'),
         ]);
     }
 

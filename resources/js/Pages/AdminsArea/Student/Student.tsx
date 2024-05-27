@@ -17,7 +17,7 @@ export interface User {
 }
 
 export interface PaginatedTableProps {
-    data: Data[];
+data: Data[];
 }
 const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
 
@@ -34,6 +34,12 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
+
+    const view = () =>{
+        console.log("view");
+        
+    }
+
     return (
         <div className="py-2">
             <div>
@@ -80,11 +86,7 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
-                                                        onClick={() =>
-                                                            alert(
-                                                                "View button clicked"
-                                                            )
-                                                        }
+                                                        onClick={view}
                                                         className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
                                                     >
                                                         <LuView />

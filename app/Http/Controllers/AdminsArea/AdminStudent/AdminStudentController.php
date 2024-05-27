@@ -20,10 +20,9 @@ class AdminStudentController extends Controller
      */
     public function index()
     {
-        $students = $this->studentInterface->all()->load('user');
         return Inertia::render('AdminsArea/Student/Student',[
             'studentCount' => $this->studentInterface->all()->count(),
-            'students' => $students,
+            'students' => $this->studentInterface->all()->load('user'),
         ]);
     }
 
