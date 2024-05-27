@@ -56,6 +56,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->paginate($number);
     }
+    
 
     /**
      * Get all trashed models.

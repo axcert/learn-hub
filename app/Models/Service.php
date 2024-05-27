@@ -9,7 +9,7 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $table = 'Services';
+    protected $table = 'services';
 
     protected $fillable = [
         'service_id',
@@ -30,6 +30,7 @@ class Service extends Model
     public function teacher(){
         return $this->belongsTo(User::class, 'teacher_id');
     }
+    
 
     public function bookings()
     {
