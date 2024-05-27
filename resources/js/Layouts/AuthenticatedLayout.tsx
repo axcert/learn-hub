@@ -5,7 +5,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import Logo from '../../../public/asset/Group 1000004217.png'
+import Logo from '../../../public/asset/Logo.png'
 
 export default function Authenticated({
     user,
@@ -24,7 +24,7 @@ export default function Authenticated({
                         <div className="shrink-0 flex items-center">
                             <Link href="/" className="flex items-center">
                                 <img className="h-9 w-auto fill-current text-gray-800" src={Logo} alt="Logo" />
-                                <p className="ml-2 text-black text-lg">LMS</p>
+                                <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
                             </div>
 
@@ -33,11 +33,7 @@ export default function Authenticated({
                                     Dashboard
                                 </NavLink>
                             </div> */}
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
-                                <NavLink href={route('services.index')} active={route().current('services.index')}>
-                                    Services
-                                </NavLink>
-                            </div>
+                            
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('students.index')} active={route().current('students.index')}>
                                     Student Dashboard
@@ -73,24 +69,8 @@ export default function Authenticated({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-
-                                        <Dropdown.Link
-    
-                                            href={route("dashboard")}
-                                        >
-                                            Dashboard
-                                        </Dropdown.Link>
-
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
+                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -148,16 +128,11 @@ export default function Authenticated({
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
-                        {/* <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink> */}
-
-                        <ResponsiveNavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
-                        >
+                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+
+                        
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">

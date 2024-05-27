@@ -1,23 +1,17 @@
 <?php
 
-use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Overview\OverviewController;
+
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Service\ServiceController;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Teacher\TeacherController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
+use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
+use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
+use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
+use App\Http\Controllers\StudentsArea\Teacher\StudentTeacherController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Message\MessageController;
-use App\Http\Controllers\ProfileManage\ProfileManageController;
-use App\Http\Controllers\Temp\TempController;
-use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Middleware\StudentValidationMiddleware;
-use App\Http\Controllers\Booking\BookingController;
 use Inertia\Inertia;
-use phpDocumentor\Reflection\Types\Resource_;
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,72 +22,39 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-
 Route::get('/dashboard', function () {
-    return Inertia::render('AdminsArea/Home/Home');
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->name('admins.')->controller(AdminController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::post('/store', 'store')->name('store');
-    Route::patch('/{id}/update', 'update')->name('update');
-    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
-});
-
-Route::prefix('students')->middleware(StudentValidationMiddleware::class)->name('students.')->controller(StudentController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::post('/store', 'store')->name('store');
-    Route::patch('/{id}/update', 'update')->name('update');
-    Route::delete('/{id}/destroy', 'destroy')->name('destroy');
-});
-
-
 Route::middleware('auth')->group(function () {
-
-    Route::resource('home', HomeController::class);
-    Route::resource('teacher', TeacherController::class);
-    // Route::resource('student', StudentController::class);
-    Route::resource('overview', OverviewController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('service', ServiceController::class);
-    Route::resource('profileManage', ProfileManageController::class);
-    Route::resource('temp', TempController::class);
-
-
-
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::middleware(['auth', 'verified'])->group(function(){
-//     Route::resource('Students', StudentController::class);
-// });
-
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::resource('students', StudentController::class);
-    Route::resource('teachers', TeacherController::class);
-    Route::resource('services', ServiceController::class);
-    Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
-    Route::resource('messages', MessageController::class);
-    Route::resource('bookings', BookingController::class);
 
-
+    Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
+        Route::resource('students', StudentStudentController::class);
+        Route::resource('services', StudentServiceController::class);
+        Route::resource('teachers', StudentTeacherController::class);
+        Route::resource('messages', StudentMessageController::class);
+        Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('bookings.create');
+        Route::resource('bookings', StudentBookingController::class)->except(['create']);
+       
+    });
 });
+
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::resource('teachers', TeacherController::class);
+//     //Route::resource('services', StudentServiceController::class);
+//     //Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
+//     Route::resource('messages', MessageController::class);
+//     Route::resource('bookings', BookingController::class);
+
+// });
 
 require __DIR__ . '/auth.php';

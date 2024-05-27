@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\StudentsArea\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
@@ -10,7 +10,7 @@ use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-class StudentController extends Controller
+class StudentStudentController extends Controller
 {
     public function __construct(protected StudentInterface $studentInterface, 
     protected ServiceInterface $serviceInterface,
@@ -20,8 +20,8 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(){
-    
+    public function index()
+    {   
         $user_id = auth()->id();
     
         $students = $this->studentInterface->all();
@@ -33,16 +33,6 @@ class StudentController extends Controller
             'services' => $services,
             'bookings' => $bookings,
         ]);
-    
-    // {   $user_id = auth()->id();
-    //     return Inertia::render('StudentArea/Student/All/Index', [
-    //         'students' => $this->studentInterface->all(),
-    //         'services' => $this->serviceInterface->all(['*'], ['teacher']),
-    //         'bookings' => $this->bookingInterface->findByUserId($user_id, ['service.teacher']),
-    //     ]);
-        // return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
-        //                         'services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
-        
         // return Inertia::render('StudentArea/Teacher/All/Index',['teachers'=> $this->teacherInterface->all()] );
         
         // return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
