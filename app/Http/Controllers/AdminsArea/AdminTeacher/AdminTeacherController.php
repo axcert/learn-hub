@@ -3,17 +3,26 @@
 namespace App\Http\Controllers\AdminsArea\AdminTeacher;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AdminTeacherController extends Controller
 {
+
+    public function __construct(
+        protected TeacherInterface $teacherInterface
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/Teacher/Teacher');
+        return Inertia::render('AdminsArea/Teacher/Teacher',[
+            'teacherCount'=>$this->teacherInterface->all()->count(),
+        ]);
     }
 
     /**

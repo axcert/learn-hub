@@ -185,7 +185,7 @@ const PaginatedTable: React.FC = () => {
     );
 };
 
-export default function Teacher({ auth }: PageProps) {
+export default function Teacher({ auth , teacherCount}: PageProps) {
 
 const search = () =>{
     console.log("search Teacher");
@@ -201,7 +201,7 @@ const search = () =>{
                         {/* Card */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Teachers"}>123</Card>
+                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Teachers"}>{teacherCount}</Card>
                             </div>
                         </div>
 
