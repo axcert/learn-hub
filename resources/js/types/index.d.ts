@@ -26,6 +26,7 @@ export interface Teacher {
   }
 
   export type Booking = {
+    student: any;
     date: any;
     service: any;
     user_id: number;
@@ -37,6 +38,8 @@ export interface Teacher {
   };
   
   export interface Service {
+    student: any;
+    bookings: any;
     position: ReactNode;
     bio: ReactNode;
     service: any;
