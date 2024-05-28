@@ -9,8 +9,6 @@ import Dropdown from "@/Components/Dropdown/Dropdown";
 import Button from "@/Components/Button/Button";
 import Dialog from "@/Components/MyDialog/MyDialog";
 import MyDialog from "@/Components/MyDialog/MyDialog";
-import AllUsersTable from "./AllUsersTable";
-import { log } from "console";
 
 export interface Data {
     user: User;
@@ -20,14 +18,12 @@ export interface User {
     name: string;
     email: string;
     id: any;
-    role: string;
 }
 
 export interface PaginatedTableProps {
     data: Data[];
-    // children: React.ReactNode;
 }
-const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
@@ -49,7 +45,6 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         <div className="py-2">
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    {/* <div className="p-2">{children ? children : null}</div> */}
                     <div className="p-6 text-gray-900">
                         <div className="relative overflow-auto shadow-md rounded-lg">
                             <table className="w-full text-sm text-left text-gray-500">
@@ -84,7 +79,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             scope="col"
                                             className="px-6 py-3 capitalize"
                                         >
-                                            Status
+                                            Choose User Type
                                         </th>
                                     </tr>
                                 </thead>
@@ -111,8 +106,24 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 <td className="px-6 py-4">
                                                     {entry.user.email}
                                                 </td>
-                                                <td className="flex items-center px-6 py-4 text-green-600 font-bold">
-                                                    {entry.user.role}
+                                                <td className="flex items-center px-6 py-4">
+                                                    <Dropdown
+                                                        menuItems={[
+                                                            {
+                                                                label: "User",
+                                                                href: "#",
+                                                            },
+                                                            {
+                                                                label: "Admin",
+                                                                href: "#",
+                                                            },
+
+                                                            {
+                                                                label: "Remove",
+                                                                onClick: remove,
+                                                            },
+                                                        ]}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))
@@ -170,66 +181,4 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     );
 };
 
-export default function Admin({ auth, adminCount, admins }: PageProps) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const search = () => {
-        console.log("search Admin");
-    };
-
-    const all = () => {
-        setIsOpen(true);
-    };
-    console.log(admins);
-    return (
-        <>
-            <AdminLayout user={auth.user}>
-                <Head title="Admin" />
-                <div className="py-2">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
-                        {/* Card */}
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                            <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card
-                                    className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                    title={"Admins"}
-                                >
-                                    {adminCount}
-                                </Card>
-                            </div>
-                        </div>
-
-                        {/* search */}
-
-                        {/* button */}
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="py-3 text-gray-900 text-right">
-                                <Button
-                                    name={"View All"}
-                                    className="px-10 py-2"
-                                    onClick={all}
-                                />
-
-                                <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
-                                    {/* search */}
-                                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                                        <div className="p-3 text-gray-900">
-                                            <SearchBar
-                                                title={"Users"}
-                                                onClick={search}
-                                            />
-                                        </div>
-                                    </div>
-                                    <AllUsersTable data={""} />
-                                </MyDialog>
-                            </div>
-                        </div>
-
-                        {/* table */}
-                        <PaginatedTable data={admins} />
-                    </div>
-                </div>
-            </AdminLayout>
-        </>
-    );
-}
+export default AllUsersTable

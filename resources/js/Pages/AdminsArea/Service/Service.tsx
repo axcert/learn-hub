@@ -4,6 +4,164 @@ import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
+import { useState } from "react";
+
+
+export interface Data {
+    user: User;
+    teacher: Teacher;
+    id: number;
+    name: string;
+    description: string;
+    experience: string;
+    hourly_rate: number;
+    status: string;
+    teacher_id: number;
+}
+export interface User {
+    name: string;
+}
+
+export interface PaginatedTableProps {
+    data: Data[];
+}
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage: number = 5;
+
+    const totalPages: number = Math.ceil(data.length / itemsPerPage);
+    const currentData = data.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handleClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+
+    const accept = () =>{
+       alert("Accept Success!")
+    }
+
+    const decline = () =>{
+        console.log("decline");
+    }
+
+
+    return (
+        <div className="py-2">
+            <div>
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="p-6 text-gray-900">
+                        <div className="relative overflow-auto shadow-md rounded-lg">
+                            <table className="w-full text-sm text-left text-gray-500">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Service ID
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Subject Name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Offered By
+                                        </th>
+
+                                        <th scope="col" className="px-6 py-3">
+                                        Approved by
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Hourly Rate
+                                        </th>
+
+                                        <th scope="col" className="px-6 py-3">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentData.length > 0 ? (
+                                        currentData.map((entry, index) => (
+                                            <tr
+                                                key={index}
+                                                className="bg-white border-b hover:bg-gray-50"
+                                            >
+                                                <th
+                                                    scope="row"
+                                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
+                                                >
+                                                   {entry.id}
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                {entry.name}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                {entry.teacher.name}
+                                                </td>  
+                                                <td className="px-6 py-4">
+                                                    {entry.hourly_rate}
+                                                </td>
+
+                                                <td className="px-6 py-4 flex gap-4 text-green-600">
+                                                   ongoin
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colSpan={6}
+                                                className="px-6 py-4 text-center text-gray-500"
+                                            >
+                                                No data available
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            <div className="flex justify-end p-5">
+                                <button
+                                    onClick={() => handleClick(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50"
+                                >
+                                    Previous
+                                </button>
+                                {Array.from(
+                                    { length: totalPages },
+                                    (_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() =>
+                                                handleClick(index + 1)
+                                            }
+                                            className={`px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 ${
+                                                currentPage === index + 1
+                                                    ? "bg-gray-200"
+                                                    : ""
+                                            }`}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    )
+                                )}
+                                <button
+                                    onClick={() => handleClick(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                    className="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 disabled:opacity-50"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 
 export default function Service({ auth }: PageProps) {
@@ -11,16 +169,6 @@ export default function Service({ auth }: PageProps) {
     const search = () => {
         console.log("Services Search");
     };
-
-
-    const online = () =>{
-        console.log("Online");
-    }
-
-    const decline = () =>{
-        console.log("decline");
-    }
-
 
     return (
         <AdminLayout user={auth.user}>
@@ -46,81 +194,7 @@ export default function Service({ auth }: PageProps) {
                 </div>
 
                 {/* table */}
-                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div className="p-6 text-gray-900">
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        >
-                                            Service ID
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        >
-                                            Name
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        >
-                                            Offered by
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        >
-                                            Hourly rate
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        >
-                                            State
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 ">
-                                        <th
-                                            scope="row"
-                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                                        >
-                                            55478
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            java Basic
-                                        </td>
-                                        <td className="px-6 py-4">t7784</td>
-                                        <td className="px-6 py-4">
-                                            Rs.500
-                                        </td>
-                                        <td className="px-6 py-4 flex gap-4">
-                                            <button
-                                                className="font-sm text-white bg-blue-600 py-1 px-3 rounded-md hover:bg-blue-800"
-                                                onClick={online}
-                                            >
-                                                Online
-                                            </button>
-
-                                            <button
-                                                className="font-sm text-white bg-indigo-900 py-1 px-3 rounded-md hover:bg-indigo-950"
-                                                onClick={decline}
-                                            >
-                                                Decline
-                                            </button>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <PaginatedTable data={''} />
             </div>
         </div>
     </AdminLayout>
