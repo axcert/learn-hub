@@ -15,6 +15,8 @@ use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Students\StudentRepository;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Services\ServiceRepository;
+use App\Repositories\All\Users\UserInterface;
+use App\Repositories\All\Users\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app->bind(BookingInterface::class, BookingRepository::class);
             $this->app->bind(MessageInterface::class, MessageRepository::class);
             $this->app->bind(AdminInterface::class, AdminRepository::class);
+            $this->app->bind(UserInterface::class, UserRepository::class);
+        
         
     }
 

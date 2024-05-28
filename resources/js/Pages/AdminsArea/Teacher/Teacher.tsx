@@ -87,7 +87,8 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                     {entry.user.email}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {entry.phoneNumber}
+                                                    {/* {entry.phoneNumber} */}
+                                                    null
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
                                                     {entry.bio}

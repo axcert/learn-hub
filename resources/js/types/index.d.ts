@@ -70,4 +70,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     students: Data[];
     services: any;
     admins: any;
+    users: any;
+  
 };

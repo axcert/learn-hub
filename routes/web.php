@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminsArea\AdminProfileManage\AdminProfileManageControl
 use App\Http\Controllers\AdminsArea\AdminService\AdminServiceController;
 use App\Http\Controllers\AdminsArea\AdminStudent\AdminStudentController;
 use App\Http\Controllers\AdminsArea\AdminTeacher\AdminTeacherController;
+use App\Http\Controllers\AdminsArea\AdminUser\AdminUserController;
 use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
 use App\Http\Controllers\StudentsArea\Message\StudentMessageController;

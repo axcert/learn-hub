@@ -11,14 +11,14 @@ import Dialog from "@/Components/MyDialog/MyDialog";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 
 export interface Data {
-    user: User;
-    phoneNumber: string;
-}
-export interface User {
-    name: string;
-    email: string;
     id: any;
+    name: string;
+    contact: string;
+    email: string;
+    role: string;
+    
 }
+
 
 export interface PaginatedTableProps {
     data: Data[];
@@ -37,9 +37,9 @@ export interface PaginatedTableProps {
         setCurrentPage(page);
     };
 
-    const remove = () => {
-        console.log("remove");
-    };
+    // const remove = () => {
+    //     console.log("remove");
+    // };
 
     return (
         <div className="py-2">
@@ -94,34 +94,39 @@ export interface PaginatedTableProps {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.id}
+                                                    {entry.id}
                                                 </th>
-                                                <td className="px-6 py-4">
-                                                    {entry.user.name}
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {entry.phoneNumber}
+                                                    null
                                                 </td>
 
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.email}
                                                 </td>
-                                                <td className="flex items-center px-6 py-4">
+                                                <td className="flex items-center px-6 py-4 ">
                                                     <Dropdown
+                                                    title={entry.role}
                                                         menuItems={[
-                                                            {
-                                                                label: "User",
-                                                                href: "#",
-                                                            },
                                                             {
                                                                 label: "Admin",
                                                                 href: "#",
                                                             },
-
                                                             {
-                                                                label: "Remove",
-                                                                onClick: remove,
+                                                                label: "Teacher",
+                                                                href: "#",
                                                             },
+                                                            {
+                                                                label: "Student",
+                                                                href: "#",
+                                                            },
+
+                                                            // {
+                                                            //     label: "Remove",
+                                                            //     onClick: remove,
+                                                            // },
                                                         ]}
                                                     />
                                                 </td>

@@ -8,6 +8,7 @@ use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Repositories\All\Admins\AdminInterface;
+use App\Repositories\All\Users\UserInterface;
 use Inertia\Inertia;
 
 class AdminAdminController extends Controller
@@ -15,6 +16,7 @@ class AdminAdminController extends Controller
 {
     public function __construct(
         protected AdminInterface $adminInterface,
+        protected UserInterface $userInterface,
     ) {
     }
     /**
@@ -26,6 +28,7 @@ class AdminAdminController extends Controller
         return Inertia::render('AdminsArea/Admin/Admin',[
             'adminCount'=>$this->adminInterface->all()->count(),
             'admins' => $this->adminInterface->all()->load('user'),
+            'users' => $this->userInterface->all()->load('user'),
         ]);
      
     }

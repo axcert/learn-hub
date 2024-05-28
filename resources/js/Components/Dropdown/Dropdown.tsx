@@ -7,15 +7,16 @@ function classNames(...classes: string[]) {
 }
 
 interface DropdownProps {
+  title:any;
   menuItems: { label: string; href?: string; onClick?: () => void }[];
 }
 
-export default function Dropdown({ menuItems }: DropdownProps) {
+export default function Dropdown({ menuItems , title}: DropdownProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full px-5 justify-center gap-x-1.5 rounded-lg bg-blue-600  py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-900">
-          User
+        <Menu.Button className="inline-flex w-full capitalize px-5 justify-center gap-x-1.5 rounded-lg bg-blue-600  py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-900">
+          {title}
           <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
         </Menu.Button>
       </div>

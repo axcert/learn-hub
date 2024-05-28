@@ -1,16 +1,15 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { LuView } from "react-icons/lu";
+import { MdDelete } from "react-icons/md";
 import { useState } from "react";
+import { FaUserEdit } from "react-icons/fa";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
-import Dropdown from "@/Components/Dropdown/Dropdown";
 import Button from "@/Components/Button/Button";
-import Dialog from "@/Components/MyDialog/MyDialog";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import AllUsersTable from "./AllUsersTable";
-import { log } from "console";
+
 
 export interface Data {
     user: User;
@@ -45,6 +44,10 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         console.log("remove");
     };
 
+    const update = () =>{
+        console.log("update");
+    }
+
     return (
         <div className="py-2">
             <div>
@@ -59,7 +62,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             scope="col"
                                             className="px-6 py-3 capitalize"
                                         >
-                                            User ID
+                                            Admin ID
                                         </th>
                                         <th
                                             scope="col"
@@ -84,7 +87,13 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             scope="col"
                                             className="px-6 py-3 capitalize"
                                         >
-                                            Status
+                                            Role
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Action
                                         </th>
                                     </tr>
                                 </thead>
@@ -105,14 +114,33 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     {entry.user.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {entry.phoneNumber}
+                                                    {/* {entry.phoneNumber} */}
+                                                    null
                                                 </td>
 
                                                 <td className="px-6 py-4">
                                                     {entry.user.email}
                                                 </td>
-                                                <td className="flex items-center px-6 py-4 text-green-600 font-bold">
+                                                <td className="px-6 py-4 text-green-600 font-bold">
                                                     {entry.user.role}
+                                                </td>
+                                              
+                                                <td className="px-6 py-4 flex">
+                                                    <button
+                                                        onClick={remove}
+                                                        className="font-medium text-red-600 hover:text-red-700 ms-3 text-lg"
+                                                    >
+                                                        <MdDelete />
+                                                    </button>
+
+
+                                                    <button
+                                                        onClick={update}
+                                                        className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
+                                                    >
+                                                        <FaUserEdit />
+                                                    </button>
+
                                                 </td>
                                             </tr>
                                         ))
@@ -170,17 +198,18 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     );
 };
 
-export default function Admin({ auth, adminCount, admins }: PageProps) {
+export default function Admin({ auth, adminCount, admins, users }: PageProps) {
     const [isOpen, setIsOpen] = useState(false);
 
+    console.log("-------------------", users);
     const search = () => {
         console.log("search Admin");
     };
 
     const all = () => {
         setIsOpen(true);
+        // router.get(route('users.index'));
     };
-    console.log(admins);
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -203,9 +232,14 @@ export default function Admin({ auth, adminCount, admins }: PageProps) {
 
                         {/* button */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <div className="py-3 text-gray-900 text-right">
+                            <div className="py-3 text-gray-900 text-right flex items-center justify-between">
+                                <div>
+                                    <p className="text-start font-bold px-3">
+                                        All Users
+                                    </p>
+                                </div>
                                 <Button
-                                    name={"View All"}
+                                    name={"View"}
                                     className="px-10 py-2"
                                     onClick={all}
                                 />
@@ -220,7 +254,7 @@ export default function Admin({ auth, adminCount, admins }: PageProps) {
                                             />
                                         </div>
                                     </div>
-                                    <AllUsersTable data={""} />
+                                    <AllUsersTable data={users} />
                                 </MyDialog>
                             </div>
                         </div>
