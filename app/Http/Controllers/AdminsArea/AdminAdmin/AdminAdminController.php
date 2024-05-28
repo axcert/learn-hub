@@ -1,29 +1,34 @@
 <?php
 
 namespace App\Http\Controllers\AdminsArea\AdminAdmin;
+
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Repositories\All\Admins\AdminInterface;
 use Inertia\Inertia;
 
 class AdminAdminController extends Controller
 
 {
-    public function __construct(protected TeacherInterface $teacherInterface, 
-    protected ServiceInterface $serviceInterface){}
+    public function __construct(
+        protected AdminInterface $adminInterface,
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
 
-        return Inertia::render('AdminsArea/Admin/Admin');
-        // $teachers = $this->teacherInterface->all(['*'], ['user']);
-        // $services = $this->serviceInterface->all();
+        return Inertia::render('AdminsArea/Admin/Admin',[
+            'adminCount'=>$this->adminInterface->all()->count(),
+            'admins' => $this->adminInterface->all()->load('user'),
+        ]);
+     
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -45,10 +50,10 @@ class AdminAdminController extends Controller
      */
     public function show($id)
     {
-        $teacher = Teacher::with('user', 'services')->findOrFail($id);
-    return Inertia::render('StudentArea/Teacher/Show/Index', [
-        'teacher' => $teacher,
-    ]);
+        // $teacher = Teacher::with('user', 'services')->findOrFail($id);
+        // return Inertia::render('StudentArea/Teacher/Show/Index', [
+        //     'teacher' => $teacher,
+        // ]);
     }
 
     /**

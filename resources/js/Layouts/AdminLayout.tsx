@@ -18,9 +18,9 @@ export default function AdminLayout({
         useState(false);
     return (
         <section>
-            <div className="grid grid-cols-6">
+            <div className="grid grid-cols-6 h-screen">
                 {/* lms */}
-                <div className=" bg-blue-950 row-span-3 h-screen fill-current text-white">
+                <div className=" bg-blue-950 row-span-3  text-white">
                     <div className="flex gap-3 justify-center items-center p-4">
                         <div>
                             <img

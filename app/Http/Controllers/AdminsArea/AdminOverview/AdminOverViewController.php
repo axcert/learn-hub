@@ -27,7 +27,7 @@ class AdminOverViewController extends Controller
         return Inertia::render('AdminsArea/Overview/Overview', [
             'studentCount' => $this->studentInterface->all()->count(),
             'teacherCount' => $this->teacherInterface->all()->count(),
-            'services' => $this->serviceInterface->all()->load('user'),
+            'services' => $this->serviceInterface->all(['*'],['teacher'])->load('user'),
         ]);
     }
 

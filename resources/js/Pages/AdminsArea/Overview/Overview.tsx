@@ -1,12 +1,13 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
-import { PageProps} from "@/types";
+import { PageProps, Teacher} from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
 export interface Data {
     user: User;
+    teacher: Teacher;
     id: number;
     name: string;
     description: string;
@@ -59,7 +60,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             Service ID
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Name
+                                            Subject Name
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             Offered By
@@ -91,7 +92,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {entry.user.name}
+                                                {entry.teacher.name}
                                                 </td>  
                                                 <td className="px-6 py-4">
                                                     {entry.hourly_rate}
