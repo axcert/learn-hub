@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Teacher } from '@/types';
+import TeacherLayout from '@/Layouts/TeacherLayout';
 
 interface Props extends PageProps {
     teacher?: Teacher; 
@@ -19,9 +19,9 @@ export default function TeacherShow({ auth, teacher }: Props) {
     }
 
     return (
-        <StudentLayout
+        <TeacherLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">{user.name}</h2>}
+    
         >
             <Head title={user.name} />
 
@@ -81,6 +81,6 @@ export default function TeacherShow({ auth, teacher }: Props) {
                     </Link>
                 </div>
             </div>
-        </StudentLayout>
+        </TeacherLayout>
     );
 }

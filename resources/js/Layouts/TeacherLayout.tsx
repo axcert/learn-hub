@@ -1,67 +1,50 @@
 import { useState, PropsWithChildren, ReactNode } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
-import Logo from '../../../public/asset/Logo.png'
+import Logo from '../../../public/asset/Logo.png';
 
-
-export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+export default function TeacherLayout({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100" >
+            <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            {/* <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div> */}
                             <Link href="/" className="flex items-center">
                                 <img className="h-9 w-auto fill-current text-gray-800" src={Logo} alt="Logo" />
                                 <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('overviews.index')} active={route().current('overviews.index')}>
+                                Overview 
+                                </NavLink>
+                            </div>
 
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href={route('teachers.index')} active={route().current('teachers.index')}>
+                                    Teacher 
+                                </NavLink>
+                            </div>
                             {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
+                                <NavLink href={route('students.index')} active={route().current('students.index')}>
+                                    Students
                                 </NavLink>
                             </div> */}
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('students.index')} active={route().current('students.index')}>
-                                    Student Dashboard
-                                </NavLink>
-                            </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
                                 <NavLink href={route('services.index')} active={route().current('services.index')}>
                                     Services
                                 </NavLink>
-                            </div> */}
+                            </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href='#messages' active={route().current('#messages')}>
+                                <NavLink href={route('messages.index')} active={route().current('messages.index')}>
                                     Messages
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('teachers.index')} active={route().current('teachers.index')}>
-                                Teachers
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('bookings.index')} active={route().current('bookings.index')}>
-                                Sessions
-                                </NavLink>
-                            </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('students.show', user.id)} active={route().current('students.show')}>
-                                    Student 
-                                </NavLink>
-                            </div> */}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
@@ -129,8 +112,17 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        <ResponsiveNavLink href={route('teachers.index')} active={route().current('teachers.index')}>
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('students.index')} active={route().current('students.index')}>
+                            Students
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('services.index')} active={route().current('services.index')}>
+                            Services
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('messages.index')} active={route().current('messages.index')}>
+                            Messages
                         </ResponsiveNavLink>
                     </div>
 
@@ -152,11 +144,11 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 </div>
             </nav>
 
-            {/* {header && (
+            {header && (
                 <header className="bg-white shadow">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                 </header>
-            )} */}
+            )}
 
             <main>{children}</main>
         </div>

@@ -20,11 +20,10 @@ class Teacher extends Model
     ];
 
     public function services(){
-        return $this->hasMany(Service::class ,'service_id',  'teacher_id');
+        return $this->hasMany(Service::class ,  'teacher_id');
     }
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }

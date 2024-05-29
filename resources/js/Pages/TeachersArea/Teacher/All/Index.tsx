@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Service } from '@/types';
 import React from 'react';
+import TeacherLayout from '@/Layouts/TeacherLayout';
 
 interface Teacher {
     id: number;
@@ -20,9 +21,8 @@ interface Props extends PageProps {
 
 export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
     return (
-        <StudentLayout
+        <TeacherLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Teachers</h2>}
         >
             <Head title="Teachers" />
             <div className="container mx-auto px-4">
@@ -59,6 +59,6 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                     </div>
                 </div>
             </div>
-        </StudentLayout>
+        </TeacherLayout>
     );
 }
