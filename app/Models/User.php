@@ -53,15 +53,15 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function teacher(){
+    public function teachers(){
         return $this->hasMany(Teacher::class);
     }
 
-    public function student(){
+    public function students(){
         return $this->hasMany(Student::class);
     }
 
-    public function sentMessage(){
+    public function sentMessages(){
         return $this->hasMany(Message::class, 'senderId');
     }
 
