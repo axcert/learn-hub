@@ -1,10 +1,14 @@
-import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
-import { LuView } from "react-icons/lu";
-import { useState } from 'react';
-import Card from '@/Components/Card/Card';
-import SearchBar from '@/Components/SearchBar/SearchBar';
+import AdminLayout from "@/Layouts/AdminLayout";
+import { Head, router } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { MdDelete } from "react-icons/md";
+import { useState } from "react";
+import { FaUserEdit } from "react-icons/fa";
+import Card from "@/Components/Card/Card";
+import SearchBar from "@/Components/SearchBar/SearchBar";
+import Button from "@/Components/Button/Button";
+import MyDialog from "@/Components/MyDialog/MyDialog";
+import AllUsersTable from "./AllUsersTable";
 
 
 export interface Data {
@@ -14,16 +18,17 @@ export interface Data {
 export interface User {
     name: string;
     email: string;
+    id: any;
+    role: string;
 }
 
 export interface PaginatedTableProps {
-data: Data[];
+    data: Data[];
+    // children: React.ReactNode;
 }
-const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
-
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
-
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = data.slice(
@@ -35,32 +40,60 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
         setCurrentPage(page);
     };
 
-    const view = () =>{
-        console.log("view");
-        
+    const remove = () => {
+        console.log("remove");
+    };
+
+    const update = () =>{
+        console.log("update");
     }
 
     return (
         <div className="py-2">
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    {/* <div className="p-2">{children ? children : null}</div> */}
                     <div className="p-6 text-gray-900">
                         <div className="relative overflow-auto shadow-md rounded-lg">
                             <table className="w-full text-sm text-left text-gray-500">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Admin ID
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
                                             Name
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Email
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
                                             Phone Number
                                         </th>
-                                       
-                                        <th scope="col" className="px-6 py-3">
-                                            Status
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Email
+                                        </th>
+
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Role
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Action
                                         </th>
                                     </tr>
                                 </thead>
@@ -75,23 +108,39 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.name}
+                                                    {entry.user.id}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.user.name}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {/* {entry.phoneNumber} */}
                                                     null
                                                 </td>
-                                               
-                                                <td className="flex items-center px-6 py-4">
+
+                                                <td className="px-6 py-4">
+                                                    {entry.user.email}
+                                                </td>
+                                                <td className="px-6 py-4 text-green-600 font-bold">
+                                                    {entry.user.role}
+                                                </td>
+                                              
+                                                <td className="px-6 py-4 flex">
                                                     <button
-                                                        onClick={view}
-                                                        className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
+                                                        onClick={remove}
+                                                        className="font-medium text-red-600 hover:text-red-700 ms-3 text-lg"
                                                     >
-                                                        <LuView />
+                                                        <MdDelete />
                                                     </button>
+
+
+                                                    <button
+                                                        onClick={update}
+                                                        className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
+                                                    >
+                                                        <FaUserEdit />
+                                                    </button>
+
                                                 </td>
                                             </tr>
                                         ))
@@ -149,44 +198,69 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
     );
 };
 
+export default function Admin({ auth, adminCount, admins, users }: PageProps) {
+    const [isOpen, setIsOpen] = useState(false);
 
+    console.log("-------------------", users);
+    const search = () => {
+        console.log("search Admin");
+    };
 
-export default function Student({auth ,studentCount,students}: PageProps) {
-
-    const search = () =>{
-        console.log("search Student");
-        
-    }
-
-    console.log(studentCount);
-    console.log(students);
-    
-    
+    const all = () => {
+        setIsOpen(true);
+        // router.get(route('users.index'));
+    };
     return (
         <>
             <AdminLayout user={auth.user}>
-                <Head title="Students" />
+                <Head title="Admin" />
                 <div className="py-2">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
                         {/* Card */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Students"}>{studentCount}</Card>
+                                <Card
+                                    className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                    title={"Admins"}
+                                >
+                                    {adminCount}
+                                </Card>
                             </div>
                         </div>
 
                         {/* search */}
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                            <div className="p-3 text-gray-900">
-                                <SearchBar
-                                    title={"Students"}
-                                    onClick={search}
+
+                        {/* button */}
+                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div className="py-3 text-gray-900 text-right flex items-center justify-between">
+                                <div>
+                                    <p className="text-start font-bold px-3">
+                                        All Users
+                                    </p>
+                                </div>
+                                <Button
+                                    name={"View"}
+                                    className="px-10 py-2"
+                                    onClick={all}
                                 />
+
+                                <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+                                    {/* search */}
+                                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+                                        <div className="p-3 text-gray-900">
+                                            <SearchBar
+                                                title={"Users"}
+                                                onClick={search}
+                                            />
+                                        </div>
+                                    </div>
+                                    <AllUsersTable data={users} />
+                                </MyDialog>
                             </div>
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={students} />
+                        <PaginatedTable data={admins} />
                     </div>
                 </div>
             </AdminLayout>

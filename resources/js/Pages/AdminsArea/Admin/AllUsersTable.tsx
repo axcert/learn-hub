@@ -1,29 +1,31 @@
-import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import AdminLayout from "@/Layouts/AdminLayout";
+import { Head } from "@inertiajs/react";
+import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
-import { useState } from 'react';
-import Card from '@/Components/Card/Card';
-import SearchBar from '@/Components/SearchBar/SearchBar';
-
+import { useState } from "react";
+import Card from "@/Components/Card/Card";
+import SearchBar from "@/Components/SearchBar/SearchBar";
+import Dropdown from "@/Components/Dropdown/Dropdown";
+import Button from "@/Components/Button/Button";
+import Dialog from "@/Components/MyDialog/MyDialog";
+import MyDialog from "@/Components/MyDialog/MyDialog";
 
 export interface Data {
-    user: User;
-    phoneNumber: string;
-}
-export interface User {
+    id: any;
     name: string;
+    contact: string;
     email: string;
+    role: string;
+    
 }
+
 
 export interface PaginatedTableProps {
-data: Data[];
+    data: Data[];
 }
-const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
-
+ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
-
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = data.slice(
@@ -35,10 +37,11 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
         setCurrentPage(page);
     };
 
-    const view = () =>{
-        console.log("view");
-        
-    }
+    // const remove = () => {
+    //     console.log("remove");
+    // };
+
+
 
     return (
         <div className="py-2">
@@ -49,18 +52,36 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                             <table className="w-full text-sm text-left text-gray-500">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            User ID
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
                                             Name
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Email
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
                                             Phone Number
                                         </th>
-                                       
-                                        <th scope="col" className="px-6 py-3">
-                                            Status
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Email
+                                        </th>
+
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3 capitalize"
+                                        >
+                                            Choose User Type
                                         </th>
                                     </tr>
                                 </thead>
@@ -75,23 +96,41 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.name}
+                                                    {entry.id}
                                                 </th>
-                                                <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phoneNumber} */}
                                                     null
                                                 </td>
-                                               
-                                                <td className="flex items-center px-6 py-4">
-                                                    <button
-                                                        onClick={view}
-                                                        className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
-                                                    >
-                                                        <LuView />
-                                                    </button>
+
+                                                <td className="px-6 py-4">
+                                                    {entry.email}
+                                                </td>
+                                                <td className="flex items-center px-6 py-4 ">
+                                                    <Dropdown
+                                                    title={entry.role}
+                                                        menuItems={[
+                                                            {
+                                                                label: "Admin",
+                                                                href: route('users.edit', entry.id),
+                                                            },
+                                                            {
+                                                                label: "Teacher",
+                                                                href: "#",
+                                                            },
+                                                            {
+                                                                label: "Student",
+                                                                href: "#",
+                                                            },
+
+                                                            // {
+                                                            //     label: "Remove",
+                                                            //     onClick: remove,
+                                                            // },
+                                                        ]}
+                                                    />
                                                 </td>
                                             </tr>
                                         ))
@@ -149,47 +188,4 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
     );
 };
 
-
-
-export default function Student({auth ,studentCount,students}: PageProps) {
-
-    const search = () =>{
-        console.log("search Student");
-        
-    }
-
-    console.log(studentCount);
-    console.log(students);
-    
-    
-    return (
-        <>
-            <AdminLayout user={auth.user}>
-                <Head title="Students" />
-                <div className="py-2">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
-                        {/* Card */}
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                            <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Students"}>{studentCount}</Card>
-                            </div>
-                        </div>
-
-                        {/* search */}
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                            <div className="p-3 text-gray-900">
-                                <SearchBar
-                                    title={"Students"}
-                                    onClick={search}
-                                />
-                            </div>
-                        </div>
-
-                        {/* table */}
-                        <PaginatedTable data={students} />
-                    </div>
-                </div>
-            </AdminLayout>
-        </>
-    );
-}
+export default AllUsersTable

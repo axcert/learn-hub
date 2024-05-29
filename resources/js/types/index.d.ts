@@ -1,6 +1,6 @@
+import { Data } from '@/Pages/AdminsArea/Teacher/Teacher';
 import { ReactNode } from 'react';
 import { Config } from 'ziggy-js';
-
 export interface User {
     
     user: any;
@@ -44,7 +44,8 @@ export interface Teacher {
     bio: ReactNode;
     service: any;
     service_id: string;
-    id: number; // Ensure this is a number
+    id: number;
+  
     name: string;
     description: string;
     experience: string;
@@ -63,8 +64,15 @@ export interface Teacher {
 
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User;
-    };
+    auth: {user: User};
+    studentCount: number;
+    teacherCount: number;
+    adminCount: number;
     ziggy: Config & { location: string };
+    teachers: any;
+    students: Data[];
+    services: any;
+    admins: any;
+    users: any;
+  
 };

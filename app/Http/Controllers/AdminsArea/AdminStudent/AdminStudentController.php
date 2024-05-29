@@ -1,19 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\AdminsArea\AdminStudent;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Students\StudentInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UserController extends Controller
+class AdminStudentController extends Controller
 {
+
+    public function __construct(
+        protected StudentInterface $studentInterface
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('AdminsArea/User/User');
+        return Inertia::render('AdminsArea/Student/Student',[
+            'studentCount' => $this->studentInterface->all()->count(),
+            'students' => $this->studentInterface->all()->load('user'),
+        ]);
     }
 
     /**

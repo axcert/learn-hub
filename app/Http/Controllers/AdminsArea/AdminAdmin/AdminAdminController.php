@@ -1,37 +1,37 @@
 <?php
 
-
-namespace App\Http\Controllers\StudentsArea\Teacher;
-
+namespace App\Http\Controllers\AdminsArea\AdminAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Repositories\All\Admins\AdminInterface;
+use App\Repositories\All\Users\UserInterface;
 use Inertia\Inertia;
 
-
-class StudentTeacherController extends Controller
+class AdminAdminController extends Controller
 
 {
-    public function __construct(protected TeacherInterface $teacherInterface, 
-    protected ServiceInterface $serviceInterface){}
+    public function __construct(
+        protected AdminInterface $adminInterface,
+        protected UserInterface $userInterface,
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
 
-        $teachers = $this->teacherInterface->all(['*'], ['user']);
-        $services = $this->serviceInterface->all();
-
-        return Inertia::render('StudentArea/Teacher/All/Index', [
-            'teachers' => $teachers,
-            'services' => $services
+        return Inertia::render('AdminsArea/Admin/Admin',[
+            'adminCount'=>$this->adminInterface->all()->count(),
+            'admins' => $this->adminInterface->all()->load('user'),
+            'users' => $this->userInterface->all()->load('user'),
         ]);
+     
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -53,14 +53,10 @@ class StudentTeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
-        if (!$teacher) {
-            abort(404, 'Teacher not found');
-        }
-
-        return Inertia::render('StudentArea/Teacher/Show/Index', [
-            'teacher' => $teacher,
-        ]);
+        // $teacher = Teacher::with('user', 'services')->findOrFail($id);
+        // return Inertia::render('StudentArea/Teacher/Show/Index', [
+        //     'teacher' => $teacher,
+        // ]);
     }
 
     /**

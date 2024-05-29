@@ -32,13 +32,18 @@ export default function Authenticated({
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                            </div> */}
-                            
+                            </div> 
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
+                                <NavLink href={route('services.index')} active={route().current('services.index')}>
+                                    Services
+                                </NavLink>
+                            </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('students.index')} active={route().current('students.index')}>
                                     Student Dashboard
                                 </NavLink>
                             </div>
+                            */}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
@@ -69,8 +74,19 @@ export default function Authenticated({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                
+                                        <Dropdown.Link
+    
+                                            href={route("overview.index")}
+                                        >
+                                            Dashboard
+                                        </Dropdown.Link>
+
+                                        <Dropdown.Link
+                                            href={route("logout")}
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -128,7 +144,14 @@ export default function Authenticated({
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        {/* <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            Dashboard
+                        </ResponsiveNavLink> */}
+
+                        <ResponsiveNavLink
+                            href={route("overview.index")}
+                            active={route().current("overview.index")}
+                        >
                             Dashboard
                         </ResponsiveNavLink>
 
@@ -146,9 +169,9 @@ export default function Authenticated({
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            {/* <ResponsiveNavLink href={route("profile.edit")}>
                                 Profile
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> */}
                             <ResponsiveNavLink
                                 method="post"
                                 href={route("logout")}

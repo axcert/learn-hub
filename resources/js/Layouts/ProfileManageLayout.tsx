@@ -71,7 +71,7 @@ export default function ProfileManageLayout({
                                     <Dropdown.Content>
                                         <Dropdown.Link
     
-                                            href={route("dashboard")}
+                                            href={route("overview.index")}
                                         >
                                             Dashboard
                                         </Dropdown.Link>
@@ -139,8 +139,8 @@ export default function ProfileManageLayout({
                 >
                     <div className="pt-2 pb-3 space-y-1 ">
                         <ResponsiveNavLink
-                            href={route("home.index")}
-                            active={route().current("home.index")}
+                            href={route("overview.index")}
+                            active={route().current("overview.index")}
                         >
                             <p className="text-slate-300">Dashboard</p>
                         </ResponsiveNavLink>

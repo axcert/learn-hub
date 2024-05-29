@@ -1,34 +1,28 @@
 <?php
 
-
-namespace App\Http\Controllers\StudentsArea\Teacher;
-
+namespace App\Http\Controllers\AdminsArea\AdminTeacher;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
-use App\Models\Teacher;
 use Inertia\Inertia;
 
-
-class StudentTeacherController extends Controller
-
+class AdminTeacherController extends Controller
 {
-    public function __construct(protected TeacherInterface $teacherInterface, 
-    protected ServiceInterface $serviceInterface){}
+
+    public function __construct(
+        protected TeacherInterface $teacherInterface
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $teachers = $this->teacherInterface->all(['*'], ['user']);
-        $services = $this->serviceInterface->all();
-
-        return Inertia::render('StudentArea/Teacher/All/Index', [
-            'teachers' => $teachers,
-            'services' => $services
+        return Inertia::render('AdminsArea/Teacher/Teacher', [
+            'teacherCount' => $this->teacherInterface->all()->count(),
+            'teachers' => $this->teacherInterface->all()->load('user'),
         ]);
     }
 
@@ -51,16 +45,9 @@ class StudentTeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
-        if (!$teacher) {
-            abort(404, 'Teacher not found');
-        }
-
-        return Inertia::render('StudentArea/Teacher/Show/Index', [
-            'teacher' => $teacher,
-        ]);
+        //
     }
 
     /**
