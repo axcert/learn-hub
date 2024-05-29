@@ -14,6 +14,7 @@ use Inertia\Inertia;
 class TeacherOverviewController extends Controller
 {
     public function __construct(protected ServiceInterface $serviceInterface,
+                                protected TeacherInterface $teacherInterface,
                                 protected StudentInterface $studentInterface,
                                 protected BookingInterface $bookingInterface){}
     /**
@@ -21,14 +22,13 @@ class TeacherOverviewController extends Controller
      */
     public function index()
     {
-        $teacherId = auth()->user()->id;
-
-        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
-        $bookings = $this->bookingInterface->getByColumn(['teacher_id' => $teacherId], ['service', 'student']);
-
-        return Inertia::render('TeachersArea/Overview/Index', [
-            'services' => $services,
+        $teacher_id = auth()->user()->teacher->id; // Assuming the logged-in user has a related teacher
+        $bookings = $this->bookingInterface->findByColumn(['teacher_id' => $teacher_id], ['*'], ['student', 'service']);
+        $services = $this->serviceInterface->all()->where('teacher_id', $teacher_id);
+        
+        return Inertia::render('TeachersArea/Overview/All/Index', [
             'bookings' => $bookings,
+            'services' => $services,
         ]);
     
         
@@ -56,13 +56,15 @@ class TeacherOverviewController extends Controller
      */
     public function show($id)
     {
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
-        if (!$teacher) {
-            abort(404, 'Teacher not found');
-        }
+        $userId = auth()->user()->id;
 
-        return Inertia::render('TeachersArea/Overview/Show/Index', [
-            'teacher' => $teacher,
+        // Assuming 'teacher_id' is the correct column and relationships exist in the Booking model
+        $services = $this->serviceInterface->getByColumn(['teacher_id' => $userId]);
+        $bookings = $this->bookingInterface->getByColumn(['teacher_id' => $userId], ['service', 'student']);
+
+        return Inertia::render('TeachersArea/Overview/Index', [
+            'services' => $services,
+            'bookings' => $bookings,
         ]);
     }
 
