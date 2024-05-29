@@ -16,7 +16,7 @@ export default function Register() {
         phone: '',
         bio: '', // Bio for teacher
         position: '', // Position for teacher
-        image: null, // Image
+
     });
 
     useEffect(() => {
@@ -187,24 +187,7 @@ export default function Register() {
                     </>
                 )}
 
-                {/* <div className="mt-4">
-                    <InputLabel htmlFor="image" value="Profile Image" />
-
-                    <input
-                        id="image"
-                        type="file"
-                        name="image"
-                        className="mt-1 block w-full"
-                        onChange={(e) => {
-                            if (e.target.files && e.target.files.length > 0) {
-                                setData('image', e.target.files[0]);
-                            }
-                        }}
-                        required
-                    />
-
-                    <InputError message={errors.image} className="mt-2" />
-                </div> */}
+                
 
                 <div className="flex items-center justify-end mt-4">
                     <Link
