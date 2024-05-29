@@ -35,6 +35,6 @@ class Booking extends Model
 
     public function student()
     {
-        return $this->user();
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Http\Controllers\StudentsArea\Teacher;
+
 
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
@@ -9,7 +11,9 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Inertia\Inertia;
 
+
 class StudentTeacherController extends Controller
+
 {
     public function __construct(protected TeacherInterface $teacherInterface, 
     protected ServiceInterface $serviceInterface){}
@@ -18,7 +22,7 @@ class StudentTeacherController extends Controller
      */
     public function index()
     {
-        
+
         $teachers = $this->teacherInterface->all(['*'], ['user']);
         $services = $this->serviceInterface->all();
 
@@ -26,10 +30,6 @@ class StudentTeacherController extends Controller
             'teachers' => $teachers,
             'services' => $services
         ]);
-        
-    
-        
-        
     }
 
     /**

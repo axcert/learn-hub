@@ -2,13 +2,28 @@
 
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminsArea\AdminAdmin\AdminAdminController;
+use App\Http\Controllers\AdminsArea\AdminOverview\AdminOverViewController;
+use App\Http\Controllers\AdminsArea\AdminProfileManage\AdminProfileManageController;
+use App\Http\Controllers\AdminsArea\AdminService\AdminServiceController;
+use App\Http\Controllers\AdminsArea\AdminStudent\AdminStudentController;
+use App\Http\Controllers\AdminsArea\AdminTeacher\AdminTeacherController;
+use App\Http\Controllers\AdminsArea\AdminUser\AdminUserController;
+use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
 use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
 use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
 use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
 use App\Http\Controllers\StudentsArea\Teacher\StudentTeacherController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeachersArea\Booking\TeacherBookingController;
+use App\Http\Controllers\TeachersArea\Message\TeacherMessageController;
+use App\Http\Controllers\TeachersArea\Overview\TeacherOverviewController;
+use App\Http\Controllers\TeachersArea\Service\TeacherServiceController;
+use App\Http\Controllers\TeachersArea\Student\TeacherStudentController;
+use App\Http\Controllers\TeachersArea\Teacher\TeacherTeacherController;
+use App\Http\Middleware\TeacherValidationMiddleware;
 use App\Http\Middleware\StudentValidationMiddleware;
 use Inertia\Inertia;
 
@@ -23,6 +38,19 @@ Route::get('/', function () {
 });
 
 
+Route::middleware(['auth','verified'])->group(function(){
+    Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
+        Route::resource('overview', AdminOverViewController::class);
+        Route::resource('teachers', AdminTeacherController::class);
+        Route::resource('students', AdminStudentController::class);
+        Route::resource('admins', AdminAdminController::class);
+        Route::resource('services', AdminServiceController::class);
+        Route::resource('profileManage', AdminProfileManageController::class);
+        Route::resource('users', AdminUserController::class);
+    });
+});
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,9 +58,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
-
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
         Route::resource('services', StudentServiceController::class);
@@ -44,6 +70,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
+        Route::resource('overviews',TeacherOverviewController::class);
+        Route::resource('students', TeacherStudentController::class);
+        Route::resource('services', TeacherServiceController::class);
+        Route::resource('teachers', TeacherTeacherController::class);
+        Route::resource('messages', TeacherMessageController::class);
+        Route::resource('bookings', TeacherBookingController::class);
+       
+    });
+});
 
 require __DIR__ . '/auth.php';

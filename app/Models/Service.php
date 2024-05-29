@@ -20,7 +20,6 @@ class Service extends Model
         'hourly_rate',
         'teacher_id',
         'status',
-
     ];
 
     public function admin(){
@@ -31,6 +30,12 @@ class Service extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
     
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
 
     public function bookings()
     {
