@@ -13,6 +13,10 @@ export default function Register() {
         password: '',
         password_confirmation: '',
         role: 'student', // Default role
+        phone: '',
+        bio: '', // Bio for teacher
+        position: '', // Position for teacher
+        image: null, // Image
     });
 
     useEffect(() => {
@@ -66,6 +70,23 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
+                    <InputLabel htmlFor="phone" value="Phone" />
+
+                    <TextInput
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        value={data.phone}
+                        className="mt-1 block w-full"
+                        autoComplete="tel"
+                        onChange={(e) => setData('phone', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.phone} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
@@ -102,20 +123,88 @@ export default function Register() {
                 <div className="mt-4">
                     <InputLabel htmlFor="role" value="Role" />
 
-                    <select
-                        id="role"
-                        name="role"
-                        value={data.role}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('role', e.target.value)}
-                        required
-                    >
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                    </select>
+                    <div className="mt-1 block">
+                        <label className="mr-4">
+                            <input
+                                type="radio"
+                                name="role"
+                                value="student"
+                                checked={data.role === 'student'}
+                                onChange={(e) => setData('role', e.target.value)}
+                                required
+                            />
+                            Student
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="role"
+                                value="teacher"
+                                checked={data.role === 'teacher'}
+                                onChange={(e) => setData('role', e.target.value)}
+                                required
+                            />
+                            Teacher
+                        </label>
+                    </div>
 
                     <InputError message={errors.role} className="mt-2" />
                 </div>
+
+                {data.role === 'teacher' && (
+                    <>
+                        <div className="mt-4">
+                            <InputLabel htmlFor="bio" value="Bio" />
+
+                            <TextInput
+                                id="bio"
+                                name="bio"
+                                value={data.bio}
+                                className="mt-1 block w-full"
+                                autoComplete="bio"
+                                onChange={(e) => setData('bio', e.target.value)}
+                                required
+                            />
+
+                            <InputError message={errors.bio} className="mt-2" />
+                        </div>
+
+                        <div className="mt-4">
+                            <InputLabel htmlFor="position" value="Position" />
+
+                            <TextInput
+                                id="position"
+                                name="position"
+                                value={data.position}
+                                className="mt-1 block w-full"
+                                autoComplete="position"
+                                onChange={(e) => setData('position', e.target.value)}
+                                required
+                            />
+
+                            <InputError message={errors.position} className="mt-2" />
+                        </div>
+                    </>
+                )}
+
+                {/* <div className="mt-4">
+                    <InputLabel htmlFor="image" value="Profile Image" />
+
+                    <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        className="mt-1 block w-full"
+                        onChange={(e) => {
+                            if (e.target.files && e.target.files.length > 0) {
+                                setData('image', e.target.files[0]);
+                            }
+                        }}
+                        required
+                    />
+
+                    <InputError message={errors.image} className="mt-2" />
+                </div> */}
 
                 <div className="flex items-center justify-end mt-4">
                     <Link

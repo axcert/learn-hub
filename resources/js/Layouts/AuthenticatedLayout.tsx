@@ -38,12 +38,13 @@ export default function Authenticated({
                                     Services
                                 </NavLink>
                             </div>
+                            */}
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('students.index')} active={route().current('students.index')}>
                                     Student Dashboard
                                 </NavLink>
                             </div>
-                            */}
+                            
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
