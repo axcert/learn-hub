@@ -37,9 +37,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth','verified'])->group(function(){
     Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
@@ -63,7 +60,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
-        Route::resource('students', StudentStudentController::class);
+        Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
         Route::resource('services', StudentServiceController::class);
         Route::resource('teachers', StudentTeacherController::class);
         Route::resource('messages', StudentMessageController::class);
