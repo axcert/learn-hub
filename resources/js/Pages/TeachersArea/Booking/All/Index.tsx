@@ -20,7 +20,7 @@ export default function BookingIndex({ auth, bookings = [] }: Props) {
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between mb-4">
                         <h2 className="text-xl font-bold">Booking History</h2>
-                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('services.index')}>View Services</Link>
+                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.services.index')}>View Services</Link>
                     </div>
                     <div className="space-y-4">
                         {Array.isArray(bookings) && bookings.length > 0 ? (
@@ -32,11 +32,11 @@ export default function BookingIndex({ auth, bookings = [] }: Props) {
                                         <p className="text-gray-500">Date: {booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</p>
                                     </div>
                                     <div className="flex items-center space-x-4">
-                                        <Link className="text-blue-600 hover:text-blue-900" href={route('bookings.show', booking.id)}>View</Link>
-                                        <Link className="text-yellow-600 hover:text-yellow-900" href={route('bookings.edit', booking.id)}>Edit</Link>
+                                        <Link className="text-blue-600 hover:text-blue-900" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                                        <Link className="text-yellow-600 hover:text-yellow-900" href={route('teacher.bookings.edit', booking.id)}>Edit</Link>
                                         <button className="text-red-600 hover:text-red-900" onClick={() => {
                                             if (window.confirm('Are you sure you want to delete this booking?')) {
-                                                Inertia.delete(route('bookings.destroy', booking.id));
+                                                Inertia.delete(route('teacher.bookings.destroy', booking.id));
                                             }
                                         }}>Delete</button>
                                     </div>

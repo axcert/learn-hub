@@ -29,7 +29,7 @@ class TeacherTeacherController extends Controller
             'servicesCount' => $services,
             
         ]);
-        // return Inertia::render('TeachersArea/Teacher/All/Index');
+         //return Inertia::render('TeachersArea/Teacher/All/Index');
 
     }
 

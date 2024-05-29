@@ -15,7 +15,7 @@ export default function Edit({ auth, booking }: Props) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(route('bookings.update', booking.id));
+        put(route('student.bookings.update', booking.id));
     }
 
     return (
@@ -29,7 +29,7 @@ export default function Edit({ auth, booking }: Props) {
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Edit Booking</h2>
-                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('bookings.index')}>Back to Bookings</Link>
+                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('student.bookings.index')}>Back to Bookings</Link>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">

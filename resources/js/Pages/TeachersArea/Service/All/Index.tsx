@@ -21,7 +21,7 @@ const ServiceIndex = ({ auth, services, filters }: Props) => {
       <div className="mt-5 mx-4 lg:mx-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-semibold text-xl text-gray-800 leading-tight">My Services</h2>
-          <Link href={route('services.create')} className="text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 flex items-center">
+          <Link href={route('teacher.services.create')} className="text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 flex items-center">
             <FaPlus className="mr-2" /> Create New Service
           </Link>
         </div>
@@ -45,10 +45,10 @@ const ServiceIndex = ({ auth, services, filters }: Props) => {
                     <td className="border px-4 py-2">{service.hourly_rate}</td>
                     <td className="border px-4 py-2">{service.status}</td>
                     <td className="border px-4 py-2">
-                      <Link href={route('services.edit', service.id)} className="text-blue-500 hover:text-blue-700 mr-2">
+                      <Link href={route('teacher.services.edit', service.id)} className="text-blue-500 hover:text-blue-700 mr-2">
                         <FaEdit />
                       </Link>
-                      <Link href={route('services.destroy', service.id)} method="delete" as="button" className="text-red-500 hover:text-red-700">
+                      <Link href={route('teacher.services.destroy', service.id)} method="delete" as="button" className="text-red-500 hover:text-red-700">
                         <FaTrash />
                       </Link>
                     </td>

@@ -20,7 +20,7 @@ export default function Show({ auth, booking }: Props) {
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Booking Details</h2>
-                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('bookings.index')}>Back to Bookings</Link>
+                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('student.bookings.index')}>Back to Bookings</Link>
                     </div>
                     <div className="mt-4">
                         <p><strong>Service:</strong> {booking.service?.name ?? 'N/A'}</p>
@@ -29,10 +29,10 @@ export default function Show({ auth, booking }: Props) {
                         <p><strong>Status:</strong> {booking.status}</p>
                         <p><strong>Description:</strong> {booking.description}</p>
                         <p><strong>Date:</strong> {booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</p>
-                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('bookings.edit', booking.id)}>Edit</Link>
+                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('student.bookings.edit', booking.id)}>Edit</Link>
                         <button className="text-red-600 hover:text-red-900" onClick={() => {
                             if (window.confirm('Are you sure you want to delete this product?')) {
-                                Inertia.delete(route('bookings.destroy', booking.id));
+                                Inertia.delete(route('student.bookings.destroy', booking.id));
                             }
                             }}>Delete</button>
                     </div>
