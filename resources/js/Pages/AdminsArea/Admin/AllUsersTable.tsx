@@ -41,6 +41,8 @@ export interface PaginatedTableProps {
     //     console.log("remove");
     // };
 
+
+
     return (
         <div className="py-2">
             <div>
@@ -112,7 +114,7 @@ export interface PaginatedTableProps {
                                                         menuItems={[
                                                             {
                                                                 label: "Admin",
-                                                                href: "#",
+                                                                href: route('users.edit', entry.id),
                                                             },
                                                             {
                                                                 label: "Teacher",

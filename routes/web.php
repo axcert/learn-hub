@@ -42,6 +42,7 @@ Route::middleware(['auth','verified'])->group(function(){
         Route::resource('admins', AdminAdminController::class);
         Route::resource('services', AdminServiceController::class);
         Route::resource('profileManage', AdminProfileManageController::class);
+        Route::resource('users', AdminUserController::class);
     });
 });
 
