@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export interface Data {
     user: User;
-    teacher: Teacher;
+    // teacher: Teacher;
     id: number;
     name: string;
     description: string;
@@ -97,10 +97,10 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {entry.teacher.name}
+                                                {/* {entry.teacher.name} */}
                                                 </td>  
                                                 <td className="px-6 py-4">
-                                                    {entry.hourly_rate}
+                                                    {/* {entry.hourly_rate} */}
                                                 </td>
 
                                                 <td className="px-6 py-4 flex gap-4 text-green-600">
@@ -194,7 +194,7 @@ export default function Service({ auth }: PageProps) {
                 </div>
 
                 {/* table */}
-                <PaginatedTable data={''} />
+                {/* <PaginatedTable data={''} /> */}
             </div>
         </div>
     </AdminLayout>
