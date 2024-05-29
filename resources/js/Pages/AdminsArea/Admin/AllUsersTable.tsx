@@ -115,6 +115,7 @@ export interface PaginatedTableProps {
                                                             {
                                                                 label: "Admin",
                                                                 href: route('users.edit', entry.id),
+                                                          
                                                             },
                                                             {
                                                                 label: "Teacher",
