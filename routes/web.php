@@ -22,9 +22,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,7 +34,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
-        Route::resource('students', StudentStudentController::class);
+        Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
         Route::resource('services', StudentServiceController::class);
         Route::resource('teachers', StudentTeacherController::class);
         Route::resource('messages', StudentMessageController::class);
@@ -48,13 +45,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::resource('teachers', TeacherController::class);
-//     //Route::resource('services', StudentServiceController::class);
-//     //Route::post('services/{service}/update', [ServiceController::class,'update'])->name('services.update');
-//     Route::resource('messages', MessageController::class);
-//     Route::resource('bookings', BookingController::class);
-
-// });
 
 require __DIR__ . '/auth.php';
