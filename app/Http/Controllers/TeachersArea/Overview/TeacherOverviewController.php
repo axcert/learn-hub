@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\TeachersArea\Overview;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Bookings\BookingInterface;
 use App\Repositories\All\Services\ServiceInterface;
+use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
@@ -11,25 +13,25 @@ use Inertia\Inertia;
 
 class TeacherOverviewController extends Controller
 {
-    public function __construct(protected TeacherInterface $teacherInterface, 
-                                protected ServiceInterface $serviceInterface){}
+    public function __construct(protected ServiceInterface $serviceInterface,
+                                protected StudentInterface $studentInterface,
+                                protected BookingInterface $bookingInterface){}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-        $teachers = $this->teacherInterface->all(['*'], ['user']);
-        $services = $this->serviceInterface->all()->count();
-        // 'servicesCount' -> $this->serviceInterface->count();
+        $teacherId = auth()->user()->id;
 
-        return Inertia::render('TeachersArea/Overview/All/Index', [
-            'teachers' => $teachers,
+        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
+        $bookings = $this->bookingInterface->getByColumn(['teacher_id' => $teacherId], ['service', 'student']);
+
+        return Inertia::render('TeachersArea/Overview/Index', [
             'services' => $services,
-            'servicesCount' => $services,
-            
+            'bookings' => $bookings,
         ]);
-        // return Inertia::render('TeachersArea/Teacher/All/Index');
+    
+        
 
     }
 
