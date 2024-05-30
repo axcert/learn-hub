@@ -60,24 +60,24 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
-    //     Route::resource('overview', AdminOverViewController::class)->names('admin.overview');
-    //     Route::resource('teachers', AdminTeacherController::class)->names('admin.teachers');
-    //     Route::resource('students', AdminStudentController::class)->names('admin.students');
-    //     Route::resource('admins', AdminAdminController::class)->names('admin.admins');
-    //     Route::resource('services', AdminServiceController::class)->names('admin.services');
-    //     Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
-    //     Route::resource('users', AdminUserController::class)->names('admin.users');
-    // });
+    Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
+        Route::resource('overview', AdminOverViewController::class)->names('admin.overview');
+        Route::resource('teachers', AdminTeacherController::class)->names('admin.teachers');
+        Route::resource('students', AdminStudentController::class)->names('admin.students');
+        Route::resource('admins', AdminAdminController::class)->names('admin.admins');
+        Route::resource('services', AdminServiceController::class)->names('admin.services');
+        Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
+        Route::resource('users', AdminUserController::class)->names('admin.users');
+    });
 
-    // Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
-    //     Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
-    //     Route::resource('services', StudentServiceController::class)->names('student.services');
-    //     Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
-    //     Route::resource('messages', StudentMessageController::class)->names('student.messages');
-    //     Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
-    //     Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
-    // });
+    Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
+        Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
+        Route::resource('services', StudentServiceController::class)->names('student.services');
+        Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
+        Route::resource('messages', StudentMessageController::class)->names('student.messages');
+        Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
+        Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
+    });
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
@@ -90,15 +90,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
-//         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
-//         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
-//         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
-//         Route::resource('teachers', TeacherTeacherController::class)->names('teachers.teachers');
-//         Route::resource('messages', TeacherMessageController::class)->names('teacher.messages');
-//         Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings');
-//     });
-// });
+
 
 require __DIR__ . '/auth.php';
