@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Service } from '@/types';
 import React from 'react';
@@ -20,11 +20,13 @@ interface Props extends PageProps {
 }
 
 export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
+    console.log('dada');
     return (
         <TeacherLayout
             user={auth.user}
         >
             <Head title="Teachers" />
+            
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
                     <div className="lg:col-span-4">
@@ -32,7 +34,7 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                             {Array.isArray(teachers) && teachers.length > 0 ? (
                                 teachers.map((teacher) => (
                                     <Link
-                                        href={route('teachers.show', teacher.id)}
+                                        href={route('teachers.teachers.show', teacher.id)}
                                         key={teacher.id}
                                         className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                                     >

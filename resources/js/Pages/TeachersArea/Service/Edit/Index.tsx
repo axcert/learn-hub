@@ -25,7 +25,7 @@ const ServiceEdit: React.FC<Props> = ({ service }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    put(route('services.update', service.id));
+    put(route('teacher.services.update', service.id));
   };
 
   return (
@@ -120,7 +120,7 @@ const ServiceEdit: React.FC<Props> = ({ service }) => {
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-              <Link href={route('services.index')} className="text-sm font-semibold leading-6 text-gray-900">Cancel</Link>
+              <Link href={route('teacher.services.index')} className="text-sm font-semibold leading-6 text-gray-900">Cancel</Link>
               <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
             </div>
           </form>

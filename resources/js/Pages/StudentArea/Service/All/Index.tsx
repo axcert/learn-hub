@@ -16,13 +16,13 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
 
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this service?')) {
-      Inertia.delete(route('services.destroy', id));
+      Inertia.delete(route('student.services.destroy', id));
     }
   };
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
-    Inertia.get(route('services.index'), { search });
+    Inertia.get(route('student.services.index'), { search });
   };
 
   return (
@@ -68,7 +68,7 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
             {Array.isArray(services) && services.length > 0 ? (
               services.map((service) => (
                 <Link
-                  href={route('services.show', service.id)}
+                  href={route('student.services.show', service.id)}
                   key={service.id}
                   className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
@@ -98,7 +98,7 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
           {Array.isArray(services) && services.length > 3 && (
             <div className="flex justify-center mt-4">
               <Link
-                href={route('services.index')}
+                href={route('student.services.index')}
                 className="text-blue-500 hover:text-blue-700"
               >
                 View More

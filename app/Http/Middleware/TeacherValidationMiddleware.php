@@ -19,6 +19,6 @@ class TeacherValidationMiddleware
         if(Auth::check()&& Auth::user()->role== "teacher"){
             return $next($request);
         }
-        return abort(404);
+        return abort(403);
     }
 }

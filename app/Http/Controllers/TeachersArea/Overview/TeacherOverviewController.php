@@ -22,10 +22,19 @@ class TeacherOverviewController extends Controller
      */
     public function index()
     {
-        $teacher_id = auth()->user()->teacher->id; // Assuming the logged-in user has a related teacher
+        $teacher = auth()->user()->teacher;
+
+        if (!$teacher) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $teacher_id = $teacher->id;
+
         $bookings = $this->bookingInterface->findByColumn(['teacher_id' => $teacher_id], ['*'], ['student', 'service']);
-        $services = $this->serviceInterface->all()->where('teacher_id', $teacher_id);
-        
+        $services = $this->serviceInterface->all()->filter(function ($service) use ($teacher_id) {
+            return $service->teacher_id === $teacher_id;
+        });
+
         return Inertia::render('TeachersArea/Overview/All/Index', [
             'bookings' => $bookings,
             'services' => $services,
