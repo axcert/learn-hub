@@ -22,24 +22,25 @@ class TeacherOverviewController extends Controller
      */
     public function index()
     {
-        $teacher = auth()->user()->teacher;
+        // $teacher = auth()->user()->teacher;
 
-        if (!$teacher) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (!$teacher) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
-        $teacher_id = $teacher->id;
+        // $teacher_id = $teacher->id;
 
-        $bookings = $this->bookingInterface->findByColumn(['teacher_id' => $teacher_id], ['*'], ['student', 'service']);
-        $services = $this->serviceInterface->all()->filter(function ($service) use ($teacher_id) {
-            return $service->teacher_id === $teacher_id;
-        });
+        // $bookings = $this->bookingInterface->findByColumn(['teacher_id' => $teacher_id], ['*'], ['student', 'service']);
+        // $services = $this->serviceInterface->all()->filter(function ($service) use ($teacher_id) {
+        //     return $service->teacher_id === $teacher_id;
+        // });
 
-        return Inertia::render('TeachersArea/Overview/All/Index', [
-            'bookings' => $bookings,
-            'services' => $services,
-        ]);
-    
+        // return Inertia::render('TeachersArea/Overview/All/Index', [
+        //     'bookings' => $bookings,
+        //     'services' => $services,
+        // ]);
+        
+        return Inertia::render('TeachersArea/Overview/All/Index');
         
 
     }

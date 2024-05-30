@@ -1,93 +1,122 @@
-import React from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import React, { useState } from 'react';
+import { Head, Link } from '@inertiajs/react';
+import TeacherLayout from '@/Layouts/TeacherLayout';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { FaServer } from 'react-icons/fa';
+import { Booking, PageProps, Service, User } from '@/types';
 
-interface Booking {
-    id: number;
-    student: {
-        name: string;
-    };
-    service: {
-        name: string;
-    };
-    date: string;
-    status: string;
+interface Props extends PageProps {
+  auth: { user: User };
+  services: Service[];
+  bookings: Booking[];
 }
 
-interface Service {
-    id: number;
-    name: string;
-    description: string;
-}
+export default function TeacherOverview({ auth, services = [], bookings = [] }: Props) {
+  const [date, setDate] = useState<Date | null>(new Date());
 
-interface Props {
-    bookings: Booking[];
-    services: Service[];
-}
-
-const TeacherOverview: React.FC<Props> = ({ bookings, services }) => {
-    const handleAction = (id: number, action: string) => {
-        Inertia.post(`/teachers/bookings/${id}/${action}`);
-    };
-
-    return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Teacher Overview</h2>
-
-            <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-2">Bookings</h3>
-                <table className="min-w-full bg-white">
-                    <thead>
-                        <tr>
-                            <th className="px-4 py-2">Student Name</th>
-                            <th className="px-4 py-2">Service</th>
-                            <th className="px-4 py-2">Date</th>
-                            <th className="px-4 py-2">Status</th>
-                            <th className="px-4 py-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {bookings.map(booking => (
-                            <tr key={booking.id}>
-                                <td className="border px-4 py-2">{booking.student.name}</td>
-                                <td className="border px-4 py-2">{booking.service.name}</td>
-                                <td className="border px-4 py-2">{new Date(booking.date).toLocaleDateString()}</td>
-                                <td className="border px-4 py-2">{booking.status}</td>
-                                <td className="border px-4 py-2">
-                                    <button onClick={() => handleAction(booking.id, 'accept')} className="bg-green-500 text-white px-4 py-2 rounded mr-2">Accept</button>
-                                    <button onClick={() => handleAction(booking.id, 'reject')} className="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+  return (
+    <TeacherLayout
+      user={auth.user}
+      
+    >
+      <Head title="Teacher Overview" />
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
+        <div className="lg:col-span-3">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.isArray(services) && services.length > 0 ? (
+              services.slice(0, 3).map((service) => (
+                <Link
+                  href={route('teacher.services.show', service.id)}
+                  key={service.id}
+                  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
+                >
+                  <div className="flex-shrink-0">
+                    <img
+                      className="h-16 w-16 rounded-full"
+                      src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
+                      alt={service.name}
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
+                    {service.teacher && <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.name}</p>}
+                    <p className="mt-1 text-sm text-gray-600">{service.description}</p>
+                    <p className="mt-1 text-sm font-semibold text-indigo-600">Rs: {service.hourly_rate}/hr</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p className="text-center col-span-full text-gray-500">No services found.</p>
+            )}
+          </div>
+          {Array.isArray(services) && services.length > 3 && (
+            <div className="flex justify-center mt-4">
+              <Link
+                href={route('teacher.services.index')}
+                className="text-blue-500 hover:text-blue-700 dark:text-blue-500 flex-end"
+              >
+                View More
+              </Link>
             </div>
-
-            <div>
-                <h3 className="text-xl font-semibold mb-2">Services</h3>
-                <table className="min-w-full bg-white">
-                    <thead>
-                        <tr>
-                            <th className="px-4 py-2">Service Name</th>
-                            <th className="px-4 py-2">Description</th>
-                            <th className="px-4 py-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {services.map(service => (
-                            <tr key={service.id}>
-                                <td className="border px-4 py-2">{service.name}</td>
-                                <td className="border px-4 py-2">{service.description}</td>
-                                <td className="border px-4 py-2">
-                                    <button onClick={() => Inertia.get(`/teachers/services/${service.id}/edit`)} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">Edit</button>
-                                    <button onClick={() => Inertia.get(`/teachers/services/${service.id}`)} className="bg-gray-500 text-white px-4 py-2 rounded">View</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+          )}
         </div>
-    );
-};
-
-export default TeacherOverview;
+        <div className="lg:col-span-1 mt-4 lg:mt-0">
+          <div className="bg-white shadow-sm sm:rounded-lg p-4 text-center">
+            <Calendar onChange={(value) => setDate(value as Date | null)} value={date} />
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 mx-4 lg:mx-10">
+        <div className="bg-white shadow-sm sm:rounded-lg p-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold flex items-center">
+              <FaServer className="mr-2" /> My History
+            </h2>
+            <Link
+              className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
+              href={route('teacher.bookings.index')}
+            >
+              View all
+            </Link>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border">Service</th>
+                  <th className="px-4 py-2 border">Teacher</th>
+                  <th className="px-4 py-2 border">Hourly Rate</th>
+                  <th className="px-4 py-2 border">Status</th>
+                  <th className="px-4 py-2 border">Date</th>
+                  <th className="px-4 py-2 border">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(bookings) && bookings.length > 0 ? (
+                  bookings.map((booking) => (
+                    <tr key={booking.id}>
+                      <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.service?.teacher?.name ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.service?.hourly_rate ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.status}</td>
+                      <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
+                      <td className="border px-4 py-2">
+                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Edit</Link>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td className="text-center col-span-full text-gray-500" colSpan={6}>No bookings found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </TeacherLayout>
+  );
+}
