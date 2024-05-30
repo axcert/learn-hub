@@ -16,10 +16,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] }: 
   const [date, setDate] = useState<Date | null>(new Date());
 
   return (
-    <TeacherLayout
-      user={auth.user}
-      
-    >
+    <TeacherLayout user={auth.user}>
       <Head title="Teacher Overview" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
         <div className="lg:col-span-3">

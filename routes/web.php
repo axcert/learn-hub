@@ -84,12 +84,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
-        Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.teachers.show');
+        Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
         Route::resource('messages', TeacherMessageController::class)->names('teacher.messages');
-        Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings');
+        Route::get('bookings/create/{service_id}', [TeacherBookingController::class, 'create'])->name('teacher.bookings.create');
+        Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings')->except(['create']);
     });
 });
-
 
 
 require __DIR__ . '/auth.php';

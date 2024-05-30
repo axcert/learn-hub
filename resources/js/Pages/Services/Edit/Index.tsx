@@ -32,7 +32,8 @@ const ServiceEdit: React.FC<Props> = ({ service }) => {
     <Authenticated user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Service</h2>}>
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-          <form onSubmit={handleSubmit} method="POST">
+          <form onSubmit={handleSubmit} method="POST" >
+          
             <div className="space-y-12">
               <div className="border-b border-gray-900/10 pb-12">
                 <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">Service Details</h2>
