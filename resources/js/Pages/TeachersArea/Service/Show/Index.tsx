@@ -26,9 +26,9 @@ export default function ServiceShow({ service }: Props) {
       <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
           <h1 className="text-2xl font-bold mb-4 text-center">{service.name}</h1>
-          <p className="text-gray-700 mb-2">{service.description}</p>
+          <p className="text-gray-1000  mb-2">{service.description}</p>
           <p className="text-gray-700 mb-2">Hourly Rate: Rs:{service.hourly_rate}/hr</p>
-
+          <p className="text-gray-700 mb-2">Experience: {service.experience}</p>
           {service.teacher ? (
             <p className="text-gray-700 mb-2">Teacher: {service.teacher.name}</p>
           ) : (

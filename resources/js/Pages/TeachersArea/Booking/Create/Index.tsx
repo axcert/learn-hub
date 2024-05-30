@@ -1,8 +1,7 @@
 import React from 'react';
 import { useForm, Link, usePage } from '@inertiajs/react';
-import Authenticated from '@/Layouts/AuthenticatedLayout';
 import { User, Service } from '@/types';
-import StudentLayout from '@/Layouts/StudentLayout';
+import TeacherLayout from '@/Layouts/TeacherLayout';
 
 interface Props {
   service: Service;
@@ -24,7 +23,7 @@ export default function BookingCreate({ service }: Props) {
   };
 
   return (
-    <StudentLayout user={auth.user}>
+    <TeacherLayout user={auth.user}>
       <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
           <h1 className="text-2xl font-bold mb-4 text-center">Book {service.name}</h1>
@@ -67,6 +66,6 @@ export default function BookingCreate({ service }: Props) {
           </form>
         </div>
       </div>
-    </StudentLayout>
+    </TeacherLayout>
   );
 }

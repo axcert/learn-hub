@@ -1,8 +1,7 @@
-import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Booking } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
+import TeacherLayout from '@/Layouts/TeacherLayout';
 
 interface Props extends PageProps {
     bookings: Booking[];
@@ -10,7 +9,7 @@ interface Props extends PageProps {
 
 export default function BookingIndex({ auth, bookings = [] }: Props) {
     return (
-        <StudentLayout
+        <TeacherLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">My Bookings</h2>}
         >
@@ -48,6 +47,6 @@ export default function BookingIndex({ auth, bookings = [] }: Props) {
                     </div>
                 </div>
             </div>
-        </StudentLayout>
+        </TeacherLayout>
     );
 }

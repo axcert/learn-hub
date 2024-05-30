@@ -29,7 +29,7 @@ class TeacherBookingController extends Controller
      * Show the form for creating a new resource.
      */
     public function create($service_id)
-    {
+    {   
         $service = $this->serviceInterface->findById($service_id);
 
         return Inertia::render('TeachersArea/Booking/Create/Index', [
@@ -46,7 +46,7 @@ class TeacherBookingController extends Controller
         $data['status'] = $data['status'] ?? 'pending'; 
 
         $this->bookingInterface->create($data);
-        return redirect()->route('bookings.index');
+        return redirect()->route('teacher.overviews.index');
     }
 
     /**
@@ -74,7 +74,7 @@ class TeacherBookingController extends Controller
     {
         $data = $request->all();
         $booking->update($data);
-        return redirect()->route('bookings.index');
+        return redirect()->route('teacher.overviews.index');
     }
 
     /**
@@ -83,6 +83,6 @@ class TeacherBookingController extends Controller
     public function destroy(Booking $booking)
     {
         $booking->delete();
-        return redirect()->route('bookings.index');
+        return redirect()->route('teacher.overviews.index');
     }
 }

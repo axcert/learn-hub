@@ -18,7 +18,7 @@ export default function ServiceCreate() {
     admin_id: '1',
     description: '',
     hourly_rate: '',
-    teacher_id: '',
+    teacher_id: 'auth.user.id',
     experience: '', 
   });
 
@@ -100,7 +100,7 @@ export default function ServiceCreate() {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-4">
+                  {/* <div className="sm:col-span-4">
                     <label htmlFor="teacher_id" className="block text-sm font-medium leading-6 text-gray-900">Teacher ID</label>
                     <div className="mt-2">
                       <input
@@ -113,7 +113,7 @@ export default function ServiceCreate() {
                       />
                       {errors.teacher_id && <div className="text-red-600 text-sm mt-1">{errors.teacher_id}</div>}
                     </div>
-                  </div>
+                  </div> */}
 
                   
                 </div>

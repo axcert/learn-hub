@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Booking } from '@/types';
+import TeacherLayout from '@/Layouts/TeacherLayout';
 
 interface Props extends PageProps {
     booking: Booking;
@@ -19,7 +19,7 @@ export default function Edit({ auth, booking }: Props) {
     }
 
     return (
-        <StudentLayout
+        <TeacherLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Booking</h2>}
         >
@@ -59,6 +59,6 @@ export default function Edit({ auth, booking }: Props) {
                     </form>
                 </div>
             </div>
-        </StudentLayout>
+        </TeacherLayout>
     );
 }

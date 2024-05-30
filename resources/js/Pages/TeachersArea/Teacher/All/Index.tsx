@@ -34,7 +34,7 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                             {Array.isArray(teachers) && teachers.length > 0 ? (
                                 teachers.map((teacher) => (
                                     <Link
-                                        href={route('teachers.teachers.show', teacher.id)}
+                                        href={route('teachers.show', teacher.id)}
                                         key={teacher.id}
                                         className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                                     >
