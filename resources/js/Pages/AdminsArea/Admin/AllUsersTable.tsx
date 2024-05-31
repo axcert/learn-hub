@@ -1,17 +1,6 @@
-import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import { LuView } from "react-icons/lu";
 import { useState } from "react";
-import Card from "@/Components/Card/Card";
-import SearchBar from "@/Components/SearchBar/SearchBar";
 import Dropdown from "@/Components/Dropdown/Dropdown";
-import Button from "@/Components/Button/Button";
-import Dialog from "@/Components/MyDialog/MyDialog";
-import MyDialog from "@/Components/MyDialog/MyDialog";
-import { log } from "console";
 import { Inertia } from "@inertiajs/inertia";
-import Alert from "@/Components/Alert/Alert";
 
 export interface Data {
     id: any;
@@ -51,7 +40,6 @@ export interface PaginatedTableProps {
 
     return (
         <div className="py-2">
-
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div className="p-6 text-gray-900">
