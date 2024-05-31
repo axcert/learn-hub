@@ -10,6 +10,8 @@ import Button from "@/Components/Button/Button";
 import Dialog from "@/Components/MyDialog/MyDialog";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import { log } from "console";
+import { Inertia } from "@inertiajs/inertia";
+import Alert from "@/Components/Alert/Alert";
 
 export interface Data {
     id: any;
@@ -35,16 +37,21 @@ export interface PaginatedTableProps {
         currentPage * itemsPerPage
     );
 
+
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    // const remove = () => {
-    //     console.log("remove");
-    // };
+    const handleRoleChange = (id: any, role: string) => {
+
+        
+        Inertia.put(route('admin.users.update', id), { role });
+    };
+    
 
     return (
         <div className="py-2">
+
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div className="p-6 text-gray-900">
@@ -114,22 +121,18 @@ export interface PaginatedTableProps {
                                                         menuItems={[
                                                             {
                                                                 label: "Admin",
-                                                                href: route('admin.users.edit', entry.id),
+                                                                onClick: () => handleRoleChange(entry.id, "admin"),
                                                           
                                                             },
                                                             {
                                                                 label: "Teacher",
-                                                                href: "#",
+                                                                onClick: () => handleRoleChange(entry.id, "teacher"),
                                                             },
                                                             {
                                                                 label: "Student",
-                                                                href: "#",
+                                                                onClick: () => handleRoleChange(entry.id, "student"),
                                                             },
 
-                                                            // {
-                                                            //     label: "Remove",
-                                                            //     onClick: remove,
-                                                            // },
                                                         ]}
                                                     />
                                                 </td>
