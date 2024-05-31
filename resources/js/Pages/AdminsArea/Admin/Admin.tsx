@@ -10,16 +10,12 @@ import Button from "@/Components/Button/Button";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import AllUsersTable from "./AllUsersTable";
 
-
 export interface Data {
-    user: User;
-    phoneNumber: string;
-}
-export interface User {
     name: string;
     email: string;
     id: any;
     role: string;
+    phone: string;
 }
 
 export interface PaginatedTableProps {
@@ -44,9 +40,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         console.log("remove");
     };
 
-    const update = () =>{
+    const update = () => {
         console.log("update");
-    }
+    };
 
     return (
         <div className="py-2">
@@ -108,23 +104,22 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.id}
+                                                    {entry.id}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {entry.user.name}
+                                                    {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phoneNumber} */}
-                                                    null
+                                                    {entry.phone}
                                                 </td>
 
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.email}
                                                 </td>
                                                 <td className="px-6 py-4 text-green-600 font-bold">
-                                                    {entry.user.role}
+                                                    {entry.role}
                                                 </td>
-                                              
+
                                                 <td className="px-6 py-4 flex">
                                                     <button
                                                         onClick={remove}
@@ -133,14 +128,12 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                         <MdDelete />
                                                     </button>
 
-
                                                     <button
                                                         onClick={update}
                                                         className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
                                                     >
                                                         <FaUserEdit />
                                                     </button>
-
                                                 </td>
                                             </tr>
                                         ))
@@ -201,7 +194,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 export default function Admin({ auth, adminCount, admins, users }: PageProps) {
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log("-------------------", users);
+    console.log("-------------------", admins);
     const search = () => {
         console.log("search Admin");
     };

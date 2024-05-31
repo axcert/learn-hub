@@ -25,12 +25,17 @@ class AdminAdminController extends Controller
     public function index()
     {
 
-        return Inertia::render('AdminsArea/Admin/Admin',[
-            'adminCount'=>$this->adminInterface->all()->count(),
-            'admins' => $this->adminInterface->all()->load('user'),
+        $users = $this->userInterface->all()->load('user');
+        $adminUsers = $users->filter(function ($user) {
+            return $user->role === 'admin';
+        });
+        $adminCount = $adminUsers->count();
+
+        return Inertia::render('AdminsArea/Admin/Admin', [
+            'adminCount' => $adminCount,
+            'admins' => $adminUsers,
             'users' => $this->userInterface->all()->load('user'),
         ]);
-     
     }
     /**
      * Show the form for creating a new resource.
