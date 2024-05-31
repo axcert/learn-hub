@@ -23,15 +23,14 @@ class TeacherServiceController extends Controller
        
     public function index(Request $request)
     {    
-        $teacherId = $request->user()->id;
-        $filters = $request->all();
+        $teacherId = $this->teacherInterface->findByUserId($request->user()->id)->id;
 
         $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
 
         return Inertia::render('TeachersArea/Service/All/Index', [
             'services' => $services,
-            'filters' => $filters,
-        ]);
+            
+    ]);
 
     }
 
@@ -52,7 +51,9 @@ class TeacherServiceController extends Controller
     {
     
         $data = $request->all();
-        $data['teacher_id'] = $request->user()->id;
+        $teacher = $this->teacherInterface->findByUserId($request->user()->id);
+
+        $data['teacher_id'] = $teacher->id;
 
         $this->serviceInterface->create($data);
         return redirect()->route('teacher.services.index');
@@ -66,7 +67,7 @@ class TeacherServiceController extends Controller
     public function show(Service $service)
     {
         
-        $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher']);
+        $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher.user']);
         return Inertia::render('TeachersArea/Service/Show/Index', ['service' => $service]);
        
     }

@@ -37,14 +37,25 @@ export default function TeacherOverview({ auth, services = [], bookings = [] }: 
                   </div>
                   <div className="mt-4 text-center">
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
-                    {service.teacher && <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.name}</p>}
+                    {service.teacher && <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.user.name}</p>}
                     <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                     <p className="mt-1 text-sm font-semibold text-indigo-600">Rs: {service.hourly_rate}/hr</p>
                   </div>
                 </Link>
               ))
             ) : (
-              <p className="text-center col-span-full text-gray-500">No services found.</p>
+              <p className="text-center col-span-full text-gray-500">
+                No services found. <br />
+                 1.Update your Bio and Position at the Right side Click Drop Down <br />
+                 2. Go to Add Bio section. <br />
+                 3. Add your Bio and Position and click Create button. <br />
+                 4. Once you created your Bio and Position you will be able to add Services.
+
+                <Link
+                  href={route('teachers.create')}
+                  className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
+                ></Link>
+              </p>
             )}
           </div>
           {Array.isArray(services) && services.length > 3 && (
@@ -94,7 +105,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] }: 
                   bookings.map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
-                      <td className="border px-4 py-2">{booking.service?.teacher?.name ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.service?.teacher?.user?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.hourly_rate ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.status}</td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
