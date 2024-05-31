@@ -26,4 +26,12 @@ class TeacherRepository extends BaseRepository implements TeacherInterface
      {
          $this->model = $model;
      }
+
+     public function findByUserId(int $userId, array $relations = [])
+    {
+        $teacher = Teacher::where('user_id', $userId)->with($relations)->first();
+        return $teacher;
+    }
+
+   
 }

@@ -151,7 +151,7 @@ export default function Register() {
                     <InputError message={errors.role} className="mt-2" />
                 </div>
 
-                {data.role === 'teacher' && (
+                {/* {data.role === 'teacher' && (
                     <>
                         <div className="mt-4">
                             <InputLabel htmlFor="bio" value="Bio" />
@@ -185,7 +185,7 @@ export default function Register() {
                             <InputError message={errors.position} className="mt-2" />
                         </div>
                     </>
-                )}
+                )} */}
 
                 
 

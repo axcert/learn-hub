@@ -38,6 +38,7 @@ export interface Teacher {
   };
   
   export interface Service {
+    user: any;
     student: any;
     bookings: any;
     position: ReactNode;

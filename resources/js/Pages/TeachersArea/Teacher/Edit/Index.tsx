@@ -1,39 +1,35 @@
-import React from 'react';
-import { Head, useForm, Link, usePage } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import TeacherLayout from '@/Layouts/TeacherLayout';
-import { User } from '@/types';
+import { User, Teacher } from '@/types';
 
 interface Props {
   auth: { user: User };
-  message?: string;
+  teacher: Teacher;
 }
 
-export default function CreateTeacher({ auth, message }: Props) {
-  const { data, setData, post, errors } = useForm({
-    bio: '',
-    position: '',
-    user_id: auth.user.id 
+export default function EditTeacher({ auth, teacher }: Props) {
+  const { data, setData, put, errors } = useForm({
+    bio: teacher.bio || '',
+    position: teacher.position || '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route('teachers.store'), {
+    put(route('teachers.update', teacher.id), {
       preserveScroll: true,
       onSuccess: () => {
-        // Reset the form or show a success message
-        setData({ bio: '', position: '', user_id: auth.user.id });
+       
       }
     });
   };
 
   return (
     <TeacherLayout user={auth.user}>
-      <Head title="Create Teacher" />
+      <Head title="Edit Teacher" />
       <div className="mt-10 mx-4 lg:mx-10">
-        {message && <div className="alert alert-info">{message}</div>}
         <div className="bg-white shadow-sm sm:rounded-lg p-4">
-          <h2 className="text-xl font-bold mb-4">Create Your Bio Here</h2>
-          <p>Once you created Don't Create again</p>
+          <h2 className="text-xl font-bold mb-4">Edit your Bio</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bio">Bio</label>
@@ -61,10 +57,10 @@ export default function CreateTeacher({ auth, message }: Props) {
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Create Teacher
+                Update Teacher
               </button>
-              <Link href={route('teachers.index')} className="text-blue-500 hover:text-blue-700">
-                Back to Teachers
+              <Link href={route('teachers.show', teacher.id)} className="text-blue-500 hover:text-blue-700">
+                Cancel
               </Link>
             </div>
           </form>
