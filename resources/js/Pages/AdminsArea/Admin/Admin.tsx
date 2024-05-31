@@ -33,19 +33,12 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
           )
         : [];
 
-  
-
-    // const currentData = data.slice(
-    //     (currentPage - 1) * itemsPerPage,
-    //     currentPage * itemsPerPage
-    // );
-
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    const remove = () => {
-        console.log("remove");
+    const remove = (id:any) => {
+        router.delete(route('admin.adminPanels.destroy',id));
     };
 
     const update = () => {
@@ -132,7 +125,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
 
                                                 <td className="px-6 py-4 flex">
                                                     <button
-                                                        onClick={remove}
+                                                         onClick={() => remove(entry.id)}
                                                         className="font-medium text-red-600 hover:text-red-700 ms-3 text-lg"
                                                     >
                                                         <MdDelete />

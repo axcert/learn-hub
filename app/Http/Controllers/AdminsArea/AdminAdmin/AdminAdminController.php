@@ -58,10 +58,7 @@ class AdminAdminController extends Controller
      */
     public function show($id)
     {
-        // $teacher = Teacher::with('user', 'services')->findOrFail($id);
-        // return Inertia::render('StudentArea/Teacher/Show/Index', [
-        //     'teacher' => $teacher,
-        // ]);
+      
     }
 
     /**
@@ -85,6 +82,6 @@ class AdminAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->userInterface->deleteById($id);
     }
 }
