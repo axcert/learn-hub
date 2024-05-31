@@ -44,6 +44,12 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                     Messages
                                 </NavLink>
                             </div>
+                            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('teachers.create')} active={route().current('teachers.create')}>
+                                    Add Bio
+                                </NavLink>
+                            </div> */}
+                            
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -77,6 +83,9 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
+                                        </Dropdown.Link>
+                                        <Dropdown.Link href={route('teachers.create')}  as="button">
+                                            Add Bio
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -123,6 +132,9 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                         <ResponsiveNavLink href={route('teacher.messages.index')} active={route().current('teacher.messages.index')}>
                             Messages
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('teachers.create')} active={route().current('teachers.create')}>
+                            Add Bio
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -138,6 +150,9 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('teachers.create')} active={route().current('teachers.create')}>
+                            Add Bio
+                        </ResponsiveNavLink>
                         </div>
                     </div>
                 </div>

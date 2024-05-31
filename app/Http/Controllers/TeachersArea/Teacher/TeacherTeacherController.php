@@ -27,6 +27,8 @@ class TeacherTeacherController extends Controller
             'teachers' => $teachers,
         ]);
 
+    
+
     }
 
     /**
@@ -34,7 +36,16 @@ class TeacherTeacherController extends Controller
      */
     public function create()
     {
-    
+        // return Inertia::render('TeachersArea/Teacher/Create/Index');
+        $userId = auth()->id();
+        $teacher = $this->teacherInterface->findByColumn(['user_id'=> $userId]);
+
+        if ($teacher) {
+            return redirect()->route('teachers.edit', $teacher->id)
+                ->with('message', 'You already have a profile. You can edit it here.');
+        }
+
+        return Inertia::render('TeachersArea/Teacher/Create/Index');
     }
 
     /**
@@ -42,7 +53,15 @@ class TeacherTeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'bio' => 'required|string',
+            'position' => 'required|string',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        $teacher = $this->teacherInterface->create($validated);
+
+        return redirect()->route('teachers.index');
     }
 
     /**
@@ -59,6 +78,7 @@ class TeacherTeacherController extends Controller
         return Inertia::render('TeachersArea/Teacher/Show/Index', [
             'teacher' => $teacher,
         ]);
+        
     }
 
     /**
@@ -66,7 +86,11 @@ class TeacherTeacherController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $teacher = $this->teacherInterface->findById($id, ['*'], ['user']);
+        
+        return Inertia::render('TeachersArea/Teacher/Edit/Index', [
+            'teacher' => $teacher,
+        ]);
     }
 
     /**
@@ -74,7 +98,14 @@ class TeacherTeacherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'bio' => 'required|string',
+            'position' => 'required|string',
+        ]);
+
+        $teacher = $this->teacherInterface->update($id, $validated);
+
+        return redirect()->route('teachers.show', $id);
     }
 
     /**

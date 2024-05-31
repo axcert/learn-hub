@@ -71,6 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
+        Route::get('teachers/create/', [TeacherTeacherController::class, 'create'])->name('teachers.create');
+        Route::post('/teachers',[TeacherTeacherController::class, 'store'])->name('teachers.store');
+        Route::get('/teachers/{id}/edit', [TeacherTeacherController::class, 'edit'])->name('teachers.edit');
+        Route::put('/teachers/{id}', [TeacherTeacherController::class, 'update'])->name('teachers.update');
         Route::resource('messages', TeacherMessageController::class)->names('teacher.messages');
         Route::get('bookings/create/{service_id}', [TeacherBookingController::class, 'create'])->name('teacher.bookings.create');
         Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings')->except(['create']);

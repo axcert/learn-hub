@@ -22,13 +22,19 @@ class TeacherOverviewController extends Controller
      */
     public function index()
     {   
-        
         $user_id = auth()->id();
-        $teachers = $this->teacherInterface->all();
-        $services = $this->serviceInterface->getByColumn(['teacher_id' => $user_id], ['*'], ['teacher']);
-        $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher']);
+        $teacher = $this->teacherInterface->findByUserId($user_id);
+
+        $services = [];
+        $bookings = [];
+
+        if ($teacher) {
+            $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacher->id], ['*'], ['teacher.user']);
+            $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
+        }
+
         return Inertia::render('TeachersArea/Overview/All/Index', [
-            'teachers' => $teachers,
+            'teacher' => $teacher,
             'services' => $services,
             'bookings' => $bookings,
         ]);
