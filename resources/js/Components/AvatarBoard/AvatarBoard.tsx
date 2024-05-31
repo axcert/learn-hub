@@ -11,7 +11,7 @@ const temp = {
 
 const userNavigation = [
     // { name: "Your Profile", href: route("profile.edit") },
-    { name: "Your Profile", href: route("profileManage.index") },
+    { name: "Your Profile", href: route("admin.profileManage.index") },
 ];
 
 function classNames(...classes: string[]) {

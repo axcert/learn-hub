@@ -16,7 +16,6 @@ export interface Data {
     contact: string;
     email: string;
     role: string;
-    
 }
 
 
@@ -40,8 +39,6 @@ export interface PaginatedTableProps {
     // const remove = () => {
     //     console.log("remove");
     // };
-
-
 
     return (
         <div className="py-2">
@@ -102,7 +99,7 @@ export interface PaginatedTableProps {
                                                     {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    null
+                                                {entry.contact}
                                                 </td>
 
                                                 <td className="px-6 py-4">
@@ -114,7 +111,7 @@ export interface PaginatedTableProps {
                                                         menuItems={[
                                                             {
                                                                 label: "Admin",
-                                                                href: route('users.edit', entry.id),
+                                                                href: route('admin.users.edit', entry.id),
                                                           
                                                             },
                                                             {

@@ -36,7 +36,7 @@ export default function AdminLayout({
                         <ul className="font-medium flex justify-center flex-col">
                             <li className="justify-left mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("overview.index")}
+                                    href={route("admins.overview.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <AiFillDashboard />
@@ -45,7 +45,7 @@ export default function AdminLayout({
                             </li>
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("services.index")}
+                                    href={route("admin.services.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <MdDashboardCustomize />
@@ -55,7 +55,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("teachers.index")}
+                                    href={route("admin.teachers.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <GiTeacher />
@@ -65,7 +65,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100 hover:text-black transition duration-300">
                                 <Link
-                                    href={route("students.index")}
+                                    href={route("admin.students.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <PiStudentFill />
@@ -76,7 +76,7 @@ export default function AdminLayout({
 
                             <li className="mb-2 w-60 rounded cursor-pointer hover:bg-stone-100  hover:text-black transition duration-300">
                                 <Link
-                                    href={route("admins.index")}
+                                    href={route("admin.adminPanels.index")}
                                     className="flex items-center justify-left gap-2 py-4 px-4"
                                 >
                                     <FaUsersCog />

@@ -44,31 +44,17 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
-// Route::middleware(['auth','verified'])->group(function(){
-//     Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
-//         Route::resource('overview', AdminOverViewController::class);
-//         Route::resource('teachers', AdminTeacherController::class);
-//         Route::resource('students', AdminStudentController::class);
-//         Route::resource('admins', AdminAdminController::class);
-//         Route::resource('services', AdminServiceController::class);
-//         Route::resource('profileManage', AdminProfileManageController::class);
-//         Route::resource('users', AdminUserController::class);
-//     });
-// });
-
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
-        Route::resource('overview', AdminOverViewController::class)->names('admin.overview');
+    Route::prefix('admin')->middleware(AdminValidationMiddleware::class)->group(function () {
+        Route::resource('overview', AdminOverViewController::class)->names('admins.overview');
         Route::resource('teachers', AdminTeacherController::class)->names('admin.teachers');
         Route::resource('students', AdminStudentController::class)->names('admin.students');
-        Route::resource('admins', AdminAdminController::class)->names('admin.admins');
+        Route::resource('admins', AdminAdminController::class)->names('admin.adminPanels');
         Route::resource('services', AdminServiceController::class)->names('admin.services');
         Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
         Route::resource('users', AdminUserController::class)->names('admin.users');
     });
+
 
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
