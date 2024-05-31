@@ -27,7 +27,7 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
             {Array.isArray(services) && services.length > 0 ? (
               services.slice(0, 3).map((service) => (
                 <Link
-                  href={route('services.show', service.id)}
+                  href={route('teacher.services.show', service.id)}
                   key={service.id}
                   className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
@@ -53,7 +53,7 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
           {Array.isArray(services) && services.length > 3 && (
             <div className="flex justify-center mt-4">
               <Link
-                href={route('services.index')}
+                href={route('teacher.services.index')}
                 className="text-blue-500 hover:text-blue-700 dark:text-blue-500 flex-end"
               >
                 View More
@@ -75,7 +75,7 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
             </h2>
             <Link
               className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
-              href={route('bookings.index')}
+              href={route('teacher.bookings.index')}
             >
               View all
             </Link>
@@ -102,8 +102,8 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                       <td className="border px-4 py-2">{booking.status}</td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
-                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('bookings.show', booking.id)}>View</Link>
-                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('bookings.edit', booking.id)}>Edit</Link>
+                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Edit</Link>
                       </td>
                     </tr>
                   ))

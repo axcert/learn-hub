@@ -6,7 +6,12 @@ import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import Logo from '../../../public/asset/Logo.png';
 
-export default function TeacherLayout({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+interface TeacherLayoutProps {
+    user: User;
+    header?: ReactNode;
+}
+
+export default function TeacherLayout({ user, header, children }: PropsWithChildren<TeacherLayoutProps>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -19,36 +24,30 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                 <img className="h-9 w-auto fill-current text-gray-800" src={Logo} alt="Logo" />
                                 <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('overviews.index')} active={route().current('overviews.index')}>
-                                Overview 
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('teacher.overviews.index')} active={route().current('teacher.overviews.index')}>
+                                    Overview 
                                 </NavLink>
                             </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink href={route('teachers.index')} active={route().current('teachers.index')}>
                                     Teacher 
                                 </NavLink>
                             </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('students.index')} active={route().current('students.index')}>
-                                    Students
-                                </NavLink>
-                            </div> */}
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('services.index')} active={route().current('services.index')}>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('teacher.services.index')} active={route().current('teacher.services.index')}>
                                     Services
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('messages.index')} active={route().current('messages.index')}>
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('teacher.messages.index')} active={route().current('teacher.messages.index')}>
                                     Messages
                                 </NavLink>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="ms-3 relative">
+                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -59,7 +58,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                                 {user.name}
 
                                                 <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
+                                                    className="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -84,7 +83,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        <div className="-mr-2 flex items-center sm:hidden">
                             <button
                                 onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
                                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
@@ -115,13 +114,13 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                         <ResponsiveNavLink href={route('teachers.index')} active={route().current('teachers.index')}>
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('students.index')} active={route().current('students.index')}>
+                        <ResponsiveNavLink href={route('teacher.students.index')} active={route().current('teacher.students.index')}>
                             Students
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('services.index')} active={route().current('services.index')}>
+                        <ResponsiveNavLink href={route('teacher.services.index')} active={route().current('teacher.services.index')}>
                             Services
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('messages.index')} active={route().current('messages.index')}>
+                        <ResponsiveNavLink href={route('teacher.messages.index')} active={route().current('teacher.messages.index')}>
                             Messages
                         </ResponsiveNavLink>
                     </div>

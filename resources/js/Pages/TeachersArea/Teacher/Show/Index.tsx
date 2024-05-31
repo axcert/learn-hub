@@ -19,10 +19,7 @@ export default function TeacherShow({ auth, teacher }: Props) {
     }
 
     return (
-        <TeacherLayout
-            user={auth.user}
-    
-        >
+        <TeacherLayout user={auth.user}>
             <Head title={user.name} />
 
             <div className="mt-5 mx-4 md:mx-10">
@@ -47,9 +44,9 @@ export default function TeacherShow({ auth, teacher }: Props) {
                     <h4 className="text-xl font-medium text-gray-800">Services</h4>
                     {services.length > 0 ? (
                         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {services.map((service:any) => (
+                            {services.map((service: any) => (
                                 <Link
-                                    href={route('services.show', service.id)}
+                                    href={route('teacher.services.show', service.id)}
                                     key={service.id}
                                     className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                                 >
@@ -62,7 +59,6 @@ export default function TeacherShow({ auth, teacher }: Props) {
                                     </div>
                                     <div className="mt-4 text-center">
                                         <h5 className="text-lg font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h5>
-                                        <h3 className="text-lg font-semibold leading-7 tracking-tight text-gray-900">{user.name}</h3>
                                         <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                                     </div>
                                 </Link>

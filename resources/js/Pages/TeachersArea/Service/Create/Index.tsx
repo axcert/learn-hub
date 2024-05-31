@@ -18,13 +18,13 @@ export default function ServiceCreate() {
     admin_id: '1',
     description: '',
     hourly_rate: '',
-    teacher_id: '',
+    teacher_id: 'auth.user.id',
     experience: '', 
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route('services.store'));
+    post(route('teacher.services.store'));
   };
 
   return (
@@ -100,7 +100,7 @@ export default function ServiceCreate() {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-4">
+                  {/* <div className="sm:col-span-4">
                     <label htmlFor="teacher_id" className="block text-sm font-medium leading-6 text-gray-900">Teacher ID</label>
                     <div className="mt-2">
                       <input
@@ -113,7 +113,7 @@ export default function ServiceCreate() {
                       />
                       {errors.teacher_id && <div className="text-red-600 text-sm mt-1">{errors.teacher_id}</div>}
                     </div>
-                  </div>
+                  </div> */}
 
                   
                 </div>
@@ -121,7 +121,7 @@ export default function ServiceCreate() {
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-              <Link href={route('services.index')} className="text-sm font-semibold leading-6 text-gray-900">Cancel</Link>
+              <Link href={route('teacher.services.index')} className="text-sm font-semibold leading-6 text-gray-900">Cancel</Link>
               <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
             </div>
           </form>

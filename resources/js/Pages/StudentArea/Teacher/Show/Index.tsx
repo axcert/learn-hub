@@ -49,7 +49,7 @@ export default function TeacherShow({ auth, teacher }: Props) {
                         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                             {services.map((service:any) => (
                                 <Link
-                                    href={route('services.show', service.id)}
+                                    href={route('student.services.show', service.id)}
                                     key={service.id}
                                     className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                                 >
@@ -74,7 +74,7 @@ export default function TeacherShow({ auth, teacher }: Props) {
                 </div>
                 <div className="mt-5 text-center md:text-left">
                     <Link
-                        href={route('teachers.index')}
+                        href={route('student.teachers.index')}
                         className="text-blue-500 hover:text-blue-700"
                     >
                         Back to Teachers

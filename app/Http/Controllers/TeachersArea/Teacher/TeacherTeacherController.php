@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TeachersArea\Teacher;
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
+use App\Repositories\All\Users\UserInterface;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use Inertia\Inertia;
@@ -12,7 +13,8 @@ use Inertia\Inertia;
 class TeacherTeacherController extends Controller
 {
     public function __construct(protected TeacherInterface $teacherInterface, 
-                                protected ServiceInterface $serviceInterface){}
+                                protected ServiceInterface $serviceInterface,
+                                protected UserInterface $userInterface){}
     /**
      * Display a listing of the resource.
      */
@@ -20,16 +22,10 @@ class TeacherTeacherController extends Controller
     {
         
         $teachers = $this->teacherInterface->all(['*'], ['user']);
-        $services = $this->serviceInterface->all()->count();
-        // 'servicesCount' -> $this->serviceInterface->count();
 
         return Inertia::render('TeachersArea/Teacher/All/Index', [
             'teachers' => $teachers,
-            'services' => $services,
-            'servicesCount' => $services,
-            
         ]);
-        // return Inertia::render('TeachersArea/Teacher/All/Index');
 
     }
 
@@ -38,7 +34,7 @@ class TeacherTeacherController extends Controller
      */
     public function create()
     {
-        //
+    
     }
 
     /**
@@ -53,7 +49,8 @@ class TeacherTeacherController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
+    {   
+        
         $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
         if (!$teacher) {
             abort(404, 'Teacher not found');

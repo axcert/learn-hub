@@ -37,20 +37,6 @@ Route::get('/', function () {
     ]);
 });
 
-
-Route::middleware(['auth','verified'])->group(function(){
-    Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
-        Route::resource('overview', AdminOverViewController::class);
-        Route::resource('teachers', AdminTeacherController::class);
-        Route::resource('students', AdminStudentController::class);
-        Route::resource('admins', AdminAdminController::class);
-        Route::resource('services', AdminServiceController::class);
-        Route::resource('profileManage', AdminProfileManageController::class);
-        Route::resource('users', AdminUserController::class);
-    });
-});
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,29 +44,52 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+// Route::middleware(['auth','verified'])->group(function(){
+//     Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
+//         Route::resource('overview', AdminOverViewController::class);
+//         Route::resource('teachers', AdminTeacherController::class);
+//         Route::resource('students', AdminStudentController::class);
+//         Route::resource('admins', AdminAdminController::class);
+//         Route::resource('services', AdminServiceController::class);
+//         Route::resource('profileManage', AdminProfileManageController::class);
+//         Route::resource('users', AdminUserController::class);
+//     });
+// });
+
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('admins')->middleware(AdminValidationMiddleware::class)->group(function () {
+        Route::resource('overview', AdminOverViewController::class)->names('admin.overview');
+        Route::resource('teachers', AdminTeacherController::class)->names('admin.teachers');
+        Route::resource('students', AdminStudentController::class)->names('admin.students');
+        Route::resource('admins', AdminAdminController::class)->names('admin.admins');
+        Route::resource('services', AdminServiceController::class)->names('admin.services');
+        Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
+        Route::resource('users', AdminUserController::class)->names('admin.users');
+    });
+
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
-        Route::resource('services', StudentServiceController::class);
-        Route::resource('teachers', StudentTeacherController::class);
-        Route::resource('messages', StudentMessageController::class);
-        Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('bookings.create');
-        Route::resource('bookings', StudentBookingController::class)->except(['create']);
-       
+        Route::resource('services', StudentServiceController::class)->names('student.services');
+        Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
+        Route::resource('messages', StudentMessageController::class)->names('student.messages');
+        Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
+        Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
     });
-});
-
-Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
-        Route::resource('overviews',TeacherOverviewController::class);
-        Route::resource('students', TeacherStudentController::class);
-        Route::resource('services', TeacherServiceController::class);
-        Route::resource('teachers', TeacherTeacherController::class);
-        Route::resource('messages', TeacherMessageController::class);
-        Route::resource('bookings', TeacherBookingController::class);
-       
+        Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
+        Route::resource('students', TeacherStudentController::class)->names('teacher.students');
+        Route::resource('services', TeacherServiceController::class)->names('teacher.services');
+        Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
+        Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
+        Route::resource('messages', TeacherMessageController::class)->names('teacher.messages');
+        Route::get('bookings/create/{service_id}', [TeacherBookingController::class, 'create'])->name('teacher.bookings.create');
+        Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings')->except(['create']);
     });
 });
+
 
 require __DIR__ . '/auth.php';

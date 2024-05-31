@@ -59,10 +59,6 @@ class StudentServiceController extends Controller
      */
     public function show(Service $service)
     {
-        // $id = $service->id; // Assign the id of the service
-        // $service = Service::with('teacher')->findOrFail($id);
-        // return Inertia::render('Services/Show/Index', ['service' => $service,]);
-
         $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher']);
         return Inertia::render('StudentArea/Service/Show/Index', ['service' => $service]);
     }

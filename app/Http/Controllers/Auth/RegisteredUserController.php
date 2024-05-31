@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
             case 'admin':
                 return redirect()->route('overview.index');
             case 'teacher':
-                return redirect()->route('teachers.index');
+                return redirect()->route('teacher.overviews.index');
             case 'student':
                 return redirect()->route('students.index');
             default:

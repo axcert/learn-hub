@@ -16,12 +16,10 @@ class StudentValidationMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if(Auth::check()&& Auth::user()->role== "student" || Auth::user()->role== "teacher"){
-        //     return $next($request);
-        // }
+        
         if(Auth::check()&& Auth::user()->role== "student"){
             return $next($request);
         }
-        return abort(404);
+        return abort(403);
     }
 }
