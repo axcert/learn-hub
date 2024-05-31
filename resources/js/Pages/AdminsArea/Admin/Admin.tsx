@@ -16,21 +16,29 @@ export interface Data {
     id: any;
     role: string;
     phone: string;
-}
-
+  }
 export interface PaginatedTableProps {
     data: Data[];
-    // children: React.ReactNode;
 }
-const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const currentData = Array.isArray(data)
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
+
+  
+
+    // const currentData = data.slice(
+    //     (currentPage - 1) * itemsPerPage,
+    //     currentPage * itemsPerPage
+    // );
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
@@ -44,11 +52,13 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         console.log("update");
     };
 
+   console.log("data:", data);
+
+
     return (
         <div className="py-2">
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    {/* <div className="p-2">{children ? children : null}</div> */}
                     <div className="p-6 text-gray-900">
                         <div className="relative overflow-auto shadow-md rounded-lg">
                             <table className="w-full text-sm text-left text-gray-500">
@@ -203,6 +213,9 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
         setIsOpen(true);
         // router.get(route('users.index'));
     };
+
+    const adminsArray = Object.values(admins);
+
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -253,7 +266,7 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={admins} />
+                        <PaginatedTable data={adminsArray} />
                     </div>
                 </div>
             </AdminLayout>
