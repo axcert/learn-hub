@@ -9,11 +9,12 @@ import Dropdown from "@/Components/Dropdown/Dropdown";
 import Button from "@/Components/Button/Button";
 import Dialog from "@/Components/MyDialog/MyDialog";
 import MyDialog from "@/Components/MyDialog/MyDialog";
+import { log } from "console";
 
 export interface Data {
     id: any;
     name: string;
-    contact: string;
+    phone: string;
     email: string;
     role: string;
 }
@@ -26,6 +27,8 @@ export interface PaginatedTableProps {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
+    console.log(data);
+    
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = data.slice(
         (currentPage - 1) * itemsPerPage,
@@ -99,7 +102,7 @@ export interface PaginatedTableProps {
                                                     {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {entry.contact}
+                                                {entry.phone}
                                                 </td>
 
                                                 <td className="px-6 py-4">
