@@ -12,7 +12,6 @@ class AdminStudentController extends Controller
 {
 
     public function __construct(
-        protected StudentInterface $studentInterface,
         protected UserInterface $userInterface
     ) {
     }

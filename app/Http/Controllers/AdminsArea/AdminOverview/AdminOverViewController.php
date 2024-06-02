@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
+use App\Repositories\All\Users\UserInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,9 +14,8 @@ class AdminOverViewController extends Controller
 {
 
     public function __construct(
-        protected StudentInterface $studentInterface,
-        protected TeacherInterface $teacherInterface,
         protected ServiceInterface $serviceInterface,
+        protected UserInterface $userInterface,
     ) {
     }
 
@@ -24,10 +24,21 @@ class AdminOverViewController extends Controller
      */
     public function index()
     {
+
+        $users = $this->userInterface->all()->load('user');
+        $studentUsers = $users->filter(function ($user) {
+            return $user->role === 'student';
+        });
+        $teacherUsers = $users->filter(function ($user) {
+            return $user->role === 'teacher';
+        });
+
+        $studentCount = $studentUsers->count();
+        $teacherCount = $teacherUsers->count();
+
         return Inertia::render('AdminsArea/Overview/Overview', [
-            'studentCount' => $this->studentInterface->all()->count(),
-            'teacherCount' => $this->teacherInterface->all()->count(),
-            'services' => $this->serviceInterface->all(['*'],['teacher'])->load('user'),
+            'studentCount' =>  $studentCount,
+            'teacherCount' => $teacherCount,
         ]);
     }
 

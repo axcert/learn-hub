@@ -25,10 +25,6 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
 
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    // const currentData = data.slice(
-    //     (currentPage - 1) * itemsPerPage,
-    //     currentPage * itemsPerPage
-    // );
     const currentData = Array.isArray(data)
     ? data.slice(
           (currentPage - 1) * itemsPerPage,

@@ -12,8 +12,6 @@ export interface Data {
     id: any;
     role: string;
     phone: string;
-}
-export interface Teacher {
     bio: string;
     position: string;
 }
