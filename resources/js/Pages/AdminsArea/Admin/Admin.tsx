@@ -201,7 +201,8 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
 
 export default function Admin({ auth, adminCount, admins, users }: PageProps) {
     const [isOpen, setIsOpen] = useState(false);
-
+    const adminsArray = Object.values(admins);
+    
     console.log("-------------------", admins);
     const search = () => {
         console.log("search Admin");
@@ -212,7 +213,7 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
         // router.get(route('users.index'));
     };
 
-    const adminsArray = Object.values(admins);
+   
 
     return (
         <>
