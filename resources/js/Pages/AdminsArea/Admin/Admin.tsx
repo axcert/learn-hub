@@ -9,6 +9,7 @@ import SearchBar from "@/Components/SearchBar/SearchBar";
 import Button from "@/Components/Button/Button";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import AllUsersTable from "./AllUsersTable";
+import Edit from "@/Pages/AdminsArea/Admin/Edit/Edit";
 
 export interface Data {
     name: string;
@@ -16,12 +17,13 @@ export interface Data {
     id: any;
     role: string;
     phone: string;
-  }
+}
 export interface PaginatedTableProps {
     data: Data[];
 }
 
 const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
+    const [isOpen, setIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
@@ -37,16 +39,15 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
         setCurrentPage(page);
     };
 
-    const remove = (id:any) => {
-        router.delete(route('admin.adminPanels.destroy',id));
+    const remove = (id: any) => {
+        router.delete(route("admin.adminPanels.destroy", id));
     };
 
-    const update = () => {
-        console.log("update");
+    const update = (id: any) => {
+        router.get(route('admin.adminPanels.edit',id));
     };
 
-   console.log("data:", data);
-
+    console.log("data:", data);
 
     return (
         <div className="py-2">
@@ -125,14 +126,18 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
 
                                                 <td className="px-6 py-4 flex">
                                                     <button
-                                                         onClick={() => remove(entry.id)}
+                                                        onClick={() =>
+                                                            remove(entry.id)
+                                                        }
                                                         className="font-medium text-red-600 hover:text-red-700 ms-3 text-lg"
                                                     >
                                                         <MdDelete />
                                                     </button>
 
                                                     <button
-                                                        onClick={update}
+                                                        onClick={() =>
+                                                            update(entry.id)
+                                                        }
                                                         className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
                                                     >
                                                         <FaUserEdit />

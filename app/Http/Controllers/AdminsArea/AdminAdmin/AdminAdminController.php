@@ -66,7 +66,10 @@ class AdminAdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $admins = $this->userInterface->findById($id);
+        return Inertia::render('AdminsArea/Admin/Edit/Edit',[
+            'admins' => $admins,
+        ]);
     }
 
     /**
@@ -74,7 +77,7 @@ class AdminAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->userInterface->update($id, $request->all());
     }
 
     /**

@@ -7,8 +7,6 @@ interface MyDialogProps {
     children: React.ReactNode;
 }
 
-
-
 export default function MyDialog({
     children,
     isOpen,
