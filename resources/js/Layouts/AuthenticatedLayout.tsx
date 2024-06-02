@@ -39,11 +39,11 @@ export default function Authenticated({
                                 </NavLink>
                             </div>
                             */}
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('students.index')} active={route().current('students.index')}>
                                     Student Dashboard
                                 </NavLink>
-                            </div>
+                            </div> */}
                             
                         </div>
 
@@ -78,7 +78,7 @@ export default function Authenticated({
                                 
                                         <Dropdown.Link
     
-                                            href={route("overview.index")}
+                                            href={route("admins.overview.index")}
                                         >
                                             Dashboard
                                         </Dropdown.Link>
@@ -150,8 +150,8 @@ export default function Authenticated({
                         </ResponsiveNavLink> */}
 
                         <ResponsiveNavLink
-                            href={route("overview.index")}
-                            active={route().current("overview.index")}
+                            href={route("admins.overview.index")}
+                            active={route().current("admins.overview.index")}
                         >
                             Dashboard
                         </ResponsiveNavLink>

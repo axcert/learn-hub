@@ -25,12 +25,17 @@ class AdminAdminController extends Controller
     public function index()
     {
 
-        return Inertia::render('AdminsArea/Admin/Admin',[
-            'adminCount'=>$this->adminInterface->all()->count(),
-            'admins' => $this->adminInterface->all()->load('user'),
+        $users = $this->userInterface->all()->load('user');
+        $adminUsers = $users->filter(function ($user) {
+            return $user->role === 'admin';
+        });
+        $adminCount = $adminUsers->count();
+
+        return Inertia::render('AdminsArea/Admin/Admin', [
+            'adminCount' => $adminCount,
+            'admins' => $adminUsers,
             'users' => $this->userInterface->all()->load('user'),
         ]);
-     
     }
     /**
      * Show the form for creating a new resource.
@@ -53,10 +58,7 @@ class AdminAdminController extends Controller
      */
     public function show($id)
     {
-        // $teacher = Teacher::with('user', 'services')->findOrFail($id);
-        // return Inertia::render('StudentArea/Teacher/Show/Index', [
-        //     'teacher' => $teacher,
-        // ]);
+      
     }
 
     /**
@@ -64,7 +66,10 @@ class AdminAdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $admins = $this->userInterface->findById($id);
+        return Inertia::render('AdminsArea/Admin/Edit/Edit',[
+            'admins' => $admins,
+        ]);
     }
 
     /**
@@ -72,14 +77,17 @@ class AdminAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dataToUpdate = $request->except(['name', 'email', 'phone']);
+        $this->userInterface->update($id, $dataToUpdate);
+        return redirect()->route('admin.adminPanels.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $this->userInterface->deleteById($id);
     }
 }

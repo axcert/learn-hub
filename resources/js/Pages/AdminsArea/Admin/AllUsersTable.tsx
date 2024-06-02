@@ -1,31 +1,28 @@
-import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import { LuView } from "react-icons/lu";
 import { useState } from "react";
-import Card from "@/Components/Card/Card";
-import SearchBar from "@/Components/SearchBar/SearchBar";
 import Dropdown from "@/Components/Dropdown/Dropdown";
-import Button from "@/Components/Button/Button";
-import Dialog from "@/Components/MyDialog/MyDialog";
+import { Inertia } from "@inertiajs/inertia";
 import MyDialog from "@/Components/MyDialog/MyDialog";
+import Button from "@/Components/Button/Button";
+import ListBox from "@/Components/ListBox/ListBox";
 
 export interface Data {
     id: any;
     name: string;
-    contact: string;
+    phone: string;
     email: string;
     role: string;
-    
 }
-
 
 export interface PaginatedTableProps {
     data: Data[];
 }
- const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
+const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
+
+    console.log(data);
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = data.slice(
@@ -37,11 +34,16 @@ export interface PaginatedTableProps {
         setCurrentPage(page);
     };
 
-    // const remove = () => {
-    //     console.log("remove");
-    // };
+    const handleRoleChange = (id: any, role: string) => {
+        setTimeout(() => {
+            Inertia.put(route("admin.users.update", id), { role });
+            setIsOpen(false);
+        }, 1000);
+    };
 
-
+    const cansel = () => {
+        setIsOpen(false);
+    };
 
     return (
         <div className="py-2">
@@ -102,33 +104,76 @@ export interface PaginatedTableProps {
                                                     {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    null
+                                                    {entry.phone}
                                                 </td>
 
                                                 <td className="px-6 py-4">
                                                     {entry.email}
                                                 </td>
                                                 <td className="flex items-center px-6 py-4 ">
-                                                    <Dropdown
-                                                    title={entry.role}
+                                                    {/* <Dropdown
+                                                        title={entry.role}
                                                         menuItems={[
                                                             {
                                                                 label: "Admin",
-                                                                href: route('users.edit', entry.id),
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "admin"
+                                                                    ),
                                                             },
                                                             {
                                                                 label: "Teacher",
-                                                                href: "#",
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "teacher"
+                                                                    ),
                                                             },
                                                             {
                                                                 label: "Student",
-                                                                href: "#",
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "student"
+                                                                    ),
                                                             },
+                                                        ]}
+                                                    /> */}
 
-                                                            // {
-                                                            //     label: "Remove",
-                                                            //     onClick: remove,
-                                                            // },
+                                                    <ListBox
+                                                     title={entry.role}
+                                                        item={[
+
+                                                            {
+                                                                label: "Select Role",
+                                                                onClick: () => {}, 
+                                                            },
+                                                            
+                                                            {
+                                                                label: "Admin",
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "admin"
+                                                                    ),
+                                                            },
+                                                            {
+                                                                label: "Teacher",
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "teacher"
+                                                                    ),
+                                                            },
+                                                            {
+                                                                label: "Student",
+                                                                onClick: () =>
+                                                                    handleRoleChange(
+                                                                        entry.id,
+                                                                        "student"
+                                                                    ),
+                                                            },
                                                         ]}
                                                     />
                                                 </td>
@@ -179,6 +224,24 @@ export interface PaginatedTableProps {
                                 >
                                     Next
                                 </button>
+
+                                {/* <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+                                    <h1>Are You Sure ?</h1>
+                                    <br />
+                                    <div>
+                                        <Button
+                                            name="Yes"
+                                            onClick={() => handleRoleChange}
+                                            className="px-10 py-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center me-2 mb-2"
+                                        />
+
+                                        <Button
+                                            name="No"
+                                            onClick={cansel}
+                                            className="px-10 py-2 text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center me-2 mb-2"
+                                        />
+                                    </div>
+                                </MyDialog> */}
                             </div>
                         </div>
                     </div>
@@ -188,4 +251,4 @@ export interface PaginatedTableProps {
     );
 };
 
-export default AllUsersTable
+export default AllUsersTable;

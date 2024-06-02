@@ -9,50 +9,50 @@ import SearchBar from "@/Components/SearchBar/SearchBar";
 import Button from "@/Components/Button/Button";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import AllUsersTable from "./AllUsersTable";
-
+import Edit from "@/Pages/AdminsArea/Admin/Edit/Edit";
 
 export interface Data {
-    user: User;
-    phoneNumber: string;
-}
-export interface User {
     name: string;
     email: string;
     id: any;
     role: string;
+    phone: string;
 }
-
 export interface PaginatedTableProps {
     data: Data[];
-    // children: React.ReactNode;
 }
-const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
+    const [isOpen, setIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const currentData = Array.isArray(data)
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    const remove = () => {
-        console.log("remove");
+    const remove = (id: any) => {
+        router.delete(route("admin.adminPanels.destroy", id));
     };
 
-    const update = () =>{
-        console.log("update");
-    }
+    const update = (id: any) => {
+        router.get(route('admin.adminPanels.edit',id));
+    };
+
+    console.log("data:", data);
 
     return (
         <div className="py-2">
             <div>
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    {/* <div className="p-2">{children ? children : null}</div> */}
                     <div className="p-6 text-gray-900">
                         <div className="relative overflow-auto shadow-md rounded-lg">
                             <table className="w-full text-sm text-left text-gray-500">
@@ -108,39 +108,40 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.id}
+                                                    {entry.id}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {entry.user.name}
+                                                    {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phoneNumber} */}
-                                                    null
+                                                    {entry.phone}
                                                 </td>
 
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.email}
                                                 </td>
                                                 <td className="px-6 py-4 text-green-600 font-bold">
-                                                    {entry.user.role}
+                                                    {entry.role}
                                                 </td>
-                                              
+
                                                 <td className="px-6 py-4 flex">
                                                     <button
-                                                        onClick={remove}
+                                                        onClick={() =>
+                                                            remove(entry.id)
+                                                        }
                                                         className="font-medium text-red-600 hover:text-red-700 ms-3 text-lg"
                                                     >
                                                         <MdDelete />
                                                     </button>
 
-
-                                                    <button
-                                                        onClick={update}
+                                                    {/* <button
+                                                        onClick={() =>
+                                                            update(entry.id)
+                                                        }
                                                         className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
                                                     >
                                                         <FaUserEdit />
-                                                    </button>
-
+                                                    </button> */}
                                                 </td>
                                             </tr>
                                         ))
@@ -201,7 +202,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 export default function Admin({ auth, adminCount, admins, users }: PageProps) {
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log("-------------------", users);
+    console.log("-------------------", admins);
     const search = () => {
         console.log("search Admin");
     };
@@ -210,6 +211,9 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
         setIsOpen(true);
         // router.get(route('users.index'));
     };
+
+    const adminsArray = Object.values(admins);
+
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -240,7 +244,7 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                                 </div>
                                 <Button
                                     name={"View"}
-                                    className="px-10 py-2"
+                                    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center me-2 mb-2 px-10 py-2"
                                     onClick={all}
                                 />
 
@@ -260,7 +264,7 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={admins} />
+                        <PaginatedTable data={adminsArray} />
                     </div>
                 </div>
             </AdminLayout>
