@@ -134,14 +134,14 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
                                                         <MdDelete />
                                                     </button>
 
-                                                    <button
+                                                    {/* <button
                                                         onClick={() =>
                                                             update(entry.id)
                                                         }
                                                         className="font-medium text-blue-600 hover:text-blue-700 ms-3 text-lg"
                                                     >
                                                         <FaUserEdit />
-                                                    </button>
+                                                    </button> */}
                                                 </td>
                                             </tr>
                                         ))
