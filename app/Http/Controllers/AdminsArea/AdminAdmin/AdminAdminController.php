@@ -77,8 +77,11 @@ class AdminAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->userInterface->update($id, $request->all());
+        $dataToUpdate = $request->except(['name', 'email', 'phone']);
+        $this->userInterface->update($id, $dataToUpdate);
+        return redirect()->route('admin.adminPanels.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
