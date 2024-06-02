@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminsArea\AdminTeacher;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Teachers\TeacherInterface;
+use App\Repositories\All\Users\UserInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +12,8 @@ class AdminTeacherController extends Controller
 {
 
     public function __construct(
-        protected TeacherInterface $teacherInterface
+        protected TeacherInterface $teacherInterface,
+        protected UserInterface $userInterface,
     ) {
     }
 
@@ -20,9 +22,16 @@ class AdminTeacherController extends Controller
      */
     public function index()
     {
+
+        $users = $this->userInterface->all()->load('user');
+        $teacherUsers = $users ->filter(function($users){
+            return $users->role === "teacher";
+        });
+
+        $teacherCount = $teacherUsers->count();
         return Inertia::render('AdminsArea/Teacher/Teacher', [
-            'teacherCount' => $this->teacherInterface->all()->count(),
-            'teachers' => $this->teacherInterface->all()->load('user'),
+            'teacherCount' => $teacherCount,
+            'userTeachers' => $teacherUsers,
         ]);
     }
 

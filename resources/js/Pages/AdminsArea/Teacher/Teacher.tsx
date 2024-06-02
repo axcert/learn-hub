@@ -7,39 +7,40 @@ import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 
 export interface Data {
-    user: User;
-    phoneNumber: string;
-    bio: string;
-    position: string;
-}
-export interface User {
     name: string;
     email: string;
+    id: any;
+    role: string;
+    phone: string;
+}
+export interface Teacher {
+    bio: string;
+    position: string;
 }
 
 export interface PaginatedTableProps {
     data: Data[];
 }
-const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
-
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
-
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+
+    const currentData = Array.isArray(data)
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    const view = () =>{
+    const view = () => {
         console.log("view");
-        
-    }
+    };
 
     return (
         <div className="py-2">
@@ -81,14 +82,13 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.name}
+                                                    {entry.name}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.email}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phoneNumber} */}
-                                                    null
+                                                    {entry.phone}
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
                                                     {entry.bio}
@@ -160,14 +160,15 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
     );
 };
 
-export default function Teacher({ auth , teacherCount , teachers }: PageProps) {
-
-const search = () =>{
-    console.log("search Teacher");
-    
-}
-
-console.log(teachers);
+export default function Teacher({
+    auth,
+    teacherCount,
+    userTeachers,
+}: PageProps) {
+    const teacherArray = Object.values(userTeachers);
+    const search = () => {
+        console.log("search Teacher");
+    };
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -177,7 +178,12 @@ console.log(teachers);
                         {/* Card */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Teachers"}>{teacherCount}</Card>
+                                <Card
+                                    className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                    title={"Teachers"}
+                                >
+                                    {teacherCount}
+                                </Card>
                             </div>
                         </div>
 
@@ -192,7 +198,7 @@ console.log(teachers);
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={teachers} />
+                        <PaginatedTable data={teacherArray} />
                     </div>
                 </div>
             </AdminLayout>
