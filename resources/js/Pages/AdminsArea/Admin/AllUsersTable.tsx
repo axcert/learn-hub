@@ -111,7 +111,7 @@ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     {entry.email}
                                                 </td>
                                                 <td className="flex items-center px-6 py-4 ">
-                                                    {/* <Dropdown
+                                                    <Dropdown
                                                         title={entry.role}
                                                         menuItems={[
                                                             {
@@ -139,9 +139,9 @@ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                                     ),
                                                             },
                                                         ]}
-                                                    /> */}
+                                                    />
 
-                                                    <ListBox
+                                                    {/* <ListBox
                                                      title={entry.role}
                                                         item={[
 
@@ -175,7 +175,7 @@ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                                     ),
                                                             },
                                                         ]}
-                                                    />
+                                                    /> */}
                                                 </td>
                                             </tr>
                                         ))

@@ -6,8 +6,6 @@ import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
 export interface Data {
-    user: User;
-    teacher: Teacher;
     id: number;
     name: string;
     description: string;
@@ -16,9 +14,6 @@ export interface Data {
     status: string;
     teacher_id: number;
 }
-export interface User {
-    name: string;
-}
 
 export interface PaginatedTableProps {
     data: Data[];
@@ -26,12 +21,13 @@ export interface PaginatedTableProps {
 const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
-
-    const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
+    const totalPages: number = data ? Math.ceil(data.length / itemsPerPage) : 0;
+    const currentData = data ? data.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
-    );
+    ) : [];
+    
+
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
@@ -86,16 +82,16 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                   {entry.id}
+                                                   {/* {entry.id} */}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                {entry.name}
+                                                {/* {entry.name} */}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {entry.teacher.name}
+                                                {/* {entry.teacher.name} */}
                                                 </td>  
                                                 <td className="px-6 py-4">
-                                                    {entry.hourly_rate}
+                                                    {/* {entry.hourly_rate} */}
                                                 </td>
 
                                                 <td className="px-6 py-4 flex gap-4">

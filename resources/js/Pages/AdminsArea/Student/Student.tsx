@@ -8,12 +8,11 @@ import SearchBar from '@/Components/SearchBar/SearchBar';
 
 
 export interface Data {
-    user: User;
-    phoneNumber: string;
-}
-export interface User {
     name: string;
     email: string;
+    id: any;
+    role: string;
+    phone: string;
 }
 
 export interface PaginatedTableProps {
@@ -26,10 +25,12 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
 
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const currentData = Array.isArray(data)
+    ? data.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+      )
+    : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
@@ -75,14 +76,14 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.user.name}
+                                                    {entry.name}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {entry.user.email}
+                                                    {entry.email}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phoneNumber} */}
-                                                    null
+                                                    {entry.phone}
+                                                    
                                                 </td>
                                                
                                                 <td className="flex items-center px-6 py-4">
@@ -151,7 +152,9 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
 
 
 
-export default function Student({auth ,studentCount,students}: PageProps) {
+export default function Student({auth ,studentCount,userStudents}: PageProps) {
+
+    const studentArray = Object.values(userStudents);
 
     const search = () =>{
         console.log("search Student");
@@ -159,7 +162,7 @@ export default function Student({auth ,studentCount,students}: PageProps) {
     }
 
     console.log(studentCount);
-    console.log(students);
+    console.log(userStudents);
     
     
     return (
@@ -186,7 +189,7 @@ export default function Student({auth ,studentCount,students}: PageProps) {
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={students} />
+                        <PaginatedTable data={studentArray} />
                     </div>
                 </div>
             </AdminLayout>
