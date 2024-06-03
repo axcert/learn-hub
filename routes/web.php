@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminsArea\AdminService\AdminServiceController;
 use App\Http\Controllers\AdminsArea\AdminStudent\AdminStudentController;
 use App\Http\Controllers\AdminsArea\AdminTeacher\AdminTeacherController;
 use App\Http\Controllers\AdminsArea\AdminUser\AdminUserController;
+use App\Http\Controllers\AdminsArea\Temp\TempController;
 use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
 use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('services', AdminServiceController::class)->names('admin.services');
         Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
         Route::resource('users', AdminUserController::class)->names('admin.users');
+        Route::resource('temp', TempController::class)->names('admin.temp');
     });
 
 
