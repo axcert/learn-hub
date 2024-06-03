@@ -30,7 +30,7 @@ class BookingRepository extends BaseRepository implements BookingInterface
      public function findByUserId(int $userId, array $relations = []): Collection
      {
          $bookings = Booking::with($relations)->where('user_id', $userId)->get();
-         \Log::info('Bookings:', $bookings->toArray());
+
          return $bookings;
      }
     

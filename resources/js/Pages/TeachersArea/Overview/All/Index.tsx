@@ -5,15 +5,22 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { FaServer } from 'react-icons/fa';
 import { Booking, PageProps, Service, User } from '@/types';
+import { Inertia } from '@inertiajs/inertia';
 
 interface Props extends PageProps {
   auth: { user: User };
   services: Service[];
   bookings: Booking[];
+  bookingsForMyServices: Booking[];
 }
 
-export default function TeacherOverview({ auth, services = [], bookings = [] }: Props) {
+export default function TeacherOverview({ auth, services = [], bookings = [] , bookingsForMyServices = []}: Props) {
   const [date, setDate] = useState<Date | null>(new Date());
+
+  const handleBookingAction = (booking_id: any, action:any) => {
+    const url = route(`teacher.bookings.${action}`, booking_id);
+    Inertia.post(url, { _method: 'patch' });
+  };
 
   return (
     <TeacherLayout user={auth.user}>
@@ -75,6 +82,68 @@ export default function TeacherOverview({ auth, services = [], bookings = [] }: 
           </div>
         </div>
       </div>
+
+      <div className="mt-10 mx-4 lg:mx-10">
+        <div className="bg-white shadow-sm sm:rounded-lg p-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold flex items-center">
+              <FaServer className="mr-2" /> Bookings for My Services
+            </h2>
+            {/* <Link
+              className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
+              href={route('teacher.bookings.index')}
+            >
+              View all
+            </Link> */}
+          </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border">Service</th>
+                  <th className="px-4 py-2 border">Student</th>
+                  <th className="px-4 py-2 border">Status</th>
+                  <th className="px-4 py-2 border">Date</th>
+                  <th className="px-4 py-2 border">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(bookingsForMyServices) && bookingsForMyServices.length > 0 ? (
+                  bookingsForMyServices.map((booking) => (
+                    <tr key={booking.id}>
+                      <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.user?.name ?? 'N/A'}</td>
+                      <td className="border px-4 py-2">{booking.status}</td>
+                      <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
+                      <td className="border px-4 py-2">
+                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                        {/* <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Edit</Link> */}
+                        <button
+                          className="text-green-600 hover:text-green-900 mr-2"
+                          onClick={() => handleBookingAction(booking.id, 'accept')}
+                        >
+                          Accept
+                        </button>
+                        <button
+                          className="text-red-600 hover:text-red-900"
+                          onClick={() => handleBookingAction(booking.id, 'reject')}
+                        >
+                          Reject
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td className="text-center col-span-full text-gray-500" colSpan={5}>No bookings found.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-10 mx-4 lg:mx-10">
         <div className="bg-white shadow-sm sm:rounded-lg p-4">
           <div className="flex justify-between items-center mb-4">
@@ -88,6 +157,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] }: 
               View all
             </Link>
           </div>
+
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead>

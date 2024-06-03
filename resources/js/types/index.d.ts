@@ -2,6 +2,7 @@ import { Data } from '@/Pages/AdminsArea/Teacher/Teacher';
 import { ReactNode } from 'react';
 import { Config } from 'ziggy-js';
 export interface User {
+    teacher: any;
     
     user: any;
     bio: ReactNode;
@@ -26,6 +27,8 @@ export interface Teacher {
   }
 
   export type Booking = {
+    user: any;
+    teacher: any;
     student: any;
     date: any;
     service: any;

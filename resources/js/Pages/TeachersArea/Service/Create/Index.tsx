@@ -15,11 +15,12 @@ export default function ServiceCreate() {
   const { auth } = usePage().props as unknown as Props;
   const { data, setData, post, errors } = useForm({
     name: '',
-    admin_id: '1',
+    admin_id: '39',
     description: '',
     hourly_rate: '',
     teacher_id: 'auth.user.teacher.id',
     experience: '', 
+    status: 'pending',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
