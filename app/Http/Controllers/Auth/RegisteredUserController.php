@@ -46,7 +46,6 @@ class RegisteredUserController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
         }
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,7 +55,6 @@ class RegisteredUserController extends Controller
             'bio' => $request->bio,
             'position' => $request->position,
             'image' => $imagePath,
-
         ]);
 
         event(new Registered($user));
@@ -65,7 +63,7 @@ class RegisteredUserController extends Controller
 
         switch ($user->role) {
             case 'admin':
-                return redirect()->route('overview.index');
+                return redirect()->route('admins.overview.index');
             case 'teacher':
                 return redirect()->route('teacher.overviews.index');
             case 'student':

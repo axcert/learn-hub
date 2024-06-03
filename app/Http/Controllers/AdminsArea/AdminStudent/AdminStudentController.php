@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminsArea\AdminStudent;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Students\StudentInterface;
+use App\Repositories\All\Users\UserInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +12,7 @@ class AdminStudentController extends Controller
 {
 
     public function __construct(
-        protected StudentInterface $studentInterface
+        protected UserInterface $userInterface
     ) {
     }
 
@@ -20,9 +21,16 @@ class AdminStudentController extends Controller
      */
     public function index()
     {
+
+        $users = $this->userInterface->all()->load('user');
+        $studentUsers = $users->filter(function ($user) {
+            return $user->role === 'student';
+        });
+        $studentCount = $studentUsers->count();
+
         return Inertia::render('AdminsArea/Student/Student',[
-            'studentCount' => $this->studentInterface->all()->count(),
-            'students' => $this->studentInterface->all()->load('user'),
+            'studentCount' => $studentCount,
+            'userStudents' => $studentUsers,
         ]);
     }
 

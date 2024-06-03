@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         $defaultRedirect = match ($user->role) {
-            'admin' => route('overview.index'),
+            'admin' => route('admins.overview.index'),
             'teacher' => route('teacher.overviews.index'),
             'student' => route('students.index'),
             default => route('dashboard'),

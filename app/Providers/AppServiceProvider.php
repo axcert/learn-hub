@@ -25,16 +25,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-            $this->app->bind(StudentInterface::class, StudentRepository::class);
-            $this->app->bind(ServiceInterface::class, ServiceRepository::class );
-            $this->app->bind(TeacherInterface::class, TeacherRepository::class);
-            $this->app->bind(BookingInterface::class, BookingRepository::class);
-            $this->app->bind(MessageInterface::class, MessageRepository::class);
-            $this->app->bind(AdminInterface::class, AdminRepository::class);
-            $this->app->bind(UserInterface::class, UserRepository::class);
-        
-        
+        $this->app->bind(StudentInterface::class, StudentRepository::class);
+        $this->app->bind(ServiceInterface::class, ServiceRepository::class);
+        $this->app->bind(TeacherInterface::class, TeacherRepository::class);
+        $this->app->bind(BookingInterface::class, BookingRepository::class);
+        $this->app->bind(MessageInterface::class, MessageRepository::class);
+        $this->app->bind(AdminInterface::class, AdminRepository::class);
+        $this->app->bind(UserInterface::class, UserRepository::class);
     }
+
 
     /**
      * Bootstrap any application services.
