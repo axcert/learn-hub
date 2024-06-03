@@ -38,8 +38,6 @@ class AdminSeeder extends Seeder
             DB::table('users')->insert($adminsToInsert);
         }
     }
-
-
     // $userRepository = App::make(UserRepository::class);
     // $array = [
     //     [
