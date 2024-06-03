@@ -56,7 +56,6 @@ class RegisteredUserController extends Controller
             'bio' => $request->bio,
             'position' => $request->position,
             'image' => $imagePath,
-
         ]);
 
         event(new Registered($user));

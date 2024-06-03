@@ -38,4 +38,32 @@ class AdminSeeder extends Seeder
             DB::table('users')->insert($adminsToInsert);
         }
     }
+
+
+    // $userRepository = App::make(UserRepository::class);
+    // $array = [
+    //     [
+    //         'name' => 'axcertroadmin',
+    //         'email' => 'admin@axcertro.com',
+    //         'phone' => '0771221222',
+    //         'role' => UserRoleEnum::Admin->value,
+    //         'password' => Hash::make('Axcertro#Our1st'),
+    //     ],
+
+    //     [
+    //         'name' => 'Imesh',
+    //         'email' => 'imesh.hirushan@axcertro.com',
+    //         'phone' => '0779201232',
+    //         'role' => UserRoleEnum::Admin->value,
+    //         'password' => Hash::make('123456789'),
+    //     ],
+    // ];
+
+    // foreach($array as $key => $item){
+    //     if(!$userRepository->existsByColumn(['email'=>$item['email']])){
+    //         $userRepository->create($item);
+    //     }
+    // }
+
+
 }

@@ -85,14 +85,14 @@ class User extends Authenticatable
     }
 
 
-    public function existsByColumn(array $criteria): bool
-    {
-        return User::where($criteria)->exists();
-    }
+    // public function existsByColumn(array $criteria): bool
+    // {
+    //     return User::where($criteria)->exists();
+    // }
 
-    public function create(array $data)
-    {
-        return User::create($data);
-    }
+    // public function create(array $data)
+    // {
+    //     return User::create($data);
+    // }
 
 }
