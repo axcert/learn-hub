@@ -84,7 +84,7 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
                       {service.name}
                     </h3>
                     {service.teacher && (
-                      <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.name}</p>
+                      <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.user.name}</p>
                     )}
                     <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                     <p className="mt-1 text-sm font-semibold text-indigo-600">Rs: {service.hourly_rate}/hr</p>

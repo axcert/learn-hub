@@ -25,9 +25,11 @@ class StudentServiceController extends Controller
 
         
         $filters = $request->all();
+        $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
+        
          
         return Inertia::render('StudentArea/Service/All/Index', [
-            'services' => $this->serviceInterface->all(['*'], ['teacher']),
+            'services' => $this->serviceInterface->all(['*'], ['teacher.user']),
             'teachersCount' => $this->teacherInterface->all()->count(),
             'filters' => $filters,
         ]);
@@ -59,7 +61,7 @@ class StudentServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher']);
+        $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher.user']);
         return Inertia::render('StudentArea/Service/Show/Index', ['service' => $service]);
     }
 

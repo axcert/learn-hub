@@ -38,4 +38,6 @@ class ServiceRepository extends BaseRepository implements ServiceInterface
  
          return $query->paginate($filters['rowPerPage'] ?? 10)->appends($filters);
      }
+
+     
 }

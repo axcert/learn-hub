@@ -85,4 +85,16 @@ class TeacherBookingController extends Controller
         $booking->delete();
         return redirect()->route('teacher.overviews.index');
     }
+
+    public function accept(Booking $booking)
+    {
+        $booking->update(['status' => 'accepted']);
+        return redirect()->back()->with('success', 'Booking accepted.');
+    }
+
+    public function reject(Booking $booking)
+    {
+        $booking->update(['status' => 'rejected']);
+        return redirect()->back()->with('success', 'Booking rejected.');
+    }
 }

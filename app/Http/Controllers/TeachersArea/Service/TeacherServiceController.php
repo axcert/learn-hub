@@ -25,7 +25,7 @@ class TeacherServiceController extends Controller
     {    
         $teacherId = $this->teacherInterface->findByUserId($request->user()->id)->id;
 
-        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
+        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId, 'status'=> 'approved']);
 
         return Inertia::render('TeachersArea/Service/All/Index', [
             'services' => $services,
@@ -42,6 +42,7 @@ class TeacherServiceController extends Controller
         $teachers = $this->teacherInterface->all();
         return Inertia::render('TeachersArea/Service/Create/Index', ['teachers'=> $teachers]);
         
+        
     }
 
     /**
@@ -54,6 +55,7 @@ class TeacherServiceController extends Controller
         $teacher = $this->teacherInterface->findByUserId($request->user()->id);
 
         $data['teacher_id'] = $teacher->id;
+        $data['status'] = 'pending';
 
         $this->serviceInterface->create($data);
         return redirect()->route('teacher.services.index');
