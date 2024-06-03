@@ -30,13 +30,10 @@ class AdminSeeder extends Seeder
                 'password' => Hash::make('123456789'),
             ],
         ];
-
         $existingEmails = DB::table('users')->whereIn('email', array_column($admins, 'email'))->pluck('email')->toArray();
-
         $adminsToInsert = array_filter($admins, function ($admin) use ($existingEmails) {
             return !in_array($admin['email'], $existingEmails);
         });
-
         if (!empty($adminsToInsert)) {
             DB::table('users')->insert($adminsToInsert);
         }
