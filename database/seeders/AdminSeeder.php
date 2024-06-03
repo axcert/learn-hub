@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Enums\UserRoleEnum;
+use App\Repositories\All\Users\UserRepository;
+
 
 class AdminSeeder extends Seeder
 {
@@ -14,7 +16,10 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $admins = [
+
+
+        $userRepository = app()->make(UserRepository::class);
+        $array = [
             [
                 'name' => 'axcertroadmin',
                 'email' => 'admin@axcertro.com',
@@ -22,46 +27,38 @@ class AdminSeeder extends Seeder
                 'role' => UserRoleEnum::Admin->value,
                 'password' => Hash::make('Axcertro#Our1st'),
             ],
-            [
-                'name' => 'Hirushan',
-                'email' => 'imesh.hirushan@axcertro.com',
-                'phone' => '0779201232',
-                'role' => UserRoleEnum::Admin->value,
-                'password' => Hash::make('123456789'),
-            ],
         ];
-        $existingEmails = DB::table('users')->whereIn('email', array_column($admins, 'email'))->pluck('email')->toArray();
-        $adminsToInsert = array_filter($admins, function ($admin) use ($existingEmails) {
-            return !in_array($admin['email'], $existingEmails);
-        });
-        if (!empty($adminsToInsert)) {
-            DB::table('users')->insert($adminsToInsert);
+
+        foreach ($array as $key => $item) {
+            if (!$userRepository->existsByColumn(['email' => $item['email']])) {
+                $userRepository->create($item);
+            }
         }
+
+//   $admins = [
+//             [
+//                 'name' => 'axcertroadmin',
+//                 'email' => 'admin@axcertro.com',
+//                 'phone' => '0771221222',
+//                 'role' => UserRoleEnum::Admin->value,
+//                 'password' => Hash::make('Axcertro#Our1st'),
+//             ],
+//             [
+//                 'name' => 'Hirushan',
+//                 'email' => 'imesh.hirushan@axcertro.com',
+//                 'phone' => '0779201232',
+//                 'role' => UserRoleEnum::Admin->value,
+//                 'password' => Hash::make('123456789'),
+//             ],
+//         ];
+//         $existingEmails = DB::table('users')->whereIn('email', array_column($admins, 'email'))->pluck('email')->toArray();
+//         $adminsToInsert = array_filter($admins, function ($admin) use ($existingEmails) {
+//             return !in_array($admin['email'], $existingEmails);
+//         });
+//         if (!empty($adminsToInsert)) {
+//             DB::table('users')->insert($adminsToInsert);
+//         }
+
+
     }
-    // $userRepository = App::make(UserRepository::class);
-    // $array = [
-    //     [
-    //         'name' => 'axcertroadmin',
-    //         'email' => 'admin@axcertro.com',
-    //         'phone' => '0771221222',
-    //         'role' => UserRoleEnum::Admin->value,
-    //         'password' => Hash::make('Axcertro#Our1st'),
-    //     ],
-
-    //     [
-    //         'name' => 'Imesh',
-    //         'email' => 'imesh.hirushan@axcertro.com',
-    //         'phone' => '0779201232',
-    //         'role' => UserRoleEnum::Admin->value,
-    //         'password' => Hash::make('123456789'),
-    //     ],
-    // ];
-
-    // foreach($array as $key => $item){
-    //     if(!$userRepository->existsByColumn(['email'=>$item['email']])){
-    //         $userRepository->create($item);
-    //     }
-    // }
-
-
 }
