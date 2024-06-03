@@ -27,6 +27,13 @@ class AdminSeeder extends Seeder
                 'role' => UserRoleEnum::Admin->value,
                 'password' => Hash::make('Axcertro#Our1st'),
             ],
+            [
+                'name' => 'Imesh',
+                'email' => 'imesh.hirushan@axcertro.com',
+                'phone' => '0779201232',
+                'role' => UserRoleEnum::Admin->value,
+                'password' => Hash::make('imesh1234@'),
+            ],
         ];
 
         foreach ($array as $key => $item) {
