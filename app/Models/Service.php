@@ -12,7 +12,7 @@ class Service extends Model
     protected $table = 'services';
 
     protected $fillable = [
-        'service_id',
+        
         'name',
         'description',
         'admin_id',
@@ -30,12 +30,6 @@ class Service extends Model
         return $this->belongsTo(Teacher::class, 'teacher_id');
     }
     
-
-
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class, 'teacher_id');
-    // }
 
     public function bookings()
     {

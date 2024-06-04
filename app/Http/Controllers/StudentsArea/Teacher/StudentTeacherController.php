@@ -24,7 +24,7 @@ class StudentTeacherController extends Controller
     {
 
         $teachers = $this->teacherInterface->all(['*'], ['user']);
-        $services = $this->serviceInterface->all();
+        $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
 
         return Inertia::render('StudentArea/Teacher/All/Index', [
             'teachers' => $teachers,
@@ -57,6 +57,7 @@ class StudentTeacherController extends Controller
         if (!$teacher) {
             abort(404, 'Teacher not found');
         }
+        
 
         return Inertia::render('StudentArea/Teacher/Show/Index', [
             'teacher' => $teacher,
