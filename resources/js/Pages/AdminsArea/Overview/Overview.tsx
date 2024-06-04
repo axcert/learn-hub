@@ -195,7 +195,7 @@ export default function Overview({
                             </Card>
 
                             <Card
-                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                className=" max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
                                 title={"Students"}
                             >
                                 {studentCount}

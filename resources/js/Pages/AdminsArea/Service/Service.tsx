@@ -8,7 +8,6 @@ import { useState } from "react";
 
 
 export interface Data {
-    user: User;
     // teacher: Teacher;
     id: number;
     name: string;
@@ -18,36 +17,32 @@ export interface Data {
     status: string;
     teacher_id: number;
 }
-export interface User {
-    name: string;
-}
 
 export interface PaginatedTableProps {
     data: Data[];
 }
-const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
+
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
+
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
-    const currentData = data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+    const currentData = Array.isArray(data)
+    ? data.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+      )
+    : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-
-    const accept = () =>{
-       alert("Accept Success!")
+    const view = () =>{
+        console.log("view");
+        
     }
-
-    const decline = () =>{
-        console.log("decline");
-    }
-
 
     return (
         <div className="py-2">
@@ -62,19 +57,15 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             Service ID
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Subject Name
+                                            Name
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             Offered By
                                         </th>
-
-                                        <th scope="col" className="px-6 py-3">
-                                        Approved by
-                                        </th>
+                                       
                                         <th scope="col" className="px-6 py-3">
                                             Hourly Rate
                                         </th>
-
                                         <th scope="col" className="px-6 py-3">
                                             Status
                                         </th>
@@ -91,20 +82,23 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                   {entry.id}
+                                                    {entry.name}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                {entry.name}
+                                                    {/* {entry.email} */}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {/* {entry.teacher.name} */}
-                                                </td>  
-                                                <td className="px-6 py-4">
-                                                    {/* {entry.hourly_rate} */}
+                                                    {/* {entry.phone} */}
+                                                    
                                                 </td>
-
-                                                <td className="px-6 py-4 flex gap-4 text-green-600">
-                                                   ongoin
+                                               
+                                                <td className="flex items-center px-6 py-4">
+                                                    <button
+                                                        onClick={view}
+                                                        className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
+                                                    >
+                                                        <LuView />
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))
@@ -166,6 +160,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 
 export default function Service({ auth }: PageProps) {
 
+
+    const serviceArray = Object.values("");
+
     const search = () => {
         console.log("Services Search");
     };
@@ -194,7 +191,7 @@ export default function Service({ auth }: PageProps) {
                 </div>
 
                 {/* table */}
-                {/* <PaginatedTable data={''} /> */}
+                <PaginatedTable data={serviceArray} />
             </div>
         </div>
     </AdminLayout>

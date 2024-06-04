@@ -22,16 +22,16 @@ const close = () => {
         <Dialog
             open={isOpen}
             onClose={() => setIsOpen(false)}
-            className="fixed inset-96 flex items-center justify-center"
+            className="fixed inset-96 flex items-center justify-center mt-10"
         >
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 " />
-            <Dialog.Panel className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 absolute">
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <Dialog.Panel className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 absolute">
               <div className="flex justify-end">
                 <button onClick={close}>
                 <FaWindowClose  className=" hover:text-blue-600"/>
                 </button>
               </div>
-                <div className="text-gray-900 text-center px-4 py-4">
+                <div className="text-gray-900 text-center p-3">
                     {children}
                 </div>
             </Dialog.Panel>

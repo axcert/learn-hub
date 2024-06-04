@@ -13,7 +13,6 @@ export default function SearchBar({title , onClick} : SearchBarprops) {
             <div>
                 <p className="text-start font-bold">{title}</p>
             </div>
-
             <div className="w-80">
                 <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -37,3 +36,6 @@ export default function SearchBar({title , onClick} : SearchBarprops) {
         </section>
     );
 }
+
+
+
