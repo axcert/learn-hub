@@ -33,7 +33,7 @@ export default function CreateTeacher({ auth, message }: Props) {
         {message && <div className="alert alert-info">{message}</div>}
         <div className="bg-white shadow-sm sm:rounded-lg p-4">
           <h2 className="text-xl font-bold mb-4">Create Your Bio Here</h2>
-          <p>Once you created Don't Create again</p>
+          
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="bio">Bio</label>
