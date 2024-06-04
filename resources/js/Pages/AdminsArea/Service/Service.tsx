@@ -6,7 +6,6 @@ import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
-
 export interface Data {
     // teacher: Teacher;
     id: number;
@@ -21,28 +20,25 @@ export interface Data {
 export interface PaginatedTableProps {
     data: Data[];
 }
-const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
-
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
-
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = Array.isArray(data)
-    ? data.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-      )
-    : [];
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    const view = () =>{
+    const view = () => {
         console.log("view");
-        
-    }
+    };
 
     return (
         <div className="py-2">
@@ -62,7 +58,7 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                         <th scope="col" className="px-6 py-3">
                                             Offered By
                                         </th>
-                                       
+
                                         <th scope="col" className="px-6 py-3">
                                             Hourly Rate
                                         </th>
@@ -89,9 +85,8 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {/* {entry.phone} */}
-                                                    
                                                 </td>
-                                               
+
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
                                                         onClick={view}
@@ -156,11 +151,7 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
     );
 };
 
-
-
 export default function Service({ auth }: PageProps) {
-
-
     const serviceArray = Object.values("");
 
     const search = () => {
@@ -169,31 +160,46 @@ export default function Service({ auth }: PageProps) {
 
     return (
         <AdminLayout user={auth.user}>
-        <Head title="Overview" />
-        <div className="py-2">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
-                {/* Card */}
-                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"Total Services"}>1253</Card>
+            <Head title="Overview" />
+            <div className="py-2">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
+                    {/* Card */}
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
+                            <Card
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="Total  Services"
+                            >
+                                1200
+                            </Card>
 
-                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"Online"}>104,3</Card>
+                            <Card
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="Online"
+                            >
+                                10
+                            </Card>
 
-                        <Card className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"  title={"??"}>210</Card>
+                            <Card
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="???"
+                            >
+                                ???
+                            </Card>
+                        </div>
                     </div>
-                </div>
 
-                {/* search */}
-                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div className="p-3 text-gray-900">
-                        <SearchBar title={"Services"} onClick={search} />
+                    {/* search */}
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+                        <div className="p-3 text-gray-900">
+                            <SearchBar title={"Services"} onClick={search} />
+                        </div>
                     </div>
-                </div>
 
-                {/* table */}
-                <PaginatedTable data={serviceArray} />
+                    {/* table */}
+                    {/* <PaginatedTable data={serviceArray} /> */}
+                </div>
             </div>
-        </div>
-    </AdminLayout>
+        </AdminLayout>
     );
 }

@@ -233,8 +233,6 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                             </div>
                         </div>
 
-                        {/* search */}
-
                         {/* button */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div className="py-3 text-gray-900 text-right flex items-center justify-between">
