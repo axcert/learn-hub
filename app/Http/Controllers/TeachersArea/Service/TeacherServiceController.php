@@ -58,6 +58,10 @@ class TeacherServiceController extends Controller
 
         // Assign the first available admin or a specific logic to select an admin
         $admin = Admin::first(); 
+
+        if(!$admin){
+            return redirect()->route('teacher.services.index')->with('error', 'No admin available to approve the service');
+        }
         $data['admin_id'] = $admin->id;
 
         $this->serviceInterface->create($data);
