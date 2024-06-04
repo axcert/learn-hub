@@ -19,7 +19,7 @@ class StudentBookingController extends Controller
     public function index()
     {   
         $user_id = auth()->id();
-        $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher']);
+        $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
         return Inertia::render('StudentArea/Booking/All/Index', ['bookings' => $bookings]);
         
         // $bookings = $this->bookingInterface->all(['*'], ['student']);
@@ -47,7 +47,7 @@ class StudentBookingController extends Controller
         $data['status'] = $data['status'] ?? 'pending'; 
 
         $this->bookingInterface->create($data);
-        return redirect()->route('bookings.index');
+        return redirect()->route('students.index');
     }
 
     /**

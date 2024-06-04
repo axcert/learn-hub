@@ -54,7 +54,7 @@ class TeacherBookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        $booking->load('service.teacher');
+        $booking = $this->bookingInterface->findById($booking->id,['*'], ['service.teacher.user']);
         return Inertia::render('TeachersArea/Booking/Show/Index', ['booking' => $booking]);
     }
 
@@ -84,5 +84,17 @@ class TeacherBookingController extends Controller
     {
         $booking->delete();
         return redirect()->route('teacher.overviews.index');
+    }
+
+    public function accept(Booking $booking)
+    {
+        $booking->update(['status' => 'accepted']);
+        return redirect()->back()->with('success', 'Booking accepted.');
+    }
+
+    public function reject(Booking $booking)
+    {
+        $booking->update(['status' => 'rejected']);
+        return redirect()->back()->with('success', 'Booking rejected.');
     }
 }

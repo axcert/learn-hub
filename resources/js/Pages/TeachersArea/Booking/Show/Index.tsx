@@ -12,7 +12,7 @@ export default function Show({ auth, booking }: Props) {
     return (
         <TeacherLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Booking Details</h2>}
+           
         >
             <Head title="Booking Details" />
             
@@ -20,11 +20,11 @@ export default function Show({ auth, booking }: Props) {
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Booking Details</h2>
-                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.bookings.index')}>Back to Bookings</Link>
+                        {/* <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.overviews')}>Back to Bookings</Link> */}
                     </div>
                     <div className="mt-4">
                         <p><strong>Service:</strong> {booking.service?.name ?? 'N/A'}</p>
-                        <p><strong>Teacher:</strong> {booking.service?.teacher?.name ?? 'N/A'}</p>
+                        <p><strong>Teacher:</strong> {booking.service?.teacher?.user?.name ?? 'N/A'}</p>
                         <p><strong>Hourly Rate:</strong> {booking.service?.hourly_rate ?? 'N/A'}</p>
                         <p><strong>Status:</strong> {booking.status}</p>
                         <p><strong>Description:</strong> {booking.description}</p>

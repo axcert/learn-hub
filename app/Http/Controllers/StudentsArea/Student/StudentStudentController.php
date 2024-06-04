@@ -25,8 +25,9 @@ class StudentStudentController extends Controller
         $user_id = auth()->id();
     
         $students = $this->studentInterface->all();
-        $services = $this->serviceInterface->all(['*'], ['teacher']);
-        $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher']);
+        $services = $this->serviceInterface->all(['*'], ['teacher.user']);
+        $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
+        $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
     
         return Inertia::render('StudentArea/Student/All/Index', [
             'students' => $students,
@@ -36,6 +37,4 @@ class StudentStudentController extends Controller
 
     }
 
-
-    
 }

@@ -23,7 +23,7 @@ class Service extends Model
     ];
 
     public function admin(){
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(User::class, 'admin_id');
     }   
 
     public function teacher(){
@@ -32,10 +32,10 @@ class Service extends Model
     
 
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'teacher_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'teacher_id');
+    // }
 
     public function bookings()
     {
