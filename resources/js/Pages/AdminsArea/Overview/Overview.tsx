@@ -1,11 +1,12 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
-import { PageProps, Teacher } from "@/types";
+import { PageProps } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
 export interface Data {
+    teacher:Teacher;
     id: number;
     name: string;
     description: string;
@@ -13,6 +14,9 @@ export interface Data {
     hourly_rate: number;
     status: string;
     teacher_id: number;
+}
+export interface Teacher {
+    name: string;
 }
 
 export interface PaginatedTableProps {
@@ -80,16 +84,16 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {/* {entry.id} */}
+                                                    {entry.id}
                                                 </th>
-                                                <td className="px-6 py-4">
-                                                    {/* {entry.name} */}
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.name}
+                                                </td>
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.teacher_id}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.teacher.name} */}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {/* {entry.hourly_rate} */}
+                                                    {entry.hourly_rate}
                                                 </td>
 
                                                 <td className="px-6 py-4 flex gap-4">
@@ -168,12 +172,19 @@ export default function Overview({
     studentCount,
     teacherCount,
     services,
+    adminServices,
+    userTeachers
 }: PageProps) {
+
+    const serviceArray = Object.values(adminServices);
+    // const userArray = Object.values(userTeachers);
+    // const serviceArray = Object.values({ ...adminServices, ...userTeachers });
+
     const search = () => {
         console.log("overview Search");
     };
 
-    console.log(services);
+    console.log("-------------",userTeachers);
 
     return (
         <AdminLayout user={auth.user}>
@@ -214,7 +225,8 @@ export default function Overview({
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={services} />
+                    <PaginatedTable data={serviceArray} />
+                    
                 </div>
             </div>
         </AdminLayout>

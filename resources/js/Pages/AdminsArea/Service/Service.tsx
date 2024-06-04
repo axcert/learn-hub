@@ -151,8 +151,11 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     );
 };
 
-export default function Service({ auth }: PageProps) {
+export default function Service({ auth, adminServices }: PageProps) {
     const serviceArray = Object.values("");
+
+console.log(adminServices);
+
 
     const search = () => {
         console.log("Services Search");

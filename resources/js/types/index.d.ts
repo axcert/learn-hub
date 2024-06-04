@@ -76,6 +76,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     userStudents: any[];
     students: any;
     services: any;
+    
+    adminServices: any[];
     admins: any[];
     users: any[];
 };

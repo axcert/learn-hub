@@ -16,6 +16,7 @@ class AdminOverViewController extends Controller
     public function __construct(
         protected ServiceInterface $serviceInterface,
         protected UserInterface $userInterface,
+        protected TeacherInterface $teacherInterface,
     ) {
     }
 
@@ -33,12 +34,20 @@ class AdminOverViewController extends Controller
             return $user->role === 'teacher';
         });
 
+        $services = $this->serviceInterface->all();
+        $adminServices = $services->filter(function($services){
+            return $services->status === 'pending' ;
+        });
+
+       
         $studentCount = $studentUsers->count();
         $teacherCount = $teacherUsers->count();
 
         return Inertia::render('AdminsArea/Overview/Overview', [
             'studentCount' =>  $studentCount,
             'teacherCount' => $teacherCount,
+            'adminServices' => $adminServices,
+            'userTeachers' => $teacherUsers,
         ]);
     }
 
