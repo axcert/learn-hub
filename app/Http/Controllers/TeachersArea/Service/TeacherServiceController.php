@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\TeachersArea\Service;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
@@ -57,7 +57,7 @@ class TeacherServiceController extends Controller
         $data['status'] = 'pending';
 
         // Assign the first available admin or a specific logic to select an admin
-        $admin = Admin::first(); 
+        $admin = User::where('role', 'admin')->first();
 
         if(!$admin){
             return redirect()->route('teacher.services.index')->with('error', 'No admin available to approve the service');
