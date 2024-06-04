@@ -32,10 +32,10 @@ class Service extends Model
     
 
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'teacher_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'teacher_id');
+    // }
 
     public function bookings()
     {
