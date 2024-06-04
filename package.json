@@ -30,6 +30,7 @@
         "dropzone": "^6.0.0-beta.2",
         "react-calendar": "^5.0.0",
         "react-dropzone": "^14.2.3",
-        "react-icons": "^5.2.1"
+        "react-icons": "^5.2.1",
+        "react-router-dom": "^6.23.1"
     }
 }

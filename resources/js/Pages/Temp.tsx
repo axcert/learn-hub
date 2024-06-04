@@ -3,7 +3,6 @@ import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
 import { useState } from "react";
 import AdminLayout from "@/Layouts/AdminLayout";
-
 interface Data {
     name: string;
     email: string;
@@ -11,8 +10,6 @@ interface Data {
     bio: string;
     position: string;
 }
-
-
 const data: Data[] = [
     {
         name: "Imesh",

@@ -224,24 +224,6 @@ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                 >
                                     Next
                                 </button>
-
-                                {/* <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
-                                    <h1>Are You Sure ?</h1>
-                                    <br />
-                                    <div>
-                                        <Button
-                                            name="Yes"
-                                            onClick={() => handleRoleChange}
-                                            className="px-10 py-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center me-2 mb-2"
-                                        />
-
-                                        <Button
-                                            name="No"
-                                            onClick={cansel}
-                                            className="px-10 py-2 text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm text-center me-2 mb-2"
-                                        />
-                                    </div>
-                                </MyDialog> */}
                             </div>
                         </div>
                     </div>

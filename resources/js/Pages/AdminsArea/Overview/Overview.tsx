@@ -1,6 +1,6 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
-import { PageProps, Teacher} from "@/types";
+import { PageProps, Teacher } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
@@ -22,26 +22,24 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
     const totalPages: number = data ? Math.ceil(data.length / itemsPerPage) : 0;
-    const currentData = data ? data.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    ) : [];
-    
-
+    const currentData = data
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
+    const accept = () => {
+        alert("Accept Success!");
+    };
 
-    const accept = () =>{
-       alert("Accept Success!")
-    }
-
-    const decline = () =>{
+    const decline = () => {
         console.log("decline");
-    }
-
+    };
 
     return (
         <div className="py-2">
@@ -82,14 +80,14 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                   {/* {entry.id} */}
+                                                    {/* {entry.id} */}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                {/* {entry.name} */}
+                                                    {/* {entry.name} */}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                {/* {entry.teacher.name} */}
-                                                </td>  
+                                                    {/* {entry.teacher.name} */}
+                                                </td>
                                                 <td className="px-6 py-4">
                                                     {/* {entry.hourly_rate} */}
                                                 </td>
@@ -171,39 +169,37 @@ export default function Overview({
     teacherCount,
     services,
 }: PageProps) {
-
-
     const search = () => {
         console.log("overview Search");
     };
 
     console.log(services);
-    
+
     return (
         <AdminLayout user={auth.user}>
             <Head title="Overview" />
             <div className="py-2">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
                     {/* Card */}
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
                             <Card
-                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title={"Total Users"}
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="Total Users"
                             >
                                 {studentCount + teacherCount}
                             </Card>
 
                             <Card
-                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title={"Students"}
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="Students"
                             >
                                 {studentCount}
                             </Card>
 
                             <Card
-                                className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title={"Teachers"}
+                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="Teachers"
                             >
                                 {teacherCount}
                             </Card>
