@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateServiceRequest;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Http\Controllers\Teacher;
 use App\Repositories\All\Teachers\TeacherInterface;
+use App\Models\Admin;
 
 
 class TeacherServiceController extends Controller
@@ -50,17 +51,19 @@ class TeacherServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-    
         $data = $request->all();
         $teacher = $this->teacherInterface->findByUserId($request->user()->id);
-
         $data['teacher_id'] = $teacher->id;
         $data['status'] = 'pending';
 
+        // Assign the first available admin or a specific logic to select an admin
+        $admin = Admin::first(); 
+        $data['admin_id'] = $admin->id;
+
         $this->serviceInterface->create($data);
         return redirect()->route('teacher.services.index');
-        
     }
+
     
 
     /**

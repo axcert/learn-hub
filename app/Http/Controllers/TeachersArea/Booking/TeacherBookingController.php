@@ -54,7 +54,7 @@ class TeacherBookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        $booking->load('service.teacher');
+        $booking = $this->bookingInterface->findById($booking->id,['*'], ['service.teacher.user']);
         return Inertia::render('TeachersArea/Booking/Show/Index', ['booking' => $booking]);
     }
 
