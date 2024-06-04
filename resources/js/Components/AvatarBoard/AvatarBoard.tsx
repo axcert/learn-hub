@@ -27,14 +27,14 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
 
     return (
         <div className="h-10">
-            <Disclosure as="nav" className="bg-white">
+            <Disclosure as="nav" className="bg-blue-950">
                 {({ open }) => (
                     <>
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="flex h-10 items-center justify-between">
                                 <div className="flex items-center ">
                                     <div className="flex-shrink-0">
-                                        <p className="uppercase font-semibold text-sm p-2">
+                                        <p className="uppercase font-semibold text-sm p-2 text-white">
                                             Admin Dashboard
                                         </p>
                                     </div>
@@ -46,12 +46,12 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                             className="relative ml-3"
                                         >
                                             <div>
-                                                <Menu.Button className="relative flex max-w-xs items-center rounded-full  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ">
+                                                <Menu.Button className="relative flex max-w-xs items-center rounded-full  text-sm focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 ">
                                                     <span className="sr-only">
                                                         Open user menu
                                                     </span>
 
-                                                    <FaUserCircle className="h-10 w-10 rounded-full text-teal-400 hover:text-teal-500" />
+                                                    <FaUserCircle className="h-10 w-10 rounded-full bg-white text-teal-400 hover:text-teal-500" />
                                                     {/* <img
                                                         className="h-8 w-8 rounded-full"
                                                         src={temp.imageUrl}
@@ -156,20 +156,13 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                         <FaUserCircle className="h-10 w-10 bg-white rounded-full text-teal-400 hover:text-teal-600" />
                                     </div>
                                     <div className="ml-3">
-                                        <div className="text-base font-medium leading-none text-gray-900">
+                                        <div className="text-base font-medium leading-none text-gray-100">
                                             {user.name}
                                         </div>
                                         <div className="text-sm font-medium leading-none text-gray-400">
                                             {user.email}
                                         </div>
                                     </div>
-                                    {/* <button
-                                        type="button"
-                                        className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                    >
-                                        <span className="sr-only">View notifications</span>
-                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                    </button> */}
                                 </div>
                                 <div className="mt-3 space-y-1 px-2">
                                     {userNavigation.map((item) => (
@@ -177,20 +170,15 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                             key={item.name}
                                             as="a"
                                             href={item.href}
-                                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
+                                            className="block rounded-md px-3 py-2 text-base font-medium text-gray-100 hover:bg-gray-700 hover:text-white"
                                         >
                                             {item.name}
                                         </Disclosure.Button>
                                     ))}
                                     <Disclosure.Button
                                         as="div"
-                                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
+                                        className="block rounded-md px-3 py-2 text-base font-medium  text-gray-100 hover:bg-gray-700 hover:text-white"
                                     >
-                                        {/* <form action="post" onSubmit={handleLogout}>
-                                            <button type="submit" className="w-full text-left">
-                                                Sign out mobile
-                                            </button>
-                                        </form>*/}
                                         <form>
                                             <button onClick={handleLogout}>
                                                 Logout
