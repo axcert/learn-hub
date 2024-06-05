@@ -23,9 +23,9 @@ const StudentShow = ({ student, user }: { student: any, user: User }) => {
                         <h1 className="text-2xl font-bold mb-4">Student Details</h1>
                         <div>
                             {/* Display student name, email, and phone */}
-                            <p><strong>Name:</strong> {student.name}</p>
-                            <p><strong>Email:</strong> {student.email}</p>
-                            <p><strong>Phone:</strong> {student.phone}</p>
+                            <p><strong>Name:</strong> {student.user.name}</p>
+                            <p><strong>Email:</strong> {student.user.email}</p>
+                            <p><strong>Phone:</strong> {student.user.phone}</p>
                             
                         </div>
                     </div>

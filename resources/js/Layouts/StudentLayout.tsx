@@ -24,11 +24,7 @@ export default function StudentLayout({ user, header, children }: PropsWithChild
                                     Student Dashboard
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href="#messages" active={route().current('#messages')}>
-                                    Messages
-                                </NavLink>
-                            </div>
+                            
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('student.teachers.index')} active={route().current('student.teachers.index')}>
                                     Teachers
@@ -37,6 +33,11 @@ export default function StudentLayout({ user, header, children }: PropsWithChild
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('student.bookings.index')} active={route().current('student.bookings.index')}>
                                     Sessions
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink href="#messages" active={route().current('#messages')}>
+                                    Messages
                                 </NavLink>
                             </div>
                             
@@ -110,14 +111,15 @@ export default function StudentLayout({ user, header, children }: PropsWithChild
                     <ResponsiveNavLink href={route('students.index')} active={route().current('students.index')}>
                             Student Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href="#messages" active={route().current('#messages')}>
-                            Messages
-                        </ResponsiveNavLink>
+                        
                         <ResponsiveNavLink href={route('student.teachers.index')} active={route().current('student.teachers.index')}>
                             Teachers
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('student.bookings.index')} active={route().current('student.bookings.index')}>
                             Sessions
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href="#messages" active={route().current('#messages')}>
+                            Messages
                         </ResponsiveNavLink>
                         
                     </div>

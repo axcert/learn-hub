@@ -23,7 +23,7 @@ class StudentTeacherController extends Controller
     public function index()
     {
 
-        $teachers = $this->teacherInterface->all(['*'], ['user']);
+        $teachers = $this->teacherInterface->all(['*'], ['user', 'services']);
         $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
 
         return Inertia::render('StudentArea/Teacher/All/Index', [

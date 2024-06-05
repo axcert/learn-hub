@@ -40,6 +40,8 @@ export interface Teacher {
   };
   
   export interface Service {
+    
+    image: any;
     user: any;
     student: any;
     bookings: any;

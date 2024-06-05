@@ -18,7 +18,7 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
   return (
     <StudentLayout
       user={auth.user}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Student Dashboard</h2>}
+  
     >
       <Head title="Student Dashboard" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">

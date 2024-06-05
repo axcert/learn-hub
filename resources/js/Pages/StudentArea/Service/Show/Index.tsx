@@ -23,9 +23,14 @@ export default function ServiceShow({ service }: Props) {
 
   return (
     <StudentLayout user={auth.user}>
-      <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
+      <div className="max-w-2xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-          <h1 className="text-2xl font-bold mb-4 text-center">{service.name}</h1>
+        {service.image && (
+            <div className="flex justify-center mt-4">
+              <img src={`/storage/${service.image}`} alt={service.name} className="max-h-20 rounded" />
+            </div>
+          )}
+          <h1 className="text-2xl font-bold mb-4 ">{service.name}</h1>
           <p className="text-gray-700 mb-2">{service.description}</p>
           <p className="text-gray-700 mb-2">Hourly Rate: Rs:{service.hourly_rate}/hr</p>
 

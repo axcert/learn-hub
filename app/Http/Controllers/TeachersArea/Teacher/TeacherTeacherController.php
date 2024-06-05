@@ -21,7 +21,7 @@ class TeacherTeacherController extends Controller
     public function index()
     {
         
-        $teachers = $this->teacherInterface->all(['*'], ['user']);
+        $teachers = $this->teacherInterface->all(['*'], ['user', 'services']);
 
         return Inertia::render('TeachersArea/Teacher/All/Index', [
             'teachers' => $teachers,

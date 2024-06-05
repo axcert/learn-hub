@@ -32,11 +32,13 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                   className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-16 w-16 rounded-full"
-                      src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
-                      alt={service.name}
-                    />
+                  <div className="flex justify-center mt-4">
+                      <img
+                        src={service.image ? `/storage/${service.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
+                        alt={service.name}
+                        className="h-16 w-16 rounded-full"
+                      />
+                    </div>
                   </div>
                   <div className="mt-4 text-center">
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
@@ -80,7 +82,7 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
               View all
             </Link>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-y-auto" style={{ maxHeight: '200px' }}>
             <table className="min-w-full bg-white">
               <thead>
                 <tr>
