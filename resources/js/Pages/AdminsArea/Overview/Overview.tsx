@@ -1,9 +1,10 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
-import { PageProps, Teacher } from "@/types";
+import { Head, router } from "@inertiajs/react";
+import { PageProps } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     id: number;
@@ -12,7 +13,12 @@ export interface Data {
     experience: string;
     hourly_rate: number;
     status: string;
-    teacher_id: number;
+    teacher: {
+        user: {
+            name: string;
+        };
+    };
+    
 }
 
 export interface PaginatedTableProps {
@@ -33,12 +39,12 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         setCurrentPage(page);
     };
 
-    const accept = () => {
-        alert("Accept Success!");
+    const accept = (id :number) => {
+         Inertia.post(route('admins.overview.accept', id));
     };
 
-    const decline = () => {
-        console.log("decline");
+    const reject = (id :number) => {
+        Inertia.post(route('admins.overview.reject', id));
     };
 
     return (
@@ -80,31 +86,31 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {/* {entry.id} */}
+                                                    {entry.id}
                                                 </th>
-                                                <td className="px-6 py-4">
-                                                    {/* {entry.name} */}
+                                                <td className="px-6 py-4 capitalize">
+                                                    {entry.name}
+                                                </td>
+                                                <td className="px-6 py-4 capitalize">
+                                                {entry.teacher.user.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.teacher.name} */}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {/* {entry.hourly_rate} */}
+                                                    {entry.hourly_rate}
                                                 </td>
 
                                                 <td className="px-6 py-4 flex gap-4">
                                                     <button
                                                         className="font-sm text-white bg-blue-600 py-1 px-3 rounded-md hover:bg-blue-800"
-                                                        onClick={accept}
+                                                        onClick={() => accept(entry.id)}
                                                     >
                                                         Accept
                                                     </button>
 
                                                     <button
-                                                        className="font-sm text-white bg-indigo-900 py-1 px-3 rounded-md hover:bg-indigo-950"
-                                                        onClick={decline}
+                                                        className="font-sm text-white bg-red-500 py-1 px-3 rounded-md hover:bg-red-800"
+                                                        onClick={() => reject(entry.id)}
                                                     >
-                                                        Decline
+                                                        Reject
                                                     </button>
                                                 </td>
                                             </tr>
@@ -167,13 +173,19 @@ export default function Overview({
     auth,
     studentCount,
     teacherCount,
-    services,
+    adminServices,
+    serviceCount,
 }: PageProps) {
+
+    const serviceArray = Object.values(adminServices);
+    // const userArray = Object.values(userTeachers);
+    //  const serviceArray = Object.values({ ...adminServices, ...userTeachers });
+
     const search = () => {
         console.log("overview Search");
     };
 
-    console.log(services);
+console.log("***** " ,  serviceCount);
 
     return (
         <AdminLayout user={auth.user}>
@@ -184,24 +196,17 @@ export default function Overview({
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
                             <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                className="w-full  max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
                                 title="Total Users"
                             >
                                 {studentCount + teacherCount}
                             </Card>
 
                             <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Students"
+                                className="w-full  capitalize max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="accept all services"
                             >
-                                {studentCount}
-                            </Card>
-
-                            <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Teachers"
-                            >
-                                {teacherCount}
+                                {serviceCount}
                             </Card>
                         </div>
                     </div>
@@ -214,7 +219,8 @@ export default function Overview({
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={services} />
+                    <PaginatedTable data={serviceArray} />
+                    
                 </div>
             </div>
         </AdminLayout>

@@ -45,6 +45,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     // Route::get('/admins/overview', [AdminOverViewController::class, 'index'])->name('admins.overview.index');
+//     // Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
+//     //Route::post('/admin/overview/{id}/reject', [AdminAdminController::class, 'reject'])->name('admin.services.reject');
+// });
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->middleware(AdminValidationMiddleware::class)->group(function () {
         Route::resource('overview', AdminOverViewController::class)->names('admins.overview');
@@ -55,6 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
         Route::resource('users', AdminUserController::class)->names('admin.users');
         Route::resource('temp', TempController::class)->names('admin.temp');
+
+        //accept & reject service status
+        Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
+        Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
+
     });
 
 
@@ -71,11 +84,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
-        
+
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
         Route::get('teachers/create/', [TeacherTeacherController::class, 'create'])->name('teachers.create');
-        Route::post('/teachers',[TeacherTeacherController::class, 'store'])->name('teachers.store');
+        Route::post('/teachers', [TeacherTeacherController::class, 'store'])->name('teachers.store');
         Route::get('/teachers/{id}/edit', [TeacherTeacherController::class, 'edit'])->name('teachers.edit');
         Route::put('/teachers/{id}', [TeacherTeacherController::class, 'update'])->name('teachers.update');
 

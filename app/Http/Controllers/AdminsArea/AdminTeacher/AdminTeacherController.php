@@ -13,6 +13,7 @@ class AdminTeacherController extends Controller
 
     public function __construct(
         protected UserInterface $userInterface,
+        protected TeacherInterface $teacherInterface,
     ) {
     }
 
@@ -26,6 +27,12 @@ class AdminTeacherController extends Controller
         $teacherUsers = $users ->filter(function($users){
             return $users->role === "teacher";
         });
+
+        // $teacherUsers->load(['teacher' => function($query) {
+        //     $query->select('id', 'user_id', 'bio', 'position');
+        // }]);
+        
+        $teacherUsers->load('teacher');
 
         $teacherCount = $teacherUsers->count();
         return Inertia::render('AdminsArea/Teacher/Teacher', [

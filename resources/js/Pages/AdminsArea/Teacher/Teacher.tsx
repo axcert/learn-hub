@@ -14,6 +14,7 @@ export interface Data {
     phone: string;
     bio: string;
     position: string;
+    teacher:any;
 }
 
 export interface PaginatedTableProps {
@@ -89,10 +90,10 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     {entry.phone}
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
-                                                    {entry.bio}
+                                                    {entry.teacher.bio}
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
-                                                    {entry.position}
+                                                    {entry.teacher.position}
                                                 </td>
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
@@ -167,6 +168,9 @@ export default function Teacher({
     const search = () => {
         console.log("search Teacher");
     };
+
+    console.log("****", userTeachers);
+
     return (
         <>
             <AdminLayout user={auth.user}>

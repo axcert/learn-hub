@@ -3,17 +3,38 @@
 namespace App\Http\Controllers\AdminsArea\AdminService;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Services\ServiceInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AdminServiceController extends Controller
 {
+
+public function __construct(
+    protected ServiceInterface $serviceInterface,
+)
+{
+    
+}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {   
-        return Inertia::render('AdminsArea/Service/Service');
+
+        $services = $this->serviceInterface->all();
+        $adminServices = $services->filter(function($services){
+            return $services->status === 'approved' ;
+        });
+
+        $serviceCount = $adminServices->count();
+        $adminServices->load('teacher.user' ,'admin.user');
+
+        return Inertia::render('AdminsArea/Service/Service',[
+                'adminServices' => $adminServices,
+                'serviceCount' =>  $serviceCount,
+        ]);
     }
 
     /**

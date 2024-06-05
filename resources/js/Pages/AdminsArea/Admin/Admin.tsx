@@ -23,7 +23,6 @@ export interface PaginatedTableProps {
 }
 
 const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
