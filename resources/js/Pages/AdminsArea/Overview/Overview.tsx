@@ -1,9 +1,10 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     id: number;
@@ -38,8 +39,8 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         setCurrentPage(page);
     };
 
-    const accept = () => {
-        alert("Accept Success!");
+    const accept = (id :number) => {
+         Inertia.post(route('admins.overview.accept', id));
     };
 
     const reject = () => {
@@ -100,7 +101,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 <td className="px-6 py-4 flex gap-4">
                                                     <button
                                                         className="font-sm text-white bg-blue-600 py-1 px-3 rounded-md hover:bg-blue-800"
-                                                        onClick={accept}
+                                                        onClick={() => accept(entry.id)}
                                                     >
                                                         Accept
                                                     </button>
@@ -177,7 +178,7 @@ export default function Overview({
     userTeachers
 }: PageProps) {
 
-    // const serviceArray = Object.values(adminServices);
+    const serviceArray = Object.values(adminServices);
     // const userArray = Object.values(userTeachers);
     //  const serviceArray = Object.values({ ...adminServices, ...userTeachers });
 
@@ -185,7 +186,6 @@ export default function Overview({
         console.log("overview Search");
     };
 
-    console.log("-------------",adminServices);
 
     return (
         <AdminLayout user={auth.user}>
@@ -226,7 +226,7 @@ export default function Overview({
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={adminServices} />
+                    <PaginatedTable data={serviceArray} />
                     
                 </div>
             </div>

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\AdminsArea\AdminOverview;
 
+
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Students\StudentInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use App\Repositories\All\Users\UserInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+
 
 class AdminOverViewController extends Controller
 {
@@ -80,14 +83,23 @@ class AdminOverViewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+
+     public function edit(string $id)
+     {
+     }
+
+     public function accept($id)
+     {
+         $service = $this-> serviceInterface-> findById($id);
+         $service->status = 'approved';
+         $service->save();
+         return redirect()->route('admins.overview.index');
+     }
 
     /**
      * Update the specified resource in storage.
      */
+    
     public function update(Request $request, string $id)
     {
         //
@@ -100,4 +112,5 @@ class AdminOverViewController extends Controller
     {
         //
     }
+    
 }
