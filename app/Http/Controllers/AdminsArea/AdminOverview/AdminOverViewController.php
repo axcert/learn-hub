@@ -90,6 +90,15 @@ class AdminOverViewController extends Controller
          return redirect()->route('admins.overview.index');
      }
 
+     public function reject($id)
+     {
+         $service = $this-> serviceInterface-> findById($id);
+         $service->status = 'rejected';
+         $service->save();
+         return redirect()->route('admins.overview.index');
+     }
+
+
     /**
      * Update the specified resource in storage.
      */

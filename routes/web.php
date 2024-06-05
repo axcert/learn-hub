@@ -64,8 +64,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('users', AdminUserController::class)->names('admin.users');
         Route::resource('temp', TempController::class)->names('admin.temp');
 
-        //updated service status
+        //accept & reject service status
         Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
+        Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
 
     });
 

@@ -43,8 +43,8 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
          Inertia.post(route('admins.overview.accept', id));
     };
 
-    const reject = () => {
-        console.log("reject");
+    const reject = (id :number) => {
+        Inertia.post(route('admins.overview.reject', id));
     };
 
     return (
@@ -108,7 +108,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 
                                                     <button
                                                         className="font-sm text-white bg-red-500 py-1 px-3 rounded-md hover:bg-red-800"
-                                                        onClick={reject}
+                                                        onClick={() => reject(entry.id)}
                                                     >
                                                         Reject
                                                     </button>
