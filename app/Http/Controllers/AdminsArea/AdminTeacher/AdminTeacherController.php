@@ -28,6 +28,12 @@ class AdminTeacherController extends Controller
             return $users->role === "teacher";
         });
 
+        // $teacherUsers->load(['teacher' => function($query) {
+        //     $query->select('id', 'user_id', 'bio', 'position');
+        // }]);
+        
+        $teacherUsers->load('teacher');
+
         $teacherCount = $teacherUsers->count();
         return Inertia::render('AdminsArea/Teacher/Teacher', [
             'teacherCount' => $teacherCount,
