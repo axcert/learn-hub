@@ -31,8 +31,8 @@ export default function ServiceIndex() {
                                 <th className="px-4 py-2 border">Service Name</th>
                                 <th className="px-4 py-2 border">Description</th>
                                 <th className="px-4 py-2 border">Hourly Rate</th>
-                                <th className="px-4 py-2 border">Status</th>
                                 <th className="px-4 py-2 border">Experience</th>
+                                <th className="px-4 py-2 border">Status</th>
                                 <th className="px-4 py-2 border">Actions</th>
                             </tr>
                         </thead>
@@ -43,8 +43,9 @@ export default function ServiceIndex() {
                                         <td className="border px-4 py-2">{service.name}</td>
                                         <td className="border px-4 py-2">{service.description}</td>
                                         <td className="border px-4 py-2">{service.hourly_rate}</td>
-                                        <td className="border px-4 py-2">{service.status}</td>
                                         <td className="border px-4 py-2">{service.experience}</td>
+                                        <td className="border px-4 py-2">{service.status}</td>
+                                        
                                         <td className="border px-4 py-2">
                                             <Link href={route('teacher.services.edit', service.id)} className="text-blue-500 hover:text-blue-700 mr-2">
                                                 Edit

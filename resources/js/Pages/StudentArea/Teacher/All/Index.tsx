@@ -11,6 +11,7 @@ interface Teacher {
     };
     position: string;
     bio: string;
+    services: Service[];
 }
 
 interface Props extends PageProps {
@@ -21,9 +22,7 @@ interface Props extends PageProps {
 export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
     return (
         <StudentLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Teachers</h2>}
-        >
+            user={auth.user} >
             <Head title="Teachers" />
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
@@ -43,6 +42,16 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                                                 alt={teacher.user.name}
                                             />
                                         </div>
+                                        <div className="mt-2 flex justify-center">
+                                                <span className="text-yellow-500">★★★★☆</span>
+                                            </div>
+                                        <div className="mt-4 flex flex-wrap justify-center space-x-2">
+                                                {teacher.services.map((service) => (
+                                                    <span key={service.id} className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+                                                        {service.name}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         <div className="mt-4 text-center">
                                             <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
                                                 {teacher.user.name}

@@ -22,8 +22,7 @@ class StudentBookingController extends Controller
         $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
         return Inertia::render('StudentArea/Booking/All/Index', ['bookings' => $bookings]);
         
-        // $bookings = $this->bookingInterface->all(['*'], ['student']);
-        // return Inertia::render('StudentArea/Booking/All/Index', ['bookings' => $bookings]);
+
     }
 
     /**

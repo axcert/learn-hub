@@ -14,10 +14,10 @@ interface Props extends PageProps {
   bookingsForMyServices: Booking[];
 }
 
-export default function TeacherOverview({ auth, services = [], bookings = [] , bookingsForMyServices = []}: Props) {
+export default function TeacherOverview({ auth, services = [], bookings = [], bookingsForMyServices = [], image }: Props) {
   const [date, setDate] = useState<Date | null>(new Date());
 
-  const handleBookingAction = (booking_id: any, action:any) => {
+  const handleBookingAction = (booking_id: any, action: any) => {
     const url = route(`teacher.bookings.${action}`, booking_id);
     Inertia.post(url, { _method: 'patch' });
   };
@@ -36,11 +36,13 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
                   className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-16 w-16 rounded-full"
-                      src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
-                      alt={service.name}
-                    />
+                    <div className="flex justify-center mt-4">
+                      <img
+                        src={service.image ? `/storage/${service.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
+                        alt={service.name}
+                        className="h-16 w-16 rounded-full"
+                      />
+                    </div>
                   </div>
                   <div className="mt-4 text-center">
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
@@ -53,7 +55,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
             ) : (
               <p className="text-center col-span-full text-gray-500">
                 No services found. <br />
-                 1.Update your Bio and Position at the Right side Click Drop Down <br />
+                 1.Update your Bio and Position at the click on Profile icon <br />
                  2. Go to Add Bio section. <br />
                  3. Add your Bio and Position and click Create button. <br />
                  4. Once you created your Bio and Position you will be able to add Services.
@@ -89,14 +91,8 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
             <h2 className="text-xl font-bold flex items-center">
               <FaServer className="mr-2" /> Bookings for My Services
             </h2>
-            {/* <Link
-              className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
-              href={route('teacher.bookings.index')}
-            >
-              View all
-            </Link> */}
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-y-auto" style={{ maxHeight: '200px' }}>
             <table className="min-w-full bg-white">
               <thead>
                 <tr>
@@ -109,7 +105,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
               </thead>
               <tbody>
                 {Array.isArray(bookingsForMyServices) && bookingsForMyServices.length > 0 ? (
-                  bookingsForMyServices.map((booking) => (
+                  bookingsForMyServices.slice(0, 5).map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.user?.name ?? 'N/A'}</td>
@@ -117,7 +113,6 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
                         <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
-                        {/* <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Edit</Link> */}
                         <button
                           className="text-green-600 hover:text-green-900 mr-2"
                           onClick={() => handleBookingAction(booking.id, 'accept')}
@@ -150,15 +145,8 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
             <h2 className="text-xl font-bold flex items-center">
               <FaServer className="mr-2" /> My History
             </h2>
-            <Link
-              className="text-blue-700 hover:text-blue-800 dark:text-blue-500 flex-end"
-              href={route('teacher.bookings.index')}
-            >
-              View all
-            </Link>
           </div>
-
-          <div className="overflow-x-auto">
+          <div className="overflow-y-auto" style={{ maxHeight: '200px' }}>
             <table className="min-w-full bg-white">
               <thead>
                 <tr>
@@ -172,7 +160,7 @@ export default function TeacherOverview({ auth, services = [], bookings = [] , b
               </thead>
               <tbody>
                 {Array.isArray(bookings) && bookings.length > 0 ? (
-                  bookings.map((booking) => (
+                  bookings.slice(0, 5).map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.teacher?.user?.name ?? 'N/A'}</td>

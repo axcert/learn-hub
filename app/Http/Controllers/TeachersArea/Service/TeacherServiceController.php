@@ -10,7 +10,6 @@ use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Repositories\All\Services\ServiceInterface;
-use App\Http\Controllers\Teacher;
 use App\Repositories\All\Teachers\TeacherInterface;
 use App\Models\Admin;
 
@@ -26,7 +25,7 @@ class TeacherServiceController extends Controller
     {    
         $teacherId = $this->teacherInterface->findByUserId($request->user()->id)->id;
 
-        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId, 'status'=> 'approved']);
+        $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
 
         return Inertia::render('TeachersArea/Service/All/Index', [
             'services' => $services,
@@ -55,6 +54,10 @@ class TeacherServiceController extends Controller
         $teacher = $this->teacherInterface->findByUserId($request->user()->id);
         $data['teacher_id'] = $teacher->id;
         $data['status'] = 'pending';
+
+        if($request->hasFile('image')){
+            $data['image'] = $request->file('image')->store('services', 'public');
+        }
 
         // Assign the first available admin or a specific logic to select an admin
         $admin = User::where('role', 'admin')->first();
@@ -99,13 +102,16 @@ class TeacherServiceController extends Controller
     {
 
         $data = $request->all();
+
+        if($request->hasFile('image')){
+            $data['image'] = $request->file('image')->store('services', 'public');
+        }
+
         $this->serviceInterface->update($service->id, $data);
         return redirect()->route('teacher.services.index');
         }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Service $service)
     {
         $this->serviceInterface->deleteById($service->id);

@@ -54,11 +54,13 @@ export default function TeacherShow({ auth, teacher }: Props) {
                                     className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                                 >
                                     <div className="flex-shrink-0">
+                                    <div className="flex justify-center mt-4">
                                         <img
-                                            className="h-16 w-16 rounded-full"
-                                            src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
+                                            src={service.image ? `/storage/${service.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
                                             alt={service.name}
+                                            className="h-16 w-16 rounded-full"
                                         />
+                                        </div>
                                     </div>
                                     <div className="mt-4 text-center">
                                         <h5 className="text-lg font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h5>

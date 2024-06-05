@@ -31,7 +31,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink href={route('teachers.index')} active={route().current('teachers.index')}>
-                                    Teacher 
+                                    Teachers 
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

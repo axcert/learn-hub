@@ -20,6 +20,7 @@ class Service extends Model
         'hourly_rate',
         'teacher_id',
         'status',
+        'image',
     ];
 
     public function admin(){

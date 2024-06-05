@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm, Link, usePage } from '@inertiajs/react';
 import { User } from '@/types';
 import TeacherLayout from '@/Layouts/TeacherLayout';
+import Dropzone from 'react-dropzone';
+import InputLabel from '@/Components/InputLabel';
 
 interface Props {
   auth: {
@@ -17,11 +19,14 @@ export default function ServiceCreate() {
     hourly_rate: '',
     experience: '',
     status: 'pending',
+    image: null,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route('teacher.services.store'));
+    post(route('teacher.services.store'),{
+      preserveScroll:true,
+    });
   };
 
   return (
@@ -31,9 +36,41 @@ export default function ServiceCreate() {
           <form onSubmit={handleSubmit} method="POST">
             <div className="space-y-12">
               <div className="border-b border-gray-900/10 pb-12">
-                <h2 className="text-base font-semibold leading-7 text-gray-900 text-center">Service Details</h2>
+                <h1 className="text-base font-semibold leading-7 text-gray-900 text-center">Service Details</h1>
                 <p className="mt-1 text-sm leading-6 text-gray-600 text-center">Provide the details of the new service you want to create.</p>
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div>
+                  <InputLabel value="Service Image" htmlFor="image2"/>
+                          <Dropzone onDrop={(acceptedFiles: any) => {
+                                  setData("image", acceptedFiles[0] );
+                                  console.log(data);
+                              }}
+                          >
+                              {({ getRootProps, getInputProps,
+                              }) => (
+                                  <section>
+                                      <div style={{border: "1px solid #d1d5db",borderRadius: "5px",padding: "20px",width: "100%",height: "200px",display: "flex",flexDirection:"column",justifyContent:"center",alignItems:"center",
+                                          }}
+                                          {...getRootProps()}
+                                      >
+                                          <input
+                                              {...getInputProps()}
+                                          />
+                                          <div className="text-center">
+                                              {data.image ? (
+                                                  <div className="w-full h-full flex flex-col justify-center items-center">
+                                                      <img className="max-h-[150px]" src={URL.createObjectURL( data.image)} alt=""/>
+                                                  </div>
+                                              ) : (
+                                                  "Drag and drop an image here or click to select an image"
+                                                  
+                                              )}
+                                          </div>
+                                      </div>
+                                  </section>
+                              )}
+                          </Dropzone>
+                      </div>
                   <div className="sm:col-span-4">
                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
                     <div className="mt-2">
@@ -91,6 +128,7 @@ export default function ServiceCreate() {
                       {errors.hourly_rate && <div className="text-red-600 text-sm mt-1">{errors.hourly_rate}</div>}
                     </div>
                   </div>
+                  
                 </div>
               </div>
             </div>
