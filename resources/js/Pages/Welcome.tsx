@@ -132,7 +132,6 @@ export default function Welcome({
                                                 <h2 className="text-xl font-semibold text-black dark:text-white">
                                                     Documentation
                                                 </h2>
-
                                                 <p className="mt-4 text-sm/relaxed">
                                                     Laravel has wonderful
                                                     documentation covering every
