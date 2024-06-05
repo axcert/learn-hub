@@ -29,7 +29,7 @@ public function __construct(
         });
 
         $serviceCount = $adminServices->count();
-
+        $adminServices->load('teacher.user' ,'admin.user');
 
         return Inertia::render('AdminsArea/Service/Service',[
                 'adminServices' => $adminServices,

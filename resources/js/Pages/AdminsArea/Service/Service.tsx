@@ -1,7 +1,6 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { LuView } from "react-icons/lu";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
@@ -13,8 +12,17 @@ export interface Data {
     experience: string;
     hourly_rate: number;
     status: string;
-    teacher_id: number;
-    admin_id: number;
+    teacher: {
+        user: {
+            name: string;
+        };
+    };
+    admin: {
+        name: any;
+        user: {
+            name: string;
+        };
+    };
 }
 
 export interface PaginatedTableProps {
@@ -86,13 +94,14 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 <td className="px-6 py-4">
                                                     {entry.name}
                                                 </td>
+                                              
                                                 <td className="px-6 py-4">
-                                                    {entry.admin_id}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    {entry.teacher_id}
+                                                {entry.teacher.user.name}
                                                 </td>
 
+                                                <td className="px-6 py-4">
+                                                {entry.admin.name}
+                                                </td>
 
                                                 <td className="px-6 py-4">
                                                     {entry.hourly_rate}
