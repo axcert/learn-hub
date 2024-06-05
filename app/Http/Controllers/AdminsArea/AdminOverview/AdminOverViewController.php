@@ -27,6 +27,7 @@ class AdminOverViewController extends Controller
     {
 
         $users = $this->userInterface->all()->load('user');
+
         $studentUsers = $users->filter(function ($user) {
             return $user->role === 'student';
         });
@@ -38,10 +39,11 @@ class AdminOverViewController extends Controller
         $adminServices = $services->filter(function($services){
             return $services->status === 'pending' ;
         });
-
        
         $studentCount = $studentUsers->count();
         $teacherCount = $teacherUsers->count();
+
+        $adminServices->load('teacher.user');
 
         return Inertia::render('AdminsArea/Overview/Overview', [
             'studentCount' =>  $studentCount,

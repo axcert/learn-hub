@@ -6,17 +6,18 @@ import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
 export interface Data {
-    teacher:Teacher;
     id: number;
     name: string;
     description: string;
     experience: string;
     hourly_rate: number;
     status: string;
-    teacher_id: number;
-}
-export interface Teacher {
-    name: string;
+    teacher: {
+        user: {
+            name: string;
+        };
+    };
+    
 }
 
 export interface PaginatedTableProps {
@@ -41,8 +42,8 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         alert("Accept Success!");
     };
 
-    const decline = () => {
-        console.log("decline");
+    const reject = () => {
+        console.log("reject");
     };
 
     return (
@@ -90,7 +91,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4 capitalize">
-                                                    {entry.teacher_id}
+                                                {entry.teacher.user.name}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {entry.hourly_rate}
@@ -105,10 +106,10 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     </button>
 
                                                     <button
-                                                        className="font-sm text-white bg-indigo-900 py-1 px-3 rounded-md hover:bg-indigo-950"
-                                                        onClick={decline}
+                                                        className="font-sm text-white bg-red-500 py-1 px-3 rounded-md hover:bg-red-800"
+                                                        onClick={reject}
                                                     >
-                                                        Decline
+                                                        Reject
                                                     </button>
                                                 </td>
                                             </tr>
@@ -176,15 +177,15 @@ export default function Overview({
     userTeachers
 }: PageProps) {
 
-    const serviceArray = Object.values(adminServices);
+    // const serviceArray = Object.values(adminServices);
     // const userArray = Object.values(userTeachers);
-    // const serviceArray = Object.values({ ...adminServices, ...userTeachers });
+    //  const serviceArray = Object.values({ ...adminServices, ...userTeachers });
 
     const search = () => {
         console.log("overview Search");
     };
 
-    console.log("-------------",userTeachers);
+    console.log("-------------",adminServices);
 
     return (
         <AdminLayout user={auth.user}>
@@ -225,7 +226,7 @@ export default function Overview({
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={serviceArray} />
+                    <PaginatedTable data={adminServices} />
                     
                 </div>
             </div>
