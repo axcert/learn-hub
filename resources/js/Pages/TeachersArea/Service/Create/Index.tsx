@@ -25,7 +25,7 @@ export default function ServiceCreate() {
   };
 
   return (
-    <TeacherLayout user={auth.user} header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Service</h2>}>
+    <TeacherLayout user={auth.user} >
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
           <form onSubmit={handleSubmit} method="POST">
