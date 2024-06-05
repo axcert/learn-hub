@@ -45,23 +45,17 @@ class AdminOverViewController extends Controller
        
         $studentCount = $studentUsers->count();
         $teacherCount = $teacherUsers->count();
+        $serviceCount = $adminServices->count();
 
         $adminServices->load('teacher.user');
 
         return Inertia::render('AdminsArea/Overview/Overview', [
             'studentCount' =>  $studentCount,
             'teacherCount' => $teacherCount,
+            'serviceCount' => $serviceCount,
             'adminServices' => $adminServices,
             'userTeachers' => $teacherUsers,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**

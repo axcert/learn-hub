@@ -28,8 +28,12 @@ public function __construct(
             return $services->status === 'approved' ;
         });
 
+        $serviceCount = $adminServices->count();
+
+
         return Inertia::render('AdminsArea/Service/Service',[
                 'adminServices' => $adminServices,
+                'serviceCount' =>  $serviceCount,
         ]);
     }
 

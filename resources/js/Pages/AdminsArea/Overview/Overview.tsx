@@ -173,9 +173,8 @@ export default function Overview({
     auth,
     studentCount,
     teacherCount,
-    services,
     adminServices,
-    userTeachers
+    serviceCount,
 }: PageProps) {
 
     const serviceArray = Object.values(adminServices);
@@ -186,6 +185,7 @@ export default function Overview({
         console.log("overview Search");
     };
 
+console.log("***** " ,  serviceCount);
 
     return (
         <AdminLayout user={auth.user}>
@@ -196,24 +196,17 @@ export default function Overview({
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
                             <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                className="w-full  max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
                                 title="Total Users"
                             >
                                 {studentCount + teacherCount}
                             </Card>
 
                             <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Students"
+                                className="w-full  capitalize max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                title="accept all services"
                             >
-                                {studentCount}
-                            </Card>
-
-                            <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Teachers"
-                            >
-                                {teacherCount}
+                                {serviceCount}
                             </Card>
                         </div>
                     </div>

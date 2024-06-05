@@ -7,7 +7,6 @@ import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
 
 export interface Data {
-    // teacher: Teacher;
     id: number;
     name: string;
     description: string;
@@ -15,6 +14,7 @@ export interface Data {
     hourly_rate: number;
     status: string;
     teacher_id: number;
+    admin_id: number;
 }
 
 export interface PaginatedTableProps {
@@ -53,7 +53,10 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             Service ID
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Name
+                                            Service Name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Teacher Name
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             Offered By
@@ -78,22 +81,24 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                     scope="row"
                                                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize"
                                                 >
-                                                    {entry.name}
+                                                    {entry.id}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.email} */}
+                                                    {entry.name}
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    {/* {entry.phone} */}
+                                                    {entry.admin_id}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    {entry.teacher_id}
                                                 </td>
 
-                                                <td className="flex items-center px-6 py-4">
-                                                    <button
-                                                        onClick={view}
-                                                        className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
-                                                    >
-                                                        <LuView />
-                                                    </button>
+
+                                                <td className="px-6 py-4">
+                                                    {entry.hourly_rate}
+                                                </td>
+                                                <td className="px-6 py-4 text-green-600 font-bold">
+                                                    {entry.status}
                                                 </td>
                                             </tr>
                                         ))
@@ -151,8 +156,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     );
 };
 
-export default function Service({ auth, adminServices }: PageProps) {
-    const serviceArray = Object.values("");
+export default function Service({ auth, adminServices , serviceCount }: PageProps) {
+    const serviceArray = Object.values(adminServices);
+
 
 console.log(adminServices);
 
@@ -169,26 +175,12 @@ console.log(adminServices);
                     {/* Card */}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                            <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Total  Services"
-                            >
-                                1200
-                            </Card>
-
-                            <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="Online"
-                            >
-                                10
-                            </Card>
-
-                            <Card
-                                className="w-full lg:w-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="???"
-                            >
-                                ???
-                            </Card>
+                        <Card
+                                    className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                    title={"Approved Services"}
+                                >
+                                    {serviceCount}
+                                </Card>
                         </div>
                     </div>
 
@@ -200,7 +192,7 @@ console.log(adminServices);
                     </div>
 
                     {/* table */}
-                    {/* <PaginatedTable data={serviceArray} /> */}
+                    <PaginatedTable data={serviceArray} />
                 </div>
             </div>
         </AdminLayout>
