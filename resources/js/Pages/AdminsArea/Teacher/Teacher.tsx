@@ -76,7 +76,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             Position
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Status
+                                            View Teacher
                                         </th>
                                     </tr>
                                 </thead>

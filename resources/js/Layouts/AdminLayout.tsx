@@ -25,8 +25,9 @@ export default function AdminLayout({
                                 onClick={() => setMenu(!menu)}
                                 aria-controls="logo-sidebar"
                                 type="button"
-                                className="inline-flex items-center p-2 text-sm text-white hover:text-black rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                                className="inline-flex items-center p-2 text-sm text-white hover:text-black rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                             >
+
                                 <span className="sr-only">Open sidebar</span>
                                 <svg
                                     className="w-6 h-6"
@@ -62,7 +63,7 @@ export default function AdminLayout({
                 id="logo-sidebar"
                 className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
                     menu ? "translate-x-0" : "-translate-x-full"
-                } bg-white  border-r border-gray-200 sm:translate-x-0 `}
+                } bg-white  border-r border-gray-200 lg:translate-x-0 `}
                 aria-label="Sidebar"
             >
                 <div className="h-screen px-3 pb-4 p-5 overflow-y-auto bg-blue-950 -mt-4">
@@ -118,11 +119,9 @@ export default function AdminLayout({
                 </div>
             </aside>
 
-            <div className="p-4 sm:ml-64 col-start-2 col-end-7 bg-zinc-100 h-full">
+            <div className="p-4 lg:ml-64 col-start-2 col-end-7 bg-zinc-100 h-full">
                 {header && (
-                    <header className="bg-white shadow ">
-                        {header}
-                    </header>
+                    <header className="bg-white shadow ">{header}</header>
                 )}
                 <main className="mt-14">{children}</main>
                 <footer className="py- text-center text-xs select-none">

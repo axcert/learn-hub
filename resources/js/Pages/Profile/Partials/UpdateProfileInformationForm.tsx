@@ -63,18 +63,18 @@ export default function UpdateProfileInformation({
                 </div>
                 <div>
                     <div className="flex items-center">
-                    <InputLabel htmlFor="email" value="Email" />
+                        <InputLabel htmlFor="email" value="Email" />
                         <p className="text-red-500">*</p>
                     </div>
                     <div>
                         <TextInput
-                           id="email"
-                           type="email"
-                           className="mt-1 block w-full ml-2"
-                           value={data.email}
-                           onChange={(e) => setData("email", e.target.value)}
-                           required
-                           autoComplete="username"
+                            id="email"
+                            type="email"
+                            className="mt-1 block w-full ml-2"
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
+                            required
+                            autoComplete="username"
                         />
                     </div>
                     <InputError className="mt-2" message={errors.email} />
