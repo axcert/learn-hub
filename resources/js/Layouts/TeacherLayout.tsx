@@ -44,12 +44,6 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                     Messages
                                 </NavLink>
                             </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('teachers.create')} active={route().current('teachers.create')}>
-                                    Add Bio
-                                </NavLink>
-                            </div> */}
-                            
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -61,20 +55,14 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                <img
+                                                    className="h-10 w-10 rounded-full mr-2"
+                                                    // src={user.image}
+                                                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4oz0KdCvHj_hvY5exy-qFr06SPFjyA4ZoPg&s'
+                                                    alt={`${user.name}'s profile`}
+                                                />
+                                                {/* {user.name} */}
 
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
@@ -84,7 +72,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
-                                        <Dropdown.Link href={route('teachers.create')}  as="button">
+                                        <Dropdown.Link href={route('teachers.create')} as="button">
                                             Add Bio
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -151,8 +139,8 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                 Log Out
                             </ResponsiveNavLink>
                             <ResponsiveNavLink href={route('teachers.create')} active={route().current('teachers.create')}>
-                            Add Bio
-                        </ResponsiveNavLink>
+                                Add Bio
+                            </ResponsiveNavLink>
                         </div>
                     </div>
                 </div>

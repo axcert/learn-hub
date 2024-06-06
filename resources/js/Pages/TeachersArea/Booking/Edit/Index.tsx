@@ -21,7 +21,7 @@ export default function Edit({ auth, booking }: Props) {
     return (
         <TeacherLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Edit Booking</h2>}
+           
         >
             <Head title="Edit Booking" />
             
@@ -29,7 +29,10 @@ export default function Edit({ auth, booking }: Props) {
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Edit Booking</h2>
-                        <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.bookings.index')}>Back to Bookings</Link>
+                        {/* <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.bookings.index')}>Back to Bookings</Link> */}
+                        <button onClick={() => window.history.back()} className="text-blue-600 hover:text-blue-900 ml-4">
+                         Back
+                        </button>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">

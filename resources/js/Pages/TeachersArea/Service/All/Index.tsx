@@ -24,6 +24,7 @@ export default function ServiceIndex() {
                         <FaPlus className="mr-2" /> Create New Service
                     </Link>
                 </div>
+               
                 <div className="overflow-x-auto bg-white shadow sm:rounded-lg p-4">
                     <table className="min-w-full">
                         <thead>
@@ -44,14 +45,16 @@ export default function ServiceIndex() {
                                         <td className="border px-4 py-2">{service.description}</td>
                                         <td className="border px-4 py-2">{service.hourly_rate}</td>
                                         <td className="border px-4 py-2">{service.experience}</td>
-                                        <td className="border px-4 py-2">{service.status}</td>
+                                        <td className={`border px-4 py-2 ${service.status === 'pending' ? 'text-orange-400 font-semibold' : service.status === 'approved' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+                                        {service.status}
+                                        </td>
                                         
                                         <td className="border px-4 py-2">
-                                            <Link href={route('teacher.services.edit', service.id)} className="text-blue-500 hover:text-blue-700 mr-2">
+                                            <Link href={route('teacher.services.edit', service.id)} className="text-blue-500 hover:text-blue-700 mr-2 font-semibold">
                                                 Edit
                                             </Link>
                                             <button
-                                                className="text-red-600 hover:text-red-900"
+                                                className="text-red-600 hover:text-red-900 font-semibold"
                                                 onClick={() => {
                                                     if (window.confirm('Are you sure you want to delete this service?')) {
                                                         Inertia.delete(route('teacher.services.destroy', service.id));
