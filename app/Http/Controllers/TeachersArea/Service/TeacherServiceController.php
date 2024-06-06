@@ -58,7 +58,6 @@ class TeacherServiceController extends Controller
         if($request->hasFile('image')){
             $data['image'] = $request->file('image')->store('services', 'public');
         }
-
         // Assign the first available admin or a specific logic to select an admin
         $admin = User::where('role', 'admin')->first();
 
@@ -70,8 +69,6 @@ class TeacherServiceController extends Controller
         $this->serviceInterface->create($data);
         return redirect()->route('teacher.services.index');
     }
-
-    
 
     /**
      * Display the specified resource.
