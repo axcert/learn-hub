@@ -17,7 +17,7 @@ export default function AdminLayout({
     const [menu, setMenu] = useState(false);
     return (
         <>
-            <nav className="fixed top-0 z-50 w-full bg-blue-950 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <nav className="fixed top-0 z-50 w-full bg-blue-950 border-b border-gray-200">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3  ">
                     <div className="flex items-center justify-between ">
                         <div className="flex items-center justify-start rtl:justify-end">
@@ -25,8 +25,9 @@ export default function AdminLayout({
                                 onClick={() => setMenu(!menu)}
                                 aria-controls="logo-sidebar"
                                 type="button"
-                                className="inline-flex items-center p-2 text-sm text-white hover:text-black rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                className="inline-flex items-center p-2 text-sm text-white hover:text-black rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                             >
+
                                 <span className="sr-only">Open sidebar</span>
                                 <svg
                                     className="w-6 h-6"
@@ -47,7 +48,7 @@ export default function AdminLayout({
                                     className="h-8 me-3"
                                     alt="FlowBite Logo"
                                 />
-                                <div className="self-center text-white text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white ">
+                                <div className="self-center text-white text-xl font-semibold sm:text-2xl whitespace-nowrap ">
                                     LMS
                                 </div>
                             </div>
@@ -62,35 +63,35 @@ export default function AdminLayout({
                 id="logo-sidebar"
                 className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${
                     menu ? "translate-x-0" : "-translate-x-full"
-                } bg-white  border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+                } bg-white  border-r border-gray-200 lg:translate-x-0 `}
                 aria-label="Sidebar"
             >
-                <div className="h-screen px-3 pb-4 p-5 overflow-y-auto dark:bg-gray-800 bg-blue-950 -mt-4">
+                <div className="h-screen px-3 pb-4 p-5 overflow-y-auto bg-blue-950 -mt-4">
                     <ul className="space-y-2 font-medium">
                         <li>
                             <Link
                                 href={route("admins.overview.index")}
-                                className="flex items-center p-2 text-white hover:text-black rounded-lg dark:text-white hover:bg-gray-100  dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2 text-white hover:text-black rounded-lg hover:bg-gray-100   "
                             >
-                                <IoPieChartSharp className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <IoPieChartSharp className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
                                 <h1 className="ms-3">Overview</h1>
                             </Link>
                         </li>
                         <li>
                             <Link
                                 href={route("admin.services.index")}
-                                className="flex items-center p-2  text-white hover:text-black  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2  text-white hover:text-black  rounded-lg  hover:bg-gray-100  "
                             >
-                                <MdDashboard className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <MdDashboard className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
                                 <h1 className="ms-3">Service</h1>
                             </Link>
                         </li>
                         <li>
                             <Link
                                 href={route("admin.teachers.index")}
-                                className="flex items-center p-2  text-white hover:text-black rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2  text-white hover:text-black rounded-lg  hover:bg-gray-100 group"
                             >
-                                <GiTeacher className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <GiTeacher className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" />
                                 <h1 className="ms-3">Teacher</h1>
                             </Link>
                         </li>
@@ -98,9 +99,9 @@ export default function AdminLayout({
                         <li>
                             <Link
                                 href={route("admin.students.index")}
-                                className="flex items-center p-2  text-white hover:text-black rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2  text-white hover:text-black rounded-lg  hover:bg-gray-100  group"
                             >
-                                <PiStudentFill className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <PiStudentFill className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" />
                                 <h1 className="ms-3">Student</h1>
                             </Link>
                         </li>
@@ -108,9 +109,9 @@ export default function AdminLayout({
                         <li>
                             <Link
                                 href={route("admin.adminPanels.index")}
-                                className="flex items-center p-2 text-white hover:text-black  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className="flex items-center p-2 text-white hover:text-black  rounded-lg  hover:bg-gray-100  group"
                             >
-                                <MdAdminPanelSettings className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                                <MdAdminPanelSettings className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
                                 <h1 className="ms-3">Admin</h1>
                             </Link>
                         </li>
@@ -118,11 +119,9 @@ export default function AdminLayout({
                 </div>
             </aside>
 
-            <div className="p-4 sm:ml-64 col-start-2 col-end-7 bg-zinc-100 h-full">
+            <div className="p-4 lg:ml-64 col-start-2 col-end-7 bg-zinc-100 h-full">
                 {header && (
-                    <header className="bg-white shadow dark:bg-gray-800">
-                        {header}
-                    </header>
+                    <header className="bg-white shadow ">{header}</header>
                 )}
                 <main className="mt-14">{children}</main>
                 <footer className="py- text-center text-xs select-none">

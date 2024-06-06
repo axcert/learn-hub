@@ -242,7 +242,9 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                                     onClick={all}
                                 />
 
-                                <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+                                <MyDialog
+                                className={"inline-block w-full max-w-4xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"}
+                                isOpen={isOpen} setIsOpen={setIsOpen}>
                                     {/* search */}
                                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                                         <div className="p-3 text-gray-900">

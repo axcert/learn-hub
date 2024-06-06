@@ -204,7 +204,7 @@ console.log("***** " ,  serviceCount);
 
                             <Card
                                 className="w-full  capitalize max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
-                                title="accept all services"
+                                title="Pending Services"
                             >
                                 {serviceCount}
                             </Card>

@@ -5,6 +5,8 @@ import { useState } from "react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
+import degree from "@/../../public/asstts/img/degree.jpeg";
+import MyDialog from "@/Components/MyDialog/MyDialog";
 
 export interface Data {
     name: string;
@@ -14,13 +16,16 @@ export interface Data {
     phone: string;
     bio: string;
     position: string;
-    teacher:any;
+    teacher: any;
 }
 
 export interface PaginatedTableProps {
     data: Data[];
 }
 const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedTeacher, setSelectedTeacher] = useState<Data | null>(null);
+
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
@@ -37,8 +42,13 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
         setCurrentPage(page);
     };
 
-    const view = () => {
-        console.log("view");
+    const view = (student: Data) => {
+        setSelectedTeacher(student);
+        setIsOpen(true);
+    };
+
+    const readMore = () => {
+        alert("readmore");
     };
 
     return (
@@ -66,7 +76,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                             Position
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            Status
+                                            View Teacher
                                         </th>
                                     </tr>
                                 </thead>
@@ -97,7 +107,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 </td>
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
-                                                        onClick={view}
+                                                        onClick={() =>
+                                                            view(entry)
+                                                        }
                                                         className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
                                                     >
                                                         <LuView />
@@ -155,6 +167,57 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                     </div>
                 </div>
             </div>
+
+            <MyDialog
+                className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            >
+                {selectedTeacher ? (
+                    <div className="flex flex-col justify-between max-w-lg p-6 m-4 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-row">
+                        <div className="flex justify-center items-center">
+                            <img
+                                className="rounded-lg w-40 md:w-auto"
+                                src={degree}
+                                alt="image description"
+                            />
+                        </div>
+                        <div className="mb-6 md:mb-0 md:mr-6">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {selectedTeacher.name}
+                            </h5>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Teacher ID:</strong>{" "}
+                                {selectedTeacher.id}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Email:</strong> {selectedTeacher.email}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Phone:</strong> {selectedTeacher.phone}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Bio:</strong>{" "}
+                                {selectedTeacher.teacher.bio}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Position:</strong>{" "}
+                                {selectedTeacher.teacher.position}
+                            </p>
+                            <button
+                                className="w-full md:w-40 px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
+                                onClick={readMore}
+                            >
+                                Read more
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <p>No student selected.</p>
+                )}
+            </MyDialog>
         </div>
     );
 };
