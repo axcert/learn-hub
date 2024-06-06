@@ -69,11 +69,11 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
-                                        </Dropdown.Link>
                                         <Dropdown.Link href={route('teachers.create')} as="button">
                                             Add Bio
+                                        </Dropdown.Link>
+                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                            Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -135,11 +135,11 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
 
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
                             <ResponsiveNavLink href={route('teachers.create')} active={route().current('teachers.create')}>
                                 Add Bio
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                                Log Out
                             </ResponsiveNavLink>
                         </div>
                     </div>
