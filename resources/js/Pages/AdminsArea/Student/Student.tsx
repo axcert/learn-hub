@@ -159,7 +159,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
             <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} 
             className={"inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"}>
                 {selectedStudent ? (
-                    <div className="flex flex-col justify-between max-w-lg p-6 m-4 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-row">
+                    <div className="flex flex-col justify-between max-w-lg p-6 m-4 bg-white border rounded-lg shadow  md:flex-row">
                         <div className="flex justify-center items-center">
                             <img
                                 className="rounded-lg w-40 md:w-40"
@@ -168,17 +168,17 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                             />
                         </div>
                         <div className="mb-6 md:mb-0 md:mr-6">
-                            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
                                 {selectedStudent.name}
                             </h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Teacher ID:</strong>{" "}
                                 {selectedStudent.id}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Email:</strong> {selectedStudent.email}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Phone:</strong> {selectedStudent.phone}
                             </p>
                             <button
