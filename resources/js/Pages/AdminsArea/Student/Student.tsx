@@ -1,11 +1,12 @@
-import AdminLayout from '@/Layouts/AdminLayout';
-import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import AdminLayout from "@/Layouts/AdminLayout";
+import { Head } from "@inertiajs/react";
+import { PageProps } from "@/types";
 import { LuView } from "react-icons/lu";
-import { useState } from 'react';
-import Card from '@/Components/Card/Card';
-import SearchBar from '@/Components/SearchBar/SearchBar';
-
+import { useState } from "react";
+import Card from "@/Components/Card/Card";
+import SearchBar from "@/Components/SearchBar/SearchBar";
+import MyDialog from "@/Components/MyDialog/MyDialog";
+import girl from "@/../../public/asstts/img/girl.jpg"
 
 export interface Data {
     name: string;
@@ -16,30 +17,35 @@ export interface Data {
 }
 
 export interface PaginatedTableProps {
-data: Data[];
+    data: Data[];
 }
-const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
-
+const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
 
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedStudent, setSelectedStudent] = useState<Data | null>(null);
 
     const totalPages: number = Math.ceil(data.length / itemsPerPage);
     const currentData = Array.isArray(data)
-    ? data.slice(
-          (currentPage - 1) * itemsPerPage,
-          currentPage * itemsPerPage
-      )
-    : [];
+        ? data.slice(
+              (currentPage - 1) * itemsPerPage,
+              currentPage * itemsPerPage
+          )
+        : [];
 
     const handleClick = (page: number) => {
         setCurrentPage(page);
     };
 
-    const view = () =>{
-        console.log("view");
-        
-    }
+    const view = (student: Data) => {
+        setSelectedStudent(student);
+        setIsOpen(true);
+    };
+
+    const readMore = () => {
+        console.log("readMore");
+    };
 
     return (
         <div className="py-2">
@@ -59,7 +65,7 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                         <th scope="col" className="px-6 py-3">
                                             Phone Number
                                         </th>
-                                       
+
                                         <th scope="col" className="px-6 py-3">
                                             Status
                                         </th>
@@ -83,12 +89,13 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {entry.phone}
-                                                    
                                                 </td>
-                                               
+
                                                 <td className="flex items-center px-6 py-4">
                                                     <button
-                                                        onClick={view}
+                                                        onClick={() =>
+                                                            view(entry)
+                                                        }
                                                         className="font-medium text-green-600 hover:font-bold ms-3 text-lg"
                                                     >
                                                         <LuView />
@@ -146,25 +153,63 @@ const PaginatedTable:React.FC<PaginatedTableProps> = ({data}) => {
                     </div>
                 </div>
             </div>
+
+            <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+                {selectedStudent ? (
+                    <div className="flex justify-between max-w-lg p-6  bg-white border  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div>
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {selectedStudent.name}
+                            </h5>
+
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Student ID:</strong>{" "}
+                                {selectedStudent.id}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Email:</strong> {selectedStudent.email}
+                            </p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <strong>Phone:</strong> {selectedStudent.phone}
+                            </p>
+
+                            <button
+                                className="text-center w-40 items-center px-3 py-2 text-sm font-medium  text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
+                                onClick={readMore}
+                            >
+                                Read more
+                            </button>
+                        </div>
+                        <div>
+                            <img
+                                className="rounded-lg w-48"
+                                src={girl}
+                                alt="image description"
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <p>No student selected.</p>
+                )}
+            </MyDialog>
         </div>
     );
 };
 
-
-
-export default function Student({auth ,studentCount,userStudents}: PageProps) {
-
+export default function Student({
+    auth,
+    studentCount,
+    userStudents,
+}: PageProps) {
     const studentArray = Object.values(userStudents);
 
-    const search = () =>{
+    const search = () => {
         console.log("search Student");
-        
-    }
+    };
 
     console.log(studentCount);
     console.log(userStudents);
-    
-    
+
     return (
         <>
             <AdminLayout user={auth.user}>
@@ -174,7 +219,12 @@ export default function Student({auth ,studentCount,userStudents}: PageProps) {
                         {/* Card */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-6  text-gray-900 flex justify-around flex-wrap items-center gap-5">
-                                <Card className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow" title={"Students"}>{studentCount}</Card>
+                                <Card
+                                    className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
+                                    title={"Students"}
+                                >
+                                    {studentCount}
+                                </Card>
                             </div>
                         </div>
 
