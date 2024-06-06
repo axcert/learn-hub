@@ -211,7 +211,9 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
         </div>
       </div>
 
-      <MyDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen}>
+      <MyDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }>
         {selectedService && (
           <div>
             {selectedService.image && (
@@ -232,14 +234,17 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
             <p className="text-gray-700 mb-2">Experience: {selectedService.experience}</p>
             <p className="mt-2">Hourly Rate: Rs {selectedService.hourly_rate}</p>
             <div className="flex justify-center items-center mt-6">
-            {/* <Link href={route('teacher.bookings.create', { service_id: selectedService.id })} className="text-blue-600 hover:text-blue-900">
+            <Link href={route('teacher.bookings.create', { service_id: selectedService.id })} className="text-blue-600 hover:text-blue-900">
               Book Service
-            </Link> */}
+            </Link>
             </div>
             
           </div>
         )}
       </MyDialog>
+
+
+
     </TeacherLayout>
   );
 }

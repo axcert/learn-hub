@@ -59,9 +59,12 @@ export default function BookingCreate({ service }: Props) {
               >
                 {processing ? 'Booking...' : 'Book Service'}
               </button>
-              <Link href={route('teacher.services.show', service.id)} className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+              {/* <Link href={route('teacher.services.show', service.id)} className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                 Cancel
-              </Link>
+              </Link> */}
+              {/* <button onClick={() => window.history.back()} className="text-blue-600 hover:text-blue-900 ml-4">
+              Back to Services
+            </button> */}
                         
             </div>
           </form>
