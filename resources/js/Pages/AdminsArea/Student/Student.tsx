@@ -6,7 +6,7 @@ import { useState } from "react";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import MyDialog from "@/Components/MyDialog/MyDialog";
-import girl from "@/../../public/asstts/img/girl.jpg"
+import girl from "@/../../public/asstts/img/girl.jpg";
 import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
@@ -45,7 +45,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     };
 
     const readMore = () => {
-       alert("readmore")
+        alert("readmore");
     };
 
     return (
@@ -157,12 +157,18 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 
             <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
                 {selectedStudent ? (
-                    <div className="flex justify-between max-w-lg p-6  bg-white border  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div>
+                    <div className="flex flex-col justify-between max-w-lg p-6 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-row">
+                        <div className="flex justify-center items-center">
+                            <img
+                                className="rounded-lg w-40 md:w-auto"
+                                src={girl}
+                                alt="image description"
+                            />
+                        </div>
+                        <div className="mb-6 md:mb-0 md:mr-6">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {selectedStudent.name}
                             </h5>
-
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 <strong>Student ID:</strong>{" "}
                                 {selectedStudent.id}
@@ -173,20 +179,12 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 <strong>Phone:</strong> {selectedStudent.phone}
                             </p>
-
                             <button
-                                className="text-center w-40 items-center px-3 py-2 text-sm font-medium  text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
+                                className="w-full md:w-40 px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
                                 onClick={readMore}
                             >
                                 Read more
                             </button>
-                        </div>
-                        <div>
-                            <img
-                                className="rounded-lg w-40"
-                                src={girl}
-                                alt="image description"
-                            />
                         </div>
                     </div>
                 ) : (
