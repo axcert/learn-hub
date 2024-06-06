@@ -27,7 +27,7 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
 
     return (
         <div className="h-10">
-            <Disclosure as="nav" className="bg-blue-950">
+            <Disclosure as="nav" className="bg-blue-950 ">
                 {({ open }) => (
                     <>
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

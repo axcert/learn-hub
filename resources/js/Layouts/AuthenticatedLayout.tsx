@@ -27,7 +27,6 @@ export default function Authenticated({
                                 <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
                             </div>
-                            
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
