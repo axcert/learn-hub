@@ -72,7 +72,7 @@ export default function ServiceCreate() {
                           </Dropzone>
                       </div>
                   <div className="sm:col-span-4">
-                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Service Name</label>
                     <div className="mt-2">
                       <input
                         type="text"

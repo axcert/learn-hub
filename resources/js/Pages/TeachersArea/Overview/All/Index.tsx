@@ -6,6 +6,8 @@ import 'react-calendar/dist/Calendar.css';
 import { FaServer } from 'react-icons/fa';
 import { Booking, PageProps, Service, User } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
+import MyDialog from '@/Components/MyDialog/MyDialog';
+
 
 interface Props extends PageProps {
   auth: { user: User };
@@ -14,12 +16,31 @@ interface Props extends PageProps {
   bookingsForMyServices: Booking[];
 }
 
-export default function TeacherOverview({ auth, services = [], bookings = [], bookingsForMyServices = [], image }: Props) {
+export default function TeacherOverview({ auth, services = [], bookings = [], bookingsForMyServices = [] }: Props) {
   const [date, setDate] = useState<Date | null>(new Date());
+  const [selectedService, setSelectedService] = useState<Service | null>(null); // State for selected service
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State for dialog visibility
 
-  const handleBookingAction = (booking_id: any, action: any) => {
+  const handleBookingAction = (booking_id: number, action: string) => {
     const url = route(`teacher.bookings.${action}`, booking_id);
     Inertia.post(url, { _method: 'patch' });
+  };
+
+  const sortBookingsByDate = (bookings: Booking[]) => {
+    return bookings.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  };
+
+  const sortedBookingsForMyServices = sortBookingsByDate(bookingsForMyServices);
+  const sortedBookings = sortBookingsByDate(bookings);
+
+  const openDialog = (service: Service) => {
+    setSelectedService(service);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setSelectedService(null);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -27,13 +48,13 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
       <Head title="Teacher Overview" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
         <div className="lg:col-span-3">
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {Array.isArray(services) && services.length > 0 ? (
-              services.slice(0, 3).map((service) => (
-                <Link
-                  href={route('teacher.services.show', service.id)}
+              services.slice(0, 4).map((service) => (
+                <div
+                  onClick={() => openDialog(service)}
                   key={service.id}
-                  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
+                  className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
                   <div className="flex-shrink-0">
                     <div className="flex justify-center mt-4">
@@ -50,15 +71,17 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
                     <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                     <p className="mt-1 text-sm font-semibold text-indigo-600">Rs: {service.hourly_rate}/hr</p>
                   </div>
-                </Link>
+                </div>
               ))
             ) : (
               <p className="text-center col-span-full text-gray-500">
                 No services found. <br />
-                 1.Update your Bio and Position at the click on Profile icon <br />
-                 2. Go to Add Bio section. <br />
-                 3. Add your Bio and Position and click Create button. <br />
-                 4. Once you created your Bio and Position you will be able to add Services.
+                Update your Bio and Position at the click on Profile icon <br />
+                Go to Add Bio section. <br />
+                Add your Bio and Position and click Create button. <br />
+                Once you created your Bio and Position you will be able to add Services.
+
+                
 
                 <Link
                   href={route('teachers.create')}
@@ -104,23 +127,25 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(bookingsForMyServices) && bookingsForMyServices.length > 0 ? (
-                  bookingsForMyServices.slice(0, 5).map((booking) => (
+                {Array.isArray(sortedBookingsForMyServices) && sortedBookingsForMyServices.length > 0 ? (
+                  sortedBookingsForMyServices.slice(0, 5).map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.user?.name ?? 'N/A'}</td>
-                      <td className="border px-4 py-2">{booking.status}</td>
+                      <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-400 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+                      {booking.status}
+                    </td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
-                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                        <Link className="text-blue-600 hover:text-blue-900 mr-2 font-semibold" href={route('teacher.bookings.show', booking.id)}>View</Link>
                         <button
-                          className="text-green-600 hover:text-green-900 mr-2"
+                          className="text-green-600 hover:text-green-900 mr-2 font-semibold"
                           onClick={() => handleBookingAction(booking.id, 'accept')}
                         >
                           Accept
                         </button>
                         <button
-                          className="text-red-600 hover:text-red-900"
+                          className="text-red-600 hover:text-red-900 font-semibold"
                           onClick={() => handleBookingAction(booking.id, 'reject')}
                         >
                           Reject
@@ -139,15 +164,15 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
         </div>
       </div>
 
-      <div className="mt-10 mx-4 lg:mx-10">
+      <div className="mt-10 mb-4 mx-4 lg:mx-10">
         <div className="bg-white shadow-sm sm:rounded-lg p-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold flex items-center">
               <FaServer className="mr-2" /> My History
             </h2>
           </div>
-          <div className="overflow-y-auto" style={{ maxHeight: '200px' }}>
-            <table className="min-w-full bg-white">
+          <div className="overflow-y-auto " style={{ maxHeight: '200px' }}>
+            <table className="min-w-full bg-white mb-4">
               <thead>
                 <tr>
                   <th className="px-4 py-2 border">Service</th>
@@ -159,17 +184,19 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(bookings) && bookings.length > 0 ? (
-                  bookings.slice(0, 5).map((booking) => (
+                {Array.isArray(sortedBookings) && sortedBookings.length > 0 ? (
+                  sortedBookings.slice(0, 5).map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.teacher?.user?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.hourly_rate ?? 'N/A'}</td>
-                      <td className="border px-4 py-2">{booking.status}</td>
+                      <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-400 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+                      {booking.status}
+                    </td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
-                        <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
-                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Edit</Link>
+                        <Link className="text-blue-600 hover:text-blue-900 mr-2 font-semibold" href={route('teacher.bookings.show', booking.id)}>View</Link>
+                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2 font-semibold" href={route('teacher.bookings.edit', booking.id)}>Edit</Link>
                       </td>
                     </tr>
                   ))
@@ -183,6 +210,36 @@ export default function TeacherOverview({ auth, services = [], bookings = [], bo
           </div>
         </div>
       </div>
+
+      <MyDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen}>
+        {selectedService && (
+          <div>
+            {selectedService.image && (
+             <div className="flex justify-center mt-4">
+             <img
+                 src={selectedService.image ? `/storage/${selectedService.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
+                 alt={selectedService.name}
+                 className="h-28 w-28 rounded-full"
+               />
+           </div>
+            )}
+            
+            <h2 className="text-xl font-bold">{selectedService.name}</h2>
+            {selectedService.teacher && (
+              <p className="mt-2">Teacher: {selectedService.teacher.user.name}</p>
+            )}
+            <p className="mt-2">{selectedService.description}</p>
+            <p className="text-gray-700 mb-2">Experience: {selectedService.experience}</p>
+            <p className="mt-2">Hourly Rate: Rs {selectedService.hourly_rate}</p>
+            <div className="flex justify-center items-center mt-6">
+            {/* <Link href={route('teacher.bookings.create', { service_id: selectedService.id })} className="text-blue-600 hover:text-blue-900">
+              Book Service
+            </Link> */}
+            </div>
+            
+          </div>
+        )}
+      </MyDialog>
     </TeacherLayout>
   );
 }

@@ -15,6 +15,12 @@ interface Props extends PageProps {
 export default function StudentIndex({ auth, services = [], bookings = [] }: Props) {
   const [date, setDate] = useState<Date | null>(new Date());
 
+  const sortBookingsByDate = (bookings: Booking[]) => {
+    return bookings.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  };
+
+  const sortedBookings = sortBookingsByDate(bookings);
+
   return (
     <StudentLayout
       user={auth.user}
@@ -23,9 +29,9 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
       <Head title="Student Dashboard" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
         <div className="lg:col-span-3">
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {Array.isArray(services) && services.length > 0 ? (
-              services.slice(0, 3).map((service) => (
+              services.slice(0, 4).map((service) => (
                 <Link
                   href={route('student.services.show', service.id)}
                   key={service.id}
@@ -95,13 +101,15 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(bookings) && bookings.length > 0 ? (
-                  bookings.map((booking) => (
+                {Array.isArray(sortedBookings) && sortedBookings.length > 0 ? (
+                  sortedBookings.map((booking) => (
                     <tr key={booking.id}>
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.teacher?.user?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.hourly_rate ?? 'N/A'}</td>
-                      <td className="border px-4 py-2">{booking.status}</td>
+                      <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-500 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+                        {booking.status}
+                      </td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
                         <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('student.bookings.show', booking.id)}>View</Link>

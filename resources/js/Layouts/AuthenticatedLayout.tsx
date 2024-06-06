@@ -27,23 +27,6 @@ export default function Authenticated({
                                 <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">LMS</div>
                             </Link>
                             </div>
-
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div> 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
-                                <NavLink href={route('services.index')} active={route().current('services.index')}>
-                                    Services
-                                </NavLink>
-                            </div>
-                            */}
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('students.index')} active={route().current('students.index')}>
-                                    Student Dashboard
-                                </NavLink>
-                            </div> */}
                             
                         </div>
 
