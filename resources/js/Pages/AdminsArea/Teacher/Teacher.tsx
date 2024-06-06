@@ -168,9 +168,15 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                 </div>
             </div>
 
-            <MyDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+            <MyDialog
+                className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            >
                 {selectedTeacher ? (
-                    <div className="flex flex-col justify-between max-w-lg p-6 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-row">
+                    <div className="flex flex-col justify-between max-w-lg p-6 m-4 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:flex-row">
                         <div className="flex justify-center items-center">
                             <img
                                 className="rounded-lg w-40 md:w-auto"

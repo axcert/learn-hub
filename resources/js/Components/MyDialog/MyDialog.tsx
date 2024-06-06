@@ -6,9 +6,11 @@ interface MyDialogProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   children: React.ReactNode;
+  className?: string;
+
 }
 
-export default function MyDialog({ children, isOpen, setIsOpen }: MyDialogProps) {
+export default function MyDialog({className, children, isOpen, setIsOpen }: MyDialogProps) {
   const close = () => {
     setIsOpen(false);
   };
@@ -49,7 +51,7 @@ export default function MyDialog({ children, isOpen, setIsOpen }: MyDialogProps)
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-4xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div className={className}>
               <div className="flex justify-end">
                 <button onClick={close}>
                   <FaWindowClose className="hover:text-blue-600" />
