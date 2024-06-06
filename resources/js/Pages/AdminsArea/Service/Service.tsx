@@ -66,9 +66,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                         <th scope="col" className="px-6 py-3">
                                             Teacher Name
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        {/* <th scope="col" className="px-6 py-3">
                                             Offered By
-                                        </th>
+                                        </th> */}
 
                                         <th scope="col" className="px-6 py-3">
                                             Hourly Rate
@@ -99,9 +99,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                                 {entry.teacher.user.name}
                                                 </td>
 
-                                                <td className="px-6 py-4">
+                                                {/* <td className="px-6 py-4">
                                                 {entry.admin.name}
-                                                </td>
+                                                </td> */}
 
                                                 <td className="px-6 py-4">
                                                     {entry.hourly_rate}
