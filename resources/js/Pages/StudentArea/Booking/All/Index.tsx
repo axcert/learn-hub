@@ -9,6 +9,13 @@ interface Props extends PageProps {
 }
 
 export default function BookingIndex({ auth, bookings = [] }: Props) {
+
+    const sortBookingsByDate = (bookings: Booking[]) => {
+        return bookings.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      };
+
+      const sortedBookings = sortBookingsByDate(bookings);
+
     return (
         <StudentLayout
             user={auth.user}
@@ -24,8 +31,8 @@ export default function BookingIndex({ auth, bookings = [] }: Props) {
                     </div>
                     
                     <div className="space-y-4">
-                    {Array.isArray(bookings) && bookings.length > 0 ? (
-                        bookings.map((booking) => (
+                    {Array.isArray(sortedBookings) && sortedBookings.length > 0 ? (
+                        sortedBookings.map((booking) => (
                         <div key={booking.id} className="p-4 border rounded-lg flex items-center justify-between">
                             <div>
                             <h3 className="text-lg font-bold">{booking.service?.name ?? 'N/A'}</h3>

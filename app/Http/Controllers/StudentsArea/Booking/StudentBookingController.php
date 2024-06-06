@@ -73,8 +73,9 @@ class StudentBookingController extends Controller
     public function update(Request $request, Booking $booking)
     {
         $data = $request->all();
+        $data ['status'] = 'pending'; 
         $booking->update($data);
-        return redirect()->route('bookings.index');
+        return redirect()->route('students.index');
     }
 
     /**

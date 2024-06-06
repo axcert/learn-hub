@@ -102,6 +102,7 @@ class TeacherServiceController extends Controller
     {
 
         $data = $request->all();
+        $data['status'] = 'pending';
 
         if($request->hasFile('image')){
             $data['image'] = $request->file('image')->store('services', 'public');

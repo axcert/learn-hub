@@ -16,7 +16,11 @@ export default function ServiceShow({ service }: Props) {
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         {service.image && (
             <div className="flex justify-center mt-4">
-              <img src={`/storage/${service.image}`} alt={service.name} className="max-h-20 rounded" />
+              <img
+                  src={service.image ? `/storage/${service.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
+                  alt={service.name}
+                  className="h-16 w-16 rounded-full"
+                />
             </div>
           )}
           <h2 className="text-2xl font-bold mb-4 ">{service.name}</h2>
@@ -30,13 +34,16 @@ export default function ServiceShow({ service }: Props) {
             <p className="text-gray-700 mb-2">Teacher information not available</p>
           )}
           
-          <div className="flex justify-center items-center mt-6">
-            <Link href={route('teacher.bookings.create', { service_id: service.id })} className="text-blue-600 hover:text-blue-900">
+          <div className="flex justify-between  mt-6">
+            <Link href={route('teacher.bookings.create', { service_id: service.id })} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Book Service
             </Link>
-            <Link href={route('teacher.services.index')} className="text-blue-600 hover:text-blue-900 ml-4">
+            {/* <Link href={route('teacher.services.index')} className="text-blue-600 hover:text-blue-900 ml-4">
               Back to Services
-            </Link>
+            </Link> */}
+            <button onClick={() => window.history.back()} className="text-blue-600 hover:text-blue-900 ml-4">
+              Back
+            </button>
           </div>
         </div>
       </div>

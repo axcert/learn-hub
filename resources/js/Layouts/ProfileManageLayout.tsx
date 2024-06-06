@@ -63,12 +63,14 @@ export default function ProfileManageLayout({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link
+                                        <div>
+                                            <Dropdown.Link
     
                                             href={route("admins.overview.index")}
                                         >
                                             Dashboard
                                         </Dropdown.Link>
+                                        </div>
 
                                         <Dropdown.Link
                                             href={route("logout")}

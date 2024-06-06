@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { Config } from 'ziggy-js';
 export interface User {
+    image: string | undefined;
+    imageUrl: string | undefined;
     teacher: any;
     
     user: any;

@@ -1,7 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Service } from '@/types';
-import React from 'react';
+import React, { useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
 interface Teacher {
     id: number;
@@ -19,7 +20,18 @@ interface Props extends PageProps {
     services: Service[];
 }
 
+const ITEMS_PER_PAGE = 10;
+
 export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const pageCount = Math.ceil(teachers.length / ITEMS_PER_PAGE);
+    const offset = currentPage * ITEMS_PER_PAGE;
+    const currentItems = teachers.slice(offset, offset + ITEMS_PER_PAGE);
+
+    const handlePageClick = ({ selected }: { selected: number }) => {
+        setCurrentPage(selected);
+    };
     return (
         <StudentLayout
             user={auth.user} >
@@ -27,9 +39,9 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
                     <div className="lg:col-span-4">
-                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {Array.isArray(teachers) && teachers.length > 0 ? (
-                                teachers.map((teacher) => (
+                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                            {Array.isArray(currentItems) && currentItems.length > 0 ? (
+                                currentItems.map((teacher) => (
                                     <Link
                                         href={route('student.teachers.show', teacher.id)}
                                         key={teacher.id}
@@ -66,6 +78,25 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                             )}
                         </div>
                     </div>
+                    
+                </div>
+                <div className="mt-4 flex justify-center">
+                    <ReactPaginate
+                        previousLabel={"← Previous"}
+                        nextLabel={"Next →"}
+                        breakLabel={"..."}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={"flex justify-center items-center space-x-2 mt-4"}
+                        pageClassName={"mx-1"}
+                        pageLinkClassName={"px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-blue-500 hover:text-white"}
+                        previousLinkClassName={"px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-blue-500 hover:text-white"}
+                        nextLinkClassName={"px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-blue-500 hover:text-white"}
+                        breakLinkClassName={"px-3 py-1 border border-gray-300 rounded-md text-gray-700"}
+                        activeClassName={"bg-blue-500 text-white"}
+                    />
                 </div>
             </div>
         </StudentLayout>

@@ -62,6 +62,7 @@ export default function BookingCreate({ service }: Props) {
               <Link href={route('teacher.services.show', service.id)} className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                 Cancel
               </Link>
+                        
             </div>
           </form>
         </div>
