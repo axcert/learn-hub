@@ -7,6 +7,7 @@ import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import girl from "@/../../public/asstts/img/girl.jpg"
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     name: string;
@@ -44,7 +45,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     };
 
     const readMore = () => {
-        console.log("readMore");
+       alert("readmore")
     };
 
     return (
@@ -67,7 +68,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                         </th>
 
                                         <th scope="col" className="px-6 py-3">
-                                            Status
+                                            View Student
                                         </th>
                                     </tr>
                                 </thead>
@@ -182,7 +183,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                         </div>
                         <div>
                             <img
-                                className="rounded-lg w-48"
+                                className="rounded-lg w-40"
                                 src={girl}
                                 alt="image description"
                             />
