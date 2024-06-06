@@ -185,25 +185,25 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                             />
                         </div>
                         <div className="mb-6 md:mb-0 md:mr-6">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-90">
                                 {selectedTeacher.name}
                             </h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                <strong>Teacher ID:</strong>{" "}
+                            <p className="mb-3 font-normal text-gray-700 ">
+                                <strong>Teacher ID:</strong>
                                 {selectedTeacher.id}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Email:</strong> {selectedTeacher.email}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Phone:</strong> {selectedTeacher.phone}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                <strong>Bio:</strong>{" "}
+                            <p className="mb-3 font-normal text-gray-700 ">
+                                <strong>Bio:</strong>
                                 {selectedTeacher.teacher.bio}
                             </p>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                <strong>Position:</strong>{" "}
+                            <p className="mb-3 font-normal text-gray-700 ">
+                                <strong>Position:</strong>
                                 {selectedTeacher.teacher.position}
                             </p>
                             <button
