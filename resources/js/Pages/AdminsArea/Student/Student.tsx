@@ -156,8 +156,13 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                 </div>
             </div>
 
-            <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} 
-            className={"inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"}>
+            <MyDialog
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }
+            >
                 {selectedStudent ? (
                     <div className="flex flex-col justify-between max-w-lg p-6 m-4 bg-white border rounded-lg shadow  md:flex-row">
                         <div className="flex justify-center items-center">
@@ -201,15 +206,18 @@ export default function Student({
     auth,
     studentCount,
     userStudents,
-}: PageProps) {
+    search = '',
+}: PageProps & {search?:string}) {
     const studentArray = Object.values(userStudents);
+    const [searchTerm, setSearchTerm] = useState<string>(search || '');
 
-    const search = () => {
-        console.log("search Student");
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     };
 
-    console.log(studentCount);
-    console.log(userStudents);
+    const handleSearchClick = () => {
+        Inertia.get(route("admin.students.index"), { search: searchTerm });
+    };
 
     return (
         <>
@@ -232,9 +240,16 @@ export default function Student({
                         {/* search */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-3 text-gray-900">
-                                <SearchBar
+                                {/* <SearchBar
                                     title={"Students"}
                                     onClick={search}
+                                /> */}
+
+                                <SearchBar
+                                    title={"Students"}
+                                    onClick={handleSearchClick}
+                                    onChange={handleSearchChange}
+                                    searchTerm={searchTerm}
                                 />
                             </div>
                         </div>

@@ -255,10 +255,10 @@ export default function Teacher({
                         {/* search */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-3 text-gray-900">
-                                <SearchBar
+                                {/* <SearchBar
                                     title={"Teachers"}
                                     onClick={search}
-                                />
+                                /> */}
                             </div>
                         </div>
 
