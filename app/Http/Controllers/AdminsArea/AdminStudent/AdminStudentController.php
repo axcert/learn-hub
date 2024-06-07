@@ -19,18 +19,26 @@ class AdminStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
+        $search = $request->input('search', '');
         $users = $this->userInterface->all()->load('user');
-        $studentUsers = $users->filter(function ($user) {
-            return $user->role === 'student';
+
+        // $studentUsers = $users->filter(function ($user) {
+        //     return $user->role === 'student';
+        // });
+
+        $studentUsers = $users->filter(function ($user) use ($search) {
+            return $user->role === 'student' && (!$search || str_contains(strtolower($user->name), strtolower($search)));
         });
+
         $studentCount = $studentUsers->count();
 
         return Inertia::render('AdminsArea/Student/Student',[
             'studentCount' => $studentCount,
             'userStudents' => $studentUsers,
+            'search' => $search,
         ]);
     }
 

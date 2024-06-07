@@ -3,9 +3,11 @@ import { IoSearch } from "react-icons/io5";
 interface SearchBarProps {
     title: string;
     onClick: () => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    searchTerm: string;
 }
 
-export default function SearchBar({ title, onClick }: SearchBarProps) {
+export default function SearchBar({ title, onClick,onChange,searchTerm }: SearchBarProps) {
     return (
         <section className="flex flex-col sm:flex-row justify-between items-center py-4 px-5">
             <div className="mb-4 sm:mb-0">
@@ -20,6 +22,8 @@ export default function SearchBar({ title, onClick }: SearchBarProps) {
                         className="block w-full p-4 pl-10 text-sm sm:text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                         type="search"
                         placeholder="Search..."
+                        value={searchTerm}
+                        onChange={onChange}
                     />
                     <button
                         type="button"
