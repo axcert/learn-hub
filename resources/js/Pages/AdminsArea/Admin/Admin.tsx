@@ -248,10 +248,10 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                                     {/* search */}
                                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                                         <div className="p-3 text-gray-900">
-                                            <SearchBar
+                                            {/* <SearchBar
                                                 title={"Users"}
                                                 onClick={search}
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                     <AllUsersTable data={users} />

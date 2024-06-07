@@ -214,7 +214,7 @@ console.log("***** " ,  serviceCount);
                     {/* search */}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                         <div className="p-3 text-gray-900">
-                            <SearchBar title={"Overview"} onClick={search} />
+                            {/* <SearchBar title={"Overview"} onClick={search} /> */}
                         </div>
                     </div>
 
