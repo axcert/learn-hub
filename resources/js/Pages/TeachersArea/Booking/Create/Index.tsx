@@ -24,30 +24,40 @@ export default function BookingCreate({ service }: Props) {
 
   return (
     <TeacherLayout user={auth.user}>
-      <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
+      <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
           <h1 className="text-2xl font-bold mb-4 text-center">Book {service.name}</h1>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+            <div className=" mb-4">
+              <div className="flex">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Description
+                    Description
               </label>
+              
+              <p className="text-red-500">*</p>
+              </div>
               <textarea
                 value={data.description}
+                placeholder='Enter a brief description of your booking...'
                 onChange={e => setData('description', e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                required
               />
               {errors.description && <p className="text-red-500 text-xs mt-2">{errors.description}</p>}
             </div>
             <div className="mb-4">
+              <div className="flex">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Date
               </label>
+              <p className="text-red-500">*</p>
+              </div>
               <input
                 type="date"
                 value={data.date}
                 onChange={e => setData('date', e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                required
               />
               {errors.date && <p className="text-red-500 text-xs mt-2">{errors.date}</p>}
             </div>

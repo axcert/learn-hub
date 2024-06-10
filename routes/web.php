@@ -64,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('users', AdminUserController::class)->names('admin.users');
         Route::resource('temp', TempController::class)->names('admin.temp');
 
-        //accept & reject service status
+        
         Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
         Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
 
@@ -73,6 +73,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
+
         Route::resource('services', StudentServiceController::class)->names('student.services');
         Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
         Route::resource('messages', StudentMessageController::class)->names('student.messages');

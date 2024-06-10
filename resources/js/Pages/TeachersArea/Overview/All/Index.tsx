@@ -22,9 +22,11 @@ export default function TeacherOverview({
     bookingsForMyServices = [],
 }: Props) {
     const [date, setDate] = useState<Date | null>(new Date());
+    
     const [selectedService, setSelectedService] = useState<Service | null>(
         null
-    ); // State for selected service
+    ); 
+
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State for dialog visibility
 
     const handleBookingAction = (booking_id: number, action: string) => {

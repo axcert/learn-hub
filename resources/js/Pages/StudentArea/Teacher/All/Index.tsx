@@ -59,7 +59,7 @@ export default function TeacherIndex({ auth, teachers, services = [] }: Props) {
                                             </div>
                                         <div className="mt-4 flex flex-wrap justify-center space-x-2">
                                                 {teacher.services.map((service) => (
-                                                    <span key={service.id} className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+                                                    <span key={service.id} className="px-2 mt-1 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
                                                         {service.name}
                                                     </span>
                                                 ))}
