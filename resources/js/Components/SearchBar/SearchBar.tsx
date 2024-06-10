@@ -53,11 +53,11 @@ export default function SearchBar({
                             placeholder="Search..."
                             value={searchTerm}
                             onChange={handleInputChange}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    onClick();
-                                }
-                            }}
+                            // onKeyDown={(e) => {
+                            //     if (e.key === 'Enter') {
+                            //         onClick();
+                            //     }
+                            // }}
                         />
 
                         {showCancel && (

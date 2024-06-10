@@ -3,7 +3,7 @@ import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
@@ -167,6 +167,11 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
 };
 
 export default function Service({ auth, adminServices , serviceCount , search=''}: PageProps & {search?:string}) {
+
+    useEffect(() => {
+        search
+      }, []);
+
     const serviceArray = Object.values(adminServices);
     const [searchTerm, setSearchTerm] = useState<string>(search || '');
 
@@ -174,19 +179,22 @@ export default function Service({ auth, adminServices , serviceCount , search=''
         setSearchTerm(e.target.value);
     };
 
-    console.log("search : ",search);
+
     
 
     const handleSearchClick = () => {
         Inertia.get(route("adminStudent.search"), { search: searchTerm });
     };
 
-    const filteredServices = serviceArray.filter(service =>
+    const filteredServices = serviceArray.filter((service) =>
         service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        // service.teacher_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.teacher.user.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
         service.hourly_rate.toString().includes(searchTerm) ||
         service.id.toString().includes(searchTerm)
     );
+
     const filteredServicesCount = filteredServices.length; 
 
     return (
