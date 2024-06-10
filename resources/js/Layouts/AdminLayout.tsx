@@ -45,10 +45,10 @@ export default function AdminLayout({
                             <div className="flex ms-2 md:me-24 ">
                                 <img
                                     src={dahbordLogo}
-                                    className="h-8 me-3"
+                                    className="h-8 me-3 max-sm:size-6"
                                     alt="FlowBite Logo"
                                 />
-                                <div className="self-center text-white text-xl font-semibold sm:text-2xl whitespace-nowrap ">
+                                <div className="self-center max-sm:text-xs text-white text-xl font-semibold sm:text-2xl whitespace-nowrap ">
                                     LMS
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ export default function AdminLayout({
                                 className="flex items-center p-2  text-white hover:text-black  rounded-lg  hover:bg-gray-100  "
                             >
                                 <MdDashboard className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 " />
-                                <h1 className="ms-3">Service</h1>
+                                <h1 className="ms-3">Services</h1>
                             </Link>
                         </li>
                         <li>
@@ -92,7 +92,7 @@ export default function AdminLayout({
                                 className="flex items-center p-2  text-white hover:text-black rounded-lg  hover:bg-gray-100 group"
                             >
                                 <GiTeacher className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" />
-                                <h1 className="ms-3">Teacher</h1>
+                                <h1 className="ms-3">Teachers</h1>
                             </Link>
                         </li>
 
@@ -102,7 +102,7 @@ export default function AdminLayout({
                                 className="flex items-center p-2  text-white hover:text-black rounded-lg  hover:bg-gray-100  group"
                             >
                                 <PiStudentFill className="w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900" />
-                                <h1 className="ms-3">Student</h1>
+                                <h1 className="ms-3">Students</h1>
                             </Link>
                         </li>
 
@@ -112,7 +112,7 @@ export default function AdminLayout({
                                 className="flex items-center p-2 text-white hover:text-black  rounded-lg  hover:bg-gray-100  group"
                             >
                                 <MdAdminPanelSettings className="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 " />
-                                <h1 className="ms-3">Admin</h1>
+                                <h1 className="ms-3">Admins</h1>
                             </Link>
                         </li>
                     </ul>

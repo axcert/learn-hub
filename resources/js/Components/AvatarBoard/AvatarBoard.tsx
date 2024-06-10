@@ -30,17 +30,17 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
             <Disclosure as="nav" className="bg-blue-950 ">
                 {({ open }) => (
                     <>
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
                             <div className="flex h-10 items-center justify-between">
                                 <div className="flex items-center ">
                                     <div className="flex-shrink-0">
-                                        <p className="uppercase font-semibold text-sm p-2 text-white">
-                                            Admin Dashboard
+                                        <p className="uppercase font-semibold text-sm p-2 text-white max-sm:text-xs">
+                                            {user.name}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="hidden md:block">
-                                    <div className="ml-4 flex items-center md:ml-6">
+                                    <div className="ml-4 flex items-center md:ml-1">
                                         <Menu
                                             as="div"
                                             className="relative ml-3"
@@ -52,11 +52,6 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                                     </span>
 
                                                     <FaUserCircle className="h-10 w-10 rounded-full bg-white text-teal-400 hover:text-teal-500" />
-                                                    {/* <img
-                                                        className="h-8 w-8 rounded-full"
-                                                        src={temp.imageUrl}
-                                                        alt=""
-                                                    /> */}
                                                 </Menu.Button>
                                             </div>
                                             <Transition
@@ -123,7 +118,7 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                     </div>
                                 </div>
                                 <div className="-mr-2 flex md:hidden">
-                                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-teal-400 p-1 text-white hover:bg-teal-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
+                                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  p-1 text-white hover:text-white focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1">
                                         <span className="sr-only">
                                             Open main menu
                                         </span>
