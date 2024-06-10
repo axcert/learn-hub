@@ -5,6 +5,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import Logo from '../../../public/asset/Logo.png';
+import Footer from '@/Components/Footer/Footer';
 
 interface TeacherLayoutProps {
     user: User;
@@ -153,6 +154,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
             )}
 
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }

@@ -6,6 +6,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
 import dahbordLogo from "../../../public/asstts/img/dashboart-logo.png"
+import Footer from "@/Components/Footer/Footer";
 
 
 export default function ProfileManageLayout({
@@ -177,6 +178,7 @@ export default function ProfileManageLayout({
             )}
 
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }
