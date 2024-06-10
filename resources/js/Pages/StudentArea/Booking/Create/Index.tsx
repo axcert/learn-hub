@@ -27,10 +27,7 @@ export default function BookingCreate({ service }: Props) {
         <StudentLayout user={auth.user}>
             <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-12">
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h1 className="text-2xl  mb-4 text-center">
-                        Book Now Services{" "}
-                        <span className="font-bold"> {service.name}</span>
-                    </h1>
+                <h1 className="text-2xl font-bold mb-4 text-center">Book {service.name}</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <div className="flex items-center">

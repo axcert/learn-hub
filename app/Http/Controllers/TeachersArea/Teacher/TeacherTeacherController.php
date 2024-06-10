@@ -77,6 +77,7 @@ class TeacherTeacherController extends Controller
 
         return Inertia::render('TeachersArea/Teacher/Show/Index', [
             'teacher' => $teacher,
+            
         ]);
         
     }

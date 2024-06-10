@@ -25,11 +25,11 @@ export default function Edit({ auth, booking }: Props) {
         >
             <Head title="Edit Booking" />
             
-            <div className="mt-10 mx-10">
+            <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 py-12">
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Edit Booking</h2>
-                        {/* <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-500" href={route('teacher.bookings.index')}>Back to Bookings</Link> */}
+                        
                         <button onClick={() => window.history.back()} className="text-blue-600 hover:text-blue-900 ml-4">
                          Back
                         </button>

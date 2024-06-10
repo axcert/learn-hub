@@ -16,7 +16,7 @@ export default function Show({ auth, booking }: Props) {
         >
             <Head title="Booking Details" />
             
-            <div className="mt-10 mx-10">
+            <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 py-12">
                 <div className="bg-white shadow-sm sm:rounded-lg p-4">
                     <div className="flex justify-between">
                         <h2 className="text-xl font-bold mb-4">Booking Details</h2>

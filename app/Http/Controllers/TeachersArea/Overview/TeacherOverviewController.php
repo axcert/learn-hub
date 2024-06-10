@@ -33,7 +33,9 @@ class TeacherOverviewController extends Controller
              $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacher->id], ['*'], ['teacher.user']);
             // $services = $this->serviceInterface->all( ['*'], ['teacher.user']);
             $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
-            $bookingsForMyServices = $this->bookingInterface->getByColumn(['service_id' => $services->pluck('id')->toArray()], ['*'], ['service.teacher.user', 'user']);
+            $bookingsForMyServices = $this->bookingInterface->getByColumn(['service_id' => $services->pluck('id')->toArray()], ['*'], ['service.teacher.user', 'user'] );
+            
+            
         }
 
         return Inertia::render('TeachersArea/Overview/All/Index', [
