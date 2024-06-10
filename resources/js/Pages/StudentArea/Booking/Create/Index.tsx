@@ -92,7 +92,7 @@ export default function BookingCreate({ service }: Props) {
                             >
                                 {processing ? "Booking..." : "Book Service"}
                             </button>
-                            <Link
+                            {/* <Link
                                 href={route(
                                     "student.services.show",
                                     service.id
@@ -100,7 +100,7 @@ export default function BookingCreate({ service }: Props) {
                                 className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                             >
                                 Cancel
-                            </Link>
+                            </Link> */}
                         </div>
                     </form>
                 </div>

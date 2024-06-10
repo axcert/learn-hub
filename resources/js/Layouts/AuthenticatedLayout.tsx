@@ -6,6 +6,7 @@ import { Link } from "@inertiajs/react";
 import { User } from "@/types";
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Logo from '../../../public/asset/Logo.png'
+import Footer from "@/Components/Footer/Footer";
 
 export default function Authenticated({
     user,
@@ -176,6 +177,7 @@ export default function Authenticated({
             )}
 
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }

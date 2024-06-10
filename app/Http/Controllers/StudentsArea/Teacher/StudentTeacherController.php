@@ -32,59 +32,23 @@ class StudentTeacherController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
-    {
+    {   
         $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
         if (!$teacher) {
             abort(404, 'Teacher not found');
-        }
-        
+        }          
+        $approvedServices = $teacher->services->filter(function($service) {
+            return $service->status === 'approved';
+        });
+        $teacher->setRelation('services', $approvedServices);
 
         return Inertia::render('StudentArea/Teacher/Show/Index', [
             'teacher' => $teacher,
+            
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    
 }

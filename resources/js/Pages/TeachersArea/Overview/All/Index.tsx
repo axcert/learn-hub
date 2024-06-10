@@ -97,9 +97,7 @@ export default function TeacherOverview({
                                         <p className="mt-1 text-sm text-gray-600">
                                             {service.description}
                                         </p>
-                                        <p className="mt-1 text-sm font-semibold text-indigo-600">
-                                            Rs: {service.hourly_rate}/hr
-                                        </p>
+                                        <p className="px-2 mt-1 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">Rs: {service.hourly_rate}/hr</p>
                                     </div>
                                 </div>
                             ))

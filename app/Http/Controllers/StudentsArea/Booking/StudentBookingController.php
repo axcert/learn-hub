@@ -54,7 +54,7 @@ class StudentBookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        $booking->load('service.teacher');
+        $booking->load('service.teacher.user');
         return Inertia::render('StudentArea/Booking/Show/Index', ['booking' => $booking]);
     }
 

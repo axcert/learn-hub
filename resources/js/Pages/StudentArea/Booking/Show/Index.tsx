@@ -24,7 +24,7 @@ export default function Show({ auth, booking }: Props) {
                     </div>
                     <div className="mt-4">
                         <p><strong>Service:</strong> {booking.service?.name ?? 'N/A'}</p>
-                        <p><strong>Teacher:</strong> {booking.service?.teacher?.name ?? 'N/A'}</p>
+                        <p><strong>Teacher:</strong> {booking.service?.teacher?.user?.name ?? 'N/A'}</p>
                         <p><strong>Hourly Rate:</strong> {booking.service?.hourly_rate ?? 'N/A'}</p>
                         <p><strong>Status:</strong> {booking.status}</p>
                         <p><strong>Description:</strong> {booking.description}</p>

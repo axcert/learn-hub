@@ -5,6 +5,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 import Logo from '../../../public/asset/Logo.png';
+import Footer from '@/Components/Footer/Footer';
 
 export default function StudentLayout({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -137,6 +138,7 @@ export default function StudentLayout({ user, header, children }: PropsWithChild
 
 
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }
