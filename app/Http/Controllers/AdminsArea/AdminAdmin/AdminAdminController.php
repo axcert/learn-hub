@@ -37,6 +37,27 @@ class AdminAdminController extends Controller
             'users' => $this->userInterface->all()->load('user'),
         ]);
     }
+
+    public function search(Request $request){
+       
+        $users = $this->userInterface->all()->load('user');
+        $search = $request->input('search');
+        
+        if ($search) {
+            $users = $users->filter(function ($user) use ($search) {
+                return stripos($user->name, $search) !== false ||
+                       stripos($user->email, $search) !== false ||
+                       stripos($user->phone, $search) !== false;
+            });
+        }
+        
+        return Inertia::render('AdminsArea/Admin/Admin', [
+            'search' => $search,
+            'users' => $users,
+        ]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */

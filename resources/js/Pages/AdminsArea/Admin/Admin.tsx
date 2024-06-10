@@ -10,6 +10,7 @@ import Button from "@/Components/Button/Button";
 import MyDialog from "@/Components/MyDialog/MyDialog";
 import AllUsersTable from "./AllUsersTable";
 import Edit from "@/Pages/AdminsArea/Admin/Edit/Edit";
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     name: string;
@@ -198,14 +199,27 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
     );
 };
 
-export default function Admin({ auth, adminCount, admins, users }: PageProps) {
+export default function Admin({ auth, adminCount, admins, users , search='' }: PageProps &{search?:string}) {
     const [isOpen, setIsOpen] = useState(false);
-    const adminsArray = Object.values(admins);
 
-    console.log("-------------------", admins);
-    const search = () => {
-        console.log("search Admin");
+    const adminsArray = Object.values(admins);
+    const userssArray = Object.values(users);
+    const [searchTerm, setSearchTerm] = useState<string>(search || '');
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     };
+
+    const handleSearchClick = () => {
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+    };
+
+    const filteredUsers = userssArray.filter(users =>
+        users.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        users.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        users.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const all = () => {
         setIsOpen(true);
         // router.get(route('users.index'));
@@ -248,13 +262,15 @@ export default function Admin({ auth, adminCount, admins, users }: PageProps) {
                                     {/* search */}
                                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                                         <div className="p-3 text-gray-900">
-                                            {/* <SearchBar
+                                            <SearchBar
                                                 title={"Users"}
-                                                onClick={search}
-                                            /> */}
+                                                onClick={handleSearchClick}
+                                                onChange={handleSearchChange}
+                                                searchTerm={searchTerm}
+                                            />
                                         </div>
                                     </div>
-                                    <AllUsersTable data={users} />
+                                    <AllUsersTable data={filteredUsers} />
                                 </MyDialog>
                             </div>
                         </div>

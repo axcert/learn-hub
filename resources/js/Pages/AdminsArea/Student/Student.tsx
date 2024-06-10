@@ -208,12 +208,9 @@ export default function Student({
     userStudents,
     search = '',
 }: PageProps & {search?:string}) {
+
     const studentArray = Object.values(userStudents);
     const [searchTerm, setSearchTerm] = useState<string>(search || '');
-
-
-console.log("search : ",search);
-
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
