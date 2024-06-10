@@ -4,6 +4,7 @@ import { PageProps } from "@/types";
 import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { useState } from "react";
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     id: number;
@@ -165,16 +166,28 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     );
 };
 
-export default function Service({ auth, adminServices , serviceCount }: PageProps) {
+export default function Service({ auth, adminServices , serviceCount , search=''}: PageProps & {search?:string}) {
     const serviceArray = Object.values(adminServices);
+    const [searchTerm, setSearchTerm] = useState<string>(search || '');
 
-
-console.log(adminServices);
-
-
-    const search = () => {
-        console.log("Services Search");
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     };
+
+    console.log("search : ",search);
+    
+
+    const handleSearchClick = () => {
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+    };
+
+    const filteredServices = serviceArray.filter(service =>
+        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        // service.teacher_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        service.hourly_rate.toString().includes(searchTerm) ||
+        service.id.toString().includes(searchTerm)
+    );
+    const filteredServicesCount = filteredServices.length; 
 
     return (
         <AdminLayout user={auth.user}>
@@ -188,7 +201,7 @@ console.log(adminServices);
                                     className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
                                     title={"Approved Services"}
                                 >
-                                    {serviceCount}
+                                    {filteredServicesCount}
                                 </Card>
                         </div>
                     </div>
@@ -196,12 +209,17 @@ console.log(adminServices);
                     {/* search */}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                         <div className="p-3 text-gray-900">
-                            {/* <SearchBar title={"Services"} onClick={search} /> */}
+                        <SearchBar
+                                    title={"Students"}
+                                    onClick={handleSearchClick}
+                                    onChange={handleSearchChange}
+                                    searchTerm={searchTerm}
+                                />
                         </div>
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={serviceArray} />
+                    <PaginatedTable data={filteredServices} />
                 </div>
             </div>
         </AdminLayout>

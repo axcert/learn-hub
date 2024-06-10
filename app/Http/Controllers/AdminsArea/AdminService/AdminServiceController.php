@@ -10,32 +10,54 @@ use Inertia\Inertia;
 class AdminServiceController extends Controller
 {
 
-public function __construct(
-    protected ServiceInterface $serviceInterface,
-)
-{
-    
-}
+    public function __construct(
+        protected ServiceInterface $serviceInterface,
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
 
         $services = $this->serviceInterface->all();
-        $adminServices = $services->filter(function($services){
-            return $services->status === 'approved' ;
+        $adminServices = $services->filter(function ($services) {
+            return $services->status === 'approved';
         });
 
         $serviceCount = $adminServices->count();
-        $adminServices->load('teacher.user' ,'admin.user');
+        $adminServices->load('teacher.user', 'admin.user');
 
-        return Inertia::render('AdminsArea/Service/Service',[
-                'adminServices' => $adminServices,
-                'serviceCount' =>  $serviceCount,
+        return Inertia::render('AdminsArea/Service/Service', [
+            'adminServices' => $adminServices,
+            'serviceCount' =>  $serviceCount,
         ]);
     }
+
+
+    public function search(Request $request)
+    {
+
+        $services = $this->serviceInterface->all();
+        $search = $request->input('search');
+
+        if ($search) {
+            $services = $services->filter(function ($services) use ($search) {
+                return stripos($services->name, $search) !== false ||
+                    stripos($services->teacher_id, $search) !== false ||
+                    stripos($services->hourly_rate, $search) !== false;
+            });
+        }
+
+        $serviceCount = $services->count();
+        return Inertia::render('AdminsArea/Service/Service', [
+            'search' => $search,
+            'services' => $services,
+            'serviceCount' =>  $serviceCount,
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
