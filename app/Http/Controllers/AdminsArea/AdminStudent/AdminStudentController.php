@@ -20,47 +20,46 @@ class AdminStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function index()
+    {
+        $users = $this->userInterface->all()->load('user');
+
+        $studentUsers = $users->filter(function ($user) {
+            return $user->role === 'student';
+        });
+        $studentCount = $studentUsers->count();
+        return Inertia::render('AdminsArea/Student/Student',[
+            'studentCount' => $studentCount,
+            'userStudents' => $studentUsers,
+        ]);
+    }
+
     // public function index(Request $request)
     // {
-    //     $users = $this->userInterface->all()->load('user');
-
-    //     $studentUsers = $users->filter(function ($user) {
-    //         return $user->role === 'student';
-    //     });
+    //     $search = $request->input('search');
+    //     $query = User::query();
+    
+    //     if ($search) {
+    //         $query->where(function ($query) use ($search) {
+    //             $query->where('name', 'LIKE', "%$search%")
+    //                   ->orWhere('email', 'LIKE', "%$search%")
+    //                   ->orWhere('phone', 'LIKE', "%$search%");
+    //         });
+    //     }
+    //     $query->where('role', 'student');
+    
+    //     $studentUsers = $query->get();
     //     $studentCount = $studentUsers->count();
-
-    //     return Inertia::render('AdminsArea/Student/Student',[
+    
+    //     return Inertia::render('AdminsArea/Student/Student', [
     //         'studentCount' => $studentCount,
     //         'userStudents' => $studentUsers,
+    //         'search' => $search,
     //     ]);
     // }
 
-
-    public function index(Request $request)
-    {
-        // $search = $request->input('search');
-        // $query = User::query();
-    
-        // if ($search) {
-        //     $query->where(function ($query) use ($search) {
-        //         $query->where('name', 'LIKE', "%$search%")
-        //               ->orWhere('email', 'LIKE', "%$search%")
-        //               ->orWhere('phone', 'LIKE', "%$search%");
-        //     });
-        // }
-        // $query->where('role', 'student');
-    
-        // $studentUsers = $query->get();
-        // $studentCount = $studentUsers->count();
-    
-        // return Inertia::render('AdminsArea/Student/Student', [
-        //     'studentCount' => $studentCount,
-        //     'userStudents' => $studentUsers,
-        //     'search' => $search,
-        // ]);
-
+    public function search(Request $request){
         $users = $this->userInterface->all()->load('user');
-
         $search = $request->input('search');
         
         if ($search) {
@@ -71,18 +70,10 @@ class AdminStudentController extends Controller
             });
         }
         
-        $studentUsers = $users->filter(function ($user) {
-            return $user->role === 'student';
-        });
-        
-        $studentCount = $studentUsers->count();
-        
         return Inertia::render('AdminsArea/Student/Student', [
-            'studentCount' => $studentCount,
-            'userStudents' => $studentUsers,
+            'search' => $search,
+            'users' => $users,
         ]);
-        
-
     }
     
 

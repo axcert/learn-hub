@@ -211,13 +211,23 @@ export default function Student({
     const studentArray = Object.values(userStudents);
     const [searchTerm, setSearchTerm] = useState<string>(search || '');
 
+
+console.log("search : ",search);
+
+
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
 
     const handleSearchClick = () => {
-        Inertia.get(route("admin.students.index"), { search: searchTerm });
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
     };
+
+    const filteredStudents = studentArray.filter(student =>
+        student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <>
@@ -250,7 +260,7 @@ export default function Student({
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={studentArray} />
+                        <PaginatedTable data={filteredStudents} />
                     </div>
                 </div>
             </AdminLayout>

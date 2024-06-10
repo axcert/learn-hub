@@ -39,7 +39,7 @@ export default function SearchBar({
                 <div>
                     <p className="text-sm text-gray-400 pb-1">
                         <span className="text-red-500">*</span>Please enter at
-                        least 2 letter to search...
+                        least 2 letters to search...
                     </p>
                 </div>
                 <div className="w-full sm:w-80 flex items-center gap-1">
