@@ -175,17 +175,31 @@ export default function Overview({
     teacherCount,
     adminServices,
     serviceCount,
-}: PageProps) {
+    search=''
+}: PageProps & { search?: string }) {
 
     const serviceArray = Object.values(adminServices);
-    // const userArray = Object.values(userTeachers);
-    //  const serviceArray = Object.values({ ...adminServices, ...userTeachers });
+    const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
-    const search = () => {
-        console.log("overview Search");
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     };
 
-console.log("***** " ,  serviceCount);
+    const handleSearchClick = () => {
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+    };
+
+    const filteredServices = serviceArray.filter(
+        (service) =>
+            service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            service.teacher.user.name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+            service.hourly_rate.toString().includes(searchTerm) ||
+            service.id.toString().includes(searchTerm)
+    );
+
+    const filteredServicesCount = filteredServices.length;
 
     return (
         <AdminLayout user={auth.user}>
@@ -206,7 +220,7 @@ console.log("***** " ,  serviceCount);
                                 className="w-full  capitalize max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow"
                                 title="Pending Services"
                             >
-                                {serviceCount}
+                                {filteredServicesCount}
                             </Card>
                         </div>
                     </div>
@@ -214,12 +228,17 @@ console.log("***** " ,  serviceCount);
                     {/* search */}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                         <div className="p-3 text-gray-900">
-                            {/* <SearchBar title={"Overview"} onClick={search} /> */}
+                        <SearchBar
+                                title={"Students"}
+                                onClick={handleSearchClick}
+                                onChange={handleSearchChange}
+                                searchTerm={searchTerm}
+                            />
                         </div>
                     </div>
 
                     {/* table */}
-                    <PaginatedTable data={serviceArray} />
+                    <PaginatedTable data={filteredServices} />
                     
                 </div>
             </div>
