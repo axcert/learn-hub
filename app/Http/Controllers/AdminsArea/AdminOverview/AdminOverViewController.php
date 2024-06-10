@@ -80,7 +80,6 @@ class AdminOverViewController extends Controller
         ]);
     }
     
-
     /**
      * Store a newly created resource in storage.
      */
@@ -88,7 +87,6 @@ class AdminOverViewController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      */
@@ -96,7 +94,6 @@ class AdminOverViewController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -104,7 +101,6 @@ class AdminOverViewController extends Controller
      public function edit(string $id)
      {
      }
-
      public function accept($id)
      {
          $service = $this-> serviceInterface-> findById($id);
