@@ -57,6 +57,8 @@ class AdminStudentController extends Controller
     //         'search' => $search,
     //     ]);
     // }
+
+    
     public function search(Request $request){
        
         $users = $this->userInterface->all()->load('user');
