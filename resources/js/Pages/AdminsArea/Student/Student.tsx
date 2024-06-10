@@ -208,6 +208,7 @@ export default function Student({
     userStudents,
     search = '',
 }: PageProps & {search?:string}) {
+
     const studentArray = Object.values(userStudents);
     const [searchTerm, setSearchTerm] = useState<string>(search || '');
 
@@ -216,8 +217,15 @@ export default function Student({
     };
 
     const handleSearchClick = () => {
-        Inertia.get(route("admin.students.index"), { search: searchTerm });
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
     };
+
+    const filteredStudents = studentArray.filter(student =>
+        student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        student.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const filteredStudentCount = filteredStudents.length; 
 
     return (
         <>
@@ -232,7 +240,7 @@ export default function Student({
                                     className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
                                     title={"Students"}
                                 >
-                                    {studentCount}
+                                   {filteredStudentCount}
                                 </Card>
                             </div>
                         </div>
@@ -240,11 +248,6 @@ export default function Student({
                         {/* search */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-3 text-gray-900">
-                                {/* <SearchBar
-                                    title={"Students"}
-                                    onClick={search}
-                                /> */}
-
                                 <SearchBar
                                     title={"Students"}
                                     onClick={handleSearchClick}
@@ -255,7 +258,7 @@ export default function Student({
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={studentArray} />
+                        <PaginatedTable data={filteredStudents} />
                     </div>
                 </div>
             </AdminLayout>

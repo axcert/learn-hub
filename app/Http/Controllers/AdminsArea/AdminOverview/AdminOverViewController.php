@@ -58,6 +58,28 @@ class AdminOverViewController extends Controller
         ]);
     }
 
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $services = $this->serviceInterface->all()->load('teacher');
+
+        if ($search) {
+            $services = $services->filter(function ($service) use ($search) {
+                return stripos($service->name, $search) !== false ||
+                    stripos(optional($service->teacher)->tname, $search) !== false ||
+                    stripos((string)$service->hourly_rate, $search) !== false;
+            });
+        }
+
+        $serviceCount = $services->count();
+        return Inertia::render('AdminsArea/Service/Service', [
+            'search' => $search,
+            'services' => $services,
+            'serviceCount' => $serviceCount,
+        ]);
+    }
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -65,7 +87,6 @@ class AdminOverViewController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      */
@@ -73,7 +94,6 @@ class AdminOverViewController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -81,7 +101,6 @@ class AdminOverViewController extends Controller
      public function edit(string $id)
      {
      }
-
      public function accept($id)
      {
          $service = $this-> serviceInterface-> findById($id);

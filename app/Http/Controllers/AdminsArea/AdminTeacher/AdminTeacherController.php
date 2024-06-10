@@ -41,6 +41,27 @@ class AdminTeacherController extends Controller
         ]);
     }
 
+    public function search(Request $request){
+       
+        $users = $this->userInterface->all()->load('user');
+        $search = $request->input('search');
+        
+        if ($search) {
+            $users = $users->filter(function ($user) use ($search) {
+                return stripos($user->name, $search) !== false ||
+                       stripos($user->email, $search) !== false ||
+                       stripos($user->phone, $search) !== false;
+            });
+        }
+        
+        $teacherCount = $users->count();
+        return Inertia::render('AdminsArea/Teacher/Teacher', [
+            'search' => $search,
+            'users' => $users,
+            'teacherCount' => $teacherCount,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

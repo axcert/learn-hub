@@ -7,6 +7,7 @@ import Card from "@/Components/Card/Card";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import degree from "@/../../public/asstts/img/degree.jpeg";
 import MyDialog from "@/Components/MyDialog/MyDialog";
+import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
     name: string;
@@ -226,13 +227,26 @@ export default function Teacher({
     auth,
     teacherCount,
     userTeachers,
-}: PageProps) {
-    const teacherArray = Object.values(userTeachers);
-    const search = () => {
-        console.log("search Teacher");
+    search = '',
+}: PageProps & {search?:string}) {
+
+    const teacherArray = Object.values(userTeachers);  
+    const [searchTerm, setSearchTerm] = useState<string>(search || '');
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
+    const handleSearchClick = () => {
+        Inertia.get(route("adminStudent.search"), { search: searchTerm });
     };
 
-    console.log("****", userTeachers);
+    const filteredTeachers = teacherArray.filter(teacher =>
+        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        teacher.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const filteredStudentCount = filteredTeachers.length; 
+
 
     return (
         <>
@@ -247,7 +261,7 @@ export default function Teacher({
                                     className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
                                     title={"Teachers"}
                                 >
-                                    {teacherCount}
+                                     {filteredStudentCount}
                                 </Card>
                             </div>
                         </div>
@@ -255,15 +269,17 @@ export default function Teacher({
                         {/* search */}
                         <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
                             <div className="p-3 text-gray-900">
-                                {/* <SearchBar
+                            <SearchBar
                                     title={"Teachers"}
-                                    onClick={search}
-                                /> */}
+                                    onClick={handleSearchClick}
+                                    onChange={handleSearchChange}
+                                    searchTerm={searchTerm}
+                                />
                             </div>
                         </div>
 
                         {/* table */}
-                        <PaginatedTable data={teacherArray} />
+                        <PaginatedTable data={filteredTeachers} />
                     </div>
                 </div>
             </AdminLayout>
