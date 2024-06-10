@@ -57,8 +57,8 @@ class AdminStudentController extends Controller
     //         'search' => $search,
     //     ]);
     // }
-
     public function search(Request $request){
+       
         $users = $this->userInterface->all()->load('user');
         $search = $request->input('search');
         
@@ -70,11 +70,14 @@ class AdminStudentController extends Controller
             });
         }
         
+        $studentCount = $users->count();
         return Inertia::render('AdminsArea/Student/Student', [
             'search' => $search,
             'users' => $users,
+            'studentCount' => $studentCount,
         ]);
     }
+    
     
 
     /**

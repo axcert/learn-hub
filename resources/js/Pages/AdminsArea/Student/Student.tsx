@@ -228,6 +228,7 @@ console.log("search : ",search);
         student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         student.phone.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    const filteredStudentCount = filteredStudents.length; 
 
     return (
         <>
@@ -242,7 +243,7 @@ console.log("search : ",search);
                                     className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow"
                                     title={"Students"}
                                 >
-                                    {studentCount}
+                                   {filteredStudentCount}
                                 </Card>
                             </div>
                         </div>
