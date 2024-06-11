@@ -62,7 +62,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                                     src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4oz0KdCvHj_hvY5exy-qFr06SPFjyA4ZoPg&s'
                                                     alt={`${user.name}'s profile`}
                                                 />
-                                                {/* {user.name} */}
+                                                {user.name}
 
                                             </button>
                                         </span>
