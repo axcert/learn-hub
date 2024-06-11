@@ -22,7 +22,7 @@ interface Props extends PageProps {
     services: Service[];
 }
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
 
 export default function TeacherIndex({
     auth,
@@ -75,9 +75,11 @@ export default function TeacherIndex({
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 px-5 py-6">
+                    <div className=" text-gray-900">
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
                     <div className="lg:col-span-4">
-                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {Array.isArray(currentItems) &&
                             currentItems.length > 0 ? (
                                 currentItems.map((teacher) => (
@@ -87,7 +89,7 @@ export default function TeacherIndex({
                                             teacher.id
                                         )}
                                         key={teacher.id}
-                                        className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
+                                        className="flex flex-col items-center bg-white  border-gray-300 border-2 rounded-lg p-6 hover:bg-gray-100 transition"
                                     >
                                         <div className="flex-shrink-0">
                                             <img
@@ -158,8 +160,10 @@ export default function TeacherIndex({
                         breakLinkClassName={
                             "px-3 py-1 border border-gray-300 rounded-md text-gray-700"
                         }
-                        activeClassName={"bg-blue-500 text-white"}
+                        activeClassName={"bg-blue-500 rounded-md text-white"}
                     />
+                </div>
+                    </div>
                 </div>
             </div>
         </StudentLayout>
