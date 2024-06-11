@@ -50,7 +50,6 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                   key={service.id}
                   className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
                 >
-                  
                   <div className="flex-shrink-0">
                     <div className="flex justify-center mt-4">
                       <img
@@ -60,15 +59,13 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                       />
                     </div>
                   </div>
-                  
-               
-                  {/* <hr className="my-1 w-full border-gray-300" /> */}
                   <div className="mt-4 text-center">
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
-                    {service.teacher && <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.user.name}</p>}
+                    {service.teacher && service.teacher.user && (
+                      <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.user.name}</p>
+                    )}
                     <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                     <p className="px-2 mt-1 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">Rs: {service.hourly_rate}/hr</p>
-                    
                   </div>
                 </div>
               ))

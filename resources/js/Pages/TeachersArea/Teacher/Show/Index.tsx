@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import { PageProps, Teacher } from '@/types';
 import TeacherLayout from '@/Layouts/TeacherLayout';
@@ -43,7 +42,7 @@ export default function TeacherShow({ auth, teacher }: Props) {
                 <div className="mt-5 bg-white border border-gray-200 rounded-lg p-6">
                     <h4 className="text-xl font-medium text-gray-800">Services</h4>
                     {services.length > 0 ? (
-                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {services.map((service: any) => (
                                 <Link
                                     href={route('teacher.services.show', service.id)}

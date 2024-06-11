@@ -44,6 +44,8 @@ export default function BookingCreate({ service }: Props) {
                             </label> */}
                             <textarea
                                 value={data.description}
+                                required
+                                placeholder="Enter a brief description of your booking..."
                                 onChange={(e) =>
                                     setData("description", e.target.value)
                                 }
@@ -77,6 +79,7 @@ export default function BookingCreate({ service }: Props) {
                                     setData("date", e.target.value)
                                 }
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                                required
                             />
                             {errors.date && (
                                 <p className="text-red-500 text-xs mt-2">
@@ -92,15 +95,7 @@ export default function BookingCreate({ service }: Props) {
                             >
                                 {processing ? "Booking..." : "Book Service"}
                             </button>
-                            {/* <Link
-                                href={route(
-                                    "student.services.show",
-                                    service.id
-                                )}
-                                className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                            >
-                                Cancel
-                            </Link> */}
+                            
                         </div>
                     </form>
                 </div>
@@ -108,3 +103,4 @@ export default function BookingCreate({ service }: Props) {
         </StudentLayout>
     );
 }
+
