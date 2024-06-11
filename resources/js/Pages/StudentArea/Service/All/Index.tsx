@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
-import MyDialog from '@/Components/MyDialog/MyDialog'; // Import your dialog component
+import MyDialog from '@/Components/MyDialog/MyDialog'; 
 import { Service, User, Filters } from '@/types';
 
 interface Props {
