@@ -34,9 +34,9 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                             <div className="flex h-10 items-center justify-between">
                                 <div className="flex items-center ">
                                     <div className="flex-shrink-0">
-                                        <p className="uppercase font-semibold text-sm p-2 text-white max-sm:text-xs">
+                                        {/* <p className="uppercase font-semibold text-sm p-2 text-white max-sm:text-xs">
                                             {user.name}
-                                        </p>
+                                        </p> */}
                                     </div>
                                 </div>
                                 <div className="hidden md:block">
@@ -52,6 +52,9 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                                     </span>
 
                                                     <FaUserCircle className="h-10 w-10 rounded-full bg-white text-teal-400 hover:text-teal-500" />
+                                                    <p className="font-semibold text-sm p-2 text-white max-sm:text-xs">
+                                            {user.name}
+                                        </p>
                                                 </Menu.Button>
                                             </div>
                                             <Transition
