@@ -22,14 +22,11 @@ class StudentServiceController extends Controller
        
     public function index(Request $request)
     {    
-
-        
         $filters = $request->all();
         $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
-        
-         
+
         return Inertia::render('StudentArea/Service/All/Index', [
-            'services' => $this->serviceInterface->all(['*'], ['teacher.user']),
+            'services' => $services,
             'teachersCount' => $this->teacherInterface->all()->count(),
             'filters' => $filters,
         ]);

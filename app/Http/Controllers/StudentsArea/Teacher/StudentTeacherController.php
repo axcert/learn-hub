@@ -69,6 +69,8 @@ class StudentTeacherController extends Controller
             'teacher' => $teacher,
             
         ]);
+        
+        
     }
 
     
