@@ -36,6 +36,29 @@ class StudentServiceController extends Controller
         
     }
 
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $services = $this->serviceInterface->all()->load('teacher');
+
+        if ($search) {
+            $services = $services->filter(function ($service) use ($search) {
+                return stripos($service->name, $search) !== false ||
+                    stripos(optional($service->teacher)->tname, $search) !== false ||
+                    stripos((string)$service->hourly_rate, $search) !== false;
+            });
+        }
+
+        $serviceCount = $services->count();
+        return Inertia::render('StudentArea/Teacher/All/Index', [
+            'search' => $search,
+            'services' => $services,
+            'serviceCount' => $serviceCount,
+        ]);
+    }
+  
+
     /**
      * Show the form for creating a new resource.
      */
