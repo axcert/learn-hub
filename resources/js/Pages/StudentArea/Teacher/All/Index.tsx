@@ -30,6 +30,7 @@ export default function TeacherIndex({
     services = [],
     search = "",
 }: Props & { search?: string }) {
+    
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
