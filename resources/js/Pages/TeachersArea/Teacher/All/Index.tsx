@@ -69,8 +69,7 @@ export default function TeacherIndex({ auth, teachers, services = [] , search=""
                         />
                     </div>
                 </div>
-
-
+                
                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-5 px-5 py-6">
                     <div className=" text-gray-900">
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
