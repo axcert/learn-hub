@@ -211,7 +211,7 @@ export default function Admin({ auth, adminCount, admins, users , search='' }: P
     };
 
     const handleSearchClick = () => {
-        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+       ({ search: searchTerm });
     };
 
     const filteredUsers = userssArray.filter(users =>
