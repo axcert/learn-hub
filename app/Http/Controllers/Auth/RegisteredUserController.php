@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|regex:/^[0-9]+$/|max:15',
             'role' => 'required|string|in:admin,teacher,student',
             'bio' => 'nullable|string',
             'position' => 'nullable|string',
@@ -61,6 +61,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        
         switch ($user->role) {
             case 'admin':
                 return redirect()->route('admins.overview.index');
@@ -71,6 +72,6 @@ class RegisteredUserController extends Controller
             default:
                 return redirect()->route('dashboard');
             }
-        // return redirect(route('dashboard', absolute: false));
+        
     }
 }
