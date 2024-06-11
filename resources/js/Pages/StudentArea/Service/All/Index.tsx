@@ -45,7 +45,7 @@ export default function ServiceIndex({
     return (
         <StudentLayout user={auth.user}>
             <div className="bg-gray-100 py-15 sm:py-10">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto px-6 lg:px-8">
                     <div className="max-w-2xl mx-auto text-center">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                             Our Services
@@ -96,7 +96,7 @@ export default function ServiceIndex({
                         </div>
                     </div>
 
-                    <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
                         {Array.isArray(filteredServices) &&
                         filteredServices.length > 0 ? (
                             filteredServices.map((service) => (
