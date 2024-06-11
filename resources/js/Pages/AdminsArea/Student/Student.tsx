@@ -217,7 +217,7 @@ export default function Student({
     };
 
     const handleSearchClick = () => {
-        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+        ({ search: searchTerm });
     };
 
     const filteredStudents = studentArray.filter(student =>

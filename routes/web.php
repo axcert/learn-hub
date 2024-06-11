@@ -44,15 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     // Route::get('/admins/overview', [AdminOverViewController::class, 'index'])->name('admins.overview.index');
-//     // Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
-//     //Route::post('/admin/overview/{id}/reject', [AdminAdminController::class, 'reject'])->name('admin.services.reject');
-// });
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->middleware(AdminValidationMiddleware::class)->group(function () {
         Route::resource('overview', AdminOverViewController::class)->names('admins.overview');

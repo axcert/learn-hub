@@ -237,7 +237,7 @@ export default function Teacher({
         setSearchTerm(e.target.value);
     };
     const handleSearchClick = () => {
-        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+    ({ search: searchTerm });
     };
 
     const filteredTeachers = teacherArray.filter(teacher =>

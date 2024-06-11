@@ -181,7 +181,7 @@ export default function Service({
     };
 
     const handleSearchClick = () => {
-        Inertia.get(route("adminStudent.search"), { search: searchTerm });
+      ({ search: searchTerm });
     };
 
     const filteredServices = serviceArray.filter(
