@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { Link, usePage } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
+import MyDialog from '@/Components/MyDialog/MyDialog'; // Import your dialog component
 import { Service, User, Filters } from '@/types';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 export default function ServiceIndex({ services = [], teachersCount = 0, filters = { search: '' } }: Props) {
   const { auth } = usePage().props as unknown as { auth: { user: User } };
   const [search, setSearch] = useState<string>(filters.search || '');
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this service?')) {
@@ -23,6 +26,16 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     Inertia.get(route('student.services.index'), { search });
+  };
+
+  const openDialog = (service: Service) => {
+    setSelectedService(service);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setSelectedService(null);
+    setIsDialogOpen(false);
   };
 
   return (
@@ -64,19 +77,19 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
               </div>
             </div>
           </div>
-          <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
             {Array.isArray(services) && services.length > 0 ? (
               services.map((service) => (
-                <Link
-                  href={route('student.services.show', service.id)}
+                <div
                   key={service.id}
-                  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
+                  className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition cursor-pointer"
+                  onClick={() => openDialog(service)}
                 >
                   <div className="flex-shrink-0">
                     <img
-                      className="h-16 w-16 rounded-full"
-                      src="https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
+                      src={service.image ? `/storage/${service.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
                       alt={service.name}
+                      className="h-16 w-16 rounded-full"
                     />
                   </div>
                   <div className="mt-4 text-center">
@@ -89,7 +102,7 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
                     <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                     <p className="mt-1 text-sm font-semibold text-indigo-600">Rs: {service.hourly_rate}/hr</p>
                   </div>
-                </Link>
+                </div>
               ))
             ) : (
               <p className="text-center col-span-full text-gray-500">No services found.</p>
@@ -107,6 +120,48 @@ export default function ServiceIndex({ services = [], teachersCount = 0, filters
           )}
         </div>
       </div>
+
+      {/* Dialog Box for Service Details */}
+      <MyDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        className="inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+      >
+        {selectedService && (
+          <div>
+            {selectedService.image && (
+              <div className="flex justify-center mt-4">
+                <img
+                  src={
+                    selectedService.image
+                      ? `/storage/${selectedService.image}`
+                      : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"
+                  }
+                  alt={selectedService.name}
+                  className="h-28 w-28 rounded-full"
+                />
+              </div>
+            )}
+            <h2 className="text-xl font-bold">{selectedService.name}</h2>
+            {selectedService.teacher && (
+              <p className="mt-2">Teacher: {selectedService.teacher.user.name}</p>
+            )}
+            <p className="mt-2">{selectedService.description}</p>
+            <p className="text-gray-700 mb-2">Experience: {selectedService.experience}</p>
+            <p className="mt-2">Hourly Rate: Rs {selectedService.hourly_rate}</p>
+            <div className="flex justify-center items-center mt-6">
+              <Link
+                href={route("student.bookings.create", {
+                  service_id: selectedService.id,
+                })}
+                className="text-blue-600 hover:text-blue-900"
+              >
+                Book Service
+              </Link>
+            </div>
+          </div>
+        )}
+      </MyDialog>
     </StudentLayout>
   );
 }

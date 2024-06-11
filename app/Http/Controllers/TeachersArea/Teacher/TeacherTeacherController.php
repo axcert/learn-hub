@@ -69,15 +69,18 @@ class TeacherTeacherController extends Controller
      */
     public function show($id)
     {   
-        
         $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
         if (!$teacher) {
             abort(404, 'Teacher not found');
         }
+        
+        $approvedServices = $teacher->services->filter(function($service) {
+            return $service->status === 'approved';
+        });
+        $teacher->setRelation('services', $approvedServices);
 
         return Inertia::render('TeachersArea/Teacher/Show/Index', [
             'teacher' => $teacher,
-            
         ]);
         
     }

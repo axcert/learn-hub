@@ -42,6 +42,7 @@ export interface Teacher {
   };
   
   export interface Service {
+    approved: any;
     
     image: any;
     user: any;
