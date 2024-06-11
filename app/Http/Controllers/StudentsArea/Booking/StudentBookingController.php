@@ -84,6 +84,6 @@ class StudentBookingController extends Controller
     public function destroy(Booking $booking)
     {
         $booking->delete();
-        return redirect()->route('bookings.index');
+        return redirect()->route('students.index');
     }
 }
