@@ -2,7 +2,7 @@ const Footer = () => {
      const date = new Date();
     return (
         <>
-            <footer className="py-4">
+            <footer className="py-4 select-none">
                 <div className="container mx-auto text-center">
                     <div className="flex flex-wrap justify-center space-x-2 text-sm text-center text-gray-800">
                         <div>
