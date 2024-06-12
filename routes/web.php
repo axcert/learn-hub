@@ -71,6 +71,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('messages', StudentMessageController::class)->names('student.messages');
         Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
         Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
+        Route::patch('/student/bookings/{booking}/complete', [StudentBookingController::class, 'markAsCompleted'])->name('student.bookings.complete');
+
+        
     });
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
@@ -92,6 +95,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('bookings', TeacherBookingController::class)->names('teacher.bookings')->except(['create', 'patch']);
         Route::patch('/teacher/bookings/{booking}/accept', [TeacherBookingController::class, 'accept'])->name('teacher.bookings.accept');
         Route::patch('/teacher/bookings/{booking}/reject', [TeacherBookingController::class, 'reject'])->name('teacher.bookings.reject');
+        Route::patch('/teacher/bookings/{booking}/complete', [TeacherBookingController::class, 'markAsCompleted'])->name('teacher.bookings.complete');
+
     });
 });
 
