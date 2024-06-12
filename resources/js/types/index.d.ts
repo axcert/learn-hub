@@ -28,6 +28,8 @@ export interface Teacher {
   }
 
   export type Booking = {
+    comment: string;
+    rating: string;
     user: any;
     teacher: any;
     student: any;

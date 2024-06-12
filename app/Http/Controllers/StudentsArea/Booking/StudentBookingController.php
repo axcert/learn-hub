@@ -72,10 +72,16 @@ class StudentBookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        $data = $request->all();
-        $data ['status'] = 'pending'; 
+
+        $data = $request->validate([
+            'description' => 'nullable|string',
+            'date' => 'nullable|date',
+            'rating' => 'nullable|integer|min:1|max:5',
+            'comment' => 'nullable|string',
+        ]);
+    
         $booking->update($data);
-        return redirect()->route('students.index');
+        return redirect()->route('students.index')->with('success', 'Booking updated successfully.');
     }
 
     /**
@@ -86,4 +92,11 @@ class StudentBookingController extends Controller
         $booking->delete();
         return redirect()->route('students.index');
     }
+
+    public function markAsCompleted(Booking $booking)
+    {
+        $booking->update(['status' => 'completed']);
+        return redirect()->route('students.index')->with('success', 'Booking marked as completed.');
+    }
+
 }

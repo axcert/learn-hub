@@ -122,13 +122,15 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                       <td className="border px-4 py-2">{booking.service?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.teacher?.user?.name ?? 'N/A'}</td>
                       <td className="border px-4 py-2">{booking.service?.hourly_rate ?? 'N/A'}</td>
-                      <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-500 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+                      <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-500 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : booking.status === 'completed' ? 'text-blue-500 font-semibold' : 'text-red-500 font-semibold'}`}>
                         {booking.status}
                       </td>
                       <td className="border px-4 py-2">{booking.date ? new Date(booking.date).toLocaleDateString() : 'N/A'}</td>
                       <td className="border px-4 py-2">
                         <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('student.bookings.show', booking.id)}>View</Link>
-                        <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('student.bookings.edit', booking.id)}>Edit</Link>
+                        {booking.status === 'completed' && (
+                          <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('student.bookings.edit', booking.id)}>Rate & Comment</Link>
+                        )}
                       </td>
                     </tr>
                   ))

@@ -73,9 +73,16 @@ class TeacherBookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        $data = $request->all();
+
+        $data = $request->validate([
+            'description' => 'nullable|string',
+            'date' => 'nullable|date',
+            'rating' => 'nullable|integer|min:1|max:5',
+            'comment' => 'nullable|string',
+        ]);
+    
         $booking->update($data);
-        return redirect()->route('teacher.overviews.index');
+        return redirect()->route('teacher.overviews.index')->with('success', 'Booking updated successfully.');
     }
 
     /**
@@ -98,4 +105,11 @@ class TeacherBookingController extends Controller
         $booking->update(['status' => 'rejected']);
         return redirect()->back()->with('success', 'Booking rejected.');
     }
+
+    public function markAsCompleted(Booking $booking)
+    {
+        $booking->update(['status' => 'completed']);
+        return redirect()->back()->with('success', 'Booking completed.');
+    }
+
 }
