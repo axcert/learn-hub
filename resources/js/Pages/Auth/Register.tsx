@@ -4,8 +4,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { PageProps } from "@inertiajs/inertia";
+
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -19,6 +21,7 @@ export default function Register() {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+    const  flash: any  = usePage<PageProps>().props;
 
     useEffect(() => {
         return () => {
@@ -34,6 +37,11 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
+            {flash.success && (
+                <div className="bg-green-500 text-white p-4 rounded mb-4">
+                    {flash.success}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <div>

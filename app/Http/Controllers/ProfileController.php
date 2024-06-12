@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,10 +36,24 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if($request->hasFile('image')){
+            //delete old image if exists
+            $user = $request->user();
+            if($user->image_path){
+                Storage::disk('public')->delete($user->image_path);
+            }
+
+            $path = $request->file('image')->store('user', 'public');
+            $user->image_path = $path;
+        }
+
+
         $request->user()->save();
 
         return Redirect::route('profile.edit');
     }
+
+
 
     /**
      * Delete the user's account.
@@ -53,6 +68,10 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        if($user->image_path){
+            Storage::disk('public')->delete($user->image_path);
+        }
+
         $user->delete();
 
         $request->session()->invalidate();
@@ -60,4 +79,19 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

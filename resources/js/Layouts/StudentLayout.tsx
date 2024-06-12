@@ -80,8 +80,8 @@ export default function StudentLayout({
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <img
-                                                    className="h-8 w-8 rounded-full mr-2"
-                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4oz0KdCvHj_hvY5exy-qFr06SPFjyA4ZoPg&s"
+                                                    className="h-10 w-10 rounded-full mr-2"
+                                                    src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
                                                     alt={`${user.name}'s profile`}
                                                 />
 

@@ -7,6 +7,8 @@ import { Transition } from "@headlessui/react";
 import { FormEventHandler } from "react";
 import { PageProps } from "@/types";
 
+
+
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
@@ -32,6 +34,7 @@ export default function UpdateProfileInformation({
 
     return (
         <section className={className}>
+            
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
                     Profile Information
@@ -120,3 +123,8 @@ export default function UpdateProfileInformation({
         </section>
     );
 }
+
+
+
+
+

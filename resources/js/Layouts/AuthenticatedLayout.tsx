@@ -16,6 +16,20 @@ export default function Authenticated({
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+        const getDashboardRoute = () => {
+            switch (user.role) {
+                case 
+                'admin' : return route('admins.overview.index');
+                case 
+                'teacher' : return route('teacher.overviews.index');
+                case
+                'student' : return route('students.index');
+                default :
+                return route('dashboard');
+
+            }
+        }
+
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -34,25 +48,18 @@ export default function Authenticated({
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
+                                    <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                <img
+                                                    className="h-10 w-10 rounded-full mr-2"
+                                                    src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+                                                    alt={`${user.name}'s profile`}
+                                                />
 
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
+                                                <p>{user.name}</p>
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
@@ -61,7 +68,7 @@ export default function Authenticated({
                                 
                                         <Dropdown.Link
     
-                                            href={route("admins.overview.index")}
+                                            href={getDashboardRoute()}
                                         >
                                             Dashboard
                                         </Dropdown.Link>
@@ -128,18 +135,11 @@ export default function Authenticated({
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
-                        {/* <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink> */}
-
-                        <ResponsiveNavLink
-                            href={route("admins.overview.index")}
-                            active={route().current("admins.overview.index")}
-                        >
+                        <ResponsiveNavLink href={getDashboardRoute()} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
 
-                        
+                                                
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
