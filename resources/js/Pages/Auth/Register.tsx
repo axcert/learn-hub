@@ -1,10 +1,13 @@
-import { useEffect, FormEventHandler } from "react";
+import { useEffect, useState, FormEventHandler } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { PageProps } from "@inertiajs/inertia";
+
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,11 +15,13 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
-        role: "student", // Default role
+        role: "student", 
         phone: "",
-        bio: "", // Bio for teacher
-        position: "", // Position for teacher
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
+    const  flash: any  = usePage<PageProps>().props;
 
     useEffect(() => {
         return () => {
@@ -32,6 +37,11 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
+            {flash.success && (
+                <div className="bg-green-500 text-white p-4 rounded mb-4">
+                    {flash.success}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <div>
@@ -57,7 +67,6 @@ export default function Register() {
                 <div className="mt-4">
                     <div className="flex items-center">
                         <InputLabel htmlFor="email" value="Email" />
-
                         <p className="text-red-500">*</p>
                     </div>
 
@@ -101,16 +110,24 @@ export default function Register() {
                         <p className="text-red-500">*</p>
                     </div>
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                        required
-                    />
+                    <div className="relative">
+                        <TextInput
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            name="password"
+                            value={data.password}
+                            className="mt-1 block w-full"
+                            autoComplete="new-password"
+                            onChange={(e) => setData("password", e.target.value)}
+                            required
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
@@ -124,18 +141,26 @@ export default function Register() {
                         <p className="text-red-500">*</p>
                     </div>
 
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
-                        required
-                    />
+                    <div className="relative">
+                        <TextInput
+                            id="password_confirmation"
+                            type={showPasswordConfirmation ? "text" : "password"}
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            className="mt-1 block w-full"
+                            autoComplete="new-password"
+                            onChange={(e) =>
+                                setData("password_confirmation", e.target.value)
+                            }
+                            required
+                        />
+                        <span
+                            onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
+                            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                        >
+                            {showPasswordConfirmation ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
 
                     <InputError
                         message={errors.password_confirmation}
@@ -149,37 +174,8 @@ export default function Register() {
                         <p className="text-red-500">*</p>
                     </div>
 
-                    {/* <div className="mt-1 block">
-                        <label className="mr-4">
-                            <input
-                                type="radio"
-                                name="role"
-                                value="student"
-                                checked={data.role === "student"}
-                                onChange={(e) =>
-                                    setData("role", e.target.value)
-                                }
-                                required
-                            />
-                            Student
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="role"
-                                value="teacher"
-                                checked={data.role === "teacher"}
-                                onChange={(e) =>
-                                    setData("role", e.target.value)
-                                }
-                                required
-                            />
-                            Teacher
-                        </label>
-                    </div> */}
-
                     <div className="block">
-                        <label className="inline-flex items-center mr-6  cursor-pointer">
+                        <label className="inline-flex items-center mr-6 cursor-pointer">
                             <input
                                 type="radio"
                                 name="role"
@@ -188,12 +184,12 @@ export default function Register() {
                                 onChange={(e) =>
                                     setData("role", e.target.value)
                                 }
-                                className="form-radio text-blue-600  cursor-pointer"
+                                className="form-radio text-blue-600 cursor-pointer"
                                 required
                             />
                             <span className="ml-2 text-gray-700">Student</span>
                         </label>
-                        <label className="inline-flex items-center  cursor-pointer">
+                        <label className="inline-flex items-center cursor-pointer">
                             <input
                                 type="radio"
                                 name="role"
@@ -202,7 +198,7 @@ export default function Register() {
                                 onChange={(e) =>
                                     setData("role", e.target.value)
                                 }
-                                className="form-radio text-blue-600  cursor-pointer"
+                                className="form-radio text-blue-600 cursor-pointer"
                                 required
                             />
                             <span className="ml-2 text-gray-700">Teacher</span>
@@ -211,42 +207,6 @@ export default function Register() {
 
                     <InputError message={errors.role} className="mt-2" />
                 </div>
-
-                {/* {data.role === 'teacher' && (
-                    <>
-                        <div className="mt-4">
-                            <InputLabel htmlFor="bio" value="Bio" />
-
-                            <TextInput
-                                id="bio"
-                                name="bio"
-                                value={data.bio}
-                                className="mt-1 block w-full"
-                                autoComplete="bio"
-                                onChange={(e) => setData('bio', e.target.value)}
-                                required
-                            />
-
-                            <InputError message={errors.bio} className="mt-2" />
-                        </div>
-
-                        <div className="mt-4">
-                            <InputLabel htmlFor="position" value="Position" />
-
-                            <TextInput
-                                id="position"
-                                name="position"
-                                value={data.position}
-                                className="mt-1 block w-full"
-                                autoComplete="position"
-                                onChange={(e) => setData('position', e.target.value)}
-                                required
-                            />
-
-                            <InputError message={errors.position} className="mt-2" />
-                        </div>
-                    </>
-                )} */}
 
                 <div className="flex items-center justify-end mt-4">
                     <Link

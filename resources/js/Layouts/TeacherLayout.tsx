@@ -59,7 +59,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                                 <img
                                                     className="h-10 w-10 rounded-full mr-2"
                                                     // src={user.image}
-                                                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4oz0KdCvHj_hvY5exy-qFr06SPFjyA4ZoPg&s'
+                                                    src='https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'
                                                     alt={`${user.name}'s profile`}
                                                 />
                                                 {user.name}
