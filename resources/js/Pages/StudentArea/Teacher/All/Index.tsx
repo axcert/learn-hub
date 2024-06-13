@@ -5,6 +5,9 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import SearchBar from "@/Components/SearchBar/SearchBar";
 import { Inertia } from "@inertiajs/inertia";
+import StarRating from "@/Components/StarRating/StarRating";
+import Pagination from "@/Components/Pagination";
+
 
 interface Teacher {
     id: number;
@@ -15,6 +18,8 @@ interface Teacher {
     position: string;
     bio: string;
     services: Service[];
+    average_rating?: number | null;
+    
 }
 
 interface Props extends PageProps {
@@ -100,9 +105,9 @@ export default function TeacherIndex({
                                             />
                                         </div>
                                         <div className="mt-1 flex justify-center">
-                                            <span className="text-yellow-500">
-                                                ★★★★☆
-                                            </span>
+                                            
+                                            <StarRating rating={teacher.average_rating || 0} />
+                                            
                                         </div>
                                         <hr className="my-1 w-full border-gray-300" />
                                         <div className=" flex flex-wrap justify-center space-x-2">
@@ -163,6 +168,7 @@ export default function TeacherIndex({
                         }
                         activeClassName={"bg-blue-500 rounded-md text-white"}
                     />
+                     
                 </div>
                     </div>
                 </div>
