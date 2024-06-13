@@ -2,12 +2,16 @@ import React from 'react';
 import { Head, Link } from '@inertiajs/react';
 import StudentLayout from '@/Layouts/StudentLayout';
 import { PageProps, Teacher } from '@/types';
+import StarRating from '@/Components/StarRating/StarRating';
+
 
 interface Props extends PageProps {
     teacher?: Teacher; 
+    averageRating?: number | null;
+    comments?: { comment: string, rating: number, service: string, student: string }[];
 }
 
-export default function TeacherShow({ auth, teacher }: Props) {
+export default function TeacherShow({ auth, teacher, averageRating, comments = [] }: Props) {
     if (!teacher) {
         return <div>Teacher data is not available</div>;
     }
@@ -37,6 +41,13 @@ export default function TeacherShow({ auth, teacher }: Props) {
                             {user.name}
                         </h3>
                         <p className="mt-1 text-lg text-gray-600">{position}</p>
+                        {averageRating !== undefined && averageRating !== null && (
+                            <div className="mt-1 text-lg text-gray-600">
+                                {/* Average Rating: {averageRating.toFixed(1)} / 5 */}
+                                <StarRating rating={averageRating} />
+                            </div>
+                        )}
+                        <p className="mt-2 text-sm text-gray-600">Contact me:  {user.phone}</p>
                     </div>
                 </div>
                 <div className="mt-5 bg-white border border-gray-200 rounded-lg p-6">
@@ -47,7 +58,7 @@ export default function TeacherShow({ auth, teacher }: Props) {
                     <h4 className="text-xl font-medium text-gray-800">Services</h4>
                     {services.length > 0 ? (
                         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {services.map((service:any) => (
+                            {services.map((service: any) => (
                                 <Link
                                     href={route('student.services.show', service.id)}
                                     key={service.id}
@@ -74,6 +85,35 @@ export default function TeacherShow({ auth, teacher }: Props) {
                         <p className="mt-2 text-gray-600">No services available.</p>
                     )}
                 </div>
+                <div className="mt-5 bg-white border border-gray-200 rounded-lg p-6">
+                    <h4 className="text-xl font-medium text-gray-800">Student Comments</h4>
+                    {comments.length > 0 ? (
+                        <div className="overflow-x-auto">
+                            <table className="mt-4 min-w-full">
+                                <thead>
+                                    <tr>
+                                        <th className="border px-4 py-2">Service</th>
+                                        <th className="border px-4 py-2">Student</th>
+                                        <th className="border px-4 py-2">Rating</th>
+                                        <th className="border px-4 py-2">Comment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {comments.map((comment, index) => (
+                                        <tr key={index}>
+                                            <td className="border px-4 py-2">{comment.service}</td>
+                                            <td className="border px-4 py-2">{comment.student}</td>
+                                            <td className="border px-4 py-2"><StarRating rating={comment.rating} /></td>
+                                            <td className="border px-4 py-2">{comment.comment}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p className="mt-2 text-gray-600">No comments available.</p>
+                    )}
+                </div>
                 <div className="mt-5 text-center md:text-left">
                     <Link
                         href={route('student.teachers.index')}
@@ -86,4 +126,3 @@ export default function TeacherShow({ auth, teacher }: Props) {
         </StudentLayout>
     );
 }
-

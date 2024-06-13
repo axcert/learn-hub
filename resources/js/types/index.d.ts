@@ -17,6 +17,7 @@ export interface User {
     email_verified_at: string;
 }
 export interface Teacher {
+    average_rating: any;
     services: any;
     user: any;
     phone: ReactNode;

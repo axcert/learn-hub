@@ -30,27 +30,57 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+    //     $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
+
+    //     if($request->hasFile('image')){
+    //         //delete old image if exists
+    //         $user = $request->user();
+    //         if($user->image_path){
+    //             Storage::disk('public')->delete($user->image_path);
+    //         }
+
+    //         $path = $request->file('image')->store('user', 'public');
+    //         $user->image_path = $path;
+    //     }
+
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit');
+    // }
+
+    $user = $request->user();
+
+        // Fill the user model with validated data
+        $user->fill($request->validated());
+
+        // Check if the email has been changed
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        if($request->hasFile('image')){
-            //delete old image if exists
-            $user = $request->user();
-            if($user->image_path){
+        // Handle image upload if a new image is provided
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($user->image_path) {
                 Storage::disk('public')->delete($user->image_path);
             }
 
+            // Store the new image
             $path = $request->file('image')->store('user', 'public');
             $user->image_path = $path;
         }
 
+        // Save the updated user profile
+        $user->save();
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
+        // Redirect back to profile edit page with a success message
+        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
+   
     }
 
 
@@ -68,16 +98,20 @@ class ProfileController extends Controller
 
         Auth::logout();
 
-        if($user->image_path){
+        // Delete user's image if it exists
+        if ($user->image_path) {
             Storage::disk('public')->delete($user->image_path);
         }
 
+        // Delete the user
         $user->delete();
 
+        // Invalidate session and regenerate token
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        // Redirect to the home page after deletion
+        return Redirect::to('/')->with('success', 'Account deleted successfully.');
     }
 
 

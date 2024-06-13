@@ -23,8 +23,13 @@ class TeacherTeacherController extends Controller
         
         $teachers = $this->teacherInterface->all(['*'], ['user', 'services']);
 
+        foreach ($teachers as $teacher) {
+            $teacher->average_rating = $teacher->getAverageRatingAttribute();
+        }
+
         return Inertia::render('TeachersArea/Teacher/All/Index', [
             'teachers' => $teachers,
+            
         ]);
     }
 
@@ -90,7 +95,7 @@ class TeacherTeacherController extends Controller
      */
     public function show($id)
     {   
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
+        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services.bookings.user']);
         if (!$teacher) {
             abort(404, 'Teacher not found');
         }
@@ -100,8 +105,25 @@ class TeacherTeacherController extends Controller
         });
         $teacher->setRelation('services', $approvedServices);
 
+        $comments = [];
+        foreach ($approvedServices as $service) {
+            foreach ($service->bookings as $booking) {
+                if ($booking->rating !== null) {
+                    $comments[] = [
+                        'comment' => $booking->comment,
+                        'rating' => $booking->rating,
+                        'service' => $service->name,
+                        'student' => $booking->user->name,
+                    ];
+                }
+            }
+        }
+        $averageRating = $teacher->average_rating;
+
         return Inertia::render('TeachersArea/Teacher/Show/Index', [
             'teacher' => $teacher,
+            'averageRating' => $averageRating,
+            'comments' => $comments,
         ]);
         
     }
