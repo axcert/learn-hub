@@ -9,12 +9,14 @@ import { FaServer } from "react-icons/fa";
 import { Booking, PageProps, Service, User } from "@/types";
 import { Inertia } from "@inertiajs/inertia";
 import MyDialog from "@/Components/MyDialog/MyDialog";
+import StarRating from "@/Components/StarRating/StarRating";
 
 interface Props extends PageProps {
     auth: { user: User };
     services: Service[];
     bookings: Booking[];
     bookingsForMyServices: Booking[];
+    average_rating?: number | null;
 }
 
 export default function TeacherOverview({
@@ -90,6 +92,10 @@ export default function TeacherOverview({
                                         <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
                                             {service.name}
                                         </h3>
+                                        <hr className="my-1 w-full border-gray-300" />
+                                        <div className="mt-1 flex justify-center">
+                                            <StarRating rating={service.average_rating || 0} />
+                                        </div>
                                         {service.teacher && (
                                             <p className="mt-1 text-sm text-gray-600">
                                                 Teacher:{" "}
@@ -320,22 +326,7 @@ export default function TeacherOverview({
                                                     {booking.service
                                                         ?.hourly_rate ?? "N/A"}
                                                 </td>
-                                                {/* <td
-                                                    className={`border px-4 py-2 ${
-                                                        booking.status ===
-                                                        "pending"
-                                                            ? "text-orange-400 font-semibold"
-                                                            : booking.status ===
-                                                              "accepted"
-                                                            ? "text-green-500 font-semibold"
-                                                            : booking.status ===
-                                                              "completed"
-                                                            ? "text-blue-500 font-semibold"
-                                                            : "text-red-500 font-semibold"
-                                                    }`}
-                                                >
-                                                    {booking.status}
-                                                </td> */}
+                                                
                                                 <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-500 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : booking.status === 'completed' ? 'text-blue-500 font-semibold' : 'text-red-500 font-semibold'}`}>
                                                     {booking.status}
                                                 </td>
@@ -352,26 +343,7 @@ export default function TeacherOverview({
                                                     <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Rate & Comment</Link>
                                                     )}
                                                 </td>
-                                                {/* <td className="border px-4 py-2">
-                                                    <Link
-                                                        className="text-blue-600 hover:text-blue-900 mr-2 font-semibold"
-                                                        href={route(
-                                                            "teacher.bookings.show",
-                                                            booking.id
-                                                        )}
-                                                    >
-                                                        View
-                                                    </Link>
-                                                    <Link
-                                                        className="text-yellow-600 hover:text-yellow-900 mr-2 font-semibold"
-                                                        href={route(
-                                                            "teacher.bookings.edit",
-                                                            booking.id
-                                                        )}
-                                                    >
-                                                        Edit
-                                                    </Link>
-                                                </td> */}
+                                                
                                             </tr>
                                         ))
                                 ) : (
@@ -411,11 +383,16 @@ export default function TeacherOverview({
                                     className="h-28 w-28 rounded-full"
                                 />
                             </div>
+                            
                         )}
-
-                        <h2 className="text-xl font-bold">
+                        <h2 className="text-xl mt-2 font-bold">
                             {selectedService.name}
                         </h2>
+                        <hr className="my-1 w-full border-gray-300" />
+                        <div className="mt-1 flex justify-center">
+                            <StarRating rating={selectedService.average_rating || 0} />
+                        </div>
+                        
                         {selectedService.teacher && (
                             <p className="mt-2">
                                 Teacher: {selectedService.teacher.user.name}

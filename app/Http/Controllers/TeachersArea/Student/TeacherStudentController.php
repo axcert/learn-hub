@@ -33,48 +33,17 @@ class TeacherStudentController extends Controller
             'services' => $services,
             'bookings' => $bookings,
         ]);
-        // return Inertia::render('StudentArea/Teacher/All/Index',['teachers'=> $this->teacherInterface->all()] );
         
-        // return Inertia::render('StudentArea/Student/All/Index', ['students'=> $this->studentInterface->all(), 
-        // 'services'=>$this->serviceInterface->all(['*'], ['teacher'])]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Student $student)
     {
         $student = $this->studentInterface->findById($student->id, ['*']);
         return Inertia::render('Students/Show/Index', ['student' => $student]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request,Student $student)
     {
         $this->studentInterface->update($student->id, $request->all());

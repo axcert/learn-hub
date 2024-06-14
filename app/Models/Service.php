@@ -36,4 +36,8 @@ class Service extends Model
     {
         return $this->hasMany(Booking::class);
     }
+    public function getAverageRatingAttribute()
+    {
+        return $this->bookings()->whereNotNull('rating')->average('rating');
+    }
 }

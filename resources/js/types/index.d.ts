@@ -17,6 +17,7 @@ export interface User {
     email_verified_at: string;
 }
 export interface Teacher {
+    experience: ReactNode;
     average_rating: any;
     services: any;
     user: any;
@@ -45,6 +46,7 @@ export interface Teacher {
   };
   
   export interface Service {
+    average_rating: number;
     approved: any;
     
     image: any;
@@ -95,3 +97,14 @@ export interface FlashMessages {
   success?: string;
 }
 
+export interface Contact {
+  id: number;
+  name: string;
+}
+
+export interface Message {
+  id: number;
+  message: string;
+  sender: Contact;
+  receiver: Contact;
+}

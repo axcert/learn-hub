@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\StudentsArea\Booking;
 
 use App\Http\Controllers\controller;
+use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
 use Inertia\Inertia;
 use App\Repositories\All\Bookings\BookingInterface;
@@ -70,17 +71,12 @@ class StudentBookingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Booking $booking)
+    public function update(UpdateBookingRequest  $request, Booking $booking)
     {
 
-        $data = $request->validate([
-            'description' => 'nullable|string',
-            'date' => 'nullable|date',
-            'rating' => 'nullable|integer|min:1|max:5',
-            'comment' => 'nullable|string',
-        ]);
-    
-        $booking->update($data);
+        // $data = $request->validated();
+        // $booking->update($data);
+        $this->bookingInterface->update($booking->id, $request->all());
         return redirect()->route('students.index')->with('success', 'Booking updated successfully.');
     }
 

@@ -7,12 +7,16 @@ import { Service, User, Filters } from '@/types';
 import Card from '@/Components/Card/Card';
 import SearchBar from '@/Components/SearchBar/SearchBar';
 import ReactPaginate from 'react-paginate';
+import StarRating from '@/Components/StarRating/StarRating';
 
 interface Props {
     services: Service[];
     teachersCount: number;
     filters: Filters;
+    average_rating?: number | null;
 }
+
+
 
 const ITEMS_PER_PAGE = 20;
 
@@ -129,6 +133,9 @@ export default function ServiceIndex({
                                           className="h-16 w-16 rounded-full"
                                         />
                                     </div>
+                                    <div className="mt-1">
+                                        <StarRating rating={service.average_rating || 0} />
+                                    </div>
                                     <div className="mt-4 text-center">
                                         <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
                                             {service.name}
@@ -207,6 +214,9 @@ export default function ServiceIndex({
                                 />
                             </div>
                         )}
+                         <div className="mt-1 flex justify-center">
+                            <StarRating rating={selectedService.average_rating || 0} />
+                        </div>
                         <h2 className="text-xl font-bold">{selectedService.name}</h2>
                         {selectedService.teacher && (
                             <p className="mt-2">Teacher: {selectedService.teacher.user.name}</p>

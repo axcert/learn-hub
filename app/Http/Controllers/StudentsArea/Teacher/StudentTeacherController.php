@@ -64,6 +64,7 @@ class StudentTeacherController extends Controller
         if (!$teacher) {
             abort(404, 'Teacher not found');
         }
+        // $averageRating = $teacher->services->avg('average_rating');
     
         $approvedServices = $teacher->services->filter(function ($service) {
             return $service->status === 'approved';
@@ -83,8 +84,9 @@ class StudentTeacherController extends Controller
                 }
             }
         }
+        
     
-        $averageRating = $teacher->average_rating;
+         $averageRating = $teacher->average_rating;
     
         return Inertia::render('StudentArea/Teacher/Show/Index', [
             'teacher' => $teacher,
