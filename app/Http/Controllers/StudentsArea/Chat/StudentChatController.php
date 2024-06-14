@@ -50,7 +50,11 @@ class StudentChatController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+     
+        return Inertia::render('StudentArea/Chat/All/Chat', [
+            'id' => $id,
+        ]);
     }
 
     /**
