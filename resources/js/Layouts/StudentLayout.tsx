@@ -62,8 +62,8 @@ export default function StudentLayout({
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("message.index")}
-                                    active={route().current("message.index")}
+                                    href={route("chats.index")}
+                                    active={route().current("chats.index")}
                                 >
                                     Messages
                                 </NavLink>

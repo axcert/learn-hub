@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminsArea\AdminUser\AdminUserController;
 use App\Http\Controllers\AdminsArea\Temp\TempController;
 use App\Http\Middleware\AdminValidationMiddleware;
 use App\Http\Controllers\StudentsArea\Booking\StudentBookingController;
+use App\Http\Controllers\StudentsArea\Chat\StudentChatController;
 use App\Http\Controllers\StudentsArea\Message\StudentMessageController;
 use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
 use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
@@ -75,9 +76,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         
         //Chats
-        Route::get('message', [StudentMessageController::class, 'index'])->name('message.index');
-        Route::get('/chats/{chat}', [StudentMessageController::class, 'show'])->name('message.show');
-        // Route::post('messages', [StudentMessageController::class, 'store']);
+        Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
+        Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
+        // Route::post('messages', [StudentChatController::class, 'store']);
     });
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\StudentsArea\Message;
+namespace App\Http\Controllers\StudentsArea\Chat;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class StudentMessageController extends Controller
+class StudentChatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        return Inertia::render('StudentArea/Chat/All/Index');
     }
 
     /**
