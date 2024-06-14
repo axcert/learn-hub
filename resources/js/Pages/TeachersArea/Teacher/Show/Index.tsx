@@ -1,7 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
-import { PageProps, Teacher } from '@/types';
+import { PageProps, Service, Teacher } from '@/types';
 import TeacherLayout from '@/Layouts/TeacherLayout';
 import StarRating from '@/Components/StarRating/StarRating';
+import { useState } from 'react';
+import MyDialog from '@/Components/MyDialog/MyDialog';
 
 interface Props extends PageProps {
     teacher?: Teacher; 
@@ -19,6 +21,18 @@ export default function TeacherShow({ auth, teacher, averageRating, comments = [
     if (!user) {
         return <div>User data is not available</div>;
     }
+
+    const [selectedService, setSelectedService] = useState<Service | null>(null);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (service: Service) => {
+        setSelectedService(service);
+        setIsDialogOpen(true);
+    };
+
+    const closeDialog = () => {
+        setSelectedService(null);
+        setIsDialogOpen(false);
+    };
 
     return (
         <TeacherLayout user={auth.user}>
@@ -54,11 +68,11 @@ export default function TeacherShow({ auth, teacher, averageRating, comments = [
                     {services.length > 0 ? (
                         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {services.map((service: any) => (
-                                <Link
-                                    href={route('teacher.services.show', service.id)}
-                                    key={service.id}
-                                    className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
-                                >
+                                <div
+                                onClick={() => openDialog(service)}
+                                key={service.id}
+                                className="cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"
+                            >
                                     <div className="flex-shrink-0">
                                     <div className="flex justify-center mt-4">
                                         <img
@@ -67,12 +81,20 @@ export default function TeacherShow({ auth, teacher, averageRating, comments = [
                                             className="h-16 w-16 rounded-full"
                                         />
                                         </div>
+                                        
                                     </div>
                                     <div className="mt-4 text-center">
                                         <h5 className="text-lg font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h5>
+                                        <hr className="my-1 w-full border-gray-300" />
+                                        {averageRating !== undefined && averageRating !== null && (
+                                    <div className="mt-1 text-lg text-gray-600 flex justify-center">
+                                        {/* Average Rating: {averageRating.toFixed(1)} / 5 */}
+                                        <StarRating rating={averageRating} />
+                                    </div>
+                                      )}
                                         <p className="mt-1 text-sm text-gray-600">{service.description}</p>
                                     </div>
-                                </Link>
+                                </div>
                             ))}
                         </div>
                     ) : (
@@ -117,6 +139,52 @@ export default function TeacherShow({ auth, teacher, averageRating, comments = [
                     </Link>
                 </div>
             </div>
+            <MyDialog
+                isOpen={isDialogOpen}
+                setIsOpen={setIsDialogOpen}
+                className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }
+            >
+                {selectedService && (
+                    <div>
+                        {selectedService.image && (
+                            <div className="flex justify-center mt-4">
+                                <img
+                                    src={selectedService.image ? `/storage/${selectedService.image}` : "https://cdn-icons-png.flaticon.com/512/4762/4762311.png"}
+                                    alt={selectedService.name}
+                                    className="h-28 w-28 rounded-full"
+                                />
+                            </div>
+                        )}
+                        
+                        <h2 className="text-xl font-bold">{selectedService.name}</h2>
+                        <hr className="my-1 w-full border-gray-300" />
+                        {averageRating !== undefined && averageRating !== null && (
+                            <div className="mt-1 text-lg text-gray-600 flex justify-center">
+                                {/* Average Rating: {averageRating.toFixed(1)} / 5 */}
+                                <StarRating rating={averageRating} />
+                            </div>
+                        )}
+                        {selectedService.teacher && (
+                            <p className="mt-2">Teacher: {selectedService.teacher.user.name}</p>
+                        )}
+                        <p className="mt-2">{selectedService.description}</p>
+                        <p className="text-gray-700 mb-2">Experience: {selectedService.experience}</p>
+                        <p className="mt-2">Hourly Rate: Rs {selectedService.hourly_rate}</p>
+                        <div className="flex justify-center items-center mt-6">
+                            <Link
+                                href={route("teacher.bookings.create", {
+                                    service_id: selectedService.id,
+                                })}
+                                className="text-blue-600 hover:text-blue-900"
+                            >
+                                Book Service
+                            </Link>
+                        </div>
+                    </div>
+                )}
+            </MyDialog>
         </TeacherLayout>
     );
 }

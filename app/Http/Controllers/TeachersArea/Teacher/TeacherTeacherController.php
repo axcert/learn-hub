@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\TeachersArea\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTeacherRequest;
+use App\Http\Requests\UpdateTeacherRequest;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use App\Repositories\All\Users\UserInterface;
@@ -77,14 +79,10 @@ class TeacherTeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTeacherRequest $request)
     {
-        $validated = $request->validate([
-            'bio' => 'required|string',
-            'position' => 'required|string',
-            'user_id' => 'required|exists:users,id'
-        ]);
-
+        
+        $validated = $request->validated();
         $teacher = $this->teacherInterface->create($validated);
 
         return redirect()->route('teachers.index');
@@ -143,13 +141,10 @@ class TeacherTeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTeacherRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'bio' => 'required|string',
-            'position' => 'required|string',
-        ]);
-
+        
+        $validated = $request->validated();
         $teacher = $this->teacherInterface->update($id, $validated);
 
         return redirect()->route('teachers.show', $id);

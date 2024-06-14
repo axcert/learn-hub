@@ -26,6 +26,9 @@ class StudentStudentController extends Controller
         $user_id = auth()->id();
         $students = $this->studentInterface->all();
         $services = $this->serviceInterface->getByColumn(['status' => 'approved'], ['*'], ['teacher.user']);
+        foreach ($services as $service) {
+            $service->average_rating = $service->getAverageRatingAttribute();
+        }
         $bookings = $this->bookingInterface->findByUserId($user_id, ['service.teacher.user']);
 
         return Inertia::render('StudentArea/Student/All/Index', [
