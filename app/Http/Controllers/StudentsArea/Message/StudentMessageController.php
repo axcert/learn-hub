@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\StudentsArea\Message;
 
-use App\Models\Message;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use app\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class StudentMessageController extends Controller
 {
@@ -13,7 +13,7 @@ class StudentMessageController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('StudentArea/Message/All/Index');
     }
 
     /**
@@ -35,7 +35,7 @@ class StudentMessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Message $message)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +43,7 @@ class StudentMessageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Message $message)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class StudentMessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +59,7 @@ class StudentMessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Message $message)
+    public function destroy(string $id)
     {
         //
     }

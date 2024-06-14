@@ -68,12 +68,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('services', StudentServiceController::class)->names('student.services');
         Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
-        Route::resource('messages', StudentMessageController::class)->names('student.messages');
+       
         Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
         Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
         Route::patch('/student/bookings/{booking}/complete', [StudentBookingController::class, 'markAsCompleted'])->name('student.bookings.complete');
 
         
+        //Chats
+        Route::get('message', [StudentMessageController::class, 'index'])->name('message.index');
+        Route::get('/chats/{chat}', [StudentMessageController::class, 'show'])->name('message.show');
+        // Route::post('messages', [StudentMessageController::class, 'store']);
     });
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
