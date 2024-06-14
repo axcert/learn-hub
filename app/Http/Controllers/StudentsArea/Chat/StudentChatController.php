@@ -3,17 +3,30 @@
 namespace App\Http\Controllers\StudentsArea\Chat;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chat;
+use App\Repositories\All\Chats\ChatsInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class StudentChatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        protected ChatsInterface $chatsInterface,
+
+    ) {
+    }
     public function index()
     {
-        return Inertia::render('StudentArea/Chat/All/Index');
+        $user = auth()->user();
+        $chats = $user->chats()->with('teacher.user')->get();
+    
+        return Inertia::render('StudentArea/Chat/All/Index', [
+            'chats' => $chats,
+        ]);
+        // $chats = Chat::with('teacher.user')->get();
+        // return Inertia::render('StudentArea/Chat/All/Index',[
+        //     "chats"=>$chats,
+        // ]);
     }
 
     /**

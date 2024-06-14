@@ -15,6 +15,10 @@ class Chat extends Model
      *
      * @var array
      */
+
+
+     protected $table = 'chats';
+
     protected $fillable = [
         'teacher_id',
         'user_id',
