@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Link, usePage } from "@inertiajs/react";
 import { User } from "@/types";
 import TeacherLayout from "@/Layouts/TeacherLayout";
-import Dropzone from "react-dropzone";
+import Dropzone, { useDropzone } from "react-dropzone";
 import InputLabel from "@/Components/InputLabel";
 
 interface Props {
@@ -99,8 +99,8 @@ export default function ServiceCreate() {
                                                     </div>
                                                 </section>
                                             )}
-                                        </Dropzone>
-                                    </div>
+                                        </Dropzone>                 
+                        </div>
                                     <div className="sm:col-span-4">
                                         <div className="flex items-center">
                                             <label
@@ -256,3 +256,15 @@ export default function ServiceCreate() {
         </TeacherLayout>
     );
 }
+function setImages(arg0: { preview: any; }[]) {
+    throw new Error("Function not implemented.");
+}
+
+function setCanCleanImage(arg0: boolean) {
+    throw new Error("Function not implemented.");
+}
+
+function setData(arg0: string, arg1: any) {
+    throw new Error("Function not implemented.");
+}
+

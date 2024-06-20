@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services')->except(['put']);
-        Route::put('/services/{id}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
+        Route::post('/services/{id}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
         
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
