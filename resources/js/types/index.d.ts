@@ -89,6 +89,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     admins: any[];
     users: any[];
     chats: any[];
+    message: any;
+  
    
 };
 export interface FlashMessages {

@@ -9,7 +9,7 @@ class Messages extends Model
 {
     use HasFactory;
 
-    protected $table = 'messages';
+    protected $table = 'new_messages';
 
     protected $fillable = [
         'chat_id',

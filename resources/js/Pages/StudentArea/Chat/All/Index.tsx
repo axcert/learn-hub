@@ -22,7 +22,8 @@ interface Props {
     onSelectChat: (chatId: number) => void;
 }
 
-const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat }) => {
+const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat}) => {
+
     return (
         // Chats View
         <div className="w-full lg:w-1/4 border-r">
@@ -82,11 +83,11 @@ const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat }) => {
     );
 };
 
-//massage screen
-export default function Index({ auth, chats }: PageProps) {
+//massage screen 
+export default function Index({ auth, chats , message }: PageProps) {
     const [selectedChatId, setSelectedChatId] = useState<number | null>(null);
 
-    console.log("selectedChatId :", selectedChatId);
+    console.log("message :", message);
 
     const handleSelectChat = (chatId: number) => {
         setSelectedChatId(chatId);
@@ -108,6 +109,7 @@ export default function Index({ auth, chats }: PageProps) {
                                     <ChatMessages
                                         chatId={selectedChatId}
                                         chats={chats}
+                                        message={message}
                                     />
                                 ) : (
                                     <p className="text-center">
@@ -122,6 +124,7 @@ export default function Index({ auth, chats }: PageProps) {
         </StudentLayout>
     );
 }
+
 interface Message {
     id: number;
     chat_id: number;
@@ -133,12 +136,13 @@ interface Message {
 interface ChatMessagesProps {
     chatId: number;
     chats: Chat[];
+    message:any;
 }
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
+const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) => {
     const [messages, setMessages] = useState<Message[]>([]);
 
-    console.log(chats);
+    console.log('message : ',message);
 
     useEffect(() => {
         fetchMessages(chatId);
@@ -195,8 +199,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
                             </span>
                         </div>
                         <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                            That's awesome. I think our users will really
-                            appreciate the improvements.
+                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut corporis obcaecati totam consequuntur illo voluptate aperiam dicta, qui vero similique possimus eveniet non nisi laboriosam tempora enim libero doloribus rem!
                         </p>
                         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                             Delivered
@@ -371,3 +374,4 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
         </div>
     );
 };
+

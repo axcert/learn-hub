@@ -5,7 +5,9 @@ namespace App\Http\Controllers\StudentsArea\Chat;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use App\Models\Message;
+use App\Models\Messages;
 use App\Repositories\All\Chats\ChatsInterface;
+use App\Repositories\All\Messages\MessageInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,14 +15,18 @@ class StudentChatController extends Controller
 {
     public function __construct(
         protected ChatsInterface $chatsInterface,
+        protected MessageInterface $messageInterface,
 
     ) {
     }
     public function index()
     {
+
+        $message = $this->messageInterface->all();
         $chats = $this->chatsInterface->getStudentChats();
         return Inertia::render('StudentArea/Chat/All/Index', [
             'chats' => $chats,
+            'message' => $message,
         ]);
     }
 
