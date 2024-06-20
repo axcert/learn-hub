@@ -132,11 +132,9 @@ interface Message {
 
 interface ChatMessagesProps {
     chatId: number;
-    chats: Chat[]; // Ensure this is imported correctly from your types
+    chats: Chat[];
 }
 
-//chat massage
-// const ChatMessages: React.FC<{ chatId: number, chat:any[] }> = ({ chatId, id ,chat}: any) => {
 const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
     const [messages, setMessages] = useState<Message[]>([]);
 
