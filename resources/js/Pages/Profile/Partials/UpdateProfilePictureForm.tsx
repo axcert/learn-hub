@@ -1,64 +1,90 @@
-import { useForm, usePage } from '@inertiajs/react';
-import React from 'react';
+// // UpdateProfilePictureForm.tsx
 
-export default function UpdateProfilePictureForm({ user, className }:any) {
-    const { data, setData, post, errors } = useForm<{
-        image: File | undefined;
-        _method: 'POST' | 'PATCH';
-    }>({
-        image: undefined,
-        _method: 'POST',
-    });
+// import { useForm, usePage } from '@inertiajs/react';
+// import PrimaryButton from '@/Components/PrimaryButton';
+// import { Transition } from '@headlessui/react';
+// import { useRef, FormEventHandler } from 'react';
+// import InputError from '@/Components/InputError';
+// import InputLabel from '@/Components/InputLabel';
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setData('image', file);
-        }
-    };
+// export default function UpdateProfilePictureForm({
+//     className = '',
+// }: {
+//     className?: string;
+// }) {
+//     const { props: { auth } } = usePage();
+//     const imageInput = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        patch(route('profile.update-picture'), {
-            forceFormData: true,
-        });
-    };
+//     const {
+//         data,
+//         setData,
+//         post,
+//         processing,
+//         reset,
+//         errors,
+//     } = useForm({
+//         image: null, // Initialize image state to null
+//     });
 
-    return (
-        <form onSubmit={handleSubmit} className={className}>
-            <div>
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-                    Profile Picture
-                </label>
-                <div className="mt-1 flex items-center">
-                    <img
-                        className="h-12 w-12 rounded-full"
-                        src={user.image_path ? `/storage/${user.image_path}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4oz0KdCvHj_hvY5exy-qFr06SPFjyA4ZoPg&s'}
-                        alt={`${user.name}'s profile`}
-                    />
-                    <input
-                        type="file"
-                        id="image"
-                        onChange={handleChange}
-                        className="ml-5 rounded-md shadow-sm border-gray-300"
-                    />
-                </div>
-                {errors.image && <div className="text-red-600">{errors.image}</div>}
-            </div>
+//     const updateProfilePicture: FormEventHandler = async (e) => {
+//         e.preventDefault();
 
-            <div className="mt-4">
-                <button
-                    type="submit"
-                    className="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
-                >
-                    Save
-                </button>
-            </div>
-        </form>
-    );
-}
+//         const formData = new FormData();
+//         formData.append('image', data.image!); // Ensure data.image is not null or undefined
 
-function patch(arg0: string, arg1: { forceFormData: boolean; }) {
-    throw new Error('Function not implemented.');
-}
+//         try {
+//             post(route('profile.update'), formData, {
+//                 preserveScroll: true,
+//                 onSuccess: () => {
+//                     reset(); // Reset form on successful upload
+//                     setData('image', null); // Reset image state after upload
+//                 },
+//                 onError: (errors: any) => {
+//                     console.error(errors); // Handle errors as needed
+//                 },
+//             });
+//         } catch (error) {
+//             console.error('Error uploading image:', error);
+//         }
+//     };
 
+//     return (
+//         <section className={className}>
+//             <header>
+//                 <h2 className="text-lg font-medium text-gray-900">
+//                     Update Profile Picture
+//                 </h2>
+//             </header>
+
+//             <form onSubmit={updateProfilePicture} className="mt-6 space-y-6">
+//                 <div>
+//                     <InputLabel htmlFor="image" value="Profile Picture" />
+//                     <input
+//                         id="image"
+//                         type="file"
+//                         ref={imageInput}
+//                         onChange={(e) => setData('image', e.target.files![0])} // Set the file object to data.image
+//                         className="mt-1 block w-full"
+//                     />
+//                     <InputError message={errors.image} className="mt-2" />
+//                 </div>
+
+//                 <div className="flex items-center gap-4">
+//                     <PrimaryButton disabled={processing}>
+//                         Upload Picture
+//                     </PrimaryButton>
+
+//                     <Transition
+//                         show={processing} // Show processing state instead of recentlySuccessful
+//                         enter="transition ease-in-out"
+//                         enterFrom="opacity-0"
+//                         leave="transition ease-in-out"
+//                         leaveTo="opacity-0"
+//                     >
+//                         <p className="text-sm text-gray-600">Uploading...</p>
+//                     </Transition>
+//                 </div>
+//             </form>
+//         </section>
+//     );
+// }

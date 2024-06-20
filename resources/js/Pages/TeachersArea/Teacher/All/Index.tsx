@@ -4,6 +4,7 @@ import { PageProps, Service } from "@/types";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import SearchBar from "@/Components/SearchBar/SearchBar";
+import StarRating from "@/Components/StarRating/StarRating";
 
 interface Teacher {
     id: number;
@@ -14,6 +15,7 @@ interface Teacher {
     position: string;
     bio: string;
     services: Service[];
+    average_rating?: number | null;
 }
 
 interface Props extends PageProps {
@@ -94,9 +96,7 @@ export default function TeacherIndex({ auth, teachers, services = [] , search=""
                                             />
                                         </div>
                                         <div className="mt-1 flex justify-center">
-                                            <span className="text-yellow-500">
-                                                ★★★★☆
-                                            </span>
+                                        <StarRating rating={teacher.average_rating || 0} />
                                         </div>
                                         <hr className="my-1 w-full border-gray-300" />
                                         <div className="flex flex-wrap justify-center space-x-2">
