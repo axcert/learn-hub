@@ -6,11 +6,13 @@ import 'react-calendar/dist/Calendar.css';
 import { FaServer } from 'react-icons/fa';
 import { Booking, PageProps, Service, User } from '@/types';
 import MyDialog from '@/Components/MyDialog/MyDialog';
+import StarRating from '@/Components/StarRating/StarRating';
 
 interface Props extends PageProps {
   auth: { user: User };
   services: Service[];
   bookings: Booking[];
+  average_rating?: number | null;
 }
 
 export default function StudentIndex({ auth, services = [], bookings = [] }: Props) {
@@ -58,9 +60,14 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                         className="h-16 w-16 rounded-full"
                       />
                     </div>
+                    
                   </div>
                   <div className="mt-4 text-center">
                     <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{service.name}</h3>
+                    <hr className="my-1 w-full border-gray-300" />
+                    <div className="mt-1 flex justify-center">
+                      <StarRating rating={service.average_rating || 0} />
+                  </div>
                     {service.teacher && service.teacher.user && (
                       <p className="mt-1 text-sm text-gray-600">Teacher: {service.teacher.user.name}</p>
                     )}
@@ -167,7 +174,12 @@ export default function StudentIndex({ auth, services = [], bookings = [] }: Pro
                 />
               </div>
             )}
+            
             <h2 className="text-xl font-bold">{selectedService.name}</h2>
+            <hr className="my-1 w-full border-gray-300" />
+             <div className="mt-1 flex justify-center">
+                <StarRating rating={selectedService.average_rating || 0} />
+            </div>
             {selectedService.teacher && (
               <p className="mt-2">Teacher: {selectedService.teacher.user.name}</p>
             )}

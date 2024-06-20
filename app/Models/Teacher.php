@@ -38,8 +38,4 @@ class Teacher extends Model
         return $ratings->average();
     }
 
-    public function chats()
-    {
-        return $this->hasMany(Chat::class);
-    }
 }

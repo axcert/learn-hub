@@ -26,6 +26,10 @@ class StudentTeacherController extends Controller
         $teachers = $this->teacherInterface->all(['*'], ['user', 'services']);
         $services = $this->serviceInterface->getByColumn(['status' => 'approved']);
 
+        foreach ($teachers as $teacher) {
+            $teacher->average_rating = $teacher->getAverageRatingAttribute();
+        }
+        
         return Inertia::render('StudentArea/Teacher/All/Index', [
             'teachers' => $teachers,
             'services' => $services
@@ -56,18 +60,38 @@ class StudentTeacherController extends Controller
 
     public function show($id)
     {   
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
+        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services.bookings.user']);
         if (!$teacher) {
             abort(404, 'Teacher not found');
-        }          
-        $approvedServices = $teacher->services->filter(function($service) {
+        }
+        // $averageRating = $teacher->services->avg('average_rating');
+    
+        $approvedServices = $teacher->services->filter(function ($service) {
             return $service->status === 'approved';
         });
         $teacher->setRelation('services', $approvedServices);
-
+    
+        $comments = [];
+        foreach ($approvedServices as $service) {
+            foreach ($service->bookings as $booking) {
+                if ($booking->rating !== null) {
+                    $comments[] = [
+                        'comment' => $booking->comment,
+                        'rating' => $booking->rating,
+                        'service' => $service->name,
+                        'student' => $booking->user->name,
+                    ];
+                }
+            }
+        }
+        
+    
+         $averageRating = $teacher->average_rating;
+    
         return Inertia::render('StudentArea/Teacher/Show/Index', [
             'teacher' => $teacher,
-            
+            'averageRating' => $averageRating,
+            'comments' => $comments,
         ]);
         
         

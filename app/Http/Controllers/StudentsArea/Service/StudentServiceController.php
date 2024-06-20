@@ -24,6 +24,9 @@ class StudentServiceController extends Controller
     {    
         $filters = $request->all();
         $services = $this->serviceInterface->getByColumn(['status' => 'approved'],['*'], ['teacher.user']);
+        foreach ($services as $service) {
+            $service->average_rating = $service->getAverageRatingAttribute();
+        }
 
         return Inertia::render('StudentArea/Service/All/Index', [
             'services' => $services,
@@ -82,6 +85,7 @@ class StudentServiceController extends Controller
     public function show(Service $service)
     {
         $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher.user']);
+        
         return Inertia::render('StudentArea/Service/Show/Index', ['service' => $service]);
     }
 
@@ -90,8 +94,7 @@ class StudentServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        // $serviceInterface = app()->make(ServiceInterface::class);
-        // $serviceInterface->findById($id);
+        
         return Inertia::render('Services/Edit/Index', ['service' => $service]);
     }
 
@@ -100,10 +103,7 @@ class StudentServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        // $service->update([
-        //     $this->serviceInterface->update($service->id, $request->all())
-        // ]);
-        // return redirect()->route('services.index');
+        
         $this->serviceInterface->update($service->id, $request->all());
         return redirect()->route('services.index');
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\TeachersArea\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTeacherRequest;
+use App\Http\Requests\UpdateTeacherRequest;
 use App\Repositories\All\Services\ServiceInterface;
 use App\Repositories\All\Teachers\TeacherInterface;
 use App\Repositories\All\Users\UserInterface;
@@ -23,8 +25,13 @@ class TeacherTeacherController extends Controller
         
         $teachers = $this->teacherInterface->all(['*'], ['user', 'services']);
 
+        foreach ($teachers as $teacher) {
+            $teacher->average_rating = $teacher->getAverageRatingAttribute();
+        }
+
         return Inertia::render('TeachersArea/Teacher/All/Index', [
             'teachers' => $teachers,
+            
         ]);
     }
 
@@ -72,14 +79,10 @@ class TeacherTeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTeacherRequest $request)
     {
-        $validated = $request->validate([
-            'bio' => 'required|string',
-            'position' => 'required|string',
-            'user_id' => 'required|exists:users,id'
-        ]);
-
+        
+        $validated = $request->validated();
         $teacher = $this->teacherInterface->create($validated);
 
         return redirect()->route('teachers.index');
@@ -90,7 +93,7 @@ class TeacherTeacherController extends Controller
      */
     public function show($id)
     {   
-        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services']);
+        $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services.bookings.user']);
         if (!$teacher) {
             abort(404, 'Teacher not found');
         }
@@ -100,8 +103,25 @@ class TeacherTeacherController extends Controller
         });
         $teacher->setRelation('services', $approvedServices);
 
+        $comments = [];
+        foreach ($approvedServices as $service) {
+            foreach ($service->bookings as $booking) {
+                if ($booking->rating !== null) {
+                    $comments[] = [
+                        'comment' => $booking->comment,
+                        'rating' => $booking->rating,
+                        'service' => $service->name,
+                        'student' => $booking->user->name,
+                    ];
+                }
+            }
+        }
+        $averageRating = $teacher->average_rating;
+
         return Inertia::render('TeachersArea/Teacher/Show/Index', [
             'teacher' => $teacher,
+            'averageRating' => $averageRating,
+            'comments' => $comments,
         ]);
         
     }
@@ -121,13 +141,10 @@ class TeacherTeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTeacherRequest $request, string $id)
     {
-        $validated = $request->validate([
-            'bio' => 'required|string',
-            'position' => 'required|string',
-        ]);
-
+        
+        $validated = $request->validated();
         $teacher = $this->teacherInterface->update($id, $validated);
 
         return redirect()->route('teachers.show', $id);
