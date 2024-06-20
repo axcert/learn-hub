@@ -56,11 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('users', AdminUserController::class)->names('admin.users');
         Route::resource('temp', TempController::class)->names('admin.temp');
 
-        
+
         Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
         Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
-
-
     });
 
 
@@ -69,25 +67,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('services', StudentServiceController::class)->names('student.services');
         Route::resource('teachers', StudentTeacherController::class)->names('student.teachers');
-       
+
         Route::get('bookings/create/{service_id}', [StudentBookingController::class, 'create'])->name('student.bookings.create');
         Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
         Route::patch('/student/bookings/{booking}/complete', [StudentBookingController::class, 'markAsCompleted'])->name('student.bookings.complete');
 
-        
-        //Chats
+//chats
         Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
-        // Route::get('/api/chats/{chat}/messages', [StudentChatController::class, 'getMessages']);
-        Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
-        // Route::post('messages', [StudentChatController::class, 'store']);
+        // Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
+        Route::post('/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
     });
+
 
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services')->except(['put']);
         Route::put('/services/{id}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
-        
+
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
         Route::get('teachers/create/', [TeacherTeacherController::class, 'create'])->name('teachers.create');
@@ -102,7 +99,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/teacher/bookings/{booking}/accept', [TeacherBookingController::class, 'accept'])->name('teacher.bookings.accept');
         Route::patch('/teacher/bookings/{booking}/reject', [TeacherBookingController::class, 'reject'])->name('teacher.bookings.reject');
         Route::patch('/teacher/bookings/{booking}/complete', [TeacherBookingController::class, 'markAsCompleted'])->name('teacher.bookings.complete');
-
     });
 });
 

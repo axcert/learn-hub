@@ -16,7 +16,6 @@ class StudentChatController extends Controller
     public function __construct(
         protected ChatsInterface $chatsInterface,
         protected MessageInterface $messageInterface,
-
     ) {
     }
     public function index()
@@ -43,7 +42,13 @@ class StudentChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'teacher_id' => 'required|exists:teachers,id',
+            'user_id' => 'required|exists:users,id',
+        ]);
+     
+    $this->chatsInterface->storeChat($request->all());
+
     }
 
     /**
@@ -51,7 +56,6 @@ class StudentChatController extends Controller
      */
     public function show(Message $message)
     {
-
      
         return Inertia::render('StudentArea/Chat/All/Chat', [
             'message' => $message,

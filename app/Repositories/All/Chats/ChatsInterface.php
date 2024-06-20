@@ -8,4 +8,5 @@ interface ChatsInterface extends BaseRepositoryInterface
 {
     
     public function getStudentChats();
+    public function storeChat(array $data);
 }
