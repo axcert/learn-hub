@@ -18,8 +18,13 @@ class Messages extends Model
         'timestamp',
     ];
 
+    // public function chat()
+    // {
+    //     return $this->belongsTo(Chat::class, 'chat_id');
+    // }
+
     public function chat()
     {
-        return $this->belongsTo(Chat::class, 'chat_id');
+        return $this->belongsTo(Chat::class);
     }
 }

@@ -77,6 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         //Chats
         Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
+        // Route::get('/api/chats/{chat}/messages', [StudentChatController::class, 'getMessages']);
         Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
         // Route::post('messages', [StudentChatController::class, 'store']);
     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\StudentsArea\Chat;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
+use App\Models\Message;
 use App\Repositories\All\Chats\ChatsInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,10 +20,11 @@ class StudentChatController extends Controller
     {
         $user = auth()->user();
         $chats = $user->chats()->with('teacher.user')->get();
-    
+
         return Inertia::render('StudentArea/Chat/All/Index', [
             'chats' => $chats,
         ]);
+        
         // $chats = Chat::with('teacher.user')->get();
         // return Inertia::render('StudentArea/Chat/All/Index',[
         //     "chats"=>$chats,
@@ -48,13 +50,19 @@ class StudentChatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Message $message)
     {
 
      
         return Inertia::render('StudentArea/Chat/All/Chat', [
-            'id' => $id,
+            'message' => $message,
         ]);
+    }
+ 
+    public function getMessages($chatId)
+    {
+        $messages = Chat::find($chatId)->messages()->get();
+        return response()->json($messages);
     }
 
     /**
