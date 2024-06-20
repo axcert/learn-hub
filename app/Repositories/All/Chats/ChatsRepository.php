@@ -34,7 +34,7 @@ class ChatsRepository extends BaseRepository implements ChatsInterface
                         ->with('teacher.user')
                         ->get();
          }
-         return []; // Handle cases where user is not authenticated
+         return [];
      }
 
 

@@ -18,11 +18,7 @@ class StudentChatController extends Controller
     }
     public function index()
     {
-        $user = auth()->user();
-        // $chats = $user->chats()->with('teacher.user')->get();
-
         $chats = $this->chatsInterface->getStudentChats();
-    
         return Inertia::render('StudentArea/Chat/All/Index', [
             'chats' => $chats,
         ]);

@@ -190,9 +190,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
                             <span className="text-sm font-semibold text-gray-900 dark:text-white">
                                 {chats.map((chat) => (
                                     <div key={chat.id}>
-                                        {/* Accessing chat properties */}
                                         <p>{chat.teacher.user.name}</p>
-                                        {/* Other details */}
                                     </div>
                                 ))}
                             </span>
