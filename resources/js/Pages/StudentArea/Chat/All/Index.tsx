@@ -147,7 +147,6 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) =>
     useEffect(() => {
         fetchMessages(chatId);
     }, [chatId]);
-
     const fetchMessages = async (chatId: number) => {
         try {
             const response = await fetch(`/api/chats/${chatId}/messages`);
