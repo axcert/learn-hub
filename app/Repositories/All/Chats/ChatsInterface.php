@@ -6,5 +6,6 @@ use App\Repositories\Base\BaseRepositoryInterface;
 
 interface ChatsInterface extends BaseRepositoryInterface
 {
-
+    
+    public function getStudentChats();
 }
