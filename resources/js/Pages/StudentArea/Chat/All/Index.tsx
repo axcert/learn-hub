@@ -163,10 +163,8 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats }) => {
         return <p className="text-center">No chat selected</p>;
     }
 
-    // Find the chat based on chatId
     const chat = chats.find((chat) => chat.id === chatId);
 
-    // Ensure chat is found and has necessary properties
     if (!chat || !chat.teacher || !chat.teacher.user) {
         return <p className="text-center">Invalid chat data</p>;
     }
