@@ -178,8 +178,8 @@ export default function StudentLayout({
                             Sessions
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            href="#messages"
-                            active={route().current("#messages")}
+                            href={route("chats.index")}
+                            active={route().current("chats.index")}
                         >
                             Messages
                         </ResponsiveNavLink>
