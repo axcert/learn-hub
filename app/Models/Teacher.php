@@ -27,16 +27,5 @@ class Teacher extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getAverageRatingAttribute()
-    {
-        $ratings = $this->services->flatMap(function ($service) {
-            return $service->bookings->where('status', 'completed')->pluck('rating');
-        })->filter();
-
-        if ($ratings->isEmpty()) {
-            return null;
-        }
-
-        return $ratings->average();
     }
 }

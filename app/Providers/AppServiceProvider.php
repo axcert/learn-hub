@@ -6,6 +6,8 @@ use App\Repositories\All\Admins\AdminInterface;
 use App\Repositories\All\Admins\AdminRepository;
 use App\Repositories\All\Bookings\BookingInterface;
 use App\Repositories\All\Bookings\BookingRepository;
+use App\Repositories\All\Chats\ChatsInterface;
+use App\Repositories\All\Chats\ChatsRepository;
 use App\Repositories\All\Messages\MessageInterface;
 use App\Repositories\All\Messages\MessageRepository;
 use App\Repositories\All\Teachers\TeacherInterface;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MessageInterface::class, MessageRepository::class);
         $this->app->bind(AdminInterface::class, AdminRepository::class);
         $this->app->bind(UserInterface::class, UserRepository::class);
+        $this->app->bind(ChatsInterface::class, ChatsRepository::class);
     }
 
 

@@ -1,59 +1,260 @@
-import { IoSearch, IoClose } from "react-icons/io5";
-import React, { useState } from "react";
+// import { Head, Link } from "@inertiajs/react";
+// import { PageProps } from "@/types";
+// import StudentLayout from "@/Layouts/StudentLayout";
+// import img from "@/../../public/asstts/img/girl.jpg";
 
-interface SearchBarProps {
-    title: string;
-    onClick: () => void;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    searchTerm: string;
+// interface Chat {
+//     teacher: {
+//         user: {
+//             name: string;
+//             email: string;
+//         };
+//         bio: string;
+//     };
+//     id: number;
+//     name: string;
+// }
+
+// interface Props {
+//     chats: Chat[];
+// }
+
+// const ChatSidebar: React.FC<Props> = ({ chats }) => {
+//     return (
+//         <div className="w-full lg:w-1/4 border-r">
+//             <div className="p-4">
+//                 <h2 className="font-bold text-xl mb-4">Chats</h2>
+//                 <input
+//                     type="text"
+//                     placeholder="Search"
+//                     className="mt-2 p-2 w-full border rounded focus:outline-none focus:border-blue-500"
+//                 />
+//                 <ul className="mt-4 border-spacing-3 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+//                     {chats && chats.length > 0 ? (
+//                         chats.map((chat) => (
+//                             <li
+//                                 className="flex justify-between py-5"
+//                                 key={chat.id}
+//                             >
+//                                 <Link
+//                                     href={route("chats.show", {
+//                                         chat: chat.id,
+//                                     })}
+//                                     className="flex justify-start hover:bg-gray-100 rounded-lg w-full"
+//                                 >
+//                                     <div className="flex min-w-0 gap-x-4 p-2 w-full">
+//                                         <img
+//                                             className="h-12 w-12 flex-none rounded-full bg-gray-50"
+//                                             src={img}
+//                                             alt=""
+//                                         />
+//                                         <div className="min-w-0 flex-auto">
+//                                             <p className="text-sm font-semibold leading-6 text-gray-900">
+//                                                 {chat.teacher.user.name}
+//                                             </p>
+//                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+//                                                 {chat.teacher.user.email}
+//                                             </p>
+//                                         </div>
+//                                     </div>
+//                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
+//                                         <p className="text-sm leading-6 text-gray-900">
+//                                             {chat.teacher.bio}
+//                                         </p>
+//                                         <div className="mt-1 flex items-center gap-x-1.5">
+//                                             <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+//                                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+//                                             </div>
+//                                             <p className="text-xs leading-5 text-gray-500">Online</p>
+//                                         </div>
+//                                     </div>
+//                                 </Link>
+//                             </li>
+//                         ))
+//                     ) : (
+//                         <li className="py-2 px-4">No chats available</li>
+//                     )}
+//                 </ul>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default function Index({ auth, chats }: PageProps) {
+//     return (
+//         <StudentLayout user={auth.user} header="chat">
+//             <Head title="Chats" />
+//             <div className="py-12">
+//                 <div className="mx-auto sm:px-6 lg:px-8">
+//                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+//                         <div className="p-6 text-gray-900 flex flex-col lg:flex-row">
+//                             <ChatSidebar chats={chats} />
+//                             <div className="flex-1">
+//                                 {/* Your main content goes here */}
+//                                 <p className="text-center">Main content here</p>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </StudentLayout>
+//     );
+// }
+
+
+import { useEffect, useState } from "react";
+import { Head, Link } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import StudentLayout from "@/Layouts/StudentLayout";
+import img from "@/../../public/asstts/img/girl.jpg";
+
+interface Chat {
+    teacher: {
+        user: {
+            name: string;
+            email: string;
+        };
+        bio: string;
+    };
+    id: number;
+    name: string;
 }
 
-export default function SearchBar({ title, onClick, onChange, searchTerm }: SearchBarProps) {
-    const [showCancel, setShowCancel] = useState(false);
+interface Props {
+    chats: Chat[];
+    onSelectChat: (chatId: number) => void;
+}
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e);
-        setShowCancel(!!e.target.value);
-    };
+const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat }) => {
+    return (
+        <div className="w-full lg:w-1/4 border-r">
+            <div className="p-4">
+                <h2 className="font-bold text-xl mb-4">Chats</h2>
+                <input
+                    type="text"
+                    placeholder="Search"
+                    className="mt-2 p-2 w-full border rounded focus:outline-none focus:border-blue-500"
+                />
+                <ul className="mt-4 border-spacing-3 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {chats && chats.length > 0 ? (
+                        chats.map((chat) => (
+                            <li
+                                className="flex justify-between py-5"
+                                key={chat.id}
+                                onClick={() => onSelectChat(chat.id)}
+                            >
+                                <div className="flex justify-start hover:bg-gray-100 rounded-lg w-full">
+                                    <div className="flex min-w-0 gap-x-4 p-2 w-full">
+                                        <img
+                                            className="h-12 w-12 flex-none rounded-full bg-gray-50"
+                                            src={img}
+                                            alt=""
+                                        />
+                                        <div className="min-w-0 flex-auto">
+                                            <p className="text-sm font-semibold leading-6 text-gray-900">
+                                                {chat.teacher.user.name}
+                                            </p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                {chat.teacher.user.email}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
+                                        <p className="text-sm leading-6 text-gray-900">
+                                            {chat.teacher.bio}
+                                        </p>
+                                        <div className="mt-1 flex items-center gap-x-1.5">
+                                            <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+                                            </div>
+                                            <p className="text-xs leading-5 text-gray-500">Online</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        ))
+                    ) : (
+                        <li className="py-2 px-4">No chats available</li>
+                    )}
+                </ul>
+            </div>
+        </div>
+    );
+};
 
-    const handleCancel = () => {
-        onChange({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>);
-        setShowCancel(false);
+export default function Index({ auth, chats }: PageProps) {
+    const [selectedChatId, setSelectedChatId] = useState<number | null>(null);
+
+    const handleSelectChat = (chatId: number) => {
+        setSelectedChatId(chatId);
     };
 
     return (
-        <section className="flex flex-col sm:flex-row justify-between items-center py-4 px-5">
-            <div className="mb-4 sm:mb-0">
-                <p className="text-start font-bold text-xl sm:text-2xl px-5">{title}</p>
-            </div>
-            <div className="w-full sm:w-80 relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <IoSearch className="text-gray-400" />
+        <StudentLayout user={auth.user} header="chat">
+            <Head title="Chats" />
+            <div className="py-12">
+                <div className="mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 flex flex-col lg:flex-row">
+                            <ChatSidebar chats={chats} onSelectChat={handleSelectChat} />
+                            <div className="flex-1">
+                                {selectedChatId ? (
+                                    <ChatMessages chatId={selectedChatId} />
+                                ) : (
+                                    <p className="text-center">Main content here</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <input
-                    className="block w-full p-4 pl-10 pr-12 text-sm sm:text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                    type="search"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleInputChange}
-                />
-                {showCancel && (
-                    <button
-                        type="button"
-                        className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
-                        onClick={handleCancel}
-                    >
-                        <IoClose />
-                    </button>
-                )}
-                <button
-                    type="button"
-                    className="absolute inset-y-0 right-12 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 text-white font-sm rounded-lg text-sm px-4 py-2"
-                    onClick={onClick}
-                >
-                    Search
-                </button>
             </div>
-        </section>
+        </StudentLayout>
     );
 }
+interface Message {
+    id: number;
+    chat_id: number;
+    message: string;
+    sender: 'teacher' | 'student';
+    timestamp: string;
+}
+const ChatMessages: React.FC<{ chatId: number }> = ({ chatId , id}:any) => {
+    const [messages, setMessages] = useState<Message[]>([]);
+
+console.log(chatId);
+
+
+    useEffect(() => {
+        fetchMessages(chatId);
+    }, [chatId]);
+
+    const fetchMessages = async (chatId: number) => {
+        try {
+            const response = await fetch(`/api/chats/${chatId}/messages`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data: Message[] = await response.json();
+            setMessages(data);
+        } catch (error) {
+            console.error("Error fetching messages:", error);
+        }
+    };
+    
+
+    return (
+        <div>
+            <h2 className="font-bold text-xl mb-4">Messages</h2>
+            <ul>
+                {messages.map((message) => (
+                    <li key={message.id} className="py-2 px-4">
+                        <div className="flex justify-between">
+                            <p>{message.message}</p>
+                            <span>{new Date(message.timestamp).toLocaleString()}</span>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
