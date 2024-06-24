@@ -26,7 +26,7 @@ export default function ServiceEdit() {
     const { auth, service } = usePage().props as unknown as Props;
     const [images, setImages] = useState<any[]>([]);
     const [canCleanImage, setCanCleanImage] = useState(false);
-    const { data, setData, put, errors, progress } = useForm({
+    const { data, setData, post, errors, progress } = useForm({
         name: service.name || "",
         description: service.description || "",
         hourly_rate: service.hourly_rate || "",
@@ -86,7 +86,7 @@ export default function ServiceEdit() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route("teacher.services.update", service.id));
+        post(route("teacher.services.update", service.id));
     };
 
     return (
