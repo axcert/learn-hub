@@ -15,8 +15,6 @@ class Teacher extends Model
         'user_id',
         'bio',
         'position',
-
-
     ];
 
     public function services(){
@@ -39,4 +37,5 @@ class Teacher extends Model
 
         return $ratings->average();
     }
+
 }
