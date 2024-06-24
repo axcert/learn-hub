@@ -20,6 +20,9 @@ interface WelcomeProps {
 
 export default function Index({ auth, services }:WelcomeProps) {
 
+    const handleSearchClick = ()=>{}
+    const handleSearchChange = ()=>{}
+
      return (
         <>
             <Head title="Welcome" />
@@ -74,9 +77,9 @@ export default function Index({ auth, services }:WelcomeProps) {
                     <div className="flex justify-center">
                         <PublicSearchBar
                             placeholder="Search for courses or teachers"
-                            // onClick={handleSearchClick}
-                            // onChange={handleSearchChange}
-                            // searchTerm={searchTerm}
+                            onClick={handleSearchClick}
+                            onChange={handleSearchChange}
+                            searchTerm={'null'}
                         />
                     </div>
                     <p className="text-white font-normal mt-2">
@@ -97,7 +100,7 @@ export default function Index({ auth, services }:WelcomeProps) {
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
                     <div className="p-4 text-gray-900 font-bold">Services</div>
-                    <div className="flex flex-wrap justify-around gap-5 p-4 overflow-x-auto">
+                    <div className="flex flex-wrap justify-around gap-5 p-4 overflow-x-scroll">
                         {services.map((service) => (
                             <ProfileCard
                                 key={service.id}
