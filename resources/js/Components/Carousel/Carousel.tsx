@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import 'tailwindcss/tailwind.css';
 
-const SwipeCards: React.FC = () => {
+const Carousel: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const cards = [
@@ -95,4 +95,4 @@ const SwipeCards: React.FC = () => {
   );
 };
 
-export default SwipeCards;
+export default Carousel;

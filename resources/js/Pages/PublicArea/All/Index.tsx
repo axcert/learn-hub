@@ -8,6 +8,7 @@ import A from "@/../../public/asset/A.png";
 import B from "@/../../public/asset/B.png";
 import Card from "@/Components/Card/Card";
 import ProfileCard from "@/Components/ProfileCard/ProfileCard";
+import Carousel from "@/Components/Carousel/Carousel";
 interface WelcomeProps {
     auth: {
         user: {
@@ -100,17 +101,19 @@ export default function Index({ auth, services }:WelcomeProps) {
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
                     <div className="p-4 text-gray-900 font-bold">Services</div>
-                    <div className="flex flex-wrap justify-around gap-5 p-4 overflow-x-scroll">
+                    <div className="flex flex-wrap justify-around gap-5 p-4">
                         {services.map((service) => (
-                            <ProfileCard
-                                key={service.id}
-                                img={service.image_url}
-                                title={service.name}
-                                name={service.teacher.user.name}
-                                service={service.description}
-                                rating={service.average_rating}
-                                price={service.hourly_rate}
-                            />
+                            // <ProfileCard
+                            //     key={service.id}
+                            //     img={service.image_url}
+                            //     title={service.name}
+                            //     name={service.teacher.user.name}
+                            //     service={service.description}
+                            //     rating={service.average_rating}
+                            //     price={service.hourly_rate}
+                            // />
+
+                            <Carousel/>
                         ))}
                     </div>
                 </div>
