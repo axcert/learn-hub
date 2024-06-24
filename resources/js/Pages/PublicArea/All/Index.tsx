@@ -79,7 +79,7 @@ export default function Index({ auth, services }:WelcomeProps) {
                             placeholder="Search for courses or teachers"
                             onClick={handleSearchClick}
                             onChange={handleSearchChange}
-                            searchTerm={'null'}
+                            searchTerm={''}
                         />
                     </div>
                     <p className="text-white font-normal mt-2">
