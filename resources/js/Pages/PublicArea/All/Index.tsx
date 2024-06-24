@@ -6,12 +6,13 @@ import { useState } from "react";
 import Footer from "@/Components/Footer/Footer";
 import A from "@/../../public/asset/A.png";
 import B from "@/../../public/asset/B.png";
+import Card from "@/Components/Card/Card";
+import ProfileCard from "@/Components/ProfileCard/ProfileCard";
 
 export default function Welcome({ auth }: PageProps) {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearchClick = () => {
-
         console.log("Search clicked with term:", searchTerm);
     };
 
@@ -89,10 +90,9 @@ export default function Welcome({ auth }: PageProps) {
                         </div>
                     </div>
 
-
-{/* img A and b */}
-<div className="mt-5">
-<div className="flex flex-wrap items-center justify-around p-4 mt-4">
+                    {/* img A and b */}
+                    <div className="mt-5">
+                        <div className="flex flex-wrap items-center justify-around p-4 mt-4">
                             <div className="bg-white flex justify-center p-4 m-2">
                                 <img className="h-25 w-auto" src={A} alt="A" />
                             </div>
@@ -100,8 +100,32 @@ export default function Welcome({ auth }: PageProps) {
                                 <img className="h-25 w-auto" src={B} alt="B" />
                             </div>
                         </div>
-</div>
+                    </div>
 
+                 {/* Top Services */}
+                    <div className="mt-5">
+                        <div className="mx-auto sm:px-6 lg:px-8 ">
+                            <div className=" overflow-hidden sm:rounded-lg shadow-lg">
+                                <div className="p-4 text-gray-900 font-bold">
+                                Services
+                                    <div className="mt-2">
+                                        <ProfileCard />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Most recent */}
+                    <div className="mt-5">
+                        <div className="mx-auto sm:px-6 lg:px-8">
+                            <div className="bg-red-500 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div className="p-6 text-gray-900">
+                                    You're logged in!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
