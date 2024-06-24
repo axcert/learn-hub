@@ -9,7 +9,12 @@ import B from "@/../../public/asset/B.png";
 import Card from "@/Components/Card/Card";
 import ProfileCard from "@/Components/ProfileCard/ProfileCard";
 
-export default function Welcome({ auth }: PageProps) {
+export default function Welcome({ auth , services }: PageProps) {
+
+
+    console.log("services : ",services);
+    
+
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearchClick = () => {
@@ -108,8 +113,17 @@ export default function Welcome({ auth }: PageProps) {
                             <div className=" overflow-hidden sm:rounded-lg shadow-lg">
                                 <div className="p-4 text-gray-900 font-bold">
                                 Services
-                                    <div className="mt-2">
-                                        <ProfileCard />
+                                    <div className="mt-2 flex gap-5">
+                                    {services.map((service: any) => (
+                                            <ProfileCard
+                                                key={service.id}
+                                                img={service.image_url}
+                                                title={service.name}
+                                                name={service.teacher.user.name}
+                                                service={service.description}
+                                                rating={service.average_rating}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
