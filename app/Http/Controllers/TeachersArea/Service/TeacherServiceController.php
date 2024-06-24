@@ -55,8 +55,13 @@ class TeacherServiceController extends Controller
         $data['teacher_id'] = $teacher->id;
         $data['status'] = 'pending';
 
-        if($request->hasFile('image')){
-            $imagePath['image'] = $request->file('image')->store('services', 'public');
+        // if($request->hasFile('image')){
+        //     $data['image'] = $request->file('image')->store('services', 'public');
+            
+        // }
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('services', 'public');
             $data['image'] = $imagePath;
         }
 
