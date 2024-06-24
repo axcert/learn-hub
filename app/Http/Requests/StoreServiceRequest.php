@@ -22,7 +22,14 @@ class StoreServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'admin_id' => 'required|integer',
+            'experience' => 'required|string',
+            'hourly_rate' => 'required|numeric',
+            'teacher_id' => 'required|integer',
+            'status' => 'required|string',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

@@ -50,15 +50,16 @@ class TeacherServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $teacher = $this->teacherInterface->findByUserId($request->user()->id);
         $data['teacher_id'] = $teacher->id;
         $data['status'] = 'pending';
 
         if($request->hasFile('image')){
-            $data['image'] = $request->file('image')->store('services', 'public');
+            $imagePath['image'] = $request->file('image')->store('services', 'public');
+            $data['image'] = $imagePath;
         }
-        // Assign the first available admin or a specific logic to select an admin
+
         $admin = User::where('role', 'admin')->first();
 
         if(!$admin){
@@ -67,7 +68,7 @@ class TeacherServiceController extends Controller
         $data['admin_id'] = $admin->id;
 
         $this->serviceInterface->create($data);
-        return redirect()->route('teacher.services.index');
+        return redirect()->route('teacher.services.index')->with('success', 'Service Store successfully.');
     }
 
     /**
@@ -102,17 +103,22 @@ class TeacherServiceController extends Controller
         $data['status'] = 'pending';
 
         if($request->hasFile('image')){
-            $data['image'] = $request->file('image')->store('services', 'public');
+            $imagePath = $request->file('image')->store('services', 'public');
+            $data['image'] = $imagePath;
+        }
+        else {
+                
+            $data['image'] = $service->image;
         }
 
         $this->serviceInterface->update($service->id, $data);
-        return redirect()->route('teacher.services.index');
+        return redirect()->route('teacher.services.index')->with('success', 'Service updated successfully.');
         }
 
 
     public function destroy(Service $service)
     {
         $this->serviceInterface->deleteById($service->id);
-        return redirect()->route('teacher.services.index');
+        return redirect()->route('teacher.services.index')->with('success', 'Service deleted successfully.');
     }
 }

@@ -37,7 +37,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -83,8 +83,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services')->except(['put']);
-        Route::put('/services/{id}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
-
+        Route::post('/services/{id}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
+        
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
         Route::get('teachers/create/', [TeacherTeacherController::class, 'create'])->name('teachers.create');

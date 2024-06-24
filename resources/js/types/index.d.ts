@@ -50,6 +50,7 @@ export interface Teacher {
     approved: any;
     
     image: any;
+    mage_url: any;
     user: any;
     student: any;
     bookings: any;
