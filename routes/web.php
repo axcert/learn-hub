@@ -25,19 +25,26 @@ use App\Http\Controllers\TeachersArea\Overview\TeacherOverviewController;
 use App\Http\Controllers\TeachersArea\Service\TeacherServiceController;
 use App\Http\Controllers\TeachersArea\Student\TeacherStudentController;
 use App\Http\Controllers\TeachersArea\Teacher\TeacherTeacherController;
+use App\Http\Controllers\Welcome\WelcomeController;
 use App\Http\Middleware\TeacherValidationMiddleware;
 use App\Http\Middleware\StudentValidationMiddleware;
+use Illuminate\Routing\Router;
 use Inertia\Inertia;
 
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('welcome');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// })->name('welcome');
+
+
+//Welocome
+Route::get('/',[WelcomeController::class,'index'])->name('welcome.index');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
