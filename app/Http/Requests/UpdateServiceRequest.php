@@ -22,14 +22,12 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'admin_id' => 'required|integer',
-            'experience' => 'required|string',
-            'hourly_rate' => 'required|numeric',
-            'teacher_id' => 'required|integer',
-            'status' => 'required|string',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
+           'name' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'hourly_rate' => ['nullable', 'numeric'],
+            'experience' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'in:pending,approved,rejected,completed,ongoing,upcoming,unenrolled'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ];
 
     }

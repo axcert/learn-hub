@@ -26,7 +26,7 @@ export default function ServiceEdit() {
     const { auth, service } = usePage().props as unknown as Props;
     const [images, setImages] = useState<any[]>([]);
     const [canCleanImage, setCanCleanImage] = useState(false);
-    const { data, setData, put, errors, progress } = useForm({
+    const { data, setData, post, errors, progress } = useForm({
         name: service.name || "",
         description: service.description || "",
         hourly_rate: service.hourly_rate || "",
@@ -104,7 +104,7 @@ export default function ServiceEdit() {
                                 </p>
 
                                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                <div>
+                    <div>
                         <label htmlFor="image" className="block font-medium text-gray-700">
                             Image
                         </label>
@@ -322,8 +322,5 @@ export default function ServiceEdit() {
             </div>
         </TeacherLayout>
     );
-}
-function post(arg0: string) {
-    throw new Error("Function not implemented.");
 }
 
