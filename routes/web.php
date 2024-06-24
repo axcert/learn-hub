@@ -45,6 +45,8 @@ use Inertia\Inertia;
 //Welocome
 Route::get('/',[WelcomeController::class,'index'])->name('welcome.index');
 
+//temp
+Route::resource('temp', TempController::class)->names('admin.temp');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -61,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('services', AdminServiceController::class)->names('admin.services');
         Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
         Route::resource('users', AdminUserController::class)->names('admin.users');
-        Route::resource('temp', TempController::class)->names('admin.temp');
+       
 
 
         Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
