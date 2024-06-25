@@ -36,7 +36,7 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
       <>
         <div
             ref={containerRef}
-            className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5"
+            className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5  p-5"
             style={{ overflowY: 'hidden' }}
         >
             <div className="flex snap-x snap-mandatory gap-4" style={{ width: 'max-content' }}>
@@ -66,7 +66,7 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
                                             "student.teachers.show",
                                             card.teacher.id
                                         )} className="mt-3 block w-full">
-                                    <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:underline ">
+                                    <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:font-bold hover:text-white hover:bg-blue-500 ">
                                         Go Profile
                                     </p>
                                 </Link>
