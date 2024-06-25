@@ -43,13 +43,14 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
     };
 
     return (
+      <>
         <div
             ref={containerRef}
             className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5"
             style={{ overflowY: 'hidden' }}
         >
             <div className="flex snap-x snap-mandatory gap-4" style={{ width: 'max-content' }}>
-                {data.map((card) => (
+                {data.slice(0, 20).map((card)=>(
                     <div key={card.id} className="w-full md:w-64 mx-auto mb-4 md:mb-0 md:max-w-sm">
                         <div className="bg-white border border-gray-200 rounded-lg shadow">
                             <div className="flex flex-col items-center p-4 md:p-6">
@@ -86,12 +87,16 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
                     </div>
                 ))}
             </div>
-            <Link
+           
+        </div>
+
+
+        <Link
            href={getSeeMoreRoute()} 
             >
-          <p className='text-center p-3 text-blue-600 hover:underline'>See More...</p>
+          <p className='text-center -mt-3 text-blue-600 hover:underline'>See More...</p>
             </Link>
-        </div>
+      </>
     );
 };
 
