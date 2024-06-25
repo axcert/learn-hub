@@ -1,13 +1,15 @@
 import { Link, Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
+import { Filters, PageProps, Service } from "@/types";
 import logo from "@/../../public/asstts/img/dashboart-logo.png";
-import PublicSearchBar from "@/Components/SearchBar/PublicSearchBar";
+
 import { useState } from "react";
 import Footer from "@/Components/Footer/Footer";
 import A from "@/../../public/asset/A.png";
 import B from "@/../../public/asset/B.png";
-import Card from "@/Components/Card/Card";
-import ProfileCard from "@/Components/ProfileCard/ProfileCard";
+import ServiceCarousel from "@/Pages/PublicArea/All/Partials/ServiceCarousel";
+import TeacherCarousel from "./Partials/TeacherCarousel";
+import PublicSearchBar from "./Partials/PublicSearchBar";
+
 interface WelcomeProps {
     auth: {
         user: {
@@ -15,24 +17,66 @@ interface WelcomeProps {
         };
     };
     services: Array<any>;
+    filters: Filters;
 }
 
+export default function Index({
+    auth,
+    services = [],
+    search = "",
+}: WelcomeProps & { search?: string }) {
+    const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
-export default function Index({ auth, services }:WelcomeProps) {
+    const [imgFilter, setImgFilter] = useState(true);
 
-    const handleSearchClick = ()=>{}
-    const handleSearchChange = ()=>{}
+    const filteredServices = services.filter(
+        (service) =>
+            service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (service.teacher &&
+                service.teacher.user.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()))
+    );
 
-     return (
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setImgFilter(false);
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchClick = () => {};
+
+    const getSeeMoreRouteServices = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teacher.overviews.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.services.index");
+        }
+        return route("student.services.index");
+    };
+
+    const getSeeMoreRouteTeachers = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teachers.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.teachers.index");
+        }
+        return route("student.teachers.index");
+    };
+
+    return (
         <>
             <Head title="Welcome" />
             <div className="flex justify-between items-center bg-white p-4 shadow-md">
-                <div className="flex items-center">
+                <Link className="flex items-center" href="/">
                     <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
-                    <div className="text-black text-xl font-semibold sm:text-2xl whitespace-nowrap">
+                    <div className="sm:text-2xl whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
                         LMS
                     </div>
-                </div>
+                </Link>
                 <div>
                     {auth.user ? (
                         <Link
@@ -66,7 +110,7 @@ export default function Index({ auth, services }:WelcomeProps) {
                 </div>
             </div>
 
-            <div className="bg-blue-500 overflow-hidden shadow-sm">
+            <div className="bg-blue-500 overflow-hidden shadow-sm max-w-7xl mx-auto rounded-2xl mt-5">
                 <div className="p-6 text-gray-900">
                     <h2 className="text-white text-2xl font-bold mb-2">
                         Hi, Have a Nice day!
@@ -74,51 +118,65 @@ export default function Index({ auth, services }:WelcomeProps) {
                     <p className="text-white text-base font-normal mb-4">
                         Let's learn something new today
                     </p>
-                    <div className="flex justify-center">
+
+                    {/* search bar */}
+                    <div className="flex justify-center pb-10">
                         <PublicSearchBar
-                            placeholder="Search for courses or teachers"
                             onClick={handleSearchClick}
                             onChange={handleSearchChange}
-                            searchTerm={''}
+                            searchTerm={searchTerm}
                         />
                     </div>
-                    <p className="text-white font-normal mt-2">
-                        Popular: UI design, C++, Java
-                    </p>
                 </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-around p-4 mt-4">
-                <div className="bg-white flex justify-center p-4 m-2">
-                    <img className="h-25 w-auto" src={A} alt="A" />
+            {imgFilter && (
+                <div className="flex flex-wrap items-center justify-around p-4 mt-4">
+                    <div className="bg-white flex justify-center p-4 m-2">
+                        <img className="h-25 w-auto" src={A} alt="A" />
+                    </div>
+                    <div className="bg-white flex justify-center p-4 m-2">
+                        <img className="h-25 w-auto" src={B} alt="B" />
+                    </div>
                 </div>
-                <div className="bg-white flex justify-center p-4 m-2">
-                    <img className="h-25 w-auto" src={B} alt="B" />
-                </div>
-            </div>
+            )}
 
+            {/* services */}
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-4 text-gray-900 font-bold">Services</div>
-                    <div className="flex flex-wrap justify-around gap-5 p-4 overflow-x-scroll">
-                        {services.map((service) => (
-                            <ProfileCard
-                                key={service.id}
-                                img={service.image_url}
-                                title={service.name}
-                                name={service.teacher.user.name}
-                                service={service.description}
-                                rating={service.average_rating}
-                                price={service.hourly_rate}
-                            />
-                        ))}
+                    <div className="p-4 text-gray-900 font-bold text-xl ">
+                        Services
+                    </div>
+                    <div className="flex flex-wrap justify-around gap-5 p-4">
+                        <ServiceCarousel data={filteredServices} auth={auth} />
+                    </div>
+                    <div className="">
+                        <Link href={getSeeMoreRouteServices()}>
+                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                See More...
+                            </p>
+                        </Link>
                     </div>
                 </div>
             </div>
 
-            <div className="mx-auto sm:px-6 lg:px-8 mt-5">
-                <div className="bg-red-500 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div className="p-6 text-gray-900">You're logged in!</div>
+            {/* teachers */}
+            <div className="mx-auto sm:px-6 lg:px-8">
+                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
+                    <div className="p-4 text-gray-900 font-bold text-xl ">
+                        Teachers
+                    </div>
+                    <div className="flex flex-wrap justify-around gap-5 p-4">
+                        <TeacherCarousel data={filteredServices} auth={auth} />
+                    </div>
+
+                    <div>
+                        <Link href={getSeeMoreRouteTeachers()}>
+                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                See More...
+                            </p>
+                        </Link>
+                    </div>
                 </div>
             </div>
 
@@ -127,5 +185,4 @@ export default function Index({ auth, services }:WelcomeProps) {
             </div>
         </>
     );
-};
-
+}

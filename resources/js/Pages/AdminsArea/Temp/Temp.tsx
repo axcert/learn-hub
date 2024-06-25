@@ -1,260 +1,98 @@
-// import { Head, Link } from "@inertiajs/react";
-// import { PageProps } from "@/types";
-// import StudentLayout from "@/Layouts/StudentLayout";
-// import img from "@/../../public/asstts/img/girl.jpg";
+import React, { useEffect, useRef } from 'react';
+import 'tailwindcss/tailwind.css';
 
-// interface Chat {
-//     teacher: {
-//         user: {
-//             name: string;
-//             email: string;
-//         };
-//         bio: string;
-//     };
-//     id: number;
-//     name: string;
-// }
+const SwipeCards: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-// interface Props {
-//     chats: Chat[];
-// }
+  const cards = [
+    {
+      id: 1,
+      image: 'https://source.unsplash.com/random/300x200?Cocktail',
+      title: 'Cocktail',
+      description: 'Tropical mix of flavors, perfect for parties.',
+      price: 8.99,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 2,
+      image: 'https://source.unsplash.com/random/300x200?Smoothie',
+      title: 'Smoothie',
+      description: 'Refreshing blend of fruits and yogurt.',
+      price: 5.49,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 3,
+      image: 'https://source.unsplash.com/random/300x200?Iced Coffee',
+      title: 'Iced Coffee',
+      description: 'Cold brewed coffee with a hint of vanilla.',
+      price: 4.99,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 4,
+      image: 'https://source.unsplash.com/random/300x200?Mojito',
+      title: 'Mojito',
+      description: 'Classic Cuban cocktail with mint and lime.',
+      price: 7.99,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 5,
+      image: 'https://source.unsplash.com/random/300x200?Matcha Latte',
+      title: 'Matcha Latte',
+      description: 'Creamy green tea latte, rich in antioxidants.',
+      price: 6.49,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 6,
+      image: 'https://source.unsplash.com/random/300x200?Fruit Punch',
+      title: 'Fruit Punch',
+      description: 'Sweet and tangy punch, bursting with fruity flavors.',
+      price: 3.99,
+      link: 'https://lqrs.com',
+    },
+    {
+      id: 7,
+      image: 'https://source.unsplash.com/random/300x200?Bubble Tea',
+      title: 'Bubble Tea',
+      description: 'Chewy tapioca pearls in a sweet milk tea base.',
+      price: 4.99,
+      link: 'https://lqrs.com',
+    },
+  ];
 
-// const ChatSidebar: React.FC<Props> = ({ chats }) => {
-//     return (
-//         <div className="w-full lg:w-1/4 border-r">
-//             <div className="p-4">
-//                 <h2 className="font-bold text-xl mb-4">Chats</h2>
-//                 <input
-//                     type="text"
-//                     placeholder="Search"
-//                     className="mt-2 p-2 w-full border rounded focus:outline-none focus:border-blue-500"
-//                 />
-//                 <ul className="mt-4 border-spacing-3 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-//                     {chats && chats.length > 0 ? (
-//                         chats.map((chat) => (
-//                             <li
-//                                 className="flex justify-between py-5"
-//                                 key={chat.id}
-//                             >
-//                                 <Link
-//                                     href={route("chats.show", {
-//                                         chat: chat.id,
-//                                     })}
-//                                     className="flex justify-start hover:bg-gray-100 rounded-lg w-full"
-//                                 >
-//                                     <div className="flex min-w-0 gap-x-4 p-2 w-full">
-//                                         <img
-//                                             className="h-12 w-12 flex-none rounded-full bg-gray-50"
-//                                             src={img}
-//                                             alt=""
-//                                         />
-//                                         <div className="min-w-0 flex-auto">
-//                                             <p className="text-sm font-semibold leading-6 text-gray-900">
-//                                                 {chat.teacher.user.name}
-//                                             </p>
-//                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-//                                                 {chat.teacher.user.email}
-//                                             </p>
-//                                         </div>
-//                                     </div>
-//                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
-//                                         <p className="text-sm leading-6 text-gray-900">
-//                                             {chat.teacher.bio}
-//                                         </p>
-//                                         <div className="mt-1 flex items-center gap-x-1.5">
-//                                             <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-//                                                 <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-//                                             </div>
-//                                             <p className="text-xs leading-5 text-gray-500">Online</p>
-//                                         </div>
-//                                     </div>
-//                                 </Link>
-//                             </li>
-//                         ))
-//                     ) : (
-//                         <li className="py-2 px-4">No chats available</li>
-//                     )}
-//                 </ul>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default function Index({ auth, chats }: PageProps) {
-//     return (
-//         <StudentLayout user={auth.user} header="chat">
-//             <Head title="Chats" />
-//             <div className="py-12">
-//                 <div className="mx-auto sm:px-6 lg:px-8">
-//                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-//                         <div className="p-6 text-gray-900 flex flex-col lg:flex-row">
-//                             <ChatSidebar chats={chats} />
-//                             <div className="flex-1">
-//                                 {/* Your main content goes here */}
-//                                 <p className="text-center">Main content here</p>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </StudentLayout>
-//     );
-// }
-
-
-import { useEffect, useState } from "react";
-import { Head, Link } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import StudentLayout from "@/Layouts/StudentLayout";
-import img from "@/../../public/asstts/img/girl.jpg";
-
-interface Chat {
-    teacher: {
-        user: {
-            name: string;
-            email: string;
-        };
-        bio: string;
-    };
-    id: number;
-    name: string;
-}
-
-interface Props {
-    chats: Chat[];
-    onSelectChat: (chatId: number) => void;
-}
-
-const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat }) => {
-    return (
-        <div className="w-full lg:w-1/4 border-r">
-            <div className="p-4">
-                <h2 className="font-bold text-xl mb-4">Chats</h2>
-                <input
-                    type="text"
-                    placeholder="Search"
-                    className="mt-2 p-2 w-full border rounded focus:outline-none focus:border-blue-500"
-                />
-                <ul className="mt-4 border-spacing-3 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {chats && chats.length > 0 ? (
-                        chats.map((chat) => (
-                            <li
-                                className="flex justify-between py-5"
-                                key={chat.id}
-                                onClick={() => onSelectChat(chat.id)}
-                            >
-                                <div className="flex justify-start hover:bg-gray-100 rounded-lg w-full">
-                                    <div className="flex min-w-0 gap-x-4 p-2 w-full">
-                                        <img
-                                            className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                                            src={img}
-                                            alt=""
-                                        />
-                                        <div className="min-w-0 flex-auto">
-                                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                                                {chat.teacher.user.name}
-                                            </p>
-                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                                                {chat.teacher.user.email}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
-                                        <p className="text-sm leading-6 text-gray-900">
-                                            {chat.teacher.bio}
-                                        </p>
-                                        <div className="mt-1 flex items-center gap-x-1.5">
-                                            <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                                                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
-                                            </div>
-                                            <p className="text-xs leading-5 text-gray-500">Online</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        ))
-                    ) : (
-                        <li className="py-2 px-4">No chats available</li>
-                    )}
-                </ul>
-            </div>
-        </div>
-    );
-};
-
-export default function Index({ auth, chats }: PageProps) {
-    const [selectedChatId, setSelectedChatId] = useState<number | null>(null);
-
-    const handleSelectChat = (chatId: number) => {
-        setSelectedChatId(chatId);
-    };
-
-    return (
-        <StudentLayout user={auth.user} header="chat">
-            <Head title="Chats" />
-            <div className="py-12">
-                <div className="mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 flex flex-col lg:flex-row">
-                            <ChatSidebar chats={chats} onSelectChat={handleSelectChat} />
-                            <div className="flex-1">
-                                {selectedChatId ? (
-                                    <ChatMessages chatId={selectedChatId} />
-                                ) : (
-                                    <p className="text-center">Main content here</p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
+  return (
+    <div
+      ref={containerRef}
+      className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5"
+      style={{ overflowY: 'hidden' }}
+    >
+      <div className="flex snap-x snap-mandatory gap-4" style={{ width: 'max-content' }}>
+        {cards.map((card) => (
+          <div key={card.id} className="flex-none w-64 snap-center">
+            <div className="bg-white border-1 border border-gray-200 rounded-lg overflow-hidden mb-4">
+              <img src={card.image} alt={card.title} className="w-full h-40 object-cover" />
+              <div className="p-4">
+                <h3 className="text-lg leading-6 font-bold text-gray-900">{card.title}</h3>
+                <p className="text-gray-600 mt-2 text-sm">{card.description}</p>
+                <div className="flex justify-between items-center mt-4">
+                  <span className="text-2xl font-extrabold text-gray-900">${card.price.toFixed(2)}</span>
+                  <a
+                    href={card.link}
+                    className="text-white bg-fuchsia-950 hover:bg-fuchsia-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                   
+                  </a>
                 </div>
+              </div>
             </div>
-        </StudentLayout>
-    );
-}
-interface Message {
-    id: number;
-    chat_id: number;
-    message: string;
-    sender: 'teacher' | 'student';
-    timestamp: string;
-}
-const ChatMessages: React.FC<{ chatId: number }> = ({ chatId , id}:any) => {
-    const [messages, setMessages] = useState<Message[]>([]);
-
-console.log(chatId);
-
-
-    useEffect(() => {
-        fetchMessages(chatId);
-    }, [chatId]);
-
-    const fetchMessages = async (chatId: number) => {
-        try {
-            const response = await fetch(`/api/chats/${chatId}/messages`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data: Message[] = await response.json();
-            setMessages(data);
-        } catch (error) {
-            console.error("Error fetching messages:", error);
-        }
-    };
-    
-
-    return (
-        <div>
-            <h2 className="font-bold text-xl mb-4">Messages</h2>
-            <ul>
-                {messages.map((message) => (
-                    <li key={message.id} className="py-2 px-4">
-                        <div className="flex justify-between">
-                            <p>{message.message}</p>
-                            <span>{new Date(message.timestamp).toLocaleString()}</span>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
+
+export default SwipeCards;

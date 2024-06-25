@@ -43,8 +43,10 @@ use Inertia\Inertia;
 
 
 //Welocome
-Route::get('/',[WelcomeController::class,'index'])->name('welcome.index');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome.index');
 
+//temp
+Route::resource('temp', TempController::class)->names('admin.temp');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -61,14 +63,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('services', AdminServiceController::class)->names('admin.services');
         Route::resource('profileManage', AdminProfileManageController::class)->names('admin.profileManage');
         Route::resource('users', AdminUserController::class)->names('admin.users');
-        Route::resource('temp', TempController::class)->names('admin.temp');
+
 
 
         Route::post('/admins/overview/{id}/accept', [AdminOverViewController::class, 'accept'])->name('admins.overview.accept');
         Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
     });
 
-
+    // student
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
 
@@ -79,19 +81,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('bookings', StudentBookingController::class)->except(['create'])->names('student.bookings');
         Route::patch('/student/bookings/{booking}/complete', [StudentBookingController::class, 'markAsCompleted'])->name('student.bookings.complete');
 
-//chats
+        //chats
         Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
         // Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
         Route::post('/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
     });
 
 
+    // teacher
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
         Route::post('/services/{service}', [TeacherServiceController::class, 'update'])->name('teacher.services.update');
-        
+
         Route::get('/', [TeacherTeacherController::class, 'index'])->name('teachers.index');
         Route::get('/{id}', [TeacherTeacherController::class, 'show'])->name('teachers.show');
         Route::get('teachers/create/', [TeacherTeacherController::class, 'create'])->name('teachers.create');

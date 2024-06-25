@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoSearch, IoClose } from "react-icons/io5";
 
-interface PublicSearchBarProps {
-    placeholder: string;
+interface SearchBarProps {
     onClick: () => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     searchTerm: string;
+
 }
 
-const PublicSearchBar: React.FC<PublicSearchBarProps> = ({
-    placeholder,
+export default function PublicSearchBar({
     onClick,
     onChange,
     searchTerm,
-}) => {
-    const [showCancel, setShowCancel] = React.useState(false);
+   
+}: SearchBarProps) {
+    const [showCancel, setShowCancel] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e);
@@ -28,10 +28,6 @@ const PublicSearchBar: React.FC<PublicSearchBarProps> = ({
         setShowCancel(false);
     };
 
-    const handleSearchClick = () =>{
-        alert("search");
-    }
-
     return (
         <>
             <div className="relative w-full max-w-lg flex">
@@ -41,31 +37,30 @@ const PublicSearchBar: React.FC<PublicSearchBarProps> = ({
                 <input
                     className="block w-full h-14 pl-10 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     type="search"
-                    placeholder={placeholder}
+                    placeholder="Search for courses or teachers..."
                     value={searchTerm}
                     onChange={handleInputChange}
                 />
 
-                {/* {showCancel && (
+                {showCancel && (
                     <button
                         type="button"
                         className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
                         onClick={handleCancel}
+                
                     >
-                      
+                        
                     </button>
-                )} */}
+                )}
             </div>
-            <div>
-                <button
-                    className="mt-4 lg:mt-0 lg:ml-4 h-14 px-5 py-1 bg-blue-700 hover:bg-blue-500 rounded-lg border border-emerald-50 justify-center items-center text-emerald-50 text-xl font-bold font-['Poppins']"
-                    onClick={handleSearchClick}
-                >
-                    Courses
-                </button>
-            </div>
+
+            {/* <button
+                type="button"
+                className="text-white right-2.5 h-14 w-36 bottom-2.5 ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5"
+                onClick={onClick}
+            >
+                Search
+            </button> */}
         </>
     );
-};
-
-export default PublicSearchBar;
+}
