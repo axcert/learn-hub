@@ -18,13 +18,13 @@ interface WelcomeProps {
     services: Array<any>;
 }
 
+export default function Index({ auth, services }: WelcomeProps) {
+    console.log(services);
 
-export default function Index({ auth, services }:WelcomeProps) {
+    const handleSearchClick = () => {};
+    const handleSearchChange = () => {};
 
-    const handleSearchClick = ()=>{}
-    const handleSearchChange = ()=>{}
-
-     return (
+    return (
         <>
             <Head title="Welcome" />
             <div className="flex justify-between items-center bg-white p-4 shadow-md">
@@ -80,7 +80,7 @@ export default function Index({ auth, services }:WelcomeProps) {
                             placeholder="Search for courses or teachers"
                             onClick={handleSearchClick}
                             onChange={handleSearchChange}
-                            searchTerm={''}
+                            searchTerm={""}
                         />
                     </div>
                     <p className="text-white font-normal mt-2">
@@ -102,19 +102,20 @@ export default function Index({ auth, services }:WelcomeProps) {
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
                     <div className="p-4 text-gray-900 font-bold">Services</div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        {services.map((service) => (
-                            // <ProfileCard
-                            //     key={service.id}
-                            //     img={service.image_url}
-                            //     title={service.name}
-                            //     name={service.teacher.user.name}
-                            //     service={service.description}
-                            //     rating={service.average_rating}
-                            //     price={service.hourly_rate}
-                            // />
+                        {/* {services.map((service) => (
+                            <ProfileCard
+                                key={service.id}
+                                img={service.image_url}
+                                title={service.name}
+                                name={service.teacher.user.name}
+                                service={service.description}
+                                rating={service.average_rating}
+                                price={service.hourly_rate}
+                            />
 
-                            <Carousel/>
-                        ))}
+                        ))} */}
+
+                        <Carousel data={services} />
                     </div>
                 </div>
             </div>
@@ -130,5 +131,4 @@ export default function Index({ auth, services }:WelcomeProps) {
             </div>
         </>
     );
-};
-
+}
