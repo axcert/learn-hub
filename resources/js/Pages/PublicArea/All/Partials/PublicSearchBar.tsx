@@ -49,6 +49,7 @@ export default function PublicSearchBar({
                         onClick={handleCancel}
                 
                     >
+                        
                     </button>
                 )}
             </div>

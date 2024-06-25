@@ -22,12 +22,12 @@ interface WelcomeProps {
 
 export default function Index({
     auth,
-    services=[],
+    services = [],
     search = "",
 }: WelcomeProps & { search?: string }) {
     const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
-   const [imgFilter,setImgFilter]=useState(true);
+    const [imgFilter, setImgFilter] = useState(true);
 
     const filteredServices = services.filter(
         (service) =>
@@ -39,19 +39,39 @@ export default function Index({
     );
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
         setImgFilter(false);
+        setSearchTerm(e.target.value);
     };
 
     const handleSearchClick = () => {};
+
+    const getSeeMoreRouteServices = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teacher.overviews.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.services.index");
+        }
+        return route("student.services.index");
+    };
+
+    const getSeeMoreRouteTeachers = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teachers.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.teachers.index");
+        }
+        return route("student.teachers.index");
+    };
 
     return (
         <>
             <Head title="Welcome" />
             <div className="flex justify-between items-center bg-white p-4 shadow-md">
-                <Link className="flex items-center"
-                href="/"
-                >
+                <Link className="flex items-center" href="/">
                     <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
                     <div className="sm:text-2xl whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
                         LMS
@@ -102,25 +122,24 @@ export default function Index({
                     {/* search bar */}
                     <div className="flex justify-center pb-10">
                         <PublicSearchBar
-                         onClick={handleSearchClick}
+                            onClick={handleSearchClick}
                             onChange={handleSearchChange}
                             searchTerm={searchTerm}
                         />
                     </div>
-
                 </div>
             </div>
 
-           {imgFilter &&(
- <div className="flex flex-wrap items-center justify-around p-4 mt-4">
- <div className="bg-white flex justify-center p-4 m-2">
-     <img className="h-25 w-auto" src={A} alt="A" />
- </div>
- <div className="bg-white flex justify-center p-4 m-2">
-     <img className="h-25 w-auto" src={B} alt="B" />
- </div>
-</div>
-           )}
+            {imgFilter && (
+                <div className="flex flex-wrap items-center justify-around p-4 mt-4">
+                    <div className="bg-white flex justify-center p-4 m-2">
+                        <img className="h-25 w-auto" src={A} alt="A" />
+                    </div>
+                    <div className="bg-white flex justify-center p-4 m-2">
+                        <img className="h-25 w-auto" src={B} alt="B" />
+                    </div>
+                </div>
+            )}
 
             {/* services */}
             <div className="mx-auto sm:px-6 lg:px-8">
@@ -129,8 +148,14 @@ export default function Index({
                         Services
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        {/* <ServiceCarousel data={services}  auth={auth}/> */}
-                        <ServiceCarousel data={filteredServices}  auth={auth}/>
+                        <ServiceCarousel data={filteredServices} auth={auth} />
+                    </div>
+                    <div className="">
+                        <Link href={getSeeMoreRouteServices()}>
+                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                See More...
+                            </p>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -142,8 +167,15 @@ export default function Index({
                         Teachers
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        {/* <TeacherCarousel data={services} auth={auth}/> */}
-                        <TeacherCarousel data={filteredServices} auth={auth}/>
+                        <TeacherCarousel data={filteredServices} auth={auth} />
+                    </div>
+
+                    <div>
+                        <Link href={getSeeMoreRouteTeachers()}>
+                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                See More...
+                            </p>
+                        </Link>
                     </div>
                 </div>
             </div>

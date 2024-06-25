@@ -27,16 +27,7 @@ interface CarouselProps {
 const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const getSeeMoreRoute = () => {
-        if (!auth.user) {
-            return route("register");
-        } else if (auth.user.role === "teacher") {
-            return route("teacher.overviews.index");
-        } else if (auth.user.role === "admin") {
-            return route("admin.services.index");
-        }
-        return route("student.services.index");
-    };
+
 
     return (
         <>
@@ -85,17 +76,19 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
                                         </p>
                                     </Link>
                                 </div>
+                                
                             </div>
+                         
                         </div>
+                  
                     ))}
+                 
                 </div>
             </div>
 
-            <Link href={getSeeMoreRoute()}>
-                <p className="text-center -mt-3 text-blue-600 hover:underline">
-                    See More...
-                </p>
-            </Link>
+        
+
+
         </>
     );
 };
