@@ -57,12 +57,12 @@ const PublicSearchBar: React.FC<PublicSearchBarProps> = ({
                 )} */}
             </div>
             <div>
-                <button
+                {/* <button
                     className="mt-4 lg:mt-0 lg:ml-4 h-14 px-5 py-1 bg-blue-700 hover:bg-blue-500 rounded-lg border border-emerald-50 justify-center items-center text-emerald-50 text-xl font-bold font-['Poppins']"
                     onClick={handleSearchClick}
                 >
                     Courses
-                </button>
+                </button> */}
             </div>
         </>
     );

@@ -70,7 +70,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/admins/overview/{id}/reject', [AdminOverViewController::class, 'reject'])->name('admins.overview.reject');
     });
 
-
+// student
     Route::prefix('students')->middleware(StudentValidationMiddleware::class)->group(function () {
         Route::get('/', [StudentStudentController::class, 'index'])->name('students.index');
 
