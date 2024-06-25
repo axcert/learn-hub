@@ -47,6 +47,7 @@ export default function Index({
     };
 
     const handleSearchClick = () => {
+
     };
 
     return (
@@ -111,6 +112,7 @@ export default function Index({
                             searchTerm={searchTerm}
                         />
                     </div>
+                    
                 </div>
             </div>
 

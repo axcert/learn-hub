@@ -32,70 +32,21 @@ class WelcomeController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
-        $search = $request->input('search');
-        $services = $this->serviceInterface->all()->load('teacher');
+    // public function search(Request $request)
+    // {
+    //     $search = $request->input('search');
+    //     $services = $this->serviceInterface->all()->load('teacher');
 
-        if ($search) {
-            $services = $services->filter(function ($service) use ($search) {
-                return stripos($service->name, $search) !== false ||
-                    stripos(optional($service->teacher)->tname, $search) !== false ||
-                    stripos((string)$service->hourly_rate, $search) !== false;
-            });
-        }
-        return Inertia::render('PublicArea/All/Index', [
-            'search' => $search,
-            'services' => $services,
-        ]);
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    //     if ($search) {
+    //         $services = $services->filter(function ($service) use ($search) {
+    //             return stripos($service->name, $search) !== false ||
+    //                 stripos(optional($service->teacher)->tname, $search) !== false ||
+    //                 stripos((string)$service->hourly_rate, $search) !== false;
+    //         });
+    //     }
+    //     return Inertia::render('PublicArea/All/Index', [
+    //         'search' => $search,
+    //         'services' => $services,
+    //     ]);
+    // }
 }
