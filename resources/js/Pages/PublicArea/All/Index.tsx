@@ -1,7 +1,7 @@
 import { Link, Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import logo from "@/../../public/asstts/img/dashboart-logo.png";
-import PublicSearchBar from "@/Components/SearchBar/PublicSearchBar";
+
 import { useState } from "react";
 import Footer from "@/Components/Footer/Footer";
 import A from "@/../../public/asset/A.png";
@@ -9,6 +9,8 @@ import B from "@/../../public/asset/B.png";
 import Card from "@/Components/Card/Card";
 import ServiceCarousel from "@/Pages/PublicArea/All/Partials/ServiceCarousel";
 import TeacherCarousel from "./Partials/TeacherCarousel";
+import PublicSearchBar from "./Partials/PublicSearchBar";
+
 interface WelcomeProps {
     auth: {
         user: {
@@ -18,9 +20,12 @@ interface WelcomeProps {
     services: Array<any>;
 }
 
-export default function Index({ auth, services }: WelcomeProps) {
-    console.log(services);
-
+export default function Index({
+    auth,
+    services,
+    search = "",
+}: WelcomeProps & { search?: string }) {
+    const [searchTerm, setSearchTerm] = useState<string>(search || "");
     const handleSearchClick = () => {};
     const handleSearchChange = () => {};
 
@@ -77,13 +82,10 @@ export default function Index({ auth, services }: WelcomeProps) {
                     </p>
                     <div className="flex justify-center pb-10">
                         <PublicSearchBar
-                            placeholder="Search for courses or teachers"
-                            onClick={handleSearchClick}
                             onChange={handleSearchChange}
-                            searchTerm={""}
+                            searchTerm={searchTerm}
                         />
                     </div>
-                    
                 </div>
             </div>
 
@@ -96,21 +98,24 @@ export default function Index({ auth, services }: WelcomeProps) {
                 </div>
             </div>
 
-{/* services */}
+            {/* services */}
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-4 text-gray-900 font-bold text-xl ">Services</div>
+                    <div className="p-4 text-gray-900 font-bold text-xl ">
+                        Services
+                    </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
                         <ServiceCarousel data={services} />
                     </div>
                 </div>
             </div>
 
-
-{/* teachers */}
-<div className="mx-auto sm:px-6 lg:px-8">
+            {/* teachers */}
+            <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-4 text-gray-900 font-bold text-xl ">Teachers</div>
+                    <div className="p-4 text-gray-900 font-bold text-xl ">
+                        Teachers
+                    </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
                         <TeacherCarousel data={services} />
                     </div>

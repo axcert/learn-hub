@@ -26,7 +26,7 @@ export default function ServiceIndex({
     search = "",
 }: Props & { search?: string }) {
     const { auth } = usePage().props as unknown as { auth: { user: User } };
-    const [searchTerm, setSearchTerm] = useState<string>(search || "");
+const [searchTerm, setSearchTerm] = useState<string>(search || "");    
     const [selectedService, setSelectedService] = useState<Service | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
