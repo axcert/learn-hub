@@ -5,12 +5,14 @@ interface SearchBarProps {
     onClick: () => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     searchTerm: string;
+
 }
 
 export default function PublicSearchBar({
     onClick,
     onChange,
     searchTerm,
+   
 }: SearchBarProps) {
     const [showCancel, setShowCancel] = useState(false);
 
@@ -45,17 +47,19 @@ export default function PublicSearchBar({
                         type="button"
                         className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
                         onClick={handleCancel}
-                    ></button>
+                
+                    >
+                    </button>
                 )}
             </div>
 
-            <button
+            {/* <button
                 type="button"
                 className="text-white right-2.5 h-14 w-36 bottom-2.5 ml-4 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5"
                 onClick={onClick}
             >
                 Search
-            </button>
+            </button> */}
         </>
     );
 }

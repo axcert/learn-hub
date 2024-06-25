@@ -6,7 +6,6 @@ import { useState } from "react";
 import Footer from "@/Components/Footer/Footer";
 import A from "@/../../public/asset/A.png";
 import B from "@/../../public/asset/B.png";
-import Card from "@/Components/Card/Card";
 import ServiceCarousel from "@/Pages/PublicArea/All/Partials/ServiceCarousel";
 import TeacherCarousel from "./Partials/TeacherCarousel";
 import PublicSearchBar from "./Partials/PublicSearchBar";
@@ -18,7 +17,6 @@ interface WelcomeProps {
         };
     };
     services: Array<any>;
-    // services: Service[];
     filters: Filters;
 }
 
@@ -29,7 +27,7 @@ export default function Index({
 }: WelcomeProps & { search?: string }) {
     const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
-   
+   const [imgFilter,setImgFilter]=useState(true);
 
     const filteredServices = services.filter(
         (service) =>
@@ -40,15 +38,12 @@ export default function Index({
                     .includes(searchTerm.toLowerCase()))
     );
 
-    const pageCount = Math.ceil(filteredServices.length);
-
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
+        setImgFilter(false);
     };
 
-    const handleSearchClick = () => {
-
-    };
+    const handleSearchClick = () => {};
 
     return (
         <>
@@ -112,18 +107,20 @@ export default function Index({
                             searchTerm={searchTerm}
                         />
                     </div>
-                    
+
                 </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-around p-4 mt-4">
-                <div className="bg-white flex justify-center p-4 m-2">
-                    <img className="h-25 w-auto" src={A} alt="A" />
-                </div>
-                <div className="bg-white flex justify-center p-4 m-2">
-                    <img className="h-25 w-auto" src={B} alt="B" />
-                </div>
-            </div>
+           {imgFilter &&(
+ <div className="flex flex-wrap items-center justify-around p-4 mt-4">
+ <div className="bg-white flex justify-center p-4 m-2">
+     <img className="h-25 w-auto" src={A} alt="A" />
+ </div>
+ <div className="bg-white flex justify-center p-4 m-2">
+     <img className="h-25 w-auto" src={B} alt="B" />
+ </div>
+</div>
+           )}
 
             {/* services */}
             <div className="mx-auto sm:px-6 lg:px-8">
@@ -132,7 +129,8 @@ export default function Index({
                         Services
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <ServiceCarousel data={services}  auth={auth}/>
+                        {/* <ServiceCarousel data={services}  auth={auth}/> */}
+                        <ServiceCarousel data={filteredServices}  auth={auth}/>
                     </div>
                 </div>
             </div>
@@ -144,7 +142,8 @@ export default function Index({
                         Teachers
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <TeacherCarousel data={services} auth={auth}/>
+                        {/* <TeacherCarousel data={services} auth={auth}/> */}
+                        <TeacherCarousel data={filteredServices} auth={auth}/>
                     </div>
                 </div>
             </div>
