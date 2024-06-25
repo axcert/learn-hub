@@ -77,7 +77,7 @@ export default function Index({
             <div className="flex justify-between items-center bg-white p-4 shadow-md">
                 <Link className="flex items-center" href="/">
                     <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
-                    <div className="max-sm:hidden whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
+                    <div className=" whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
                         LMS
                     </div>
                 </Link>
@@ -98,13 +98,7 @@ export default function Index({
                     ) : (
                         <>
                            
-                           <Link
-                                href={route("register")}
-                                className="mr-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                            >
-                                About us
-                            </Link>
-
+                          
                             <Link
                                 href={route("login")}
                                 className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
