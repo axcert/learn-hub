@@ -1,8 +1,7 @@
-
-import React, { useRef } from 'react';
-import 'tailwindcss/tailwind.css';
-import StarRating from '../../../../Components/StarRating/StarRating';
-import { Link } from '@inertiajs/react';
+import React, { useRef } from "react";
+import "tailwindcss/tailwind.css";
+import StarRating from "../../../../Components/StarRating/StarRating";
+import { Link } from "@inertiajs/react";
 
 interface Card {
     teacher: any;
@@ -14,26 +13,46 @@ interface Card {
     description: string;
     hourly_rate?: number;
     rating?: number;
-
 }
 
 interface CarouselProps {
     data: Card[];
+    auth: {
+        user: {
+            role: string;
+        };
+    };
 }
 
-const ServiceCarousel: React.FC<CarouselProps> = ({ data }) => {
+const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    console.log(data);
+
+    const getSeeMoreRoute = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teacher.overviews.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.services.index");
+        }
+        return route("student.services.index");
+    };
 
     return (
         <div
             ref={containerRef}
             className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5"
-            style={{ overflowY: 'hidden' }}
+            style={{ overflowY: "hidden" }}
         >
-            <div className="flex snap-x snap-mandatory gap-4" style={{ width: 'max-content' }}>
+            <div
+                className="flex snap-x snap-mandatory gap-4"
+                style={{ width: "max-content" }}
+            >
                 {data.map((card) => (
-                    <div key={card.id} className="w-full md:w-64 mx-auto mb-4 md:mb-0 md:max-w-sm">
+                    <div
+                        key={card.id}
+                        className="w-full md:w-64 mx-auto mb-4 md:mb-0 md:max-w-sm"
+                    >
                         <div className="bg-white border border-gray-200 rounded-lg shadow">
                             <div className="flex flex-col items-center p-4 md:p-6">
                                 <img
@@ -54,22 +73,25 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data }) => {
                                 <div className="mt-3 text-sm text-gray-600">
                                     <p>Service: {card.description}</p>
                                 </div>
-                                <Link href={route('register')}  className="mt-3 block w-full">
+                                <Link
+                                    href={route("register")}
+                                    className="mt-3 block w-full"
+                                >
                                     <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:underline">
                                         Rs: {card.hourly_rate}/hr
                                     </p>
                                 </Link>
                             </div>
-                  
                         </div>
-                        
                     </div>
                 ))}
             </div>
             <Link
-           href={route('register')} 
+                href={getSeeMoreRoute()}
             >
-          <p className='text-center p-3 text-blue-600 hover:underline'>See More...</p>
+                <p className="text-center p-3 text-blue-600 hover:underline">
+                    See More...
+                </p>
             </Link>
         </div>
     );

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { IoSearch, IoClose } from "react-icons/io5";
 
 interface SearchBarProps {
+    onClick: () => void;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     searchTerm: string;
 }
 
 export default function PublicSearchBar({
+    onClick,
     onChange,
     searchTerm,
 }: SearchBarProps) {

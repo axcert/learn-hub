@@ -42,7 +42,10 @@ export default function AdminLayout({
                                     />
                                 </svg>
                             </button>
-                            <div className="flex ms-2 md:me-24 ">
+                            <Link 
+                            href="/" 
+                            className="flex ms-2 md:me-24 ">
+                            
                                 <img
                                     src={dahbordLogo}
                                     className="h-8 me-3 max-sm:size-6"
@@ -51,7 +54,7 @@ export default function AdminLayout({
                                 <div className="self-center max-sm:text-xs text-white text-xl font-semibold sm:text-2xl whitespace-nowrap ">
                                     LMS
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                         {/* AvatarBoard */}
                         <AvatarBoard user={user} />

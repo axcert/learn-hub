@@ -1,5 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
+import { Filters, PageProps, Service } from "@/types";
 import logo from "@/../../public/asstts/img/dashboart-logo.png";
 
 import { useState } from "react";
@@ -18,27 +18,49 @@ interface WelcomeProps {
         };
     };
     services: Array<any>;
+    // services: Service[];
+    filters: Filters;
 }
 
 export default function Index({
     auth,
-    services,
+    services=[],
     search = "",
 }: WelcomeProps & { search?: string }) {
     const [searchTerm, setSearchTerm] = useState<string>(search || "");
-    const handleSearchClick = () => {};
-    const handleSearchChange = () => {};
+
+   
+
+    const filteredServices = services.filter(
+        (service) =>
+            service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (service.teacher &&
+                service.teacher.user.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()))
+    );
+
+    const pageCount = Math.ceil(filteredServices.length);
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchClick = () => {
+    };
 
     return (
         <>
             <Head title="Welcome" />
             <div className="flex justify-between items-center bg-white p-4 shadow-md">
-                <div className="flex items-center">
+                <Link className="flex items-center"
+                href="/"
+                >
                     <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
                     <div className="sm:text-2xl whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
                         LMS
                     </div>
-                </div>
+                </Link>
                 <div>
                     {auth.user ? (
                         <Link
@@ -80,8 +102,11 @@ export default function Index({
                     <p className="text-white text-base font-normal mb-4">
                         Let's learn something new today
                     </p>
+
+                    {/* search bar */}
                     <div className="flex justify-center pb-10">
                         <PublicSearchBar
+                         onClick={handleSearchClick}
                             onChange={handleSearchChange}
                             searchTerm={searchTerm}
                         />
@@ -105,7 +130,7 @@ export default function Index({
                         Services
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <ServiceCarousel data={services} />
+                        <ServiceCarousel data={services}  auth={auth}/>
                     </div>
                 </div>
             </div>
@@ -117,7 +142,7 @@ export default function Index({
                         Teachers
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <TeacherCarousel data={services} />
+                        <TeacherCarousel data={services} auth={auth}/>
                     </div>
                 </div>
             </div>

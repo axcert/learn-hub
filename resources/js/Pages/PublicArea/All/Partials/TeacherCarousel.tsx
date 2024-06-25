@@ -20,11 +20,27 @@ interface Card {
 
 interface CarouselProps {
     data: Card[];
+    auth: {
+        user: {
+            role: string;
+        };
+    };
 }
 
-const TeacherCarousel: React.FC<CarouselProps> = ({ data }) => {
+const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    console.log(data);
+
+
+    const getSeeMoreRoute = () => {
+        if (!auth.user) {
+            return route("register");
+        } else if (auth.user.role === "teacher") {
+            return route("teachers.index");
+        } else if (auth.user.role === "admin") {
+            return route("admin.teachers.index");
+        }
+        return route("student.teachers.index");
+    };
 
     return (
         <div
@@ -71,7 +87,7 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data }) => {
                 ))}
             </div>
             <Link
-           href={route('register')} 
+           href={getSeeMoreRoute()} 
             >
           <p className='text-center p-3 text-blue-600 hover:underline'>See More...</p>
             </Link>
