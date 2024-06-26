@@ -80,27 +80,6 @@ class AdminOverViewController extends Controller
         ]);
     }
     
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-
-     public function edit(string $id)
-     {
-     }
      public function accept($id)
      {
          $service = $this-> serviceInterface-> findById($id);
@@ -116,23 +95,5 @@ class AdminOverViewController extends Controller
          $service->save();
          return redirect()->route('admins.overview.index');
      }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
     
 }

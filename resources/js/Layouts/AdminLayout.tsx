@@ -8,6 +8,7 @@ import { MdDashboard } from "react-icons/md";
 import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { MdAdminPanelSettings } from "react-icons/md";
+import Footer from "@/Components/Footer/Footer";
 
 export default function AdminLayout({
     user,
@@ -27,7 +28,6 @@ export default function AdminLayout({
                                 type="button"
                                 className="inline-flex items-center p-2 text-sm text-white hover:text-black rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                             >
-
                                 <span className="sr-only">Open sidebar</span>
                                 <svg
                                     className="w-6 h-6"
@@ -42,10 +42,7 @@ export default function AdminLayout({
                                     />
                                 </svg>
                             </button>
-                            <Link 
-                            href="/" 
-                            className="flex ms-2 md:me-24 ">
-                            
+                            <Link href="/" className="flex ms-2 md:me-24 ">
                                 <img
                                     src={dahbordLogo}
                                     className="h-8 me-3 max-sm:size-6"
@@ -127,13 +124,12 @@ export default function AdminLayout({
                     <header className="bg-white shadow ">{header}</header>
                 )}
                 <main className="mt-14">{children}</main>
-                <footer className="py- text-center text-xs select-none">
-                    <div className="m-0 ">
-                        <p className="m-0 font-light">
-                            All Rights Reserved by Axcertro
-                            <br />
-                            Powered by | imesh.hirushan@axcertro.com
-                        </p>
+
+                <footer className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className=" text-gray-900">
+                            <Footer />
+                        </div>
                     </div>
                 </footer>
             </div>

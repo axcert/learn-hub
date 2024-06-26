@@ -33,7 +33,7 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
         <>
             <div
                 ref={containerRef}
-                className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5"
+                className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5 p-5"
                 style={{ overflowY: "hidden" }}
             >
                 <div
@@ -71,7 +71,7 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
                                         href={route("register")}
                                         className="mt-3 block w-full"
                                     >
-                                        <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:underline">
+                                        <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:font-bold hover:text-white hover:bg-blue-500 ">
                                             Rs: {card.hourly_rate}/hr
                                         </p>
                                     </Link>

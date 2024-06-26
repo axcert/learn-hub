@@ -24,38 +24,11 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $role)
     {
-      
-        // $this->userInterface->findByColumn(['role' =>$role , 'id'=>$id]);
         $this->userInterface->findByColumn(['role' =>$role]);
-        dd($role);
     }
 
     /**
@@ -63,7 +36,6 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $this->userInterface->update($id, $request->all());
         $request->validate([
             'role' => 'required|string|in:admin,teacher,student',
         ]);
@@ -71,13 +43,5 @@ class AdminUserController extends Controller
         $this->userInterface->update($id, ['role' => $request->input('role')]);
     
         return redirect()->back()->with('success', 'Role updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
