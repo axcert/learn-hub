@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { Head, Link } from "@inertiajs/react";
 import TeacherLayout from "@/Layouts/TeacherLayout";
@@ -25,16 +23,13 @@ export default function TeacherOverview({
     bookings = [],
     bookingsForMyServices = [],
 }: Props) {
-
-
-    console.log("teacher : ",bookings);
-    
+    console.log("teacher services : ", services);
 
     const [date, setDate] = useState<Date | null>(new Date());
-    
+
     const [selectedService, setSelectedService] = useState<Service | null>(
         null
-    ); 
+    );
 
     const [isDialogOpen, setIsDialogOpen] = useState(false); // State for dialog visibility
 
@@ -73,6 +68,7 @@ export default function TeacherOverview({
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5 mx-4 lg:mx-10">
                 <div className="lg:col-span-3">
                     <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {/* card */}
                         {Array.isArray(services) && services.length > 0 ? (
                             services.slice(0, 4).map((service) => (
                                 <div
@@ -99,7 +95,11 @@ export default function TeacherOverview({
                                         </h3>
                                         <hr className="my-1 w-full border-gray-300" />
                                         <div className="mt-1 flex justify-center">
-                                            <StarRating rating={service.average_rating || 0} />
+                                            <StarRating
+                                                rating={
+                                                    service.average_rating || 0
+                                                }
+                                            />
                                         </div>
                                         {service.teacher && (
                                             <p className="mt-1 text-sm text-gray-600">
@@ -110,7 +110,25 @@ export default function TeacherOverview({
                                         <p className="mt-1 text-sm text-gray-600">
                                             {service.description}
                                         </p>
-                                        <p className="px-2 mt-1 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">Rs: {service.hourly_rate}/hr</p>
+                                        <p className="px-2 mt-1 py-1 bg-blue-200 text-blue-800 rounded-full text-xs">
+                                            Rs: {service.hourly_rate}/hr
+                                        </p>
+
+                                        {service.status === "pending" && (
+                                            <p className="text-sm font-bold mt-4 text-green-600">
+                                                Processing...
+                                            </p>
+                                        )}
+                                        {service.status === "rejected" && (
+                                            <p className="text-sm font-bold mt-4 text-red-600">
+                                                Rejected...
+                                            </p>
+                                        )}
+                                        {service.status === "approved" && (
+                                            <p className="text-sm font-bold mt-4 text-blue-600">
+                                                Approved...
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             ))
@@ -141,9 +159,6 @@ export default function TeacherOverview({
                             </Link>
                         </div>
                     )}
-
-
-                
                 </div>
                 <div className="lg:col-span-1 mt-4 lg:mt-0">
                     <div className="bg-white shadow-sm sm:rounded-lg p-4 text-center">
@@ -184,7 +199,7 @@ export default function TeacherOverview({
                                 </tr>
                             </thead>
 
-         {/* service table */}
+                            {/* service table */}
                             <tbody>
                                 {Array.isArray(sortedBookingsForMyServices) &&
                                 sortedBookingsForMyServices.length > 0 ? (
@@ -255,7 +270,8 @@ export default function TeacherOverview({
                                                     >
                                                         Reject
                                                     </button>
-                                                    {booking.status === 'accepted' && (
+                                                    {booking.status ===
+                                                        "accepted" && (
                                                         <button
                                                             className="text-blue-600 ml-2 hover:text-blue-900 font-semibold"
                                                             onClick={() =>
@@ -272,8 +288,6 @@ export default function TeacherOverview({
                                             </tr>
                                         ))
                                 ) : (
-
-                                
                                     <tr>
                                         <td
                                             className="text-center col-span-full text-gray-500"
@@ -338,8 +352,21 @@ export default function TeacherOverview({
                                                     {booking.service
                                                         ?.hourly_rate ?? "N/A"}
                                                 </td>
-                                                
-                                                <td className={`border px-4 py-2 ${booking.status === 'pending' ? 'text-orange-500 font-semibold' : booking.status === 'accepted' ? 'text-green-500 font-semibold' : booking.status === 'completed' ? 'text-blue-500 font-semibold' : 'text-red-500 font-semibold'}`}>
+
+                                                <td
+                                                    className={`border px-4 py-2 ${
+                                                        booking.status ===
+                                                        "pending"
+                                                            ? "text-orange-500 font-semibold"
+                                                            : booking.status ===
+                                                              "accepted"
+                                                            ? "text-green-500 font-semibold"
+                                                            : booking.status ===
+                                                              "completed"
+                                                            ? "text-blue-500 font-semibold"
+                                                            : "text-red-500 font-semibold"
+                                                    }`}
+                                                >
                                                     {booking.status}
                                                 </td>
                                                 <td className="border px-4 py-2">
@@ -350,12 +377,28 @@ export default function TeacherOverview({
                                                         : "N/A"}
                                                 </td>
                                                 <td className="border px-4 py-2">
-                                                    <Link className="text-blue-600 hover:text-blue-900 mr-2" href={route('teacher.bookings.show', booking.id)}>View</Link>
-                                                    {booking.status === 'completed' && (
-                                                    <Link className="text-yellow-600 hover:text-yellow-900 mr-2" href={route('teacher.bookings.edit', booking.id)}>Rate & Comment</Link>
+                                                    <Link
+                                                        className="text-blue-600 hover:text-blue-900 mr-2"
+                                                        href={route(
+                                                            "teacher.bookings.show",
+                                                            booking.id
+                                                        )}
+                                                    >
+                                                        View
+                                                    </Link>
+                                                    {booking.status ===
+                                                        "completed" && (
+                                                        <Link
+                                                            className="text-yellow-600 hover:text-yellow-900 mr-2"
+                                                            href={route(
+                                                                "teacher.bookings.edit",
+                                                                booking.id
+                                                            )}
+                                                        >
+                                                            Rate & Comment
+                                                        </Link>
                                                     )}
                                                 </td>
-                                                
                                             </tr>
                                         ))
                                 ) : (
@@ -395,16 +438,17 @@ export default function TeacherOverview({
                                     className="h-28 w-28 rounded-full"
                                 />
                             </div>
-                            
                         )}
                         <h2 className="text-xl mt-2 font-bold">
                             {selectedService.name}
                         </h2>
                         <hr className="my-1 w-full border-gray-300" />
                         <div className="mt-1 flex justify-center">
-                            <StarRating rating={selectedService.average_rating || 0} />
+                            <StarRating
+                                rating={selectedService.average_rating || 0}
+                            />
                         </div>
-                        
+
                         {selectedService.teacher && (
                             <p className="mt-2">
                                 Teacher: {selectedService.teacher.user.name}
@@ -433,4 +477,3 @@ export default function TeacherOverview({
         </TeacherLayout>
     );
 }
-

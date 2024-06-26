@@ -16,33 +16,49 @@ use App\Models\Admin;
 
 class TeacherServiceController extends Controller
 {
-    public function __construct(protected ServiceInterface $serviceInterface, protected TeacherInterface $teacherInterface){}
+    public function __construct(protected ServiceInterface $serviceInterface, protected TeacherInterface $teacherInterface)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
-       
-    public function index(Request $request)
-    {    
-        $teacherId = $this->teacherInterface->findByUserId($request->user()->id)->id;
 
+    // public function index(Request $request)
+    // {
+    //     $teacher = $this->teacherInterface->findByUserId($request->user()->id)->id;
+    //     if (!$teacher) {
+    //         return redirect()->route('teachers.create');
+    //     }
+    //     $teacherId = $teacher->id;
+    //     $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
+    //     return Inertia::render('TeachersArea/Service/All/Index', [
+    //         'services' => $services,
+    //     ]);
+    // }
+
+    public function index(Request $request)
+    {
+        $teacher = $this->teacherInterface->findByUserId($request->user()->id);
+
+        if (!$teacher) {
+            return redirect()->route('teachers.create');
+        }
+
+        $teacherId = $teacher->id;
         $services = $this->serviceInterface->getByColumn(['teacher_id' => $teacherId]);
 
         return Inertia::render('TeachersArea/Service/All/Index', [
             'services' => $services,
-            
-    ]);
-
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
+    {
         $teachers = $this->teacherInterface->all();
-        return Inertia::render('TeachersArea/Service/Create/Index', ['teachers'=> $teachers]);
-        
-        
+        return Inertia::render('TeachersArea/Service/Create/Index', ['teachers' => $teachers]);
     }
 
     /**
@@ -57,7 +73,7 @@ class TeacherServiceController extends Controller
 
         // if($request->hasFile('image')){
         //     $data['image'] = $request->file('image')->store('services', 'public');
-            
+
         // }
 
         if ($request->hasFile('image')) {
@@ -67,7 +83,7 @@ class TeacherServiceController extends Controller
 
         $admin = User::where('role', 'admin')->first();
 
-        if(!$admin){
+        if (!$admin) {
             return redirect()->route('teacher.services.index')->with('error', 'No admin available to approve the service');
         }
         $data['admin_id'] = $admin->id;
@@ -81,10 +97,9 @@ class TeacherServiceController extends Controller
      */
     public function show(Service $service)
     {
-        
+
         $service = $this->serviceInterface->findById($service->id, ['*'], ['teacher.user']);
         return Inertia::render('TeachersArea/Service/Show/Index', ['service' => $service]);
-       
     }
 
 
@@ -107,18 +122,17 @@ class TeacherServiceController extends Controller
         $data = $request->all();
         $data['status'] = 'pending';
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('services', 'public');
             $data['image'] = $imagePath;
-        }
-        else {
-                
+        } else {
+
             $data['image'] = $service->image;
         }
 
         $this->serviceInterface->update($service->id, $data);
         return redirect()->route('teacher.services.index')->with('success', 'Service updated successfully.');
-        }
+    }
 
 
     public function destroy(Service $service)

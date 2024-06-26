@@ -15,6 +15,9 @@ export default function ServiceIndex() {
     const { auth, services, filters } = usePage().props as unknown as Props;
     const servicesArray = Array.isArray(services) ? services : [];
 
+    console.log(services);
+    
+
     return (
         <TeacherLayout user={auth.user}>
             <Head title="Teacher Services" />
