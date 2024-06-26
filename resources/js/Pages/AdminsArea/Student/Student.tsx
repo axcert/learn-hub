@@ -186,12 +186,12 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                             <p className="mb-3 font-normal text-gray-700 ">
                                 <strong>Phone:</strong> {selectedStudent.phone}
                             </p>
-                            <button
+                            {/* <button
                                 className="w-full md:w-40 px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-2 focus:outline-none focus:ring-green-300"
                                 onClick={readMore}
                             >
                                 Read more
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ) : (
