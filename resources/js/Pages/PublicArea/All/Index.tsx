@@ -10,6 +10,13 @@ import ServiceCarousel from "@/Pages/PublicArea/All/Partials/ServiceCarousel";
 import TeacherCarousel from "./Partials/TeacherCarousel";
 import PublicSearchBar from "./Partials/PublicSearchBar";
 import lmsLogo from "@/..//../public/asstts/img/lms.webp";
+import AXCERTRO from "@/..//../public/asstts/img/AXCERTRO.webp";
+
+import { FaFacebookSquare } from "react-icons/fa";
+import { GrInstagram } from "react-icons/gr";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { BsArrowUpSquareFill } from "react-icons/bs";
+
 interface WelcomeProps {
     auth: {
         user: {
@@ -73,21 +80,49 @@ export default function Index({
 
     useEffect(() => {
         const aboutUsLink = document.querySelector('a[href="#about-us"]');
+        const homeLink = document.querySelector('a[href="#home"]');
+
+        const handleSmoothScroll = (e: Event, targetId: string) => {
+            e.preventDefault();
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+            }
+        };
+
         if (aboutUsLink) {
-            aboutUsLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                const target = document.querySelector("#about-us");
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            });
+            aboutUsLink.addEventListener("click", (e) =>
+                handleSmoothScroll(e, "#about-us")
+            );
         }
+
+        if (homeLink) {
+            homeLink.addEventListener("click", (e) =>
+                handleSmoothScroll(e, "#home")
+            );
+        }
+
+        return () => {
+            if (aboutUsLink) {
+                aboutUsLink.removeEventListener("click", (e) =>
+                    handleSmoothScroll(e, "#about-us")
+                );
+            }
+            if (homeLink) {
+                homeLink.removeEventListener("click", (e) =>
+                    handleSmoothScroll(e, "#home")
+                );
+            }
+        };
     }, []);
 
     return (
         <>
             <Head title="Welcome" />
-            <div className="flex justify-between items-center bg-white p-4 shadow-md">
+            <div
+                id="home"
+                className="flex justify-between items-center bg-white p-4 shadow-md"
+            >
                 <Link className="flex items-center" href="/">
                     <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
                     <div className="max-sm:hidden whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
@@ -135,11 +170,9 @@ export default function Index({
                 </div>
             </div>
 
-
-
             <div className="mx-auto sm:px-6 lg:px-8 ">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-blue-500 p-5">
-                <h2 className="text-white text-2xl font-bold mb-2">
+                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-gradient-to-r from-blue-600 to-blue-300  p-5">
+                    <h2 className="text-white text-2xl font-bold mb-2">
                         Hi, Have a Nice day!
                     </h2>
                     <p className="text-white text-base font-normal mb-4">
@@ -156,7 +189,7 @@ export default function Index({
                     </div>
                 </div>
             </div>
-            
+
             {imgFilter && (
                 <div className="flex flex-wrap items-center justify-around p-4 mt-4">
                     <div className="bg-white flex justify-center p-4 m-2">
@@ -171,7 +204,7 @@ export default function Index({
             {/* services */}
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-200 to-blue-500  rounded-t-lg">
+                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
                         Services
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
@@ -190,7 +223,7 @@ export default function Index({
             {/* teachers */}
             <div className="mx-auto sm:px-6 lg:px-8">
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-200 to-blue-500  rounded-t-lg">
+                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
                         Teachers
                     </div>
                     <div className="flex flex-wrap justify-around gap-5 p-4">
@@ -213,13 +246,13 @@ export default function Index({
                 className="mx-auto sm:px-6 lg:px-8 scroll-smooth"
             >
                 <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-white">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-purple-300 to-blue-500  rounded-t-lg">
+                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
                         About Us
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
                         <div className="col-span-2 p-4">
-                            <p className="p-2 text-gray-900 capitalize text-lg leading-relaxed tracking-wide">
-                                A Learning Management System (LMS) is a software
+                            <p className=" p-6 text-gray-900 capitalize text-lg leading-relaxed tracking-wide max-h-48 max-lg:overflow-y-auto">
+                                <span className="font-bold"> A Learning Management System (LMS)</span> is a software
                                 application designed to facilitate the
                                 administration, documentation, tracking,
                                 reporting, automation, and delivery of
@@ -251,13 +284,72 @@ export default function Index({
 
             {/* ending Page */}
             <div className="mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-blue-500 flex justify-between">
-                    <div className="p-6 text-gray-900">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Pariatur vero a suscipit consectetur obcaecati. Maxime
-                        ipsa hic ipsam non ex possimus officiis laudantium
-                        exercitationem voluptatibus aliquid, expedita natus
-                        deserunt accusamus.
+                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-gradient-to-r from-blue-600 to-blue-300 flex justify-between">
+                    <div className="p-6 text-white font-semibold capitalize  ">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-700 ">
+                            Thank You for Visiting Larning Management System!
+
+                            <br />
+
+                            <img className="w-44" src={AXCERTRO} alt="" />
+                        </h2>
+                        <p>
+                            We hope you found what you were looking for. If you
+                            have any questions or need further assistance,
+                            please don't hesitate to contact us.
+                        </p>
+                        <p className="mt-4">Contact Information:</p>
+                        <ul className="list-disc list-inside">
+                            <li>
+                                Email:{" "}
+                                <span className="lowercase">
+                                    hello@gmail.com
+                                </span>
+                            </li>
+                            <li>Phone: +194 (775) 499-507</li>
+                            <li>
+                                Address: B-15,Samagimw, Randiyagama,
+                                Sooriyawewa, Sri Lanka
+                            </li>
+                        </ul>
+                        <p className="mt-4">Follow us on social media:</p>
+                        <div className="list-disc list-inside flex gap-3 mt-5">
+                            <div>
+                                <a
+                                    href="https://www.facebook.com/axcertro"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <FaFacebookSquare className="size-10 cursor-pointer hover:text-blue-950" />
+                                </a>
+                            </div>
+
+                            <div>
+                                <a
+                                    href="https://x.com/axcertro?mx=2"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
+                                </a>
+                            </div>
+
+                            <div>
+                                <a
+                                    href="https://www.instagram.com/axcertro/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
+                                </a>
+                            </div>
+
+                            <div className="text ml-10">
+                                <a href="#home">
+                                    <BsArrowUpSquareFill className="size-9 cursor-pointer hover:text-blue-950 text-end" />
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
