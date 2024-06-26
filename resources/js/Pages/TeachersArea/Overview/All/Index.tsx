@@ -25,6 +25,11 @@ export default function TeacherOverview({
     bookings = [],
     bookingsForMyServices = [],
 }: Props) {
+
+
+    console.log("teacher : ",bookings);
+    
+
     const [date, setDate] = useState<Date | null>(new Date());
     
     const [selectedService, setSelectedService] = useState<Service | null>(
@@ -136,6 +141,9 @@ export default function TeacherOverview({
                             </Link>
                         </div>
                     )}
+
+
+                
                 </div>
                 <div className="lg:col-span-1 mt-4 lg:mt-0">
                     <div className="bg-white shadow-sm sm:rounded-lg p-4 text-center">
@@ -175,6 +183,8 @@ export default function TeacherOverview({
                                     </th>
                                 </tr>
                             </thead>
+
+         {/* service table */}
                             <tbody>
                                 {Array.isArray(sortedBookingsForMyServices) &&
                                 sortedBookingsForMyServices.length > 0 ? (
@@ -262,6 +272,8 @@ export default function TeacherOverview({
                                             </tr>
                                         ))
                                 ) : (
+
+                                
                                     <tr>
                                         <td
                                             className="text-center col-span-full text-gray-500"
