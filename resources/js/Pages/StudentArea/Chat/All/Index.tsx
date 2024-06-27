@@ -24,6 +24,9 @@ interface Props {
 
 const ChatSidebar: React.FC<Props> = ({ chats, onSelectChat}) => {
 
+
+    console.log('chats : ',chats);
+    
     return (
         // Chats View
         <div className="w-full lg:w-1/4 border-r">
@@ -91,6 +94,9 @@ export default function Index({ auth, chats , message }: PageProps) {
 
     const handleSelectChat = (chatId: number) => {
         setSelectedChatId(chatId);
+
+        console.log('chatId : ', chatId);
+        
     };
 
     return (
@@ -133,11 +139,14 @@ interface Message {
     timestamp: string;
 }
 
+
+
 interface ChatMessagesProps {
     chatId: number;
     chats: Chat[];
     message:any;
 }
+
 
 const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) => {
     const [messages, setMessages] = useState<Message[]>([]);
