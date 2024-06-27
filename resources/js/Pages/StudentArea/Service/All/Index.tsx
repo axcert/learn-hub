@@ -74,6 +74,13 @@ export default function ServiceIndex({
         setIsDialogOpen(false);
     };
 
+    const chatNow = (teacherId: number, userId: number) => {
+        Inertia.post(route("student.chat.store"), {
+            teacher_id: teacherId,
+            user_id: userId,
+        });
+    };
+
     return (
         <StudentLayout user={auth.user}>
             <div className="bg-gray-100 py-15 sm:py-10">
@@ -225,7 +232,7 @@ export default function ServiceIndex({
                         <p className="mt-2">{selectedService.description}</p>
                         <p className="text-gray-700 mb-2">Experience: {selectedService.experience}</p>
                         <p className="mt-2">Hourly Rate: Rs {selectedService.hourly_rate}</p>
-                        <div className="flex justify-center items-center mt-6">
+                        <div className="flex justify-center flex-col items-center mt-6">
                             <Link
                                 href={route("student.bookings.create", {
                                     service_id: selectedService.id,
@@ -234,6 +241,19 @@ export default function ServiceIndex({
                             >
                                 Book Service
                             </Link>
+                            <button
+                                onClick={() =>
+                                    selectedService?.teacher &&
+                                    chatNow(
+                                        selectedService.teacher.id,
+                                        auth.user.id
+                                    )
+                                }
+                                className="text-green-600 hover:text-green-900 font-bold cursor-pointer"
+                            >
+                                Chat Now
+                            </button>
+
                         </div>
                     </div>
                 )}
