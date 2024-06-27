@@ -64,8 +64,8 @@ class StudentChatController extends Controller
  
     public function getMessages($chatId)
     {
-        $messages = Chat::find($chatId)->messages()->get();
-        return response()->json($messages);
+        // $messages = Chat::find($chatId)->messages()->get();
+        // return response()->json($messages);
     }
 
     /**
