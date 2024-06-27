@@ -153,21 +153,21 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) =>
 
     console.log('message : ',message);
 
-    useEffect(() => {
-        fetchMessages(chatId);
-    }, [chatId]);
-    const fetchMessages = async (chatId: number) => {
-        try {
-            const response = await fetch(`/api/chats/${chatId}/messages`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data: Message[] = await response.json();
-            setMessages(data);
-        } catch (error) {
-            console.error("Error fetching messages:", error);
-        }
-    };
+    // useEffect(() => {
+    //     fetchMessages(chatId);
+    // }, [chatId]);
+    // const fetchMessages = async (chatId: number) => {
+    //     try {
+    //         const response = await fetch(`/api/chats/${chatId}/messages`);
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
+    //         const data: Message[] = await response.json();
+    //         setMessages(data);
+    //     } catch (error) {
+    //         console.error("Error fetching messages:", error);
+    //     }
+    // };
 
     if (!chatId || !chats || chats.length === 0) {
         return <p className="text-center">No chat selected</p>;
@@ -178,6 +178,10 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) =>
     if (!chat || !chat.teacher || !chat.teacher.user) {
         return <p className="text-center">Invalid chat data</p>;
     }
+
+    const timestamp = new Date();
+const timeString = timestamp.toLocaleTimeString();
+
 
     return (
         <div>
@@ -196,21 +200,19 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({ chatId, chats ,message}) =>
                     <div className="flex flex-col w-full max-w-[320px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
                         <div className="flex items-center space-x-2 rtl:space-x-reverse">
                             <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                                {chats.map((chat) => (
-                                    <div key={chat.id}>
+                                {message.map((message:any) => (
+                                    <div key={message.id}>
                                         <p>{chat.teacher.user.name}</p>
                                     </div>
                                 ))}
                             </span>
-                            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                11:46
-                            </span>
+                            
                         </div>
                         <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut corporis obcaecati totam consequuntur illo voluptate aperiam dicta, qui vero similique possimus eveniet non nisi laboriosam tempora enim libero doloribus rem!
+                        ffffffffff
                         </p>
                         <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                            Delivered
+                        {timeString}
                         </span>
                     </div>
                     <button
