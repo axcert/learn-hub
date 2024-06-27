@@ -46,9 +46,8 @@ class StudentChatController extends Controller
             'teacher_id' => 'required|exists:teachers,id',
             'user_id' => 'required|exists:users,id',
         ]);
-     
-    $this->chatsInterface->storeChat($request->all());
-
+        $this->chatsInterface->storeChat($request->all());
+        return redirect()->route('chats.index');
     }
 
     /**
@@ -56,17 +55,17 @@ class StudentChatController extends Controller
      */
     public function show(Message $message)
     {
-     
         return Inertia::render('StudentArea/Chat/All/Chat', [
             'message' => $message,
         ]);
     }
- 
-    public function getMessages($chatId)
-    {
-        // $messages = Chat::find($chatId)->messages()->get();
-        // return response()->json($messages);
-    }
+
+    // public function getMessages($chatId)
+    // {
+    //     $messages = Chat::find($chatId)->messages()->get();
+    //     return response()->json($messages);
+
+    // }
 
     /**
      * Show the form for editing the specified resource.
