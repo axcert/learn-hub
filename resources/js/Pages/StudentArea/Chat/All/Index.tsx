@@ -117,9 +117,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
         setMessages([...messages, newMsg]);
         setNewMessage("");
     };
-
     const chat = chats.find((chat) => chat.id === chatId);
-
     return (
         <div className="flex flex-col h-full">
             <div className="p-2 font-bold">
