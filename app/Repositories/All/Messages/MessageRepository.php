@@ -27,4 +27,5 @@ class MessageRepository extends BaseRepository implements MessageInterface
      {
          $this->model = $model;
      }
+
 }
