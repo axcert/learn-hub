@@ -323,6 +323,16 @@ export default function Index({
                                     <FaFacebookSquare className="size-10 cursor-pointer hover:text-blue-950" />
                                 </a>
                             </div>
+                            <div>
+                                <a
+                                    href="https://www.instagram.com/axcertro/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                     <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
+                                  
+                                </a>
+                            </div>
 
                             <div>
                                 <a
@@ -330,17 +340,7 @@ export default function Index({
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
-                                </a>
-                            </div>
-
-                            <div>
-                                <a
-                                    href="https://www.instagram.com/axcertro/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
+                                     <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
                                 </a>
                             </div>
 
