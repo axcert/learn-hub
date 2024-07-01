@@ -5,13 +5,10 @@ import { ChatSidebar } from "./partials/ChatSidebar";
 import ChatMessages from "./partials/ChatMessages";
 
 export default function Chat({ chats, auth, }:{chats:any[],auth:any}) {
-
   const [messages, setMessages] = useState<any[]>([]);
-
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
-
     return (
         <StudentLayout header="Chat" user={auth}>
             <Head title="Chats" />
