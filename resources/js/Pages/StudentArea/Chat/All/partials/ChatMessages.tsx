@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 
-export default function ChatMessages({chats,}: {chats:any[],}) {
-
+export default function ChatMessages({ chats }: { chats: any[] }) {
     console.log("chatMessage : ", chats);
 
     const handleSelectChat = () => {
-        console.log("chat");
+        alert('post chat');
     };
 
     return (
@@ -16,46 +15,45 @@ export default function ChatMessages({chats,}: {chats:any[],}) {
             </div>
             <div className="flex-grow overflow-y-auto">
                 <ul className="p-5 overflow-y-scroll max-h-80">
-                   
-
-{Array.isArray(chats) && chats.map((chat: any) => (
-                        <li key={chat?.id} className="py-2 px-4">
-                            {chat?.sender === "student" ? (
-                                <div className="flex justify-end">
-                                    <div className="max-w-60">
-                                        <p className="font-bold text-sm text-left">
-                                            Sender: Student
-                                        </p>
-                                        <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
-                                            <p>{chat?.message}</p>
+                    {Array.isArray(chats) &&
+                        chats.map((chat: any) => (
+                            <li key={chat?.id} className="py-2 px-4">
+                                {chat?.sender === "student" ? (
+                                    <div className="flex justify-end">
+                                        <div className="max-w-60">
+                                            <p className="font-bold text-sm text-left">
+                                                Sender: Student
+                                            </p>
+                                            <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
+                                                <p>{chat?.message}</p>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {new Date(
+                                                    chat?.timestamp
+                                                ).toLocaleString()}
+                                            </p>
                                         </div>
-                                        <p className="text-xs text-gray-400 mt-1">
-                                            {new Date(
-                                                chat?.timestamp
-                                            ).toLocaleString()}
-                                        </p>
                                     </div>
-                                </div>
-                            ) : chat?.sender === "teacher" ? (
-                                <div className="flex items-start">
-                                    <div className="max-w-60">
-                                        <p className="font-bold text-sm">
-                                            Receiver:{" "}
-                                            {chat?.teacher?.user?.name}
-                                        </p>
-                                        <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
-                                            <p>{chat?.message}</p>
+                                ) : chat?.sender === "teacher" ? (
+                                    <div className="flex items-start">
+                                        <div className="max-w-60">
+                                            <p className="font-bold text-sm">
+                                                Receiver:{" "}
+                                                {chat?.teacher?.user?.name}
+                                            </p>
+                                            <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
+                                                <p>{chat?.message}</p>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {new Date(
+                                                    chat?.timestamp
+                                                ).toLocaleString()}
+                                            </p>
                                         </div>
-                                        <p className="text-xs text-gray-400 mt-1">
-                                            {new Date(
-                                                chat?.timestamp
-                                            ).toLocaleString()}
-                                        </p>
                                     </div>
-                                </div>
-                            ) : null}
-                        </li>
-                    ))}
+                                ) : null}
+                            </li>
+                        ))}
                 </ul>
             </div>
 
@@ -70,8 +68,6 @@ export default function ChatMessages({chats,}: {chats:any[],}) {
                             role="1"
                             className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                             placeholder="Your message..."
-                          
-                      
                         ></textarea>
                         <button
                             type="submit"
