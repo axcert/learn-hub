@@ -9,6 +9,7 @@ use App\Models\Messages;
 use App\Repositories\All\Chats\ChatsInterface;
 use App\Repositories\All\Messages\MessageInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StudentChatController extends Controller
@@ -20,15 +21,28 @@ class StudentChatController extends Controller
     }
     public function index()
     {
+        $chats = $this->chatsInterface->getByColumn(['user_id'=> Auth::id()],['*'],['user','teacher']);
+        $messages = $this->messageInterface->all();
 
-        $message = $this->messageInterface->all();
-        $chats = $this->chatsInterface->getStudentChats();
-        return Inertia::render('StudentArea/Chat/All/Index', [
+            foreach ($chats as $chat) {
+                $studentChat = [];
+              foreach($messages as $message){
+                if($message->chat_id == $chat->id){
+                    $studentChat[]=$message;
+                }
+              }
+              $chat['messages'] = $studentChat;
+              
+            }
+
+
+        return Inertia::render('StudentArea/Chat/All/Chat', [
             'chats' => $chats,
-            'message' => $message,
         ]);
     }
 
+
+   
     /**
      * Show the form for creating a new resource.
      */

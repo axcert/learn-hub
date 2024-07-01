@@ -17,6 +17,11 @@ class Teacher extends Model
         'position',
     ];
 
+    // get user teacher details
+    protected $with =[
+        'user',
+    ];
+
     public function services(){
         return $this->hasMany(Service::class ,  'teacher_id');
     }

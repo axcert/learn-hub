@@ -27,16 +27,17 @@ class ChatsRepository extends BaseRepository implements ChatsInterface
 
 
 
-    public function getStudentChats()
-    {
-        $user = auth()->user();
-        if ($user) {
-            return Chat::where('user_id', $user->id)
-                ->with('teacher.user')
-                ->get();
-        }
-        return [];
-    }
+    // public function getStudentChats()
+    // {
+    //     $user = auth()->user();
+    //     if ($user) {
+    //         return Chat::where('user_id', $user->id)
+    //             ->with('teacher.user')
+    //             ->with('teacher.user')
+    //             ->get();
+    //     }
+    //     return [];
+    // }
 
     public function storeChat(array $data)
     {
