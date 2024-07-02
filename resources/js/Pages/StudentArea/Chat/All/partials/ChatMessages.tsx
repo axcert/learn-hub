@@ -14,10 +14,11 @@ export default function ChatMessages({
     // console.log("sendeReceiver : ", sendeReceiver);
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
+    const [editingMessage, setEditingMessage] = useState<string>("");
 
-    const { data, setData, post, processing, errors, reset} = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
-        chat_id:"",
+        chat_id: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,20 +41,31 @@ export default function ChatMessages({
         });
     };
 
-
     const handleDelete = (chatId: string) => {
         if (confirm("Are you sure you want to delete this message?")) {
-            router.delete(route("student.chat.delete", { id: chatId })),{
-                preserveScroll: true,
-                onSuccess: () => {
-                    reset();
-                    setDropdownVisible(null);
-                },
-            }
+            router.delete(route("student.chat.delete", { id: chatId })),
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        reset();
+                        setDropdownVisible(null);
+                    },
+                };
         }
     };
 
-    
+    const handleUpdate = (chatId: string, message: string) => {
+        console.log(message);
+
+        setEditingMessage(message);
+        setDropdownVisible(null);
+    };
+
+    const cancelEdit = () => {
+        setEditingMessage("");
+        setDropdownVisible(null);
+    };
+
     return (
         <div className="flex flex-col h-full">
             <div className="p-2 font-bold">
@@ -96,16 +108,21 @@ export default function ChatMessages({
                                                     >
                                                         <ul className="py-2 text-sm text-gray-700 ">
                                                             <li>
-                                                                <a
-                                                                    href="#"
+                                                                <button
+                                                                    onClick={() =>
+                                                                        handleUpdate(
+                                                                            chat.id,
+                                                                            chat.message
+                                                                        )
+                                                                    }
                                                                     className="block px-4 py-2 hover:bg-gray-100"
                                                                 >
                                                                     Edit
-                                                                </a>
+                                                                </button>
                                                             </li>
 
                                                             <li>
-                                                            <button
+                                                                <button
                                                                     className="block w-full px-4 py-2 text-left hover:bg-gray-100"
                                                                     onClick={() =>
                                                                         handleDelete(
@@ -114,6 +131,17 @@ export default function ChatMessages({
                                                                     }
                                                                 >
                                                                     Delete
+                                                                </button>
+                                                            </li>
+
+                                                            <li>
+                                                                <button
+                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                                                    onClick={() =>
+                                                                        cancelEdit()
+                                                                    }
+                                                                >
+                                                                    Cansel Edit
                                                                 </button>
                                                             </li>
                                                         </ul>
@@ -160,7 +188,7 @@ export default function ChatMessages({
                         <textarea
                             id="chat"
                             name="message"
-                            value={data.message}
+                            value={data.message || editingMessage}
                             onChange={handleChange}
                             className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                             placeholder="Your message..."
@@ -180,4 +208,3 @@ export default function ChatMessages({
         </div>
     );
 }
-
