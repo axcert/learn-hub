@@ -64,7 +64,6 @@ class StudentChatController extends Controller
         return redirect()->route('chats.index');
     }
 
-
     public function chats(Request $request)
     {
         $validatedData = $request->validate([
