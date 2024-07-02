@@ -3,17 +3,9 @@ import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
-export default function ChatMessages({
-    chats,
-   
-}: {
-    chats: any[];
-
-}) {
+export default function ChatMessages({ chats }: { chats: any[] }) {
     console.log("chatMessage : ", chats);
     // console.log("sendeReceiver : ", sendeReceiver);
-
-
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editingMessage, setEditingMessage] = useState<string>("");
@@ -25,7 +17,7 @@ export default function ChatMessages({
 
     useEffect(() => {
         if (chats.length) {
-            setData('chat_id', chats[0].chat_id);
+            setData("chat_id", chats[0].chat_id);
         }
     }, [chats]);
 
@@ -60,7 +52,9 @@ export default function ChatMessages({
         console.log(message);
 
         setEditingMessage(message);
+        router.post(route("student.chat.update", { id: chatId })),
         setDropdownVisible(null);
+    
     };
 
     const cancelEdit = () => {
@@ -210,4 +204,3 @@ export default function ChatMessages({
         </div>
     );
 }
-

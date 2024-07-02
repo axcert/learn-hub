@@ -106,9 +106,18 @@ class StudentChatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
     
+        $message = $this->messageInterface->findById($id);
+        $message->update([
+            'message' => $validatedData['message'],
+        ]);
+    
+        return back();
     }
 
     /**

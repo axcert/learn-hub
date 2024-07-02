@@ -87,7 +87,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/student/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
         Route::post('/student/chats/chats', [StudentChatController::class, 'chats'])->name('student.chat.chats');
         Route::delete('/student/chats/{id}', [StudentChatController::class, 'destroy'])->name('student.chat.delete');
-        Route::patch('//student/chats/update', [StudentChatController::class, 'update'])->name('student.chat.update');
+        Route::post('/student/chats/update/{id}', [StudentChatController::class, 'update'])->name('student.chat.update');
+
     });
 
 
