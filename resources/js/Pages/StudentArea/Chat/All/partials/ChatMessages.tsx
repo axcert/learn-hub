@@ -1,11 +1,27 @@
+import { router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 
-export default function ChatMessages({ chats }: { chats: any[] }) {
+export default function ChatMessages({chats,sendeReceiver }: { chats: any[] , sendeReceiver:any}) {
     console.log("chatMessage : ", chats);
+    // console.log("sendeReceiver : ", sendeReceiver);
 
-    const handleSelectChat = () => {
-        alert("post chat");
+    const { data, setData, post, processing, errors, reset } = useForm({
+        message:"",
+        chat_id:"",
+    });
+
+    const handleChange = (e:any) => {
+        setData(e.target.name, e.target.value);
+    };
+
+    const handleSubmit = (e:any) => {
+        e.preventDefault();
+        console.log(data);
+        post(route('student.chat.chats'), {
+            preserveScroll: true,
+            onSuccess: () => reset(),
+        });
     };
 
     return (
@@ -21,7 +37,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                 <div className="flex justify-end">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
-                                            Sender: Student
+                                            Sender:
                                         </p>
                                         <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
                                             <p>{chat?.message}</p>
@@ -38,7 +54,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm">
                                             Receiver:{" "}
-                                            {chat?.teacher?.user?.name}
+                                            {sendeReceiver?.teacher?.bio}
                                         </p>
                                         <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
                                             <p>{chat?.message}</p>
@@ -57,14 +73,16 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
             </div>
 
             <div className="mt-5">
-                <form onSubmit={handleSelectChat}>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="chat" className="sr-only">
                         Your message
                     </label>
                     <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 ">
                         <textarea
-                            id="chat"
-                            role="1"
+                          id="chat"
+                          name="message"
+                          value={data.message}
+                          onChange={handleChange}
                             className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                             placeholder="Your message..."
                         ></textarea>
