@@ -1,5 +1,5 @@
 import { router, useForm } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
@@ -10,8 +10,9 @@ export default function ChatMessages({
     chats: any[];
 
 }) {
-    // console.log("chatMessage : ", chats);
+    console.log("chatMessage : ", chats);
     // console.log("sendeReceiver : ", sendeReceiver);
+
 
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
@@ -19,8 +20,14 @@ export default function ChatMessages({
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
-        chat_id: "",
+        chat_id: chats.length ? chats[0].chat_id : "",
     });
+
+    useEffect(() => {
+        if (chats.length) {
+            setData('chat_id', chats[0].chat_id);
+        }
+    }, [chats]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -45,13 +52,7 @@ export default function ChatMessages({
     const handleDelete = (chatId: string) => {
         if (confirm("Are you sure you want to delete this message?")) {
             router.delete(route("student.chat.delete", { id: chatId })),
-                {
-                    preserveScroll: true,
-                    onSuccess: () => {
-                        reset();
-                        setDropdownVisible(null);
-                    },
-                };
+                setDropdownVisible(null);
         }
     };
 
@@ -209,3 +210,4 @@ export default function ChatMessages({
         </div>
     );
 }
+
