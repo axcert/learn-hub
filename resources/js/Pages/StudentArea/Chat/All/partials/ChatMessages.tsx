@@ -73,10 +73,10 @@ export default function ChatMessages({
             </div>
             <div className="flex-grow overflow-y-auto">
                 <ul className="p-5 overflow-y-scroll max-h-80">
-                    {chats.map((chat: any) => (
+                    {chats?.map((chat: any) => (
                         <li key={chat?.id} className="py-2 px-4">
                             {chat?.sender === "student" ? (
-                                <div className="flex justify-end">
+                                <div className="flex justify-end relative">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
                                             Sender:
