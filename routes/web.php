@@ -84,7 +84,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //chats
         Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
         Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
-        Route::post('/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
+        Route::post('/student/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
+        Route::post('/student/chats/chats', [StudentChatController::class, 'chats'])->name('student.chat.chats');
+        Route::delete('/student/chats/{id}', [StudentChatController::class, 'destroy'])->name('student.chat.delete');
+        Route::post('/student/chats/update/{id}', [StudentChatController::class, 'update'])->name('student.chat.update');
+
     });
 
 

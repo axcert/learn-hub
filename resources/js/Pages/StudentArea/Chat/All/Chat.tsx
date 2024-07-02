@@ -4,8 +4,8 @@ import { Head } from "@inertiajs/react";
 import { ChatSidebar } from "./partials/ChatSidebar";
 import ChatMessages from "./partials/ChatMessages";
 
-export default function Chat({ chats, auth, }:{chats:any[],auth:any}) {
-  const [messages, setMessages] = useState<any[]>([]);
+export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
+    const [messages, setMessages] = useState<any[]>([]);
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
@@ -21,11 +21,7 @@ export default function Chat({ chats, auth, }:{chats:any[],auth:any}) {
                                 onSelectChat={onSelectedMessage}
                             />
                             <div className="flex-1">
-                               
-                            <ChatMessages
-                                chats={messages}
-                            />
-                        
+                                <ChatMessages chats={messages} />
                             </div>
                         </div>
                     </div>

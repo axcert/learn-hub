@@ -48,7 +48,7 @@ class StudentChatController extends Controller
      */
     public function create()
     {
-        //
+ 
     }
 
     /**
@@ -64,6 +64,25 @@ class StudentChatController extends Controller
         return redirect()->route('chats.index');
     }
 
+    public function chats(Request $request)
+    {
+        $validatedData = $request->validate([
+            'chat_id' => 'required|exists:chats,id',
+            'message' => 'required|string',
+        ]);
+    
+        $this->messageInterface->create([
+            'chat_id' => $validatedData['chat_id'],
+            'message' => $validatedData['message'],
+            'sender' => 'student',
+            'timestamp' => now(),
+        ]);
+    
+        return back();
+    }
+    
+    
+
     /**
      * Display the specified resource.
      */
@@ -74,12 +93,6 @@ class StudentChatController extends Controller
         ]);
     }
 
-    // public function getMessages($chatId)
-    // {
-    //     $messages = Chat::find($chatId)->messages()->get();
-    //     return response()->json($messages);
-
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -92,9 +105,18 @@ class StudentChatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+    
+        $message = $this->messageInterface->findById($id);
+        $message->update([
+            'message' => $validatedData['message'],
+        ]);
+    
+        return back();
     }
 
     /**
@@ -102,6 +124,7 @@ class StudentChatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->messageInterface->deleteById($id);
+        // return redirect()->route('chats.index');
     }
 }
