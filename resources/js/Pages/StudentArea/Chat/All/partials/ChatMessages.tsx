@@ -5,13 +5,14 @@ import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
 export default function ChatMessages({
     chats,
-    sendeReceiver,
+   
 }: {
     chats: any[];
-    sendeReceiver: any;
+
 }) {
-    console.log("chatMessage : ", chats);
+    // console.log("chatMessage : ", chats);
     // console.log("sendeReceiver : ", sendeReceiver);
+
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editingMessage, setEditingMessage] = useState<string>("");
@@ -91,7 +92,7 @@ export default function ChatMessages({
                                                     id={`dropdownMenuIconButton-${chat.id}`}
                                                     data-dropdown-toggle="dropdownDots"
                                                     data-dropdown-placement="bottom-start"
-                                                    className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+                                                    className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none"
                                                     type="button"
                                                     onClick={() =>
                                                         toggleDropdown(chat.id)
@@ -161,7 +162,7 @@ export default function ChatMessages({
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm">
                                             Receiver:{" "}
-                                            {sendeReceiver?.teacher?.bio}
+                                            {/* {sendeReceiver?.teacher?.bio} */}
                                         </p>
                                         <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
                                             <p>{chat?.message}</p>

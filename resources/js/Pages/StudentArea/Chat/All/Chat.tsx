@@ -24,7 +24,7 @@ export default function Chat({ chats, auth, }:{chats:any[],auth:any}) {
                                
                             <ChatMessages
                                 chats={messages}
-                                sendeReceiver={chats}
+                      
                                
                             />
                         
