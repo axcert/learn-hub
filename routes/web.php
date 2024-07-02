@@ -86,6 +86,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
         Route::post('/student/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
         Route::post('/student/chats/chats', [StudentChatController::class, 'chats'])->name('student.chat.chats');
+        Route::delete('/student/chats/{id}', [StudentChatController::class, 'destroy'])->name('student.chat.delete');
     });
 
 

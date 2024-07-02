@@ -116,6 +116,7 @@ class StudentChatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->messageInterface->deleteById($id);
+        // return redirect()->route('chats.index');
     }
 }
