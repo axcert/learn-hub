@@ -63,13 +63,7 @@ export default function SearchBar({
                             ></button>
                         )}
                     </div>
-                    {/* <button
-                        type="button"
-                        className="text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-sm rounded-lg text-sm px-5 h-10 "
-                        onClick={onClick}
-                    >
-                        Search
-                    </button> */}
+                   
                 </div>
             </div>
         </section>
