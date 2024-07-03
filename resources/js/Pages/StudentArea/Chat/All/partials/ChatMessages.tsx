@@ -1,3 +1,4 @@
+import MyDialog from "@/Components/MyDialog/MyDialog";
 import { router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
@@ -8,7 +9,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     // console.log("sendeReceiver : ", sendeReceiver);
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
-    const [editingMessage, setEditingMessage] = useState<string>("");
+    const [editPopup, setEditPopup] = useState(false);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
@@ -48,19 +49,23 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
         }
     };
 
-    const handleUpdate = (chatId: string, message: string) => {
+    const handleEdit = (chatId: string, message: string) => {
         console.log(message);
 
-        setEditingMessage(message);
-        router.post(route("student.chat.update", { id: chatId })),
-        setDropdownVisible(null);
-    
+        setEditPopup(true);
+        // setEditingMessage(message);
+        // router.post(route("student.chat.update", { id: chatId })),
+        // setDropdownVisible(null);
     };
 
     const cancelEdit = () => {
-        setEditingMessage("");
+        // setEditingMessage("");
         setDropdownVisible(null);
     };
+
+    const handleUpdate = ()=>{
+        alert("edit");
+    }
 
     return (
         <div className="flex flex-col h-full">
@@ -106,12 +111,12 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                                             <li>
                                                                 <button
                                                                     onClick={() =>
-                                                                        handleUpdate(
+                                                                        handleEdit(
                                                                             chat.id,
                                                                             chat.message
                                                                         )
                                                                     }
-                                                                    className="block px-4 py-2 hover:bg-gray-100"
+                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
                                                                 >
                                                                     Edit
                                                                 </button>
@@ -175,6 +180,42 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                 </ul>
             </div>
 
+            <MyDialog
+                isOpen={editPopup}
+                setIsOpen={setEditPopup}
+                className={
+                    "inline-block w-full max-w-lg p-2 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                }
+            >
+                 <div>
+                    <label htmlFor="chat" className="sr-only">
+                        Your message
+                    </label>
+                    <div className="flex items-center px-3 py-2 rounded-lg bg-gray-50 ">
+                        <textarea
+                            id="chat"
+                            name="message"
+                            // value={data}
+                           
+                            className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                            placeholder="Your message..."
+                        ></textarea>
+                        <button
+                        onClick={handleUpdate}
+                            type="submit"
+                            className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 "
+                        >
+                            <div>
+                                <BsFillSendFill className="size-5" />
+                            </div>
+                            <span className="sr-only">Send message</span>
+
+                            
+                        </button>
+                    </div>
+                </div>
+            </MyDialog>
+
             <div className="mt-5">
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="chat" className="sr-only">
@@ -184,7 +225,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                         <textarea
                             id="chat"
                             name="message"
-                            value={data.message || editingMessage}
+                            value={data.message}
                             onChange={handleChange}
                             className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                             placeholder="Your message..."
