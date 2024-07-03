@@ -88,6 +88,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
                                             Sender:
+                                            {}
                                         </p>
                                         <div className="flex items-center gap-2">
                                             <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
