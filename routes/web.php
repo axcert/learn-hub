@@ -20,6 +20,7 @@ use App\Http\Controllers\StudentsArea\Service\StudentServiceController;
 use App\Http\Controllers\StudentsArea\Student\StudentStudentController;
 use App\Http\Controllers\StudentsArea\Teacher\StudentTeacherController;
 use App\Http\Controllers\TeachersArea\Booking\TeacherBookingController;
+use App\Http\Controllers\TeachersArea\Chat\TeacherChatController;
 use App\Http\Controllers\TeachersArea\Message\TeacherMessageController;
 use App\Http\Controllers\TeachersArea\Overview\TeacherOverviewController;
 use App\Http\Controllers\TeachersArea\Service\TeacherServiceController;
@@ -94,6 +95,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // teacher
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
+
+
+        Route::pattern('id', '[0-9]+');
+        Route::pattern('service', '[0-9]+');
+        Route::pattern('booking', '[0-9]+');
+    
+
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');
@@ -113,6 +121,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/teacher/bookings/{booking}/accept', [TeacherBookingController::class, 'accept'])->name('teacher.bookings.accept');
         Route::patch('/teacher/bookings/{booking}/reject', [TeacherBookingController::class, 'reject'])->name('teacher.bookings.reject');
         Route::patch('/teacher/bookings/{booking}/complete', [TeacherBookingController::class, 'markAsCompleted'])->name('teacher.bookings.complete');
+
+
+        //chat
+         Route::get('teacherChat',[TeacherChatController::class,'index'])->name('teacher.chat.index');
+     
+
     });
 });
 
