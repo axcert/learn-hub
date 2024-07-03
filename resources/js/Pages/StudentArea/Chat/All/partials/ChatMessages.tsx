@@ -10,6 +10,8 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editPopup, setEditPopup] = useState(false);
+    const [editingMessage, setEditingMessage] = useState<string>("");
+    const [editingChatId, setEditingChatId] = useState<string | null>(null);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
@@ -19,6 +21,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     useEffect(() => {
         if (chats.length) {
             setData("chat_id", chats[0].chat_id);
+   
         }
     }, [chats]);
 
@@ -50,20 +53,27 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     };
 
     const handleEdit = (chatId: string, message: string) => {
-       
         setEditPopup(true);
-        handleUpdate(chatId,message);
+        setEditingMessage(message);
+        setEditingChatId(chatId);
     };
 
     const cancelEdit = () => {
-        // setEditingMessage("");
+        setEditingMessage("");
+        setEditingChatId(null);
+        setEditPopup(false);
         setDropdownVisible(null);
     };
 
-    const handleUpdate = (chatId: string, message: string)=>{
-        console.log(message);
-    }
-
+    const handleUpdate = () => {
+        if (editingChatId && editingMessage) {
+            router.post(route("student.chat.update", { id: editingChatId }), { message: editingMessage });
+            setEditPopup(false);
+            setEditingMessage("");
+            setDropdownVisible(null);
+        }
+       
+    };
     return (
         <div className="flex flex-col h-full">
             <div className="p-2 font-bold">
@@ -134,7 +144,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
 
                                                             <li>
                                                                 <button
-                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                                                    className="block w-full text-red-500 px-4 py-2 text-left hover:bg-gray-100"
                                                                     onClick={() =>
                                                                         cancelEdit()
                                                                     }
@@ -192,13 +202,13 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                         <textarea
                             id="chat"
                             name="message"
-                            // value={data}
-                           
+                            value={editingMessage}
+                            onChange={(e) => setEditingMessage(e.target.value)}
                             className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                             placeholder="Your message..."
                         ></textarea>
                         <button
-                        // onClick={handleUpdate}
+                       onClick={handleUpdate}
                             type="submit"
                             className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 "
                         >
