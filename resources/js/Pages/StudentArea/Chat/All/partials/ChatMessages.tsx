@@ -50,12 +50,9 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     };
 
     const handleEdit = (chatId: string, message: string) => {
-        console.log(message);
-
+       
         setEditPopup(true);
-        // setEditingMessage(message);
-        // router.post(route("student.chat.update", { id: chatId })),
-        // setDropdownVisible(null);
+        handleUpdate(chatId,message);
     };
 
     const cancelEdit = () => {
@@ -63,8 +60,8 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
         setDropdownVisible(null);
     };
 
-    const handleUpdate = ()=>{
-        alert("edit");
+    const handleUpdate = (chatId: string, message: string)=>{
+        console.log(message);
     }
 
     return (
