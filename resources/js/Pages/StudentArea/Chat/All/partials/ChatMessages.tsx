@@ -198,7 +198,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                             placeholder="Your message..."
                         ></textarea>
                         <button
-                        onClick={handleUpdate}
+                        // onClick={handleUpdate}
                             type="submit"
                             className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 "
                         >
