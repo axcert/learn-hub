@@ -96,12 +96,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // teacher
     Route::prefix('teachers')->middleware(TeacherValidationMiddleware::class)->group(function () {
 
-
         Route::pattern('id', '[0-9]+');
         Route::pattern('service', '[0-9]+');
         Route::pattern('booking', '[0-9]+');
     
-
         Route::resource('overviews', TeacherOverviewController::class)->names('teacher.overviews');
         Route::resource('students', TeacherStudentController::class)->names('teacher.students');
         Route::resource('services', TeacherServiceController::class)->names('teacher.services');

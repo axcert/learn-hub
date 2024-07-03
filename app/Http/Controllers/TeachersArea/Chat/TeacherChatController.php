@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TeachersArea\Chat;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TeacherChatController extends Controller
 {
@@ -12,7 +13,7 @@ class TeacherChatController extends Controller
      */
     public function index()
     {
-        dd('jkhkuhk');
+        return Inertia::render('TeachersArea/Chat/All/Chat');
     }
 
     /**
