@@ -217,8 +217,6 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                 <BsFillSendFill className="size-5" />
                             </div>
                             <span className="sr-only">Send message</span>
-
-                            
                         </button>
                     </div>
                 </div>
