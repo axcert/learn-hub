@@ -24,7 +24,7 @@ class TeacherChatController extends Controller
     {
         $userId = Auth::id();
         $chats = $this->chatsInterface->getByColumn(['teacher_id'=>$userId],['*'],['user','teacher']);
-      
+        // dd($chats);
         $messages=$this->messageInterface->all();
    
         foreach($chats as $chat){
@@ -37,7 +37,7 @@ class TeacherChatController extends Controller
 
             $chat['messages'] = $teacherChat;
         }
-
+     
         return Inertia::render('TeachersArea/Chat/All/Chat',[
             'chats' => $chats,
         ]);

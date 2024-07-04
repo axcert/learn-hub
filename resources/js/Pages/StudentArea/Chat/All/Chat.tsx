@@ -10,7 +10,7 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
         setMessages(messages);
     };
     return (
-        <StudentLayout header="Chat" user={auth}>
+        <StudentLayout header="Chat"  user={auth.user}>
             <Head title="Chats" />
             <div className="py-12">
                 <div className="mx-auto sm:px-6 lg:px-8">
