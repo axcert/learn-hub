@@ -22,6 +22,7 @@ class StudentChatController extends Controller
     public function index()
     {
         $chats = $this->chatsInterface->getByColumn(['user_id'=> Auth::id()],['*'],['user','teacher']);
+   
         $messages = $this->messageInterface->all();
 
             foreach ($chats as $chat) {

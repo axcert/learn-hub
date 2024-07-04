@@ -10,6 +10,7 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
+
     return (
        
         <TeacherLayout user={auth.user}>

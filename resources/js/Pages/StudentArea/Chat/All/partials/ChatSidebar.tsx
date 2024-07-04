@@ -10,6 +10,8 @@ export function ChatSidebar({
     onSelectChat: (messages: any) => void;
 }) {
    
+    console.log('stu chats ',chats);
+    
 
     const [searchTerm, setSearchTerm] = useState("");
 

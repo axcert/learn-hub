@@ -84,6 +84,7 @@ export default function TeacherIndex({ auth, teachers, services = [] , search=""
                                         href={route(
                                             "teachers.show",
                                             teacher.id
+                                            // 'id':teacher.id
                                         )}
                                         key={teacher.id}
                                         className="flex flex-col items-center bg-white border border-gray-200 rounded-lg p-6 hover:bg-gray-100 transition"

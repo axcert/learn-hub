@@ -3,17 +3,42 @@
 namespace App\Http\Controllers\TeachersArea\Chat;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\All\Chats\ChatsInterface;
+use App\Repositories\All\Messages\MessageInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class TeacherChatController extends Controller
 {
+    public function __construct(
+        protected ChatsInterface $chatsInterface,
+        protected MessageInterface $messageInterface,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('TeachersArea/Chat/All/Chat');
+        $userId = Auth::id();
+        $chats = $this->chatsInterface->getByColumn(['teacher_id'=>$userId],['*'],['user','teacher']);
+
+        $messages=$this->messageInterface->all();
+     
+        foreach($chats as $chat){
+            $teacherChat=[];
+            foreach($messages as $message){
+                if($message->chat_id == $chat->id){
+                    $teacherChat[]=$message;
+                }
+            }
+            $chat['message'] = $teacherChat;
+        }
+        return Inertia::render('TeachersArea/Chat/All/Chat',[
+            'chats' => $chats,
+        ]);
     }
 
     /**
