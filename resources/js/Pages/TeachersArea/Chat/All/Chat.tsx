@@ -11,6 +11,8 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
         setMessages(messages);
     };
 
+    console.log('tch-massage : ',messages);
+    
     return (
        
         <TeacherLayout user={auth.user}>
