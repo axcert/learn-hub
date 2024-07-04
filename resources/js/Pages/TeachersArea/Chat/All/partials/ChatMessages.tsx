@@ -5,7 +5,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
 export default function ChatMessages({ chats }: { chats: any[] }) {
-    console.log("chatMessage : ", chats);
+   
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editPopup, setEditPopup] = useState(false);

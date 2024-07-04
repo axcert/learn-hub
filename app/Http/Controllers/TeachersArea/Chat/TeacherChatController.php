@@ -24,9 +24,9 @@ class TeacherChatController extends Controller
     {
         $userId = Auth::id();
         $chats = $this->chatsInterface->getByColumn(['teacher_id'=>$userId],['*'],['user','teacher']);
-        // dd($chats);
         $messages=$this->messageInterface->all();
-   
+
+   dd($messages);
         foreach($chats as $chat){
             $teacherChat=[];
             foreach($messages as $message){

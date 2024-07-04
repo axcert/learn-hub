@@ -4,7 +4,6 @@ import img from "@/../../public/asstts/img/girl.jpg";
 
 export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(messages: any)=>void}) {
 
-console.log( "tch.chat : ",chats);
 
     return (
         <div className="w-full lg:w-1/4 border-r">
