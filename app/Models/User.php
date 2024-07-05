@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -96,5 +97,12 @@ class User extends Authenticatable
     public function chats():HasMany
     {
         return $this->hasMany(Chat::class);
+    }
+
+    protected $appends = ['image_url'];
+
+
+    public function getImageUrlAttribute() {
+        return $this->image ? Storage::url($this->image) : null;
     }
 }

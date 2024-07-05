@@ -47,7 +47,7 @@ export default function TeacherShow({ auth, teacher, averageRating, comments = [
                 <div className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start">
                     <img
                         className="h-32 w-32 rounded-full"
-                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D"
+                        src={user.image_url || 'https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'}
                         alt={user.name}
                     />
                     <div className="mt-4 md:mt-0 md:ml-6 flex flex-col justify-center text-center md:text-left">
