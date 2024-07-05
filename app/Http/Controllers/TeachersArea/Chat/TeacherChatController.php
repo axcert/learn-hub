@@ -26,7 +26,6 @@ class TeacherChatController extends Controller
     {
         $userId = Auth::id();
         $teacher=$this->teacherInterface->findById($userId);
-      
         $chats = $this->chatsInterface->getByColumn(['teacher_id' => $teacher->id], ['*'], ['user', 'teacher']);
         $messages = $this->messageInterface->all();
 
