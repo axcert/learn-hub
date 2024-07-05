@@ -41,7 +41,7 @@ export default function TeacherLayout({ user, header, children }: PropsWithChild
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('teacher.messages.index')} active={route().current('teacher.messages.index')}>
+                                <NavLink href={route('teacher.chat.index')} active={route().current('teacher.chat.index')}>
                                     Messages
                                 </NavLink>
                             </div>

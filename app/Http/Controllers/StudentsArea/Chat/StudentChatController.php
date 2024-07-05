@@ -9,6 +9,7 @@ use App\Models\Messages;
 use App\Repositories\All\Chats\ChatsInterface;
 use App\Repositories\All\Messages\MessageInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StudentChatController extends Controller
@@ -20,21 +21,34 @@ class StudentChatController extends Controller
     }
     public function index()
     {
+        $chats = $this->chatsInterface->getByColumn(['user_id'=> Auth::id()],['*'],['user','teacher']);
+        $messages = $this->messageInterface->all();
 
-        $message = $this->messageInterface->all();
-        $chats = $this->chatsInterface->getStudentChats();
-        return Inertia::render('StudentArea/Chat/All/Index', [
+            foreach ($chats as $chat) {
+                $studentChat = [];
+              foreach($messages as $message){
+                if($message->chat_id == $chat->id){
+                    $studentChat[]=$message;
+                }
+              }
+              $chat['messages'] = $studentChat;
+              
+            }
+
+
+        return Inertia::render('StudentArea/Chat/All/Chat', [
             'chats' => $chats,
-            'message' => $message,
         ]);
     }
 
+
+   
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+ 
     }
 
     /**
@@ -46,27 +60,39 @@ class StudentChatController extends Controller
             'teacher_id' => 'required|exists:teachers,id',
             'user_id' => 'required|exists:users,id',
         ]);
-     
-    $this->chatsInterface->storeChat($request->all());
-
+        $this->chatsInterface->storeChat($request->all());
+        return redirect()->route('chats.index');
     }
+
+    public function chats(Request $request)
+    {
+        $validatedData = $request->validate([
+            'chat_id' => 'required|exists:chats,id',
+            'message' => 'required|string',
+        ]);
+    
+        $this->messageInterface->create([
+            'chat_id' => $validatedData['chat_id'],
+            'message' => $validatedData['message'],
+            'sender' => 'student',
+            'timestamp' => now(),
+        ]);
+    
+        return back();
+    }
+    
+    
 
     /**
      * Display the specified resource.
      */
     public function show(Message $message)
     {
-     
         return Inertia::render('StudentArea/Chat/All/Chat', [
             'message' => $message,
         ]);
     }
- 
-    public function getMessages($chatId)
-    {
-        $messages = Chat::find($chatId)->messages()->get();
-        return response()->json($messages);
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -79,9 +105,18 @@ class StudentChatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+    
+        $message = $this->messageInterface->findById($id);
+        $message->update([
+            'message' => $validatedData['message'],
+        ]);
+    
+        return back();
     }
 
     /**
@@ -89,6 +124,7 @@ class StudentChatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->messageInterface->deleteById($id);
+        // return redirect()->route('chats.index');
     }
 }
