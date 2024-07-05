@@ -10,6 +10,7 @@ import MyDialog from "@/Components/MyDialog/MyDialog";
 import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
+    [x: string]: string | undefined;
     name: string;
     email: string;
     id: any;
@@ -181,7 +182,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                         <div className="flex justify-center items-center">
                             <img
                                 className="rounded-lg w-40 md:w-auto"
-                                src={degree}
+                                src={selectedTeacher.image_url}
                                 alt="image description"
                             />
                         </div>
