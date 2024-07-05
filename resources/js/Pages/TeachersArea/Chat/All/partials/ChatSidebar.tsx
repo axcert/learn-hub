@@ -4,7 +4,6 @@ import img from "@/../../public/asstts/img/girl.jpg";
 
 export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(messages: any)=>void}) {
 
-// console.log( "chats sidebar : ",chats);
 
     return (
         <div className="w-full lg:w-1/4 border-r">
@@ -32,14 +31,14 @@ export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(mes
                                         />
                                         <div className="min-w-0 flex-auto">
                                             <p className="text-sm font-semibold leading-6 text-gray-900">
-                                                {chat?.teacher?.user?.name}
+                                                {chat?.user?.name}
                                             </p>
                                             <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                                                {chat?.teacher?.user?.email}
+                                            {chat?.user?.email}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
+                                    {/* <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end p-2">
                                         <p className="text-sm leading-6 text-gray-900">
                                             {chat?.teacher?.bio}
                                         </p>
@@ -51,7 +50,7 @@ export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(mes
                                                 Online
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </li>
                         ))

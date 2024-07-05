@@ -6,10 +6,15 @@ import ChatMessages from "./partials/ChatMessages";
 import TeacherLayout from "@/Layouts/TeacherLayout";
 
 export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
+    console.log(chats);
+    
     const [messages, setMessages] = useState<any[]>([]);
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
+
+    console.log('tch-massage : ',messages);
+    
     return (
        
         <TeacherLayout user={auth.user}>

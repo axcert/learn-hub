@@ -91,7 +91,7 @@ class TeacherTeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(int $id)
     {   
         $teacher = $this->teacherInterface->findById($id, ['*'], ['user', 'services.bookings.user']);
         if (!$teacher) {

@@ -11,6 +11,7 @@ import degree from "@/../../public/asstts/img/degree.jpeg";
 import { Inertia } from "@inertiajs/inertia";
 
 export interface Data {
+    [x: string]: string | undefined;
     name: string;
     email: string;
     id: any;
@@ -48,6 +49,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
     const readMore = () => {
         alert("readmore");
     };
+
+console.log(selectedStudent);
+
 
     return (
         <div className="py-2">
@@ -168,7 +172,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                         <div className="flex justify-center items-center">
                             <img
                                 className="rounded-lg w-40 md:w-40"
-                                src={girl}
+                                src={selectedStudent.image_url}
                                 alt="image description"
                             />
                         </div>
@@ -177,7 +181,7 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data }) => {
                                 {selectedStudent.name}
                             </h5>
                             <p className="mb-3 font-normal text-gray-700 ">
-                                <strong>Teacher ID:</strong>{" "}
+                                <strong>Student ID:</strong>{" "}
                                 {selectedStudent.id}
                             </p>
                             <p className="mb-3 font-normal text-gray-700 ">

@@ -5,8 +5,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
 export default function ChatMessages({ chats }: { chats: any[] }) {
-    console.log("chatMessage : ", chats);
-    // console.log("sendeReceiver : ", sendeReceiver);
+   
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editPopup, setEditPopup] = useState(false);
@@ -83,7 +82,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                 <ul className="p-5 overflow-y-scroll max-h-80">
                     {chats?.map((chat: any) => (
                         <li key={chat?.id} className="py-2 px-4">
-                            {chat?.sender === "student" ? (
+                            {chat?.sender === "teacher" ? (
                                 <div className="flex justify-end relative">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
@@ -165,7 +164,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                         </p>
                                     </div>
                                 </div>
-                            ) : chat?.sender === "teacher" ? (
+                            ) : chat?.sender === "student" ? (
                                 <div className="flex items-start">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm">

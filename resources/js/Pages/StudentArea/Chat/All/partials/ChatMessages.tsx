@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
-export default function ChatMessages({ chats }: { chats: any[] }) {
+export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:any }) {
     console.log("chatMessage : ", chats);
     // console.log("sendeReceiver : ", sendeReceiver);
 
@@ -15,19 +15,20 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
-        chat_id: chats.length ? chats[0].chat_id : "",
+        // chat_id: chats.length ? chats[0].chat_id : "",
+        // chat_id: chatId,
     });
 
-    useEffect(() => {
-        if (chats.length) {
-            setData("chat_id", chats[0].chat_id);
+    // useEffect(() => {
+    //     if (chats.length) {
+    //         setData("chat_id", chats[0].chat_id);
    
-        }
-    }, [chats]);
+    //     }
+    // }, [chats]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        if (name === "message" || name === "chat_id") {
+        if (name === "message") {
             setData(name, value);
         }
     };
@@ -39,7 +40,8 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log(data);
-        post(route("student.chat.chats"), {
+       
+        post(route("chat.send",{id:chatId}), {
             preserveScroll: true,
             onSuccess: () => reset(),
         });
