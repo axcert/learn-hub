@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TeachersArea\Chat;
 use App\Http\Controllers\Controller;
 use App\Repositories\All\Chats\ChatsInterface;
 use App\Repositories\All\Messages\MessageInterface;
+use App\Repositories\All\Teachers\TeacherInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -14,6 +15,7 @@ class TeacherChatController extends Controller
     public function __construct(
         protected ChatsInterface $chatsInterface,
         protected MessageInterface $messageInterface,
+        protected TeacherInterface $teacherInterface
     ) {
     }
 
@@ -23,7 +25,9 @@ class TeacherChatController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $chats = $this->chatsInterface->getByColumn(['teacher_id' => $userId], ['*'], ['user', 'teacher']);
+        $teacher=$this->teacherInterface->findById($userId);
+      
+        $chats = $this->chatsInterface->getByColumn(['teacher_id' => $teacher->id], ['*'], ['user', 'teacher']);
         $messages = $this->messageInterface->all();
 
         foreach ($chats as $chat) {

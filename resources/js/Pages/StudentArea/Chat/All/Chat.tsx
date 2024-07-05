@@ -9,6 +9,12 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
+    const [chatId,setChatId] = useState(null);
+
+    const onSelectedChatId = (id: any) => {
+        setChatId(id);
+    };
+
     return (
         <StudentLayout header="Chat"  user={auth.user}>
             <Head title="Chats" />
@@ -19,9 +25,10 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
                             <ChatSidebar
                                 chats={chats}
                                 onSelectChat={onSelectedMessage}
+                                onSelectedChatId={onSelectedChatId}
                             />
                             <div className="flex-1">
-                                <ChatMessages chats={messages} />
+                                <ChatMessages chats={messages} chatId={chatId} />
                             </div>
                         </div>
                     </div>

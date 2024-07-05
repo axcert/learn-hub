@@ -65,15 +65,15 @@ class StudentChatController extends Controller
         return redirect()->route('chats.index');
     }
 
-    public function chats(Request $request)
+    public function chats(Request $request,int $id)
     {
+
         $validatedData = $request->validate([
-            'chat_id' => 'required|exists:chats,id',
             'message' => 'required|string',
         ]);
-    dd($request->all());
+   
         $this->messageInterface->create([
-            'chat_id' => $validatedData['chat_id'],
+            'chat_id' => $id,
             'message' => $validatedData['message'],
             'sender' => 'student',
             'timestamp' => now(),
