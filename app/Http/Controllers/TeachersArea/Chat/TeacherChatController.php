@@ -39,7 +39,6 @@ class TeacherChatController extends Controller
 
             $chat['messages'] = $teacherChat;
         }
-
         return Inertia::render('TeachersArea/Chat/All/Chat', [
             'chats' => $chats,
         ]);
