@@ -71,7 +71,7 @@ class StudentChatController extends Controller
             'chat_id' => 'required|exists:chats,id',
             'message' => 'required|string',
         ]);
-    
+    dd($request->all());
         $this->messageInterface->create([
             'chat_id' => $validatedData['chat_id'],
             'message' => $validatedData['message'],

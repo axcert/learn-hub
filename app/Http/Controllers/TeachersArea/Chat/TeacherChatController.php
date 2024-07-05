@@ -23,22 +23,21 @@ class TeacherChatController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $chats = $this->chatsInterface->getByColumn(['teacher_id'=>$userId],['*'],['user','teacher']);
-        $messages=$this->messageInterface->all();
+        $chats = $this->chatsInterface->getByColumn(['teacher_id' => $userId], ['*'], ['user', 'teacher']);
+        $messages = $this->messageInterface->all();
 
-   dd($messages);
-        foreach($chats as $chat){
-            $teacherChat=[];
-            foreach($messages as $message){
-                if($message->chat_id == $chat->id){
-                    $teacherChat[]=$message;
+        foreach ($chats as $chat) {
+            $teacherChat = [];
+            foreach ($messages as $message) {
+                if ($message->chat_id == $chat->id) {
+                    $teacherChat[] = $message;
                 }
             }
 
             $chat['messages'] = $teacherChat;
         }
-     
-        return Inertia::render('TeachersArea/Chat/All/Chat',[
+
+        return Inertia::render('TeachersArea/Chat/All/Chat', [
             'chats' => $chats,
         ]);
     }
