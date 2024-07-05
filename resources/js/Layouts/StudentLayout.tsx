@@ -81,7 +81,7 @@ export default function StudentLayout({
                                             >
                                                 <img
                                                     className="h-10 w-10 rounded-full mr-2"
-                                                    src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+                                                    src={user.image_url || 'https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'}
                                                     alt={`${user.name}'s profile`}
                                                 />
 

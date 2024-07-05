@@ -114,6 +114,29 @@ class ProfileController extends Controller
         return Redirect::to('/')->with('success', 'Account deleted successfully.');
     }
 
+    public function updatePicture(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'image' => 'required|image|max:2048',
+        ]);
+
+        $user = $request->user();
+
+        // Delete old image if it exists
+        if ($user->image) {
+            Storage::disk('public')->delete($user->image);
+        }
+
+        // Store the new image
+        $path = $request->file('image')->store('user', 'public');
+        $user->image = $path;
+
+        // Save the updated user profile
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Profile picture updated successfully.');
+    }
+
 
 
 }
