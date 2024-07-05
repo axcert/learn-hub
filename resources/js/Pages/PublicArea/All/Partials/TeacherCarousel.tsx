@@ -46,8 +46,7 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data,auth }) => {
                             <div className="flex flex-col items-center p-4 md:p-6">
                                 <img
                                     className="w-24 h-24 mb-2 rounded-full shadow-lg"
-                                    // src={card.teacher.user.image}
-                                    src={img}
+                                    src={card.teacher.user.image_url}
                                 />
                                 <h5 className="mb-1 capitalize text-lg font-semibold leading-7 tracking-tight text-gray-900">
                                     {card.teacher.user.name}

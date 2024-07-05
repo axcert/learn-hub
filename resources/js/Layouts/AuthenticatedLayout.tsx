@@ -54,10 +54,12 @@ export default function Authenticated({
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <img
-                                                    className="h-10 w-10 rounded-full mr-2"
-                                                    src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
-                                                    alt={`${user.name}'s profile`}
+                                                     className="h-10 w-10 rounded-full mr-2"
+                                                     alt={`${user.name}'s profile`}
+                                                    src={user.image_url || 'https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'}
                                                 />
+
+                                                
 
                                                 <p>{user.name}</p>
                                             </button>
