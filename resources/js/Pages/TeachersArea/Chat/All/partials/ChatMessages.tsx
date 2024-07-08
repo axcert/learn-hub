@@ -42,7 +42,7 @@ console.log(chats);
 
     const handleDelete = (chatId: string) => {
         if (confirm("Are you sure you want to delete this message?")) {
-            router.delete(route("student.chat.delete", { id: chatId })),
+            router.delete(route("teacher.chat.delete", { id: chatId })),
                 setDropdownVisible(null);
         }
     };
@@ -62,7 +62,7 @@ console.log(chats);
 
     const handleUpdate = () => {
         if (editingChatId && editingMessage) {
-            router.post(route("student.chat.update", { id: editingChatId }), { message: editingMessage });
+            router.post(route("teacher.chat.update", { id: editingChatId }), { message: editingMessage });
             setEditPopup(false);
             setEditingMessage("");
             setDropdownVisible(null);

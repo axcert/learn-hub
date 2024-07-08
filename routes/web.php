@@ -125,6 +125,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //chat
          Route::get('teacherChat',[TeacherChatController::class,'index'])->name('teacher.chat.index');
          Route::post('/teacher/chats/{id}', [TeacherChatController::class, 'chats'])->name('teacher.chat.send');
+         Route::delete('/teacher/chats/{id}', [TeacherChatController::class, 'destroy'])->name('teacher.chat.delete');
+         Route::post('/teacher/chats/update/{id}', [TeacherChatController::class, 'update'])->name('teacher.chat.update');
 
     });
 });
