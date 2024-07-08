@@ -71,7 +71,16 @@ class TeacherChatController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($id);
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+    
+        $message = $this->messageInterface->findById($id);
+        $message->update([
+            'message' => $validatedData['message'],
+        ]);
+    
+        return back();
     }
 
     /**
