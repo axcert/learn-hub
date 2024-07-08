@@ -60,7 +60,7 @@ export function ChatSidebar({
                                     <div className="flex min-w-0 gap-x-4 p-2 w-full">
                                         <img
                                             className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                                            src={img}
+                                            src={chat.teacher.user.image_url}
                                             alt=""
                                         />
                                         <div className="min-w-0 flex-auto">
