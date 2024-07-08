@@ -37,7 +37,7 @@ export function ChatSidebar({
     return (
         <div className="w-full lg:w-1/4 border-r">
             <div className="p-4">
-                <h2 className="font-bold text-xl mb-4">Student Chat Panel</h2>
+                <h2 className="font-bold text-xl mb-4">Tutor Chat Panel</h2>
                 <input
                     onClick={() => {}}
                     onChange={handleSearchChange}
