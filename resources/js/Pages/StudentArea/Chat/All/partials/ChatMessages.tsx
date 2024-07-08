@@ -82,7 +82,7 @@ export default function ChatMessages({
             <div className="flex-grow overflow-y-auto">
             
 
-                {chatId ==null ?(
+                {chatId == null ?(
                     <div className="p-5 text-center text-gray-500 bg-white shadow-lg rounded-lg h-full hidden lg:block">
                         <h3 className="font-bold text-2xl mb-4 text-gray-800">
                             Welcome to Teacher Chat
