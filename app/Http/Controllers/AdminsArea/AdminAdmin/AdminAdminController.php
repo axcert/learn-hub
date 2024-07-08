@@ -12,7 +12,6 @@ use App\Repositories\All\Users\UserInterface;
 use Inertia\Inertia;
 
 class AdminAdminController extends Controller
-
 {
     public function __construct(
         protected AdminInterface $adminInterface,
