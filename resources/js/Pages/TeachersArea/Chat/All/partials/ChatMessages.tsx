@@ -75,113 +75,92 @@ console.log(chats);
                 <h2>Messages</h2>
             </div>
             <div className="flex-grow overflow-y-auto">
-                <ul className="p-5 overflow-y-scroll max-h-80">
-                    {chats?.map((chat: any) => (
-                        <li key={chat?.id} className="py-2 px-4">
-                            {chat?.sender === "teacher" ? (
-                                <div className="flex justify-end relative">
-                                    <div className="max-w-60">
-                                        <p className="font-bold text-sm text-left">
-                                            {/* Sender: */}
-                                            {}
-                                        </p>
-                                        <div className="flex items-center gap-2">
-                                            <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
+                {chats.length === 0 ? (
+                    <div className="p-5 text-center text-gray-500">
+                        Start a New chat
+                    </div>
+                ) : (
+                    <ul className="p-5 overflow-y-scroll max-h-80">
+                        {chats.map((chat: any) => (
+                            <li key={chat?.id} className="py-2 px-4">
+                                {chat?.sender === "teacher" ? (
+                                    <div className="flex justify-end relative">
+                                        <div className="max-w-60">
+                                            <p className="font-bold text-sm text-left"></p>
+                                            <div className="flex items-center gap-2">
+                                                <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
+                                                    <p>{chat?.message}</p>
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        id={`dropdownMenuIconButton-${chat.id}`}
+                                                        data-dropdown-toggle="dropdownDots"
+                                                        data-dropdown-placement="bottom-start"
+                                                        className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none"
+                                                        type="button"
+                                                        onClick={() => toggleDropdown(chat.id)}
+                                                    >
+                                                        <PiDotsThreeOutlineVerticalBold className="size-5" />
+                                                    </button>
+                                                    {dropdownVisible === chat.id && (
+                                                        <div
+                                                            id={`dropdownDots-${chat.id}`}
+                                                            className="z-10 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-40"
+                                                        >
+                                                            <ul className="py-2 text-sm text-gray-700 ">
+                                                                <li>
+                                                                    <button
+                                                                        onClick={() => handleEdit(chat.id, chat.message)}
+                                                                        className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                                                    >
+                                                                        Edit
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button
+                                                                        className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                                                        onClick={() => handleDelete(chat.id)}
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button
+                                                                        className="block w-full text-red-500 px-4 py-2 text-left hover:bg-gray-100"
+                                                                        onClick={() => cancelEdit()}
+                                                                    >
+                                                                        Cancel Edit
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {new Date(chat?.timestamp).toLocaleString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : chat?.sender === "student" ? (
+                                    <div className="flex items-start">
+                                        <div className="max-w-60">
+                                            <p className="font-bold text-sm"></p>
+                                            <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
                                                 <p>{chat?.message}</p>
                                             </div>
-
-                                            <div>
-                                                <button
-                                                    id={`dropdownMenuIconButton-${chat.id}`}
-                                                    data-dropdown-toggle="dropdownDots"
-                                                    data-dropdown-placement="bottom-start"
-                                                    className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none"
-                                                    type="button"
-                                                    onClick={() =>
-                                                        toggleDropdown(chat.id)
-                                                    }
-                                                >
-                                                    <PiDotsThreeOutlineVerticalBold className="size-5" />
-                                                </button>
-
-                                                {dropdownVisible ===
-                                                    chat.id && (
-                                                    <div
-                                                        id={`dropdownDots-${chat.id}`}
-                                                        className="z-10 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-40"
-                                                    >
-                                                        <ul className="py-2 text-sm text-gray-700 ">
-                                                            <li>
-                                                                <button
-                                                                    onClick={() =>
-                                                                        handleEdit(
-                                                                            chat.id,
-                                                                            chat.message
-                                                                        )
-                                                                    }
-                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                                                                >
-                                                                    Edit
-                                                                </button>
-                                                            </li>
-
-                                                            <li>
-                                                                <button
-                                                                    className="block w-full px-4 py-2 text-left hover:bg-gray-100"
-                                                                    onClick={() =>
-                                                                        handleDelete(
-                                                                            chat.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Delete
-                                                                </button>
-                                                            </li>
-
-                                                            <li>
-                                                                <button
-                                                                    className="block w-full text-red-500 px-4 py-2 text-left hover:bg-gray-100"
-                                                                    onClick={() =>
-                                                                        cancelEdit()
-                                                                    }
-                                                                >
-                                                                    Cansel Edit
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                )}
-                                            </div>
+                                            <p className="text-xs text-gray-400 mt-1">
+                                                {new Date(chat?.timestamp).toLocaleString()}
+                                            </p>
                                         </div>
-                                        <p className="text-xs text-gray-400 mt-1">
-                                            {new Date(
-                                                chat?.timestamp
-                                            ).toLocaleString()}
-                                        </p>
                                     </div>
-                                </div>
-                            ) : chat?.sender === "student" ? (
-                                <div className="flex items-start">
-                                    <div className="max-w-60">
-                                        <p className="font-bold text-sm">
-                                            {/* Receiver:{" "} */}
-                                            {/* {sendeReceiver?.teacher?.bio} */}
-                                        </p>
-                                        <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
-                                            <p>{chat?.message}</p>
-                                        </div>
-                                        <p className="text-xs text-gray-400 mt-1">
-                                            {new Date(
-                                                chat?.timestamp
-                                            ).toLocaleString()}
-                                        </p>
-                                    </div>
-                                </div>
-                            ) : null}
-                        </li>
-                    ))}
-                </ul>
+                                ) : null}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
+
 
             <MyDialog
                 isOpen={editPopup}
@@ -246,3 +225,4 @@ console.log(chats);
         </div>
     );
 }
+

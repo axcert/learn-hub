@@ -12,7 +12,6 @@ export function ChatSidebar({
 }) {
 
 
-
     const [searchTerm, setSearchTerm] = useState("");
     
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
