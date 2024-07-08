@@ -84,7 +84,7 @@ export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:an
                                         </p>
                                         <div className="flex items-center gap-2">
                                             <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
-                                                <p>{chat?.message}</p>
+                                                <p className="max-w-60 break-words">{chat?.message}</p>
                                             </div>
 
                                             <div>
@@ -165,7 +165,7 @@ export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:an
                                             {/* {sendeReceiver?.teacher?.bio} */}
                                         </p>
                                         <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
-                                            <p>{chat?.message}</p>
+                                            <p  className="max-w-60 break-words">{chat?.message}</p>
                                         </div>
                                         <p className="text-xs text-gray-400 mt-1">
                                             {new Date(

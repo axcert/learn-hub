@@ -80,24 +80,23 @@ export default function ChatMessages({
             </div>
             <div className="flex-grow overflow-y-auto">
                 {chats.length === 0 ? (
-                <div className="p-5 text-center text-gray-500 bg-white shadow-lg rounded-lg h-full hidden lg:block">
-                <h3 className="font-bold text-2xl mb-4 text-gray-800">
-                    Welcome to Teacher Chat
-                </h3>
-                <div className="flex justify-center mb-4">
-                    <img
-                        className="w-40 h-50 object-cover rounded-full shadow-md"
-                        src={img}
-                        alt="Teacher Chat"
-                    />
-                </div>
-                <h3 className="font-bold text-sm text-gray-500 capitalize">
-                    Welcome to the LMS Chat Panel! Connect with your
-                    classmates and teachers in real time. <br /> share
-                    ideas, Ask questions, and collaborate on projects.
-                </h3>
-            </div>
-            
+                    <div className="p-5 text-center text-gray-500 bg-white shadow-lg rounded-lg h-full hidden lg:block">
+                        <h3 className="font-bold text-2xl mb-4 text-gray-800">
+                            Welcome to Teacher Chat
+                        </h3>
+                        <div className="flex justify-center mb-4">
+                            <img
+                                className="w-40 h-50 object-cover rounded-full shadow-md"
+                                src={img}
+                                alt="Teacher Chat"
+                            />
+                        </div>
+                        <h3 className="font-bold text-sm text-gray-500 capitalize">
+                            Welcome to the LMS Chat Panel! Connect with your
+                            classmates and teachers in real time. <br /> share
+                            ideas, Ask questions, and collaborate on projects.
+                        </h3>
+                    </div>
                 ) : (
                     <ul className="p-5 overflow-y-scroll max-h-80">
                         {chats.map((chat: any) => (
@@ -108,8 +107,11 @@ export default function ChatMessages({
                                             <p className="font-bold text-sm text-left"></p>
                                             <div className="flex items-center gap-2">
                                                 <div className="p-4 bg-gray-200 max-w-64 rounded-xl">
-                                                    <p>{chat?.message}</p>
+                                                    <p className="max-w-60 break-words">
+                                                        {chat?.message}
+                                                    </p>
                                                 </div>
+
                                                 <div>
                                                     <button
                                                         id={`dropdownMenuIconButton-${chat.id}`}
@@ -185,8 +187,10 @@ export default function ChatMessages({
                                         <div className="max-w-60">
                                             <p className="font-bold text-sm"></p>
                                             <div className="p-4 bg-blue-200 max-w-64 rounded-xl">
-                                                <p>{chat?.message}</p>
+                                                <p className="max-w-60 break-words">{chat?.message}</p>
                                             </div>
+
+
                                             <p className="text-xs text-gray-400 mt-1">
                                                 {new Date(
                                                     chat?.timestamp
