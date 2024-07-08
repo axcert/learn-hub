@@ -12,7 +12,7 @@ export default function ChatMessages({
     chats: any[];
     chatId: any;
 }) {
-    console.log("chatMessage : ", chats);
+    console.log("chatMessage : ", chatId);
     // console.log("sendeReceiver : ", sendeReceiver);
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
@@ -80,9 +80,9 @@ export default function ChatMessages({
                 <h2>Messages</h2>
             </div>
             <div className="flex-grow overflow-y-auto">
-                {/* ----------------- */}
+            
 
-                {chats.length === 0 ? (
+                {chatId ==null ?(
                     <div className="p-5 text-center text-gray-500 bg-white shadow-lg rounded-lg h-full hidden lg:block">
                         <h3 className="font-bold text-2xl mb-4 text-gray-800">
                             Welcome to Teacher Chat
@@ -251,7 +251,7 @@ export default function ChatMessages({
                 </div>
             </MyDialog>
 
-            {chats.length > 0 && (
+            {chatId && (
                 <div className="mt-5">
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="chat" className="sr-only">
