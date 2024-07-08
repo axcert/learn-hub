@@ -46,6 +46,27 @@ class TeacherChatController extends Controller
         ]);
     }
 
+
+
+    public function chats(Request $request,int $id)
+    {
+
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+   
+        $this->messageInterface->create([
+            'chat_id' => $id,
+            'message' => $validatedData['message'],
+            'sender' => 'teacher',
+            'timestamp' => now(),
+        ]);
+    
+        return back();
+    }
+    
+
+
     /**
      * Show the form for creating a new resource.
      */

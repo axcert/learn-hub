@@ -15,17 +15,7 @@ export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:an
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
-        // chat_id: chats.length ? chats[0].chat_id : "",
-        // chat_id: chatId,
     });
-
-    // useEffect(() => {
-    //     if (chats.length) {
-    //         setData("chat_id", chats[0].chat_id);
-   
-    //     }
-    // }, [chats]);
-
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         if (name === "message") {
@@ -89,7 +79,7 @@ export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:an
                                 <div className="flex justify-end relative">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
-                                            Sender:
+                                            {/* Sender: */}
                                             {}
                                         </p>
                                         <div className="flex items-center gap-2">
@@ -171,7 +161,7 @@ export default function ChatMessages({ chats , chatId}: { chats: any[],chatId:an
                                 <div className="flex items-start">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm">
-                                            Receiver:{" "}
+                                            {/* Receiver:{" "} */}
                                             {/* {sendeReceiver?.teacher?.bio} */}
                                         </p>
                                         <div className="p-4 bg-blue-200 max-w-64 rounded-xl">

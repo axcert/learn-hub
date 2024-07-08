@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
 
-export default function ChatMessages({ chats }: { chats: any[] }) {
+export default function ChatMessages({ chats ,chatId }: { chats: any[] ,chatId:any}) {
    
+console.log(chats);
 
     const [dropdownVisible, setDropdownVisible] = useState<string | null>(null);
     const [editPopup, setEditPopup] = useState(false);
@@ -14,22 +15,17 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         message: "",
-        chat_id: chats.length ? chats[0].chat_id : "",
+     
     });
 
-    useEffect(() => {
-        if (chats.length) {
-            setData("chat_id", chats[0].chat_id);
-   
-        }
-    }, [chats]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        if (name === "message" || name === "chat_id") {
+        if (name === "message") {
             setData(name, value);
         }
     };
+
 
     const toggleDropdown = (chatId: string) => {
         setDropdownVisible(dropdownVisible === chatId ? null : chatId);
@@ -38,7 +34,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log(data);
-        post(route("student.chat.chats"), {
+        post(route("teacher.chat.send",{id:chatId}), {
             preserveScroll: true,
             onSuccess: () => reset(),
         });
@@ -86,7 +82,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                 <div className="flex justify-end relative">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm text-left">
-                                            Sender:
+                                            {/* Sender: */}
                                             {}
                                         </p>
                                         <div className="flex items-center gap-2">
@@ -168,7 +164,7 @@ export default function ChatMessages({ chats }: { chats: any[] }) {
                                 <div className="flex items-start">
                                     <div className="max-w-60">
                                         <p className="font-bold text-sm">
-                                            Receiver:{" "}
+                                            {/* Receiver:{" "} */}
                                             {/* {sendeReceiver?.teacher?.bio} */}
                                         </p>
                                         <div className="p-4 bg-blue-200 max-w-64 rounded-xl">

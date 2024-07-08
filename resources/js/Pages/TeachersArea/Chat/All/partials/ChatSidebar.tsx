@@ -2,8 +2,23 @@ import React, { useState } from "react";
 import img from "@/../../public/asstts/img/girl.jpg";
 
 
-export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(messages: any)=>void}) {
+export function ChatSidebar({ 
+    chats,
+    onSelectChat,
+    onSelectedChatId,
+}:{
+    chats:any ;
+    onSelectChat:(messages: any)=>void;
+    onSelectedChatId:(id:any)=>void;
+}) {
 
+
+
+
+    function setItems(chat:any){
+        onSelectChat(chat.messages);
+        onSelectedChatId(chat.id);
+    }
 
     return (
         <div className="w-full lg:w-1/4 border-r">
@@ -20,7 +35,7 @@ export function ChatSidebar({ chats,onSelectChat,}:{chats:any ,onSelectChat:(mes
                             <li
                                 className="flex justify-between py-5"
                                 key={chat?.id}
-                                onClick={() => onSelectChat(chat?.messages)}
+                                onClick={() => setItems(chat)}
                             >
                                 <div className="flex justify-start hover:bg-gray-100 rounded-lg w-full">
                                     <div className="flex min-w-0 gap-x-4 p-2 w-full">

@@ -12,12 +12,8 @@ export function ChatSidebar({
     onSelectedChatId: (id: any) => void;
 }) {
    
-    console.log('stu chats ',chats);
-    
-
     const [searchTerm, setSearchTerm] = useState("");
-
-
+    
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
