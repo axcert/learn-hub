@@ -88,7 +88,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('chats', [StudentChatController::class, 'index'])->name('chats.index');
         Route::get('/chats/{chat}', [StudentChatController::class, 'show'])->name('chats.show');
         Route::post('/student/chats/store', [StudentChatController::class, 'store'])->name('student.chat.store');
-        // Route::post('/student/chats/chats', [StudentChatController::class, 'chats'])->name('student.chat.chats');
         Route::post('/student/chats/{id}', [StudentChatController::class, 'chats'])->name('chat.send');
         Route::delete('/student/chats/{id}', [StudentChatController::class, 'destroy'])->name('student.chat.delete');
         Route::post('/student/chats/update/{id}', [StudentChatController::class, 'update'])->name('student.chat.update');
@@ -125,7 +124,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         //chat
          Route::get('teacherChat',[TeacherChatController::class,'index'])->name('teacher.chat.index');
-     
+         Route::post('/teacher/chats/{id}', [TeacherChatController::class, 'chats'])->name('teacher.chat.send');
+         Route::delete('/teacher/chats/{id}', [TeacherChatController::class, 'destroy'])->name('teacher.chat.delete');
+         Route::post('/teacher/chats/update/{id}', [TeacherChatController::class, 'update'])->name('teacher.chat.update');
 
     });
 });

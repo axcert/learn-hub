@@ -6,14 +6,18 @@ import ChatMessages from "./partials/ChatMessages";
 import TeacherLayout from "@/Layouts/TeacherLayout";
 
 export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
-    console.log(chats);
-    
+
     const [messages, setMessages] = useState<any[]>([]);
     const onSelectedMessage = (messages: any) => {
         setMessages(messages);
     };
 
-    console.log('tch-massage : ',messages);
+    const [chatId,setChatId] = useState(null);
+    const onSelectedChatId = (id: any) => {
+        setChatId(id);
+    };
+
+ 
     
     return (
        
@@ -27,9 +31,10 @@ export default function Chat({ chats, auth }: { chats: any[]; auth: any }) {
                              <ChatSidebar
                                 chats={chats}
                                 onSelectChat={onSelectedMessage}
+                                onSelectedChatId={onSelectedChatId}
                             />
                             <div className="flex-1">
-                                <ChatMessages chats={messages} />
+                                <ChatMessages chats={messages} chatId={chatId}/>
                             </div>
                         </div>
                     </div>
