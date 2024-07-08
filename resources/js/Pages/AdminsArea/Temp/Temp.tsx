@@ -65,7 +65,7 @@ export default function ChatMessages({ chats, chatId }: { chats: any[], chatId: 
     return (
         <div className="flex flex-col h-full">
             <div className="p-2 font-bold">
-                <h2>Messages</h2>
+                {/* <h2>Messages</h2> */}
             </div>
             <div className="flex-grow overflow-y-auto">
                 {chats.length === 0 ? (
