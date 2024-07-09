@@ -35,10 +35,18 @@ const AllUsersTable: React.FC<PaginatedTableProps> = ({ data }) => {
     };
 
     const handleRoleChange = (id: any, role: string) => {
+        
         setTimeout(() => {
-            Inertia.put(route("admin.users.update", id), { role });
+            Inertia.put(route("admin.users.update", id), { role },{
+                onSuccess: () => {
+                    alert("User Role Change ");
+                },
+            });
             setIsOpen(false);
+            
         }, 1000);
+
+    
     };
 
     const cansel = () => {

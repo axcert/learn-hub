@@ -18,11 +18,6 @@ class AdminUserController extends Controller
     ) {
     }
 
-    public function index()
-    {
-        dd("user");
-    }
-
     /**
      * Show the form for editing the specified resource.
      */

@@ -55,8 +55,6 @@ class AdminAdminController extends Controller
             'users' => $users,
         ]);
     }
-
-
     public function edit(string $id)
     {
         $admins = $this->userInterface->findById($id);
@@ -82,5 +80,6 @@ class AdminAdminController extends Controller
     public function destroy(string $id)
     {
         $this->userInterface->deleteById($id);
+        return redirect()->route('admin.adminPanels.index')->with('success', 'The Admin Deleted Successfully');
     }
 }
