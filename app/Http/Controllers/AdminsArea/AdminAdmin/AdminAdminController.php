@@ -55,8 +55,6 @@ class AdminAdminController extends Controller
             'users' => $users,
         ]);
     }
-
-
     public function edit(string $id)
     {
         $admins = $this->userInterface->findById($id);
