@@ -24,11 +24,13 @@ class TeacherChatController extends Controller
      */
     public function index()
     {
-        $userId = Auth::id();
-        $teacher=$this->teacherInterface->findById($userId);
+        $userId = Auth::id(); //2
+        $teacher=$this->teacherInterface->findByColumn(['user_id' => $userId]); //4
+  
         $chats = $this->chatsInterface->getByColumn(['teacher_id' => $teacher->id], ['*'], ['user', 'teacher']);
         $messages = $this->messageInterface->all();
 
+        // dd($chats);
         foreach ($chats as $chat) {
             $teacherChat = [];
             foreach ($messages as $message) {
@@ -36,52 +38,49 @@ class TeacherChatController extends Controller
                     $teacherChat[] = $message;
                 }
             }
-
             $chat['messages'] = $teacherChat;
         }
+
         return Inertia::render('TeachersArea/Chat/All/Chat', [
             'chats' => $chats,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function chats(Request $request,int $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+   
+        $this->messageInterface->create([
+            'chat_id' => $id,
+            'message' => $validatedData['message'],
+            'sender' => 'teacher',
+            'timestamp' => now(),
+        ]);
+    
+        return back();
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+        ]);
+    
+        $message = $this->messageInterface->findById($id);
+        $message->update([
+            'message' => $validatedData['message'],
+        ]);
+    
+        return back();
     }
 
     /**
@@ -89,6 +88,6 @@ class TeacherChatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->messageInterface->deleteById($id);
     }
 }
