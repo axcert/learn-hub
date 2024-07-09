@@ -82,5 +82,6 @@ class AdminAdminController extends Controller
     public function destroy(string $id)
     {
         $this->userInterface->deleteById($id);
+        return redirect()->route('admin.adminPanels.index')->with('success', 'The Admin Deleted Successfully');
     }
 }

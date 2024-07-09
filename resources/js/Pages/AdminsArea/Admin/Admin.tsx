@@ -40,7 +40,9 @@ const PaginatedTable: React.FC<PaginatedTableProps> = ({ data = [] }) => {
     };
 
     const remove = (id: any) => {
-        router.delete(route("admin.adminPanels.destroy", id));
+        router.delete(route("admin.adminPanels.destroy", id),{
+          
+        });
     };
 
     const update = (id: any) => {
