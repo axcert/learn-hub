@@ -92,7 +92,7 @@ export default function UpdateProfilePictureForm() {
                                     className="h-[200px] w-auto flex overflow-hidden rounded-xl bg-gray-50"
                                 />
                             ) : (
-                                <span className="mx-auto absolute self-center grid text-center text-gray-900">
+                                <span className="mx-auto  self-center grid text-center text-gray-900">
                                     Upload Image
                                 </span>
                             )}
