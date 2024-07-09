@@ -2,11 +2,12 @@ import { useState, PropsWithChildren, ReactNode } from "react";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { User } from "@/types";
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Logo from '../../../public/asset/Logo.png'
 import Footer from "@/Components/Footer/Footer";
+import FlashAlerts from "@/Components/alerts/FlashAlerts";
 
 export default function Authenticated({
     user,
@@ -15,6 +16,7 @@ export default function Authenticated({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+        const pageProps = usePage().props;
 
         const getDashboardRoute = () => {
             switch (user.role) {
@@ -180,6 +182,7 @@ export default function Authenticated({
 
             <main>{children}</main>
             <Footer />
+            <FlashAlerts flash={pageProps.flash} />
         </div>
     );
 }

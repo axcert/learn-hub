@@ -89,7 +89,7 @@ class TeacherServiceController extends Controller
         $data['admin_id'] = $admin->id;
 
         $this->serviceInterface->create($data);
-        return redirect()->route('teacher.services.index')->with('success', 'Service Store successfully.');
+        return redirect()->route('teacher.services.index')->with('success', 'Service Created successfully.');
     }
 
     /**

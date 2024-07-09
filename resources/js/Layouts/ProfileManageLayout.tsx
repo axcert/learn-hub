@@ -3,10 +3,11 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { User } from "@/types";
 import dahbordLogo from "../../../public/asstts/img/dashboart-logo.png"
 import Footer from "@/Components/Footer/Footer";
+import FlashAlerts from "@/Components/alerts/FlashAlerts";
 
 
 export default function ProfileManageLayout({
@@ -16,6 +17,8 @@ export default function ProfileManageLayout({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+        const pageProps = usePage().props;
+
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -179,6 +182,7 @@ export default function ProfileManageLayout({
 
             <main>{children}</main>
             <Footer />
+            <FlashAlerts flash={pageProps.flash} />
         </div>
     );
 }

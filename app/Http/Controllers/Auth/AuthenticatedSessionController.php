@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
             default => route('dashboard'),
         };
 
-        return redirect()->intended($defaultRedirect);
+        return redirect()->intended($defaultRedirect)->with('success', 'You Logged in successfully.');
     }
 
     /**
@@ -56,6 +56,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Successfully Logout, Thank you for choosing us!');
     }
 }

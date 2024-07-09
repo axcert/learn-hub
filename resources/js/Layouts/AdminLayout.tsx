@@ -1,7 +1,7 @@
 import { useState, PropsWithChildren, ReactNode } from "react";
 import { User } from "@/types";
 import dahbordLogo from "../../../public/asset/Logo.png";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import AvatarBoard from "@/Components/AvatarBoard/AvatarBoard";
 import { IoPieChartSharp } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
@@ -9,6 +9,7 @@ import { GiTeacher } from "react-icons/gi";
 import { PiStudentFill } from "react-icons/pi";
 import { MdAdminPanelSettings } from "react-icons/md";
 import Footer from "@/Components/Footer/Footer";
+import FlashAlerts from "@/Components/alerts/FlashAlerts";
 
 export default function AdminLayout({
     user,
@@ -16,6 +17,7 @@ export default function AdminLayout({
     children,
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [menu, setMenu] = useState(false);
+    const pageProps = usePage().props;
     return (
         <>
             <nav className="fixed top-0 z-50 w-full bg-blue-950 border-b border-gray-200">
@@ -132,6 +134,7 @@ export default function AdminLayout({
                         </div>
                     </div>
                 </footer>
+                <FlashAlerts flash={pageProps.flash} />
             </div>
         </>
     );

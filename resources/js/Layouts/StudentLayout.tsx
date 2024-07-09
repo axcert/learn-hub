@@ -2,10 +2,11 @@ import { useState, PropsWithChildren, ReactNode } from "react";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { User } from "@/types";
 import Logo from "../../../public/asset/Logo.png";
 import Footer from "@/Components/Footer/Footer";
+import FlashAlerts from "@/Components/alerts/FlashAlerts";
 
 export default function StudentLayout({
     user,
@@ -14,6 +15,7 @@ export default function StudentLayout({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+        const pageProps = usePage().props;
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -213,6 +215,7 @@ export default function StudentLayout({
 
             <main>{children}</main>
             <Footer />
+            <FlashAlerts flash={pageProps.flash} />
         </div>
     );
 }
