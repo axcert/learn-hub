@@ -15,7 +15,6 @@ export default function BookingIndex({ auth, bookings = [] }: Props) {
       };
 
       const sortedBookings = sortBookingsByDate(bookings);
-
     return (
         <StudentLayout
             user={auth.user}
