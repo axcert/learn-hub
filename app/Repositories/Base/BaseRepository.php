@@ -253,14 +253,14 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->findTrashedById($modelId)->forceDelete();
     }
-    /**
-     * Method filter
-     *
-     * @param array $request [Http Request]
-     * @param array $with [Relations]
-     *
-     * @return LengthAwarePaginator
-     */
+    // /**
+    //  * Method filter
+    //  *
+    //  * @param array $request [Http Request]
+    //  * @param array $with [Relations]
+    //  *
+    //  * @return LengthAwarePaginator
+    //  */
     public function filter($filters, $with = []): LengthAwarePaginator
     {
         $query = $this->model->filter($filters)->orderByColumn($filters['sortBy'], $filters['sortDirection']);

@@ -33,5 +33,10 @@ class BookingRepository extends BaseRepository implements BookingInterface
 
          return $bookings;
      }
+
+     public function findByServiceIds(array $serviceIds, array $relations = []): Collection
+     {
+         return $this->model->with($relations)->whereIn('service_id', $serviceIds)->get();
+     }
     
 }
