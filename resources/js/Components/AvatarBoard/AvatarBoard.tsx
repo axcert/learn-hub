@@ -51,7 +51,12 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                                         Open user menu
                                                     </span>
 
-                                                    <FaUserCircle className="h-10 w-10 rounded-full bg-white text-teal-400 hover:text-teal-500" />
+                                                    {/* <FaUserCircle className="h-10 w-10 rounded-full bg-white text-teal-400 hover:text-teal-500" /> */}
+                                                    <img
+                                                    className="h-10 w-10 rounded-full mr-2"
+                                                    src={user.image_url || 'https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'}
+                                                    alt={`${user.name}'s profile`}
+                                                />
                                                     <p className="font-semibold text-sm p-2 text-white max-sm:text-xs">
                                             {user.name}
                                         </p>
@@ -150,8 +155,9 @@ export default function AvatarBoard({ user }: AvatarBoardProps) {
                                             src={temp.imageUrl}
                                             alt=""
                                         /> */}
+                                    
 
-                                        <FaUserCircle className="h-10 w-10 bg-white rounded-full text-teal-400 hover:text-teal-600" />
+                                        <FaUserCircle className="h-24 w-24 bg-white rounded-full text-teal-400 hover:text-teal-600" />
                                     </div>
                                     <div className="ml-3">
                                         <div className="text-base font-medium leading-none text-gray-100">
