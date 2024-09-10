@@ -144,7 +144,7 @@ export default function Index({
                             Dashboard
                         </Link>
                     ) : (
-                        <>
+                        <div className="">
                             <a
                                 href="#about-us"
                                 className=" mr-4 font-semibold text-gray-700 hover:text-gray-950 focus:outline-none "
@@ -165,7 +165,7 @@ export default function Index({
                             >
                                 Register
                             </Link>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>
@@ -241,46 +241,6 @@ export default function Index({
             </div>
 
             {/* about Us */}
-            <div
-                id="about-us"
-                className="mx-auto sm:px-6 lg:px-8 scroll-smooth"
-            >
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-white">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
-                        About Us
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
-                        <div className="col-span-2 p-4">
-                            <p className=" p-6 text-gray-900 capitalize text-lg leading-relaxed tracking-wide max-h-48 max-lg:overflow-y-auto">
-                                <span className="font-bold"> A Learning Management System (LMS)</span> is a software
-                                application designed to facilitate the
-                                administration, documentation, tracking,
-                                reporting, automation, and delivery of
-                                educational courses, training programs, or
-                                learning and development programs. An LMS
-                                provides a central platform for educators and
-                                trainers to create and manage course content,
-                                monitor learner progress, and assess
-                                performance. It allows learners to access course
-                                materials, complete assignments, participate in
-                                discussions, and take quizzes or exams from any
-                                location with internet access. By leveraging an
-                                LMS, educational institutions and organizations
-                                can streamline their training processes, ensure
-                                consistency in content delivery, and enhance the
-                                overall learning experience for users.
-                            </p>
-                        </div>
-                        <div className="flex justify-center items-center">
-                            <img
-                                src={lmsLogo}
-                                alt="LMS Logo"
-                                className="rounded-lg shadow-md"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* ending Page */}
             <div className="mx-auto sm:px-6 lg:px-8">
@@ -288,9 +248,7 @@ export default function Index({
                     <div className="p-6 text-white font-semibold capitalize  ">
                         <h2 className="text-2xl font-bold mb-4 text-gray-700 ">
                             Thank You for Visiting Larning Management System!
-
                             <br />
-
                             <img className="w-44" src={AXCERTRO} alt="" />
                         </h2>
                         <p>
@@ -329,8 +287,7 @@ export default function Index({
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                     <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
-                                  
+                                    <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
                                 </a>
                             </div>
 
@@ -340,7 +297,7 @@ export default function Index({
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                     <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
+                                    <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
                                 </a>
                             </div>
 
