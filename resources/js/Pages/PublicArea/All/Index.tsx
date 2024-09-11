@@ -157,7 +157,7 @@ export default function Index({
                     <div
                         className={`${
                             menuOpen ? "block" : "hidden"
-                        } w-full lg:flex lg:w-auto lg:space-x-12 justify-center items-center lg:ml-12`}
+                        } w-full lg:flex lg:w-auto lg:space-x-12 justify-center items-center lg:ml-12 text-white`}
                     >
                         {auth.user ? (
                             <Link
@@ -168,12 +168,12 @@ export default function Index({
                                         ? route("teacher.overviews.index")
                                         : route("students.index")
                                 }
-                                className="block lg:inline-block text-center text-gray-700 hover:text-blue-500 focus:outline-none py-2"
+                                className="block lg:inline-block text-center hover:text-blue-500 focus:outline-none py-2"
                             >
                                 Dashboard
                             </Link>
                         ) : (
-                            <div className="text-white text-base flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start py-2">
+                            <div className="text-base flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start py-2">
                                 <a
                                     href="#about-us"
                                     className="block lg:inline-block mr-4 font-semibold hover:text-blue-500 focus:outline-none"
@@ -203,7 +203,7 @@ export default function Index({
 
             <main>
                 <section className="bg-[url('/asset/bg-image.jpg')] bg-current bg-fixed bg-no-repeat">
-                    <div className=" p-5 h-[270px]">
+                    <div className="p-5 h-[270px]">
                         <h2 className="text-white text-2xl font-bold mb-2">
                             Hi, Have a Nice day!
                         </h2>
@@ -238,21 +238,21 @@ export default function Index({
                 </section>
 
                 {/* services */}
-                <section>
-                    <div className="mx-auto sm:px-6 lg:px-8">
-                        <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                            <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
+                <section className="px-4 sm:px-6 lg:px-32">
+                    <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
+                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5">
+                            <div className="self-center p-4 text-left text-gray-900 font-bold text-2xl sm:text-3xl">
                                 Services
                             </div>
-                            <div className="flex flex-wrap justify-around gap-5 p-4">
+                            <div className="flex flex-wrap justify-around gap-4 sm:gap-5 p-4">
                                 <ServiceCarousel
                                     data={filteredServices}
                                     auth={auth}
                                 />
                             </div>
-                            <div className="">
+                            <div className="w-full">
                                 <Link href={getSeeMoreRouteServices()}>
-                                    <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                    <p className="text-center text-blue-600 mt-4 sm:mt-0 hover:underline p-5">
                                         See More...
                                     </p>
                                 </Link>
@@ -262,10 +262,10 @@ export default function Index({
                 </section>
 
                 {/* teachers */}
-                <section>
-                    <div className="mx-auto sm:px-6 lg:px-8">
-                        <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                            <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
+                <section className="px-32">
+                    <div className="flex mx-auto sm:px-6 lg:px-8 ">
+                        <div className="flex flex-col overflow-hidden mt-5 sm:rounded-lg">
+                            <div className="self-center p-6 text-left text-gray-900 font-bold text-3xl">
                                 Teachers
                             </div>
                             <div className="flex flex-wrap justify-around gap-5 p-4">
