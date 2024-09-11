@@ -9,13 +9,6 @@ import B from "@/../../public/asset/B.png";
 import ServiceCarousel from "@/Pages/PublicArea/All/Partials/ServiceCarousel";
 import TeacherCarousel from "./Partials/TeacherCarousel";
 import PublicSearchBar from "./Partials/PublicSearchBar";
-import lmsLogo from "@/..//../public/asstts/img/lms.webp";
-import AXCERTRO from "@/..//../public/asstts/img/AXCERTRO.webp";
-
-import { FaFacebookSquare } from "react-icons/fa";
-import { GrInstagram } from "react-icons/gr";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { BsArrowUpSquareFill } from "react-icons/bs";
 
 interface WelcomeProps {
     auth: {
@@ -35,6 +28,8 @@ export default function Index({
     const [searchTerm, setSearchTerm] = useState<string>(search || "");
 
     const [imgFilter, setImgFilter] = useState(true);
+
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const filteredServices = services.filter(
         (service) =>
@@ -119,205 +114,180 @@ export default function Index({
     return (
         <>
             <Head title="Welcome" />
-            <div
-                id="home"
-                className="flex justify-between items-center bg-white p-4 shadow-md"
-            >
-                <Link className="flex items-center" href="/">
-                    <img src={logo} className="h-8 mr-3" alt="Dashboard Logo" />
-                    <div className="max-sm:hidden whitespace-nowrap w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
-                        LMS
-                    </div>
-                </Link>
-                <div>
-                    {auth.user ? (
-                        <Link
-                            href={
-                                auth.user.role === "admin"
-                                    ? route("admins.overview.index")
-                                    : auth.user.role === "teacher"
-                                    ? route("teacher.overviews.index")
-                                    : route("students.index")
-                            }
-                            className="font-semibold text-gray-700 hover:text-gray-950 focus:outline-none"
+            <header id="home" className="z-20 sticky top-0 bg-gray-900">
+                <nav className="container mx-auto flex items-center justify-between px-6 lg:px-0 py-0 h-[5rem]">
+                    {/* Logo Section */}
+                    <Link
+                        className="flex w-1/4 items-center justify-center"
+                        href="/"
+                    >
+                        <img
+                            src={logo}
+                            className="h-8 mr-3"
+                            alt="Dashboard Logo"
+                        />
+                        <div className="hidden sm:flex whitespace-nowrap text-center text-white text-4xl font-bold">
+                            LMS
+                        </div>
+                    </Link>
+
+                    {/* Hamburger Menu for Small Screens */}
+                    <button
+                        id="menu-button"
+                        className="block lg:hidden text-white focus:outline-none"
+                        onClick={() => setMenuOpen(!menuOpen)} // Assuming you manage state to toggle menu
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
                         >
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <div className="">
-                            <a
-                                href="#about-us"
-                                className=" mr-4 font-semibold text-gray-700 hover:text-gray-950 focus:outline-none "
-                            >
-                                About us
-                            </a>
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4 6h16M4 12h16m-7 6h7"
+                            />
+                        </svg>
+                    </button>
 
+                    {/* Main Navigation */}
+                    <div
+                        className={`${
+                            menuOpen ? "block" : "hidden"
+                        } w-full lg:flex lg:w-auto lg:space-x-12 justify-center items-center lg:ml-12`}
+                    >
+                        {auth.user ? (
                             <Link
-                                href={route("login")}
-                                className="font-semibold text-gray-700 hover:text-gray-950 "
+                                href={
+                                    auth.user.role === "admin"
+                                        ? route("admins.overview.index")
+                                        : auth.user.role === "teacher"
+                                        ? route("teacher.overviews.index")
+                                        : route("students.index")
+                                }
+                                className="block lg:inline-block text-center text-gray-700 hover:text-blue-500 focus:outline-none py-2"
                             >
-                                Log in
+                                Dashboard
                             </Link>
+                        ) : (
+                            <div className="text-white text-base flex flex-col lg:flex-row lg:gap-10 items-center lg:items-start py-2">
+                                <a
+                                    href="#about-us"
+                                    className="block lg:inline-block mr-4 font-semibold hover:text-blue-500 focus:outline-none"
+                                >
+                                    About us
+                                </a>
 
-                            <Link
-                                href={route("register")}
-                                className="ml-4 font-semibold text-gray-700 hover:text-gray-950  "
-                            >
-                                Register
-                            </Link>
+                                <Link
+                                    href={route("login")}
+                                    className="block lg:inline-block font-semibold hover:text-blue-500"
+                                >
+                                    Log in
+                                </Link>
+
+                                <Link
+                                    href={route("register")}
+                                    className="block lg:inline-block ml-4 font-semibold hover:text-blue-500"
+                                >
+                                    Register
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                    <div className="w-1/4 sm:visible"></div>
+                </nav>
+            </header>
+
+            <main>
+                <section className="bg-[url('/asset/bg-image.jpg')] bg-current bg-fixed bg-no-repeat">
+                    <div className=" p-5 h-[270px]">
+                        <h2 className="text-white text-2xl font-bold mb-2">
+                            Hi, Have a Nice day!
+                        </h2>
+                        <p className="text-white text-base font-normal mb-4">
+                            Let's learn something new today
+                        </p>
+
+                        {/* search bar */}
+
+                        <div className="container mx-auto justify-center flex self-center">
+                            <PublicSearchBar
+                                onClick={handleSearchClick}
+                                onChange={handleSearchChange}
+                                searchTerm={searchTerm}
+                            />
+                        </div>
+                    </div>
+                </section>
+
+                <section className="pt-10">
+                    {" "}
+                    {imgFilter && (
+                        <div className="flex flex-wrap items-center justify-around p-4 mt-4">
+                            <div className="bg-white flex justify-center p-4 m-2">
+                                <img className="h-25 w-auto" src={A} alt="A" />
+                            </div>
+                            <div className="bg-white flex justify-center p-4 m-2">
+                                <img className="h-25 w-auto" src={B} alt="B" />
+                            </div>
                         </div>
                     )}
-                </div>
-            </div>
+                </section>
 
-            <div className="mx-auto sm:px-6 lg:px-8 ">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-gradient-to-r from-blue-600 to-blue-300  p-5">
-                    <h2 className="text-white text-2xl font-bold mb-2">
-                        Hi, Have a Nice day!
-                    </h2>
-                    <p className="text-white text-base font-normal mb-4">
-                        Let's learn something new today
-                    </p>
-
-                    {/* search bar */}
-                    <div className="flex justify-center pb-10">
-                        <PublicSearchBar
-                            onClick={handleSearchClick}
-                            onChange={handleSearchChange}
-                            searchTerm={searchTerm}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {imgFilter && (
-                <div className="flex flex-wrap items-center justify-around p-4 mt-4">
-                    <div className="bg-white flex justify-center p-4 m-2">
-                        <img className="h-25 w-auto" src={A} alt="A" />
-                    </div>
-                    <div className="bg-white flex justify-center p-4 m-2">
-                        <img className="h-25 w-auto" src={B} alt="B" />
-                    </div>
-                </div>
-            )}
-
-            {/* services */}
-            <div className="mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
-                        Services
-                    </div>
-                    <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <ServiceCarousel data={filteredServices} auth={auth} />
-                    </div>
-                    <div className="">
-                        <Link href={getSeeMoreRouteServices()}>
-                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
-                                See More...
-                            </p>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            {/* teachers */}
-            <div className="mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
-                    <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
-                        Teachers
-                    </div>
-                    <div className="flex flex-wrap justify-around gap-5 p-4">
-                        <TeacherCarousel data={filteredServices} auth={auth} />
-                    </div>
-
-                    <div>
-                        <Link href={getSeeMoreRouteTeachers()}>
-                            <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
-                                See More...
-                            </p>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-            {/* about Us */}
-
-            {/* ending Page */}
-            <div className="mx-auto sm:px-6 lg:px-8">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-gradient-to-r from-blue-600 to-blue-300 flex justify-between">
-                    <div className="p-6 text-white font-semibold capitalize  ">
-                        <h2 className="text-2xl font-bold mb-4 text-gray-700 ">
-                            Thank You for Visiting Larning Management System!
-                            <br />
-                            <img className="w-44" src={AXCERTRO} alt="" />
-                        </h2>
-                        <p>
-                            We hope you found what you were looking for. If you
-                            have any questions or need further assistance,
-                            please don't hesitate to contact us.
-                        </p>
-                        <p className="mt-4">Contact Information:</p>
-                        <ul className="list-disc list-inside">
-                            <li>
-                                Email:{" "}
-                                <span className="lowercase">
-                                    hello@gmail.com
-                                </span>
-                            </li>
-                            <li>Phone: +194 (775) 499-507</li>
-                            <li>
-                                Address: B-15,Samagimw, Randiyagama,
-                                Sooriyawewa, Sri Lanka
-                            </li>
-                        </ul>
-                        <p className="mt-4">Follow us on social media:</p>
-                        <div className="list-disc list-inside flex gap-3 mt-5">
-                            <div>
-                                <a
-                                    href="https://www.facebook.com/axcertro"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <FaFacebookSquare className="size-10 cursor-pointer hover:text-blue-950" />
-                                </a>
+                {/* services */}
+                <section>
+                    <div className="mx-auto sm:px-6 lg:px-8">
+                        <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
+                            <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
+                                Services
                             </div>
-                            <div>
-                                <a
-                                    href="https://www.instagram.com/axcertro/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <GrInstagram className="size-10 cursor-pointer hover:text-blue-950" />
-                                </a>
+                            <div className="flex flex-wrap justify-around gap-5 p-4">
+                                <ServiceCarousel
+                                    data={filteredServices}
+                                    auth={auth}
+                                />
                             </div>
-
-                            <div>
-                                <a
-                                    href="https://x.com/axcertro?mx=2"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <FaSquareXTwitter className="size-10 cursor-pointer hover:text-blue-950" />
-                                </a>
-                            </div>
-
-                            <div className="text ml-10">
-                                <a href="#home">
-                                    <BsArrowUpSquareFill className="size-9 cursor-pointer hover:text-blue-950 text-end" />
-                                </a>
+                            <div className="">
+                                <Link href={getSeeMoreRouteServices()}>
+                                    <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                        See More...
+                                    </p>
+                                </Link>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
 
-            <footer className="mx-auto sm:px-6 lg:px-8 mb-5">
-                <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5 bg-white">
-                    <div className="flex flex-wrap justify-around gap-5">
-                        <Footer />
+                {/* teachers */}
+                <section>
+                    <div className="mx-auto sm:px-6 lg:px-8">
+                        <div className="overflow-hidden sm:rounded-lg shadow-lg mt-5">
+                            <div className="p-6 text-left text-gray-900 font-bold text-3xl bg-gradient-to-r from-blue-300 to-blue-500  rounded-t-lg">
+                                Teachers
+                            </div>
+                            <div className="flex flex-wrap justify-around gap-5 p-4">
+                                <TeacherCarousel
+                                    data={filteredServices}
+                                    auth={auth}
+                                />
+                            </div>
+
+                            <div>
+                                <Link href={getSeeMoreRouteTeachers()}>
+                                    <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
+                                        See More...
+                                    </p>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </section>
+            </main>
+
+            <Footer />
         </>
     );
 }
