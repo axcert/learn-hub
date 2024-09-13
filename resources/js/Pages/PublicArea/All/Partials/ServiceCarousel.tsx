@@ -31,7 +31,7 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
         <>
             <div
                 ref={containerRef}
-                className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5 p-5"
+                className="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5 m-5 p-5 "
                 style={{ overflowY: "hidden" }}
             >
                 <div
@@ -42,9 +42,9 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
                         <Link href={route("register")} className="">
                             <div
                                 key={card.id}
-                                className="w-full md:w-64 mx-auto mb-4 md:mb-0 md:max-w-sm"
+                                className="w-full md:w-64 mx-auto mb-4 md:mb-0 md:max-w-sm hover:shadow-xl hover:transition hover:ease-in-out rounded-xl"
                             >
-                                <div className="bg-white border border-gray-200 rounded-lg shadow">
+                                <div className="bg-white border border-gray-200 rounded-xl">
                                     <div className="flex flex-col items-center p-4 md:p-6">
                                         <img
                                             className="w-24 h-24 mb-2 rounded-full shadow-lg"
@@ -70,7 +70,7 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
                                             <p>Service: {card.description}</p>
                                         </div>
 
-                                        <p className="text-center py-2 text-blue-600 bg-blue-300 rounded-lg cursor-pointer hover:font-bold hover:text-white hover:bg-blue-500 ">
+                                        <p className="font-bold text-center mt-2 p-2 text-white bg-gray-900 rounded-lg cursor-pointer hover:font-bold hover:bg-blue-800">
                                             Rs: {card.hourly_rate}/hr
                                         </p>
                                     </div>
