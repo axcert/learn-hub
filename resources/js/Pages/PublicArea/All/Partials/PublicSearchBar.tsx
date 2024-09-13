@@ -28,7 +28,7 @@ export default function PublicSearchBar({
 
     return (
         <>
-            <div className="relative w-full max-w-lg flex">
+            <div className="relative w-full max-w-lg flex ring shadow-xl rounded-lg">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <IoSearch className="text-gray-400" />
                 </div>
