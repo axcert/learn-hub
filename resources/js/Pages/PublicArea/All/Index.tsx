@@ -242,35 +242,37 @@ export default function Index({
                 {/* services */}
                 <section className="px-4 sm:px-6 lg:px-32">
                     <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
-                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5">
-                            <div className="self-center p-4 text-left text-gray-900 font-bold text-2xl sm:text-3xl">
+                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
+                            {/* Services Heading Centered */}
+                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
                                 Services
-                            </div>
-                            <div className="flex justify-end pr-4 w-full h-10">
-                                <Link href={getSeeMoreRouteServices()}>
-                                    <p className="text-primary hover:underline text-sm font-[600] flex ml-auto space-x-2">
-                                        <span className="self-center">
-                                            See More
-                                        </span>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            className="self-center w-4 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                            ></path>
-                                        </svg>
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className="flex flex-wrap justify-around gap-4 sm:gap-5 p-4">
+                            </h2>
+
+                            {/* See More Link - Positioned to the Right */}
+                            <Link
+                                href={getSeeMoreRouteServices()}
+                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
+                            >
+                                <span>See More</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    className="w-4 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                    />
+                                </svg>
+                            </Link>
+
+                            {/* Carousel Section */}
+                            <div className="p-4">
                                 <ServiceCarousel
                                     data={filteredServices}
                                     auth={auth}
@@ -281,37 +283,39 @@ export default function Index({
                 </section>
 
                 {/* teachers */}
-                <section className="px-4 sm:px-6 lg:px-32">
+                <section className="px-4 sm:px-6 lg:px-32 mb-20">
                     <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
-                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5">
-                            <div className="self-center p-4 text-left text-gray-900 font-bold text-2xl sm:text-3xl">
+                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
+                            {/* Services Heading Centered */}
+                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
                                 Teachers
-                            </div>
-                            <div className="flex justify-end pr-4 w-full h-10">
-                                <Link href={getSeeMoreRouteServices()}>
-                                    <p className="text-primary hover:underline text-sm font-[600] flex ml-auto space-x-2">
-                                        <span className="self-center">
-                                            See More
-                                        </span>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            className="self-center w-4 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                            ></path>
-                                        </svg>
-                                    </p>
-                                </Link>
-                            </div>
-                            <div className="flex flex-wrap justify-around gap-4 sm:gap-5 p-4">
+                            </h2>
+
+                            {/* See More Link - Positioned to the Right */}
+                            <Link
+                                href={getSeeMoreRouteServices()}
+                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
+                            >
+                                <span>See More</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    className="w-4 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                    />
+                                </svg>
+                            </Link>
+
+                            {/* Carousel Section */}
+                            <div className="p-4">
                                 <TeacherCarousel
                                     data={filteredServices}
                                     auth={auth}
