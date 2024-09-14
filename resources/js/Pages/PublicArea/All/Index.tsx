@@ -203,17 +203,19 @@ export default function Index({
 
             <main>
                 <section className="bg-[url('/asset/bg-image.jpg')] bg-current bg-fixed bg-no-repeat">
-                    <div className="p-5 h-[270px]">
-                        <h2 className="text-white text-2xl font-bold mb-2">
-                            Hi, Have a Nice day!
-                        </h2>
-                        <p className="text-white text-base font-normal mb-4">
-                            Let's learn something new today
-                        </p>
+                    <div className="flex flex-col p-5 h-[300px] gap-5 justify-center">
+                        <div className="text-white text-nowrap self-center capitalize">
+                            <h2 className=" text-3xl font-bold mb-2">
+                                Hi, Have a Nice day!
+                            </h2>
+                            <p className=" text-base text-center font-normal mb-4">
+                                Let's learn something new today
+                            </p>
+                        </div>
 
                         {/* search bar */}
 
-                        <div className="container mx-auto justify-center flex self-center">
+                        <div className="container mx-auto flex self-center justify-center">
                             <PublicSearchBar
                                 onClick={handleSearchClick}
                                 onChange={handleSearchChange}
@@ -240,53 +242,89 @@ export default function Index({
                 {/* services */}
                 <section className="px-4 sm:px-6 lg:px-32">
                     <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
-                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5">
-                            <div className="self-center p-4 text-left text-gray-900 font-bold text-2xl sm:text-3xl">
+                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
+                            {/* Services Heading Centered */}
+                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
                                 Services
-                            </div>
-                            <div className="flex flex-wrap justify-around gap-4 sm:gap-5 p-4">
+                            </h2>
+
+                            {/* See More Link - Positioned to the Right */}
+                            <Link
+                                href={getSeeMoreRouteServices()}
+                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
+                            >
+                                <span>See More</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    className="w-4 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                    />
+                                </svg>
+                            </Link>
+
+                            {/* Carousel Section */}
+                            <div className="p-4">
                                 <ServiceCarousel
                                     data={filteredServices}
                                     auth={auth}
                                 />
-                            </div>
-                            <div className="w-full">
-                                <Link href={getSeeMoreRouteServices()}>
-                                    <p className="text-center text-blue-600 mt-4 sm:mt-0 hover:underline p-5">
-                                        See More...
-                                    </p>
-                                </Link>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* teachers */}
-                <section className="px-32">
-                    <div className="flex mx-auto sm:px-6 lg:px-8 ">
-                        <div className="flex flex-col overflow-hidden mt-5 sm:rounded-lg">
-                            <div className="self-center p-6 text-left text-gray-900 font-bold text-3xl">
+                <section className="px-4 sm:px-6 lg:px-32 mb-20">
+                    <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
+                        <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
+                            {/* Services Heading Centered */}
+                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
                                 Teachers
-                            </div>
-                            <div className="flex flex-wrap justify-around gap-5 p-4">
+                            </h2>
+
+                            {/* See More Link - Positioned to the Right */}
+                            <Link
+                                href={getSeeMoreRouteServices()}
+                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
+                            >
+                                <span>See More</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    className="w-4 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                    />
+                                </svg>
+                            </Link>
+
+                            {/* Carousel Section */}
+                            <div className="p-4">
                                 <TeacherCarousel
                                     data={filteredServices}
                                     auth={auth}
                                 />
                             </div>
-
-                            <div>
-                                <Link href={getSeeMoreRouteTeachers()}>
-                                    <p className="text-center  text-blue-600 -mt-9 hover:underline p-5">
-                                        See More...
-                                    </p>
-                                </Link>
-                            </div>
                         </div>
                     </div>
                 </section>
             </main>
-
             <Footer />
         </>
     );
