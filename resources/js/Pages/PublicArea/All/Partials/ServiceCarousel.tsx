@@ -59,15 +59,15 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
 
         return () => {
             if (autoplayInterval.current)
-                clearInterval(autoplayInterval.current); 
+                clearInterval(autoplayInterval.current);
         };
     }, []);
 
     return (
-        <div className="">
+        <div>
             {/* Left Arrow */}
             <button
-                className="absolute left-0 z-10 p-3 bg-white rounded-full shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
+                className="absolute left-0 z-10 p-3 bg-white shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
                 onClick={scrollLeft}
             >
                 <svg
@@ -89,65 +89,53 @@ const ServiceCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
             {/* Carousel */}
             <div
                 ref={containerRef}
-                className="flex snap-x snap-mandatory gap-4 overflow-hidden py-4 px-2 bg-white shadow-sm rounded-lg"
+                className="flex gap-4 overflow-x-scroll scrollbar-hide snap-x snap-mandatory"
                 style={{ scrollBehavior: "smooth" }}
             >
-                {data.concat(data).map(
-                    (
-                        card,
-                        index // Cloning items to simulate infinite scrolling
-                    ) => (
-                        <Link href={route("register")} key={index}>
-                            <div className="snap-start flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-transform transform hover:scale-105">
-                                <div className="p-6">
-                                    {/* Image */}
-                                    <img
-                                        className="w-24 h-24 mb-4 rounded-full shadow-lg mx-auto"
-                                        src={card.image_url}
-                                        alt={card.title}
-                                    />
-                                    {/* Service Name */}
-                                    <h5 className="text-xl font-bold text-gray-900 text-center capitalize">
-                                        {card.name}
-                                    </h5>
-
-                                    {/* Rating */}
-                                    <div className="flex justify-center mt-3">
-                                        <StarRating
-                                            rating={card.average_rating}
-                                        />
-                                    </div>
-
-                                    {/* Teacher Info */}
-                                    <div className="text-sm text-gray-600 mt-4 text-center">
-                                        <p className="font-medium">
-                                            Teacher: {card.teacher.user.name}
-                                        </p>
-                                    </div>
-
-                                    {/* Service Description */}
-                                    <div className="text-sm text-gray-600 mt-2 text-center">
-                                        <p>{card.description}</p>
-                                    </div>
-
-                                    {/* Price */}
-                                    <div className="mt-4 text-center">
-    <p className="font-semibold text-base p-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-md shadow-sm">
-        Rs: {card.hourly_rate}/hr
-    </p>
-</div>
-
-
-                                </div>
+                {data.concat(data).map((card, index) => (
+                    <Link
+                        href={route("register")}
+                        key={index}
+                        className="group"
+                    >
+                        <div className="snap-start flex-shrink-0 w-60 p-1">
+                            <div className="w-full h-32 overflow-hidden">
+                                <img
+                                    className="w-full rounded-lg h-full object-cover"
+                                    src={card.image_url}
+                                    alt={card.title}
+                                />
                             </div>
-                        </Link>
-                    )
-                )}
+                            {/* Service Name */}
+                            <h6 className="font-bold text-blue-900 text-lg leading-tight text-center mt-2 group-hover:underline">
+                                {card.name}
+                            </h6>
+                            {/* Teacher Info */}
+                            <div className="text-sm text-gray-700 mt-2 text-center">
+                                <p className="group-hover:underline">
+                                    Teacher: {card.teacher.user.name}
+                                </p>
+                            </div>
+                            {/* Service Description */}
+                            <div className="text-sm text-gray-700 mt-1 text-center">
+                                <p className="font-light group-hover:underline">
+                                    {card.description}
+                                </p>
+                            </div>
+                            {/* Price */}
+                            <div className="text-sm text-gray-700 mt-1 text-center">
+                                <p className="font-light group-hover:underline">
+                                    Rs: {card.hourly_rate}/hr
+                                </p>
+                            </div>
+                        </div>
+                    </Link>
+                ))}
             </div>
 
             {/* Right Arrow */}
             <button
-                className="absolute right-0 z-10 p-3 bg-white rounded-full shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
+                className="absolute right-0 z-10 p-3 bg-white  shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
                 onClick={scrollRight}
             >
                 <svg
