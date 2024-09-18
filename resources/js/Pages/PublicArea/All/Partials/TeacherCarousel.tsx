@@ -65,10 +65,10 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
     }, []);
 
     return (
-        <div className="relative w-full">
+        <div>
             {/* Left Arrow */}
             <button
-                className="absolute left-0 z-10 p-3 bg-white rounded-full shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
+                className="absolute left-0 z-10 p-3 bg-white shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
                 onClick={scrollLeft}
             >
                 <svg
@@ -93,48 +93,41 @@ const TeacherCarousel: React.FC<CarouselProps> = ({ data, auth }) => {
                 className="flex gap-4 overflow-x-scroll scrollbar-hide snap-x snap-mandatory"
                 style={{ scrollBehavior: "smooth" }}
             >
-                {data.concat(data).map(
-                    (
-                        card,
-                        index // Clone the cards for seamless loop
-                    ) => (
-                        <div
-                            key={index}
-                            className="snap-start flex-shrink-0 w-60 bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-transform transform hover:scale-105"
-                        >
-                            <Link
-                                href={route(
-                                    "student.teachers.show",
-                                    card.teacher.id
-                                )}
-                                className="block"
-                            >
-                                <div className="flex flex-col items-center">
-                                    <img
-                                        className="w-full h-32 object-cover rounded-lg mb-3"
-                                        src={card.teacher.user.image_url}
-                                        alt={card.teacher.user.name}
-                                    />
-                                    <h5 className="text-lg font-bold text-gray-900 mb-2 text-center">
-                                        {card.teacher.user.name}
-                                    </h5>
-                                    <StarRating rating={card.average_rating} />
-                                    <p className="mt-1 text-sm text-gray-500 text-center">
-                                        {card.teacher.position}
-                                    </p>
-                                    <p className="text-gray-600 text-center mb-2">
-                                        {card.teacher.bio}
-                                    </p>
-                                </div>
-                            </Link>
+                {data.concat(data).map((card, index) => (
+                    <Link
+                        href={route("student.teachers.show", card.teacher.id)}
+                        key={index}
+                        className="group"
+                    >
+                        <div className="snap-start flex-shrink-0 w-60 p-1 mb-9">
+                            <div className="w-full h-32 overflow-hidden">
+                                <img
+                                    className="w-full rounded-lg h-full object-cover"
+                                    src={card.teacher.user.image_url}
+                                    alt={card.teacher.user.name}
+                                />
+                            </div>
+                            <h6 className="font-bold text-blue-900 text-lg leading-tight text-center mt-2 group-hover:underline">
+                                {card.teacher.user.name}
+                            </h6>
+                            <div className="text-sm text-gray-700 mt-2 text-center">
+                                <p className="group-hover:underline">
+                                    {card.teacher.position}
+                                </p>
+                            </div>
+                            <div className="text-sm text-gray-700 mt-1 text-center">
+                                <p className="font-light group-hover:underline">
+                                    {card.teacher.bio}
+                                </p>
+                            </div>
                         </div>
-                    )
-                )}
+                    </Link>
+                ))}
             </div>
 
             {/* Right Arrow */}
             <button
-                className="absolute right-0 z-10 p-3 bg-white rounded-full shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
+                className="absolute right-0 z-10 p-3 bg-white  shadow-lg top-1/2 transform -translate-y-1/2 hover:bg-gray-100"
                 onClick={scrollRight}
             >
                 <svg

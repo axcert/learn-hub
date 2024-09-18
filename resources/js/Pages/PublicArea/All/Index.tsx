@@ -43,10 +43,6 @@ export default function Index({
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setImgFilter(false);
         setSearchTerm(e.target.value);
-
-        // if (imgFilter === false) {
-        //     setImgFilter(true);
-        // }
     };
 
     const handleSearchClick = () => {};
@@ -225,7 +221,7 @@ export default function Index({
                     </div>
                 </section>
 
-                <section className="pt-10">
+                {/* <section className="pt-10">
                     {" "}
                     {imgFilter && (
                         <div className="flex flex-wrap items-center justify-around p-4 mt-4">
@@ -237,89 +233,112 @@ export default function Index({
                             </div>
                         </div>
                     )}
-                </section>
+                </section> */}
 
                 {/* services */}
                 <section className="px-4 sm:px-6 lg:px-32">
                     <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
                         <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
-                            {/* Services Heading Centered */}
-                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
-                                Services
-                            </h2>
-
-                            {/* See More Link - Positioned to the Right */}
-                            <Link
-                                href={getSeeMoreRouteServices()}
-                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
-                            >
-                                <span>See More</span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    className="w-4 h-6"
+                            <div className="flex items-center justify-between w-full py-4">
+                                {/* Invisible Spacer for alignment */}
+                                <div className="w-20"></div>
+                                <h2 className="text-3xl font-bold text-blue-900 leading-tight tracking-wide mx-auto">
+                                    Services
+                                </h2>
+                                {/* See More Link - Positioned to the Right */}
+                                <Link
+                                    href={getSeeMoreRouteServices()}
+                                    className="text-blue-900 hover:underline text-sm font-medium flex items-center space-x-1"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                    />
-                                </svg>
-                            </Link>
+                                    <span>See More</span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        aria-hidden="true"
+                                        className="w-4 h-4"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                        />
+                                    </svg>
+                                </Link>
+                            </div>
 
                             {/* Carousel Section */}
                             <div className="p-4">
-                                <ServiceCarousel
-                                    data={filteredServices}
-                                    auth={auth}
-                                />
+                                {filteredServices.length > 0 ? (
+                                    <ServiceCarousel
+                                        data={filteredServices}
+                                        auth={auth}
+                                    />
+                                ) : (
+                                    <div className="flex justify-center items-center">
+                                        <img
+                                            src="/asset/no-result-data.png"
+                                            alt="No items found"
+                                            className="max-w-20"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* teachers */}
-                <section className="px-4 sm:px-6 lg:px-32 mb-20">
+                <section className="px-4 sm:px-6 lg:px-32">
                     <div className="flex flex-col mx-auto sm:px-6 lg:px-8">
                         <div className="flex flex-col overflow-hidden sm:rounded-lg mt-5 relative">
-                            {/* Services Heading Centered */}
-                            <h2 className="text-center text-[30px] leading-[33px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg tracking-wide py-4">
-                                Teachers
-                            </h2>
-
-                            {/* See More Link - Positioned to the Right */}
-                            <Link
-                                href={getSeeMoreRouteServices()}
-                                className="absolute right-0 top-4 text-primary hover:underline text-sm font-[600] flex items-center space-x-2"
-                            >
-                                <span>See More</span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    className="w-4 h-6"
+                            <div className="flex items-center justify-between w-full py-4">
+                                {/* Invisible Spacer for alignment */}
+                                <div className="w-20"></div>
+                                <h2 className="text-3xl font-bold text-blue-900 leading-tight tracking-wide mx-auto">
+                                    Teachers
+                                </h2>
+                                <Link
+                                    href={getSeeMoreRouteTeachers()}
+                                    className="text-blue-900 hover:underline text-sm font-medium flex items-center space-x-1"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                    />
-                                </svg>
-                            </Link>
+                                    <span>See More</span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        aria-hidden="true"
+                                        className="w-4 h-4"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                        />
+                                    </svg>
+                                </Link>
+                            </div>
 
                             {/* Carousel Section */}
                             <div className="p-4">
-                                <TeacherCarousel
-                                    data={filteredServices}
-                                    auth={auth}
-                                />
+                                {filteredServices.length > 0 ? (
+                                    <TeacherCarousel
+                                        data={filteredServices}
+                                        auth={auth}
+                                    />
+                                ) : (
+                                    <div className="flex justify-center items-center">
+                                        <img
+                                            src="/asset/no-result-data.png"
+                                            alt="No items found"
+                                            className="max-w-20 mb-9"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
