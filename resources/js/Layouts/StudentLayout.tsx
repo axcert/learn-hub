@@ -15,21 +15,21 @@ export default function StudentLayout({
 }: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-        const pageProps = usePage().props;
+    const pageProps = usePage().props;
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className="bg-gray-900 border-b border-gray-100 lg:h-[5rem]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
-                            <Link href="/" className="flex items-center">
+                            <Link href="/" className="flex gap-3 items-center">
                                 <img
-                                    className="h-9 w-auto fill-current text-gray-800"
+                                    className="h-9 w-auto fill-current"
                                     src={Logo}
                                     alt="Logo"
                                 />
-                                <div className="w-[53.02px] h-[31px] text-center text-blue-700 text-2xl font-bold font-['Poppins']">
+                                <div className="w-[53.02px] h-[31px] text-center text-white text-4xl font-bold lg:mr-5">
                                     LMS
                                 </div>
                             </Link>
@@ -37,6 +37,7 @@ export default function StudentLayout({
                                 <NavLink
                                     href={route("students.index")}
                                     active={route().current("students.index")}
+                                    className="text-white"
                                 >
                                     Student Dashboard
                                 </NavLink>
@@ -48,6 +49,7 @@ export default function StudentLayout({
                                     active={route().current(
                                         "student.teachers.index"
                                     )}
+                                    className="text-white"
                                 >
                                     Teachers
                                 </NavLink>
@@ -58,6 +60,7 @@ export default function StudentLayout({
                                     active={route().current(
                                         "student.bookings.index"
                                     )}
+                                    className="text-white"
                                 >
                                     Sessions
                                 </NavLink>
@@ -66,6 +69,7 @@ export default function StudentLayout({
                                 <NavLink
                                     href={route("chats.index")}
                                     active={route().current("chats.index")}
+                                    className="text-white"
                                 >
                                     Messages
                                 </NavLink>
@@ -79,15 +83,20 @@ export default function StudentLayout({
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <img
                                                     className="h-10 w-10 rounded-full mr-2"
-                                                    src={user.image_url || 'https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png'}
+                                                    src={
+                                                        user.image_url ||
+                                                        "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+                                                    }
                                                     alt={`${user.name}'s profile`}
                                                 />
 
-                                                <p>{user.name}</p>
+                                                <p className="text-white">
+                                                    {user.name}
+                                                </p>
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
@@ -189,7 +198,7 @@ export default function StudentLayout({
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
+                            <div className="font-medium text-base text-gray-600">
                                 {user.name}
                             </div>
                             <div className="font-medium text-sm text-gray-500">
